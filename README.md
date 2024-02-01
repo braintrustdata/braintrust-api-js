@@ -4,7 +4,7 @@
 
 This library provides convenient access to the Braintrust REST API from server-side TypeScript or JavaScript.
 
-The REST API documentation can be found [on docs.braintrustdata.com](https://docs.braintrustdata.com). The full API of this library can be found in [api.md](https://www.github.com/braintrustdata/braintrust-node/blob/main/api.md).
+The REST API documentation can be found [on www.braintrustdata.com](https://www.braintrustdata.com/docs/api/spec). The full API of this library can be found in [api.md](https://www.github.com/braintrustdata/braintrust-node/blob/main/api.md).
 
 ## Installation
 
