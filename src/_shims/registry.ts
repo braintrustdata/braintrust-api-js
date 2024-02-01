@@ -42,12 +42,12 @@ export let isFsReadStream: Shims['isFsReadStream'] | undefined = undefined;
 export function setShims(shims: Shims, options: { auto: boolean } = { auto: false }) {
   if (auto) {
     throw new Error(
-      `you must \`import 'braintrust-sdk-kotlin/shims/${shims.kind}'\` before importing anything else from braintrust-sdk-kotlin`,
+      `you must \`import 'braintrust/shims/${shims.kind}'\` before importing anything else from braintrust`,
     );
   }
   if (kind) {
     throw new Error(
-      `can't \`import 'braintrust-sdk-kotlin/shims/${shims.kind}'\` after \`import 'braintrust-sdk-kotlin/shims/${kind}'\``,
+      `can't \`import 'braintrust/shims/${shims.kind}'\` after \`import 'braintrust/shims/${kind}'\``,
     );
   }
   auto = options.auto;

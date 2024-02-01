@@ -9,9 +9,9 @@
     "esModuleInterop": true,
     "baseUrl": "./",
     "paths": {
-      "braintrust-sdk-kotlin/_shims/auto/*": ["src/_shims/auto/*-node"],
-      "braintrust-sdk-kotlin/*": ["src/*"],
-      "braintrust-sdk-kotlin": ["src/index.ts"],
+      "braintrust/_shims/auto/*": ["src/_shims/auto/*-node"],
+      "braintrust/*": ["src/*"],
+      "braintrust": ["src/index.ts"],
       "digest-fetch": ["./typings/digest-fetch"]
     },
     "noEmit": true,

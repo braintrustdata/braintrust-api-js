@@ -6,9 +6,9 @@
     "rootDir": "./deno",
     "lib": ["es2020", "DOM"],
     "paths": {
-      "braintrust-sdk-kotlin/_shims/auto/*": ["deno/_shims/auto/*-deno"],
-      "braintrust-sdk-kotlin/*": ["deno/*"],
-      "braintrust-sdk-kotlin": ["deno/index.ts"],
+      "braintrust/_shims/auto/*": ["deno/_shims/auto/*-deno"],
+      "braintrust/*": ["deno/*"],
+      "braintrust": ["deno/index.ts"],
       "digest-fetch": ["./typings/digest-fetch"]
     },
     "noEmit": true,

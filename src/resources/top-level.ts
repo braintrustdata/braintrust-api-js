@@ -1,14 +1,21 @@
 // File generated from our OpenAPI spec by Stainless.
 
-import * as Core from 'braintrust-sdk-kotlin/core';
-import { APIResource } from 'braintrust-sdk-kotlin/resource';
-import * as DatasetsAPI from 'braintrust-sdk-kotlin/resources/datasets';
+import * as Core from 'braintrust/core';
+import { APIResource } from 'braintrust/resource';
+import * as TopLevelAPI from 'braintrust/resources/top-level';
 
 export class TopLevel extends APIResource {
   /**
-   * Delete a dataset object by its id
+   * Default endpoint. Simply replies with 'Hello, World!'. Authorization is not
+   * required
    */
-  datasets(datasetId: string, options?: Core.RequestOptions): Core.APIPromise<DatasetsAPI.Dataset> {
-    return this._client.delete(`/v1/dataset/${datasetId}`, options);
+  helloWorld(options?: Core.RequestOptions): Core.APIPromise<string> {
+    return this._client.get('/v1', { ...options, headers: { Accept: 'text/plain', ...options?.headers } });
   }
+}
+
+export type TopLevelHelloWorldResponse = string;
+
+export namespace TopLevel {
+  export import TopLevelHelloWorldResponse = TopLevelAPI.TopLevelHelloWorldResponse;
 }

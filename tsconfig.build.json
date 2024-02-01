@@ -5,8 +5,8 @@
   "compilerOptions": {
     "rootDir": "./dist/src",
     "paths": {
-      "braintrust-sdk-kotlin/*": ["dist/src/*"],
-      "braintrust-sdk-kotlin": ["dist/src/index.ts"],
+      "braintrust/*": ["dist/src/*"],
+      "braintrust": ["dist/src/index.ts"],
       "digest-fetch": ["./typings/digest-fetch"]
     },
     "noEmit": false,

@@ -1,16 +1,16 @@
 // File generated from our OpenAPI spec by Stainless.
 
-import BraintrustSdkKotlin from 'braintrust-sdk-kotlin';
+import Braintrustdata from 'braintrust';
 import { Response } from 'node-fetch';
 
-const braintrustSdkKotlin = new BraintrustSdkKotlin({
+const braintrustdata = new Braintrustdata({
   apiKey: 'My API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
-describe('resource projectLogs', () => {
+describe('resource logs', () => {
   test('feedback: only required params', async () => {
-    const responsePromise = braintrustSdkKotlin.projectLogs.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const responsePromise = braintrustdata.logs.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       feedback: [{ id: 'string' }, { id: 'string' }, { id: 'string' }],
     });
     const rawResponse = await responsePromise.asResponse();
@@ -23,7 +23,7 @@ describe('resource projectLogs', () => {
   });
 
   test('feedback: required and optional params', async () => {
-    const response = await braintrustSdkKotlin.projectLogs.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const response = await braintrustdata.logs.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       feedback: [
         {
           id: 'string',
@@ -54,7 +54,7 @@ describe('resource projectLogs', () => {
   });
 
   test('fetch', async () => {
-    const responsePromise = braintrustSdkKotlin.projectLogs.fetch('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = braintrustdata.logs.fetch('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -67,25 +67,23 @@ describe('resource projectLogs', () => {
   test('fetch: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrustSdkKotlin.projectLogs.fetch('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-        path: '/_stainless_unknown_path',
-      }),
-    ).rejects.toThrow(BraintrustSdkKotlin.NotFoundError);
+      braintrustdata.logs.fetch('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Braintrustdata.NotFoundError);
   });
 
   test('fetch: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrustSdkKotlin.projectLogs.fetch(
+      braintrustdata.logs.fetch(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         { limit: 0, max_root_span_id: 'string', max_xact_id: 0, version: 0 },
         { path: '/_stainless_unknown_path' },
       ),
-    ).rejects.toThrow(BraintrustSdkKotlin.NotFoundError);
+    ).rejects.toThrow(Braintrustdata.NotFoundError);
   });
 
   test('fetchPost', async () => {
-    const responsePromise = braintrustSdkKotlin.projectLogs.fetchPost('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = braintrustdata.logs.fetchPost('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -98,16 +96,16 @@ describe('resource projectLogs', () => {
   test('fetchPost: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrustSdkKotlin.projectLogs.fetchPost('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      braintrustdata.logs.fetchPost('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
         path: '/_stainless_unknown_path',
       }),
-    ).rejects.toThrow(BraintrustSdkKotlin.NotFoundError);
+    ).rejects.toThrow(Braintrustdata.NotFoundError);
   });
 
   test('fetchPost: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrustSdkKotlin.projectLogs.fetchPost(
+      braintrustdata.logs.fetchPost(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         {
           filters: [
@@ -122,11 +120,11 @@ describe('resource projectLogs', () => {
         },
         { path: '/_stainless_unknown_path' },
       ),
-    ).rejects.toThrow(BraintrustSdkKotlin.NotFoundError);
+    ).rejects.toThrow(Braintrustdata.NotFoundError);
   });
 
   test('insert: only required params', async () => {
-    const responsePromise = braintrustSdkKotlin.projectLogs.insert('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const responsePromise = braintrustdata.logs.insert('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       events: [{}, {}, {}],
     });
     const rawResponse = await responsePromise.asResponse();
@@ -139,7 +137,7 @@ describe('resource projectLogs', () => {
   });
 
   test('insert: required and optional params', async () => {
-    const response = await braintrustSdkKotlin.projectLogs.insert('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const response = await braintrustdata.logs.insert('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       events: [
         {
           input: {},

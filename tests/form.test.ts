@@ -1,6 +1,6 @@
-import { multipartFormRequestOptions, createForm } from 'braintrust-sdk-kotlin/core';
-import { Blob } from 'braintrust-sdk-kotlin/_shims/index';
-import { toFile } from 'braintrust-sdk-kotlin';
+import { multipartFormRequestOptions, createForm } from 'braintrust/core';
+import { Blob } from 'braintrust/_shims/index';
+import { toFile } from 'braintrust';
 
 describe('form data validation', () => {
   test('valid values do not error', async () => {

@@ -4,18 +4,18 @@ import * as Core from './core';
 import * as Errors from './error';
 import { type Agent } from './_shims/index';
 import * as Uploads from './uploads';
-import * as API from 'braintrust-sdk-kotlin/resources/index';
+import * as API from 'braintrust/resources/index';
 
 export interface ClientOptions {
   /**
-   * Defaults to process.env['BRAINTRUST_SDK_KOTLIN_API_KEY'].
+   * Defaults to process.env['BRAINTRUST_API_KEY'].
    */
   apiKey?: string | undefined;
 
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
    *
-   * Defaults to process.env['BRAINTRUST_SDK_KOTLIN_BASE_URL'].
+   * Defaults to process.env['BRAINTRUSTDATA_BASE_URL'].
    */
   baseURL?: string | null | undefined;
 
@@ -69,17 +69,17 @@ export interface ClientOptions {
   defaultQuery?: Core.DefaultQuery;
 }
 
-/** API Client for interfacing with the Braintrust Sdk Kotlin API. */
-export class BraintrustSdkKotlin extends Core.APIClient {
+/** API Client for interfacing with the Braintrustdata API. */
+export class Braintrustdata extends Core.APIClient {
   apiKey: string;
 
   private _options: ClientOptions;
 
   /**
-   * API Client for interfacing with the Braintrust Sdk Kotlin API.
+   * API Client for interfacing with the Braintrustdata API.
    *
-   * @param {string | undefined} [opts.apiKey=process.env['BRAINTRUST_SDK_KOTLIN_API_KEY'] ?? undefined]
-   * @param {string} [opts.baseURL=process.env['BRAINTRUST_SDK_KOTLIN_BASE_URL'] ?? https://api.braintrustdata.com] - Override the default base URL for the API.
+   * @param {string | undefined} [opts.apiKey=process.env['BRAINTRUST_API_KEY'] ?? undefined]
+   * @param {string} [opts.baseURL=process.env['BRAINTRUSTDATA_BASE_URL'] ?? https://api.braintrustdata.com] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {number} [opts.httpAgent] - An HTTP agent used to manage HTTP(s) connections.
    * @param {Core.Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
@@ -88,13 +88,13 @@ export class BraintrustSdkKotlin extends Core.APIClient {
    * @param {Core.DefaultQuery} opts.defaultQuery - Default query parameters to include with every request to the API.
    */
   constructor({
-    baseURL = Core.readEnv('BRAINTRUST_SDK_KOTLIN_BASE_URL'),
-    apiKey = Core.readEnv('BRAINTRUST_SDK_KOTLIN_API_KEY'),
+    baseURL = Core.readEnv('BRAINTRUSTDATA_BASE_URL'),
+    apiKey = Core.readEnv('BRAINTRUST_API_KEY'),
     ...opts
   }: ClientOptions = {}) {
     if (apiKey === undefined) {
-      throw new Errors.BraintrustSdkKotlinError(
-        "The BRAINTRUST_SDK_KOTLIN_API_KEY environment variable is missing or empty; either provide it, or instantiate the BraintrustSdkKotlin client with an apiKey option, like new BraintrustSdkKotlin({ apiKey: 'My API Key' }).",
+      throw new Errors.BraintrustdataError(
+        "The BRAINTRUST_API_KEY environment variable is missing or empty; either provide it, or instantiate the Braintrustdata client with an apiKey option, like new Braintrustdata({ apiKey: 'My API Key' }).",
       );
     }
 
@@ -117,12 +117,10 @@ export class BraintrustSdkKotlin extends Core.APIClient {
   }
 
   project: API.ProjectResource = new API.ProjectResource(this);
-  projectLogs: API.ProjectLogs = new API.ProjectLogs(this);
+  logs: API.Logs = new API.Logs(this);
   experiment: API.ExperimentResource = new API.ExperimentResource(this);
-  experiments: API.Experiments = new API.Experiments(this);
-  datasets: API.Datasets = new API.Datasets(this);
+  dataset: API.DatasetResource = new API.DatasetResource(this);
   topLevel: API.TopLevel = new API.TopLevel(this);
-  v1: API.V1 = new API.V1(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
@@ -139,9 +137,9 @@ export class BraintrustSdkKotlin extends Core.APIClient {
     return { Authorization: `Bearer ${this.apiKey}` };
   }
 
-  static BraintrustSdkKotlin = this;
+  static Braintrustdata = this;
 
-  static BraintrustSdkKotlinError = Errors.BraintrustSdkKotlinError;
+  static BraintrustdataError = Errors.BraintrustdataError;
   static APIError = Errors.APIError;
   static APIConnectionError = Errors.APIConnectionError;
   static APIConnectionTimeoutError = Errors.APIConnectionTimeoutError;
@@ -157,7 +155,7 @@ export class BraintrustSdkKotlin extends Core.APIClient {
 }
 
 export const {
-  BraintrustSdkKotlinError,
+  BraintrustdataError,
   APIError,
   APIConnectionError,
   APIConnectionTimeoutError,
@@ -175,7 +173,7 @@ export const {
 export import toFile = Uploads.toFile;
 export import fileFromPath = Uploads.fileFromPath;
 
-export namespace BraintrustSdkKotlin {
+export namespace Braintrustdata {
   // Helper functions
   export import toFile = Uploads.toFile;
   export import fileFromPath = Uploads.fileFromPath;
@@ -190,48 +188,47 @@ export namespace BraintrustSdkKotlin {
   export import ProjectListParams = API.ProjectListParams;
   export import ProjectReplaceParams = API.ProjectReplaceParams;
 
-  export import ProjectLogs = API.ProjectLogs;
-  export import ProjectLogFetchResponse = API.ProjectLogFetchResponse;
-  export import ProjectLogFetchPostResponse = API.ProjectLogFetchPostResponse;
-  export import ProjectLogInsertResponse = API.ProjectLogInsertResponse;
-  export import ProjectLogFeedbackParams = API.ProjectLogFeedbackParams;
-  export import ProjectLogFetchParams = API.ProjectLogFetchParams;
-  export import ProjectLogFetchPostParams = API.ProjectLogFetchPostParams;
-  export import ProjectLogInsertParams = API.ProjectLogInsertParams;
+  export import Logs = API.Logs;
+  export import LogFetchResponse = API.LogFetchResponse;
+  export import LogFetchPostResponse = API.LogFetchPostResponse;
+  export import LogInsertResponse = API.LogInsertResponse;
+  export import LogFeedbackParams = API.LogFeedbackParams;
+  export import LogFetchParams = API.LogFetchParams;
+  export import LogFetchPostParams = API.LogFetchPostParams;
+  export import LogInsertParams = API.LogInsertParams;
 
   export import ExperimentResource = API.ExperimentResource;
   export import Experiment = API.Experiment;
+  export import ExperimentListResponse = API.ExperimentListResponse;
   export import ExperimentFetchResponse = API.ExperimentFetchResponse;
   export import ExperimentFetchPostResponse = API.ExperimentFetchPostResponse;
   export import ExperimentInsertResponse = API.ExperimentInsertResponse;
   export import ExperimentCreateParams = API.ExperimentCreateParams;
   export import ExperimentUpdateParams = API.ExperimentUpdateParams;
+  export import ExperimentListParams = API.ExperimentListParams;
   export import ExperimentFeedbackParams = API.ExperimentFeedbackParams;
   export import ExperimentFetchParams = API.ExperimentFetchParams;
   export import ExperimentFetchPostParams = API.ExperimentFetchPostParams;
   export import ExperimentInsertParams = API.ExperimentInsertParams;
-  export import ExperimentUpdatePartialParams = API.ExperimentUpdatePartialParams;
+  export import ExperimentReplaceParams = API.ExperimentReplaceParams;
 
-  export import Experiments = API.Experiments;
-  export import ExperimentListResponse = API.ExperimentListResponse;
-  export import ExperimentListParams = API.ExperimentListParams;
-
-  export import Datasets = API.Datasets;
+  export import DatasetResource = API.DatasetResource;
   export import Dataset = API.Dataset;
   export import DatasetListResponse = API.DatasetListResponse;
   export import DatasetFetchResponse = API.DatasetFetchResponse;
+  export import DatasetFetchPostResponse = API.DatasetFetchPostResponse;
   export import DatasetInsertResponse = API.DatasetInsertResponse;
   export import DatasetCreateParams = API.DatasetCreateParams;
   export import DatasetUpdateParams = API.DatasetUpdateParams;
   export import DatasetListParams = API.DatasetListParams;
   export import DatasetFeedbackParams = API.DatasetFeedbackParams;
   export import DatasetFetchParams = API.DatasetFetchParams;
+  export import DatasetFetchPostParams = API.DatasetFetchPostParams;
   export import DatasetInsertParams = API.DatasetInsertParams;
+  export import DatasetReplaceParams = API.DatasetReplaceParams;
 
   export import TopLevel = API.TopLevel;
-
-  export import V1 = API.V1;
-  export import V1HelloWorldResponse = API.V1HelloWorldResponse;
+  export import TopLevelHelloWorldResponse = API.TopLevelHelloWorldResponse;
 }
 
-export default BraintrustSdkKotlin;
+export default Braintrustdata;

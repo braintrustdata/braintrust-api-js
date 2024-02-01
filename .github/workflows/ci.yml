@@ -11,7 +11,7 @@ jobs:
   lint:
     name: lint
     runs-on: ubuntu-latest
-    if: github.repository == 'braintrust-sdk-kotlin/braintrust-sdk-kotlin-node'
+    if: github.repository == 'braintrustdata/braintrust-node'
 
     steps:
       - uses: actions/checkout@v3

@@ -1,5 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
+export { Logs } from './logs';
 export {
   Project,
   ProjectListResponse,
@@ -9,4 +10,3 @@ export {
   ProjectReplaceParams,
   ProjectResource,
 } from './project';
-export { ProjectLogs } from './project-logs';

@@ -2,9 +2,9 @@
 
 import { castToError, Headers } from './core';
 
-export class BraintrustSdkKotlinError extends Error {}
+export class BraintrustdataError extends Error {}
 
-export class APIError extends BraintrustSdkKotlinError {
+export class APIError extends BraintrustdataError {
   readonly status: number | undefined;
   readonly headers: Headers | undefined;
   readonly error: Object | undefined;

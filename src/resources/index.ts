@@ -4,30 +4,44 @@ export {
   Dataset,
   DatasetListResponse,
   DatasetFetchResponse,
+  DatasetFetchPostResponse,
   DatasetInsertResponse,
   DatasetCreateParams,
   DatasetUpdateParams,
   DatasetListParams,
   DatasetFeedbackParams,
   DatasetFetchParams,
+  DatasetFetchPostParams,
   DatasetInsertParams,
-  Datasets,
-} from './datasets';
+  DatasetReplaceParams,
+  DatasetResource,
+} from './dataset';
 export {
   Experiment,
+  ExperimentListResponse,
   ExperimentFetchResponse,
   ExperimentFetchPostResponse,
   ExperimentInsertResponse,
   ExperimentCreateParams,
   ExperimentUpdateParams,
+  ExperimentListParams,
   ExperimentFeedbackParams,
   ExperimentFetchParams,
   ExperimentFetchPostParams,
   ExperimentInsertParams,
-  ExperimentUpdatePartialParams,
+  ExperimentReplaceParams,
   ExperimentResource,
 } from './experiment';
-export { ExperimentListResponse, ExperimentListParams, Experiments } from './experiments';
+export {
+  LogFetchResponse,
+  LogFetchPostResponse,
+  LogInsertResponse,
+  LogFeedbackParams,
+  LogFetchParams,
+  LogFetchPostParams,
+  LogInsertParams,
+  Logs,
+} from './logs';
 export {
   Project,
   ProjectListResponse,
@@ -37,15 +51,4 @@ export {
   ProjectReplaceParams,
   ProjectResource,
 } from './project/project';
-export {
-  ProjectLogFetchResponse,
-  ProjectLogFetchPostResponse,
-  ProjectLogInsertResponse,
-  ProjectLogFeedbackParams,
-  ProjectLogFetchParams,
-  ProjectLogFetchPostParams,
-  ProjectLogInsertParams,
-  ProjectLogs,
-} from './project-logs';
-export { TopLevel } from './top-level';
-export { V1HelloWorldResponse, V1 } from './v1';
+export { TopLevelHelloWorldResponse, TopLevel } from './top-level';

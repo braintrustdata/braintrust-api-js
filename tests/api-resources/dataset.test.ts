@@ -1,16 +1,16 @@
 // File generated from our OpenAPI spec by Stainless.
 
-import BraintrustSdkKotlin from 'braintrust-sdk-kotlin';
+import Braintrustdata from 'braintrust';
 import { Response } from 'node-fetch';
 
-const braintrustSdkKotlin = new BraintrustSdkKotlin({
+const braintrustdata = new Braintrustdata({
   apiKey: 'My API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
-describe('resource datasets', () => {
+describe('resource dataset', () => {
   test('create: only required params', async () => {
-    const responsePromise = braintrustSdkKotlin.datasets.create({ name: 'string' });
+    const responsePromise = braintrustdata.dataset.create({ name: 'string' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,7 +21,7 @@ describe('resource datasets', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await braintrustSdkKotlin.datasets.create({
+    const response = await braintrustdata.dataset.create({
       name: 'string',
       description: 'string',
       project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -29,7 +29,7 @@ describe('resource datasets', () => {
   });
 
   test('retrieve', async () => {
-    const responsePromise = braintrustSdkKotlin.datasets.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = braintrustdata.dataset.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -42,14 +42,14 @@ describe('resource datasets', () => {
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrustSdkKotlin.datasets.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      braintrustdata.dataset.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
         path: '/_stainless_unknown_path',
       }),
-    ).rejects.toThrow(BraintrustSdkKotlin.NotFoundError);
+    ).rejects.toThrow(Braintrustdata.NotFoundError);
   });
 
   test('update: only required params', async () => {
-    const responsePromise = braintrustSdkKotlin.datasets.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const responsePromise = braintrustdata.dataset.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       name: 'string',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -62,14 +62,14 @@ describe('resource datasets', () => {
   });
 
   test('update: required and optional params', async () => {
-    const response = await braintrustSdkKotlin.datasets.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const response = await braintrustdata.dataset.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       name: 'string',
       description: 'string',
     });
   });
 
   test('list', async () => {
-    const responsePromise = braintrustSdkKotlin.datasets.list();
+    const responsePromise = braintrustdata.dataset.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -81,15 +81,15 @@ describe('resource datasets', () => {
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(braintrustSdkKotlin.datasets.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
-      BraintrustSdkKotlin.NotFoundError,
+    await expect(braintrustdata.dataset.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+      Braintrustdata.NotFoundError,
     );
   });
 
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrustSdkKotlin.datasets.list(
+      braintrustdata.dataset.list(
         {
           dataset_name: 'string',
           ending_before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -100,11 +100,31 @@ describe('resource datasets', () => {
         },
         { path: '/_stainless_unknown_path' },
       ),
-    ).rejects.toThrow(BraintrustSdkKotlin.NotFoundError);
+    ).rejects.toThrow(Braintrustdata.NotFoundError);
+  });
+
+  test('delete', async () => {
+    const responsePromise = braintrustdata.dataset.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('delete: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      braintrustdata.dataset.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+        path: '/_stainless_unknown_path',
+      }),
+    ).rejects.toThrow(Braintrustdata.NotFoundError);
   });
 
   test('feedback: only required params', async () => {
-    const responsePromise = braintrustSdkKotlin.datasets.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const responsePromise = braintrustdata.dataset.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       feedback: [{ id: 'string' }, { id: 'string' }, { id: 'string' }],
     });
     const rawResponse = await responsePromise.asResponse();
@@ -117,7 +137,7 @@ describe('resource datasets', () => {
   });
 
   test('feedback: required and optional params', async () => {
-    const response = await braintrustSdkKotlin.datasets.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const response = await braintrustdata.dataset.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       feedback: [
         { id: 'string', comment: 'string', metadata: { foo: {} }, source: 'app' },
         { id: 'string', comment: 'string', metadata: { foo: {} }, source: 'app' },
@@ -127,7 +147,7 @@ describe('resource datasets', () => {
   });
 
   test('fetch', async () => {
-    const responsePromise = braintrustSdkKotlin.datasets.fetch('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = braintrustdata.dataset.fetch('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -140,25 +160,66 @@ describe('resource datasets', () => {
   test('fetch: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrustSdkKotlin.datasets.fetch('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      braintrustdata.dataset.fetch('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
         path: '/_stainless_unknown_path',
       }),
-    ).rejects.toThrow(BraintrustSdkKotlin.NotFoundError);
+    ).rejects.toThrow(Braintrustdata.NotFoundError);
   });
 
   test('fetch: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrustSdkKotlin.datasets.fetch(
+      braintrustdata.dataset.fetch(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         { limit: 0, max_root_span_id: 'string', max_xact_id: 0, version: 0 },
         { path: '/_stainless_unknown_path' },
       ),
-    ).rejects.toThrow(BraintrustSdkKotlin.NotFoundError);
+    ).rejects.toThrow(Braintrustdata.NotFoundError);
+  });
+
+  test('fetchPost', async () => {
+    const responsePromise = braintrustdata.dataset.fetchPost('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('fetchPost: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      braintrustdata.dataset.fetchPost('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+        path: '/_stainless_unknown_path',
+      }),
+    ).rejects.toThrow(Braintrustdata.NotFoundError);
+  });
+
+  test('fetchPost: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      braintrustdata.dataset.fetchPost(
+        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+        {
+          filters: [
+            { type: 'path_lookup', path: ['string', 'string', 'string'], value: {} },
+            { type: 'path_lookup', path: ['string', 'string', 'string'], value: {} },
+            { type: 'path_lookup', path: ['string', 'string', 'string'], value: {} },
+          ],
+          limit: 0,
+          max_root_span_id: 'string',
+          max_xact_id: 0,
+          version: 0,
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Braintrustdata.NotFoundError);
   });
 
   test('insert: only required params', async () => {
-    const responsePromise = braintrustSdkKotlin.datasets.insert('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const responsePromise = braintrustdata.dataset.insert('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       events: [{}, {}, {}],
     });
     const rawResponse = await responsePromise.asResponse();
@@ -171,7 +232,7 @@ describe('resource datasets', () => {
   });
 
   test('insert: required and optional params', async () => {
-    const response = await braintrustSdkKotlin.datasets.insert('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const response = await braintrustdata.dataset.insert('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       events: [
         {
           input: {},
@@ -201,6 +262,25 @@ describe('resource datasets', () => {
           _parent_id: 'string',
         },
       ],
+    });
+  });
+
+  test('replace: only required params', async () => {
+    const responsePromise = braintrustdata.dataset.replace({ name: 'string' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('replace: required and optional params', async () => {
+    const response = await braintrustdata.dataset.replace({
+      name: 'string',
+      description: 'string',
+      project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     });
   });
 });

@@ -1,9 +1,9 @@
 // File generated from our OpenAPI spec by Stainless.
 
-import * as Core from 'braintrust-sdk-kotlin/core';
-import { APIResource } from 'braintrust-sdk-kotlin/resource';
-import { isRequestOptions } from 'braintrust-sdk-kotlin/core';
-import * as ExperimentAPI from 'braintrust-sdk-kotlin/resources/experiment';
+import * as Core from 'braintrust/core';
+import { APIResource } from 'braintrust/resource';
+import { isRequestOptions } from 'braintrust/core';
+import * as ExperimentAPI from 'braintrust/resources/experiment';
 
 export class ExperimentResource extends APIResource {
   /**
@@ -23,12 +23,43 @@ export class ExperimentResource extends APIResource {
   }
 
   /**
-   * Create or replace a new experiment. If there is an existing experiment in the
-   * project with the same name as the one specified in the request, will replace the
-   * existing experiment with the provided fields
+   * Partially update an experiment object. Specify the fields to update in the
+   * payload. Any object-type fields will be deep-merged with existing content.
+   * Currently we do not support removing fields or setting them to null. As a
+   * workaround, you may retrieve the full object with `GET /experiment/{id}` and
+   * then replace it with `PUT /experiment`.
    */
-  update(body: ExperimentUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Experiment> {
-    return this._client.put('/v1/experiment', { body, ...options });
+  update(
+    experimentId: string,
+    body?: ExperimentUpdateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Experiment>;
+  update(experimentId: string, options?: Core.RequestOptions): Core.APIPromise<Experiment>;
+  update(
+    experimentId: string,
+    body: ExperimentUpdateParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Experiment> {
+    if (isRequestOptions(body)) {
+      return this.update(experimentId, {}, body);
+    }
+    return this._client.patch(`/v1/experiment/${experimentId}`, { body, ...options });
+  }
+
+  /**
+   * List out all experiments. The experiments are sorted by creation date, with the
+   * most recently-created experiments coming first
+   */
+  list(query?: ExperimentListParams, options?: Core.RequestOptions): Core.APIPromise<ExperimentListResponse>;
+  list(options?: Core.RequestOptions): Core.APIPromise<ExperimentListResponse>;
+  list(
+    query: ExperimentListParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<ExperimentListResponse> {
+    if (isRequestOptions(query)) {
+      return this.list({}, query);
+    }
+    return this._client.get('/v1/experiment', { query, ...options });
   }
 
   /**
@@ -110,27 +141,12 @@ export class ExperimentResource extends APIResource {
   }
 
   /**
-   * Partially update an experiment object. Specify the fields to update in the
-   * payload. Any object-type fields will be deep-merged with existing content.
-   * Currently we do not support removing fields or setting them to null. As a
-   * workaround, you may retrieve the full object with `GET /experiment/{id}` and
-   * then replace it with `PUT /experiment`.
+   * Create or replace a new experiment. If there is an existing experiment in the
+   * project with the same name as the one specified in the request, will replace the
+   * existing experiment with the provided fields
    */
-  updatePartial(
-    experimentId: string,
-    body?: ExperimentUpdatePartialParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Experiment>;
-  updatePartial(experimentId: string, options?: Core.RequestOptions): Core.APIPromise<Experiment>;
-  updatePartial(
-    experimentId: string,
-    body: ExperimentUpdatePartialParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Experiment> {
-    if (isRequestOptions(body)) {
-      return this.updatePartial(experimentId, {}, body);
-    }
-    return this._client.patch(`/v1/experiment/${experimentId}`, { body, ...options });
+  replace(body: ExperimentReplaceParams, options?: Core.RequestOptions): Core.APIPromise<Experiment> {
+    return this._client.put('/v1/experiment', { body, ...options });
   }
 }
 
@@ -260,6 +276,13 @@ export namespace Experiment {
      */
     tag?: string | null;
   }
+}
+
+export interface ExperimentListResponse {
+  /**
+   * A list of experiment objects
+   */
+  objects: Array<Experiment>;
 }
 
 export interface ExperimentFetchResponse {
@@ -771,11 +794,6 @@ export namespace ExperimentCreateParams {
 
 export interface ExperimentUpdateParams {
   /**
-   * Unique identifier for the project that the experiment belongs under
-   */
-  project_id: string;
-
-  /**
    * Id of default base experiment to compare against when viewing this experiment
    */
   base_exp_id?: string | null;
@@ -870,6 +888,42 @@ export namespace ExperimentUpdateParams {
      */
     tag?: string | null;
   }
+}
+
+export interface ExperimentListParams {
+  /**
+   * A cursor for pagination. For example, if the initial item in the last page you
+   * fetched had an id of `foo`, pass `ending_before=foo` to fetch the previous page.
+   * Note: you may only pass one of `starting_after` and `ending_before`
+   */
+  ending_before?: string;
+
+  /**
+   * Name of the experiment to search for
+   */
+  experiment_name?: string;
+
+  /**
+   * Limit the number of objects to return
+   */
+  limit?: number;
+
+  /**
+   * Filter search results to within a particular organization
+   */
+  org_name?: string;
+
+  /**
+   * Name of the project to search for
+   */
+  project_name?: string;
+
+  /**
+   * A cursor for pagination. For example, if the final item in the last page you
+   * fetched had an id of `foo`, pass `starting_after=foo` to fetch the next page.
+   * Note: you may only pass one of `starting_after` and `ending_before`
+   */
+  starting_after?: string;
 }
 
 export interface ExperimentFeedbackParams {
@@ -1416,7 +1470,12 @@ export namespace ExperimentInsertParams {
   }
 }
 
-export interface ExperimentUpdatePartialParams {
+export interface ExperimentReplaceParams {
+  /**
+   * Unique identifier for the project that the experiment belongs under
+   */
+  project_id: string;
+
   /**
    * Id of default base experiment to compare against when viewing this experiment
    */
@@ -1458,10 +1517,10 @@ export interface ExperimentUpdatePartialParams {
   /**
    * Metadata about the state of the repo when the experiment was created
    */
-  repo_info?: ExperimentUpdatePartialParams.RepoInfo | null;
+  repo_info?: ExperimentReplaceParams.RepoInfo | null;
 }
 
-export namespace ExperimentUpdatePartialParams {
+export namespace ExperimentReplaceParams {
   /**
    * Metadata about the state of the repo when the experiment was created
    */
@@ -1516,14 +1575,16 @@ export namespace ExperimentUpdatePartialParams {
 
 export namespace ExperimentResource {
   export import Experiment = ExperimentAPI.Experiment;
+  export import ExperimentListResponse = ExperimentAPI.ExperimentListResponse;
   export import ExperimentFetchResponse = ExperimentAPI.ExperimentFetchResponse;
   export import ExperimentFetchPostResponse = ExperimentAPI.ExperimentFetchPostResponse;
   export import ExperimentInsertResponse = ExperimentAPI.ExperimentInsertResponse;
   export import ExperimentCreateParams = ExperimentAPI.ExperimentCreateParams;
   export import ExperimentUpdateParams = ExperimentAPI.ExperimentUpdateParams;
+  export import ExperimentListParams = ExperimentAPI.ExperimentListParams;
   export import ExperimentFeedbackParams = ExperimentAPI.ExperimentFeedbackParams;
   export import ExperimentFetchParams = ExperimentAPI.ExperimentFetchParams;
   export import ExperimentFetchPostParams = ExperimentAPI.ExperimentFetchPostParams;
   export import ExperimentInsertParams = ExperimentAPI.ExperimentInsertParams;
-  export import ExperimentUpdatePartialParams = ExperimentAPI.ExperimentUpdatePartialParams;
+  export import ExperimentReplaceParams = ExperimentAPI.ExperimentReplaceParams;
 }

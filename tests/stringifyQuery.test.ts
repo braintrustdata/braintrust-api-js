@@ -1,4 +1,4 @@
-import { APIClient } from 'braintrust-sdk-kotlin/core';
+import { APIClient } from 'braintrust/core';
 
 const { stringifyQuery } = APIClient.prototype as any;
 

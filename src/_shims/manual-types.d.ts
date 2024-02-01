@@ -4,8 +4,8 @@
 /**
  * Types will get added to this namespace when you import one of the following:
  *
- *   import 'braintrust-sdk-kotlin/shims/node'
- *   import 'braintrust-sdk-kotlin/shims/web'
+ *   import 'braintrust/shims/node'
+ *   import 'braintrust/shims/web'
  *
  * Importing more than one will cause type and runtime errors.
  */

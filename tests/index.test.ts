@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless.
 
-import BraintrustSdkKotlin from 'braintrust-sdk-kotlin';
-import { APIUserAbortError } from 'braintrust-sdk-kotlin';
-import { Headers } from 'braintrust-sdk-kotlin/core';
+import Braintrustdata from 'braintrust';
+import { APIUserAbortError } from 'braintrust';
+import { Headers } from 'braintrust/core';
 import defaultFetch, { Response, type RequestInit, type RequestInfo } from 'node-fetch';
 
 describe('instantiate client', () => {
@@ -20,7 +20,7 @@ describe('instantiate client', () => {
   });
 
   describe('defaultHeaders', () => {
-    const client = new BraintrustSdkKotlin({
+    const client = new Braintrustdata({
       baseURL: 'http://localhost:5000/',
       defaultHeaders: { 'X-My-Default-Header': '2' },
       apiKey: 'My API Key',
@@ -52,7 +52,7 @@ describe('instantiate client', () => {
 
   describe('defaultQuery', () => {
     test('with null query params given', () => {
-      const client = new BraintrustSdkKotlin({
+      const client = new Braintrustdata({
         baseURL: 'http://localhost:5000/',
         defaultQuery: { apiVersion: 'foo' },
         apiKey: 'My API Key',
@@ -61,7 +61,7 @@ describe('instantiate client', () => {
     });
 
     test('multiple default query params', () => {
-      const client = new BraintrustSdkKotlin({
+      const client = new Braintrustdata({
         baseURL: 'http://localhost:5000/',
         defaultQuery: { apiVersion: 'foo', hello: 'world' },
         apiKey: 'My API Key',
@@ -70,7 +70,7 @@ describe('instantiate client', () => {
     });
 
     test('overriding with `undefined`', () => {
-      const client = new BraintrustSdkKotlin({
+      const client = new Braintrustdata({
         baseURL: 'http://localhost:5000/',
         defaultQuery: { hello: 'world' },
         apiKey: 'My API Key',
@@ -80,7 +80,7 @@ describe('instantiate client', () => {
   });
 
   test('custom fetch', async () => {
-    const client = new BraintrustSdkKotlin({
+    const client = new Braintrustdata({
       baseURL: 'http://localhost:5000/',
       apiKey: 'My API Key',
       fetch: (url) => {
@@ -97,7 +97,7 @@ describe('instantiate client', () => {
   });
 
   test('custom signal', async () => {
-    const client = new BraintrustSdkKotlin({
+    const client = new Braintrustdata({
       baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
       apiKey: 'My API Key',
       fetch: (...args) => {
@@ -124,7 +124,7 @@ describe('instantiate client', () => {
 
   describe('baseUrl', () => {
     test('trailing slash', () => {
-      const client = new BraintrustSdkKotlin({
+      const client = new Braintrustdata({
         baseURL: 'http://localhost:5000/custom/path/',
         apiKey: 'My API Key',
       });
@@ -132,7 +132,7 @@ describe('instantiate client', () => {
     });
 
     test('no trailing slash', () => {
-      const client = new BraintrustSdkKotlin({
+      const client = new Braintrustdata({
         baseURL: 'http://localhost:5000/custom/path',
         apiKey: 'My API Key',
       });
@@ -140,59 +140,59 @@ describe('instantiate client', () => {
     });
 
     afterEach(() => {
-      process.env['BRAINTRUST_SDK_KOTLIN_BASE_URL'] = undefined;
+      process.env['BRAINTRUSTDATA_BASE_URL'] = undefined;
     });
 
     test('explicit option', () => {
-      const client = new BraintrustSdkKotlin({ baseURL: 'https://example.com', apiKey: 'My API Key' });
+      const client = new Braintrustdata({ baseURL: 'https://example.com', apiKey: 'My API Key' });
       expect(client.baseURL).toEqual('https://example.com');
     });
 
     test('env variable', () => {
-      process.env['BRAINTRUST_SDK_KOTLIN_BASE_URL'] = 'https://example.com/from_env';
-      const client = new BraintrustSdkKotlin({ apiKey: 'My API Key' });
+      process.env['BRAINTRUSTDATA_BASE_URL'] = 'https://example.com/from_env';
+      const client = new Braintrustdata({ apiKey: 'My API Key' });
       expect(client.baseURL).toEqual('https://example.com/from_env');
     });
 
     test('empty env variable', () => {
-      process.env['BRAINTRUST_SDK_KOTLIN_BASE_URL'] = ''; // empty
-      const client = new BraintrustSdkKotlin({ apiKey: 'My API Key' });
+      process.env['BRAINTRUSTDATA_BASE_URL'] = ''; // empty
+      const client = new Braintrustdata({ apiKey: 'My API Key' });
       expect(client.baseURL).toEqual('https://api.braintrustdata.com');
     });
 
     test('blank env variable', () => {
-      process.env['BRAINTRUST_SDK_KOTLIN_BASE_URL'] = '  '; // blank
-      const client = new BraintrustSdkKotlin({ apiKey: 'My API Key' });
+      process.env['BRAINTRUSTDATA_BASE_URL'] = '  '; // blank
+      const client = new Braintrustdata({ apiKey: 'My API Key' });
       expect(client.baseURL).toEqual('https://api.braintrustdata.com');
     });
   });
 
   test('maxRetries option is correctly set', () => {
-    const client = new BraintrustSdkKotlin({ maxRetries: 4, apiKey: 'My API Key' });
+    const client = new Braintrustdata({ maxRetries: 4, apiKey: 'My API Key' });
     expect(client.maxRetries).toEqual(4);
 
     // default
-    const client2 = new BraintrustSdkKotlin({ apiKey: 'My API Key' });
+    const client2 = new Braintrustdata({ apiKey: 'My API Key' });
     expect(client2.maxRetries).toEqual(2);
   });
 
   test('with environment variable arguments', () => {
     // set options via env var
-    process.env['BRAINTRUST_SDK_KOTLIN_API_KEY'] = 'My API Key';
-    const client = new BraintrustSdkKotlin();
+    process.env['BRAINTRUST_API_KEY'] = 'My API Key';
+    const client = new Braintrustdata();
     expect(client.apiKey).toBe('My API Key');
   });
 
   test('with overriden environment variable arguments', () => {
     // set options via env var
-    process.env['BRAINTRUST_SDK_KOTLIN_API_KEY'] = 'another My API Key';
-    const client = new BraintrustSdkKotlin({ apiKey: 'My API Key' });
+    process.env['BRAINTRUST_API_KEY'] = 'another My API Key';
+    const client = new Braintrustdata({ apiKey: 'My API Key' });
     expect(client.apiKey).toBe('My API Key');
   });
 });
 
 describe('request building', () => {
-  const client = new BraintrustSdkKotlin({ apiKey: 'My API Key' });
+  const client = new Braintrustdata({ apiKey: 'My API Key' });
 
   describe('Content-Length', () => {
     test('handles multi-byte characters', () => {
@@ -234,7 +234,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new BraintrustSdkKotlin({ apiKey: 'My API Key', timeout: 10, fetch: testFetch });
+    const client = new Braintrustdata({ apiKey: 'My API Key', timeout: 10, fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);
@@ -261,7 +261,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new BraintrustSdkKotlin({ apiKey: 'My API Key', fetch: testFetch });
+    const client = new Braintrustdata({ apiKey: 'My API Key', fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);
@@ -288,7 +288,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new BraintrustSdkKotlin({ apiKey: 'My API Key', fetch: testFetch });
+    const client = new Braintrustdata({ apiKey: 'My API Key', fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);

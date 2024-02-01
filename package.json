@@ -1,12 +1,12 @@
 {
-  "name": "braintrust-sdk-kotlin",
+  "name": "braintrust",
   "version": "0.0.1",
-  "description": "The official TypeScript library for the Braintrust Sdk Kotlin API",
-  "author": "Braintrust Sdk Kotlin <dev-feedback@braintrust-sdk-kotlin.com>",
+  "description": "The official TypeScript library for the Braintrustdata API",
+  "author": "Braintrustdata <dev-feedback@braintrustdata.com>",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
   "type": "commonjs",
-  "repository": "github:braintrust-sdk-kotlin/braintrust-sdk-kotlin-node",
+  "repository": "github:braintrustdata/braintrust-node",
   "license": "Apache-2.0",
   "packageManager": "yarn@1.22.21",
   "private": false,
@@ -57,8 +57,8 @@
     "./shims/web.mjs"
   ],
   "imports": {
-    "braintrust-sdk-kotlin": ".",
-    "braintrust-sdk-kotlin/*": "./src/*"
+    "braintrust": ".",
+    "braintrust/*": "./src/*"
   },
   "exports": {
     "./_shims/auto/*": {

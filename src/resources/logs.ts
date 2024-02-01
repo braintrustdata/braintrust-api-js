@@ -1,19 +1,15 @@
 // File generated from our OpenAPI spec by Stainless.
 
-import * as Core from 'braintrust-sdk-kotlin/core';
-import { APIResource } from 'braintrust-sdk-kotlin/resource';
-import { isRequestOptions } from 'braintrust-sdk-kotlin/core';
-import * as ProjectLogsAPI from 'braintrust-sdk-kotlin/resources/project-logs';
+import * as Core from 'braintrust/core';
+import { APIResource } from 'braintrust/resource';
+import { isRequestOptions } from 'braintrust/core';
+import * as LogsAPI from 'braintrust/resources/logs';
 
-export class ProjectLogs extends APIResource {
+export class Logs extends APIResource {
   /**
    * Log feedback for a set of project logs events
    */
-  feedback(
-    projectId: string,
-    body: ProjectLogFeedbackParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<void> {
+  feedback(projectId: string, body: LogFeedbackParams, options?: Core.RequestOptions): Core.APIPromise<void> {
     return this._client.post(`/v1/project_logs/${projectId}/feedback`, {
       body,
       ...options,
@@ -27,15 +23,15 @@ export class ProjectLogs extends APIResource {
    */
   fetch(
     projectId: string,
-    query?: ProjectLogFetchParams,
+    query?: LogFetchParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<ProjectLogFetchResponse>;
-  fetch(projectId: string, options?: Core.RequestOptions): Core.APIPromise<ProjectLogFetchResponse>;
+  ): Core.APIPromise<LogFetchResponse>;
+  fetch(projectId: string, options?: Core.RequestOptions): Core.APIPromise<LogFetchResponse>;
   fetch(
     projectId: string,
-    query: ProjectLogFetchParams | Core.RequestOptions = {},
+    query: LogFetchParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<ProjectLogFetchResponse> {
+  ): Core.APIPromise<LogFetchResponse> {
     if (isRequestOptions(query)) {
       return this.fetch(projectId, {}, query);
     }
@@ -48,15 +44,15 @@ export class ProjectLogs extends APIResource {
    */
   fetchPost(
     projectId: string,
-    body?: ProjectLogFetchPostParams,
+    body?: LogFetchPostParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<ProjectLogFetchPostResponse>;
-  fetchPost(projectId: string, options?: Core.RequestOptions): Core.APIPromise<ProjectLogFetchPostResponse>;
+  ): Core.APIPromise<LogFetchPostResponse>;
+  fetchPost(projectId: string, options?: Core.RequestOptions): Core.APIPromise<LogFetchPostResponse>;
   fetchPost(
     projectId: string,
-    body: ProjectLogFetchPostParams | Core.RequestOptions = {},
+    body: LogFetchPostParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<ProjectLogFetchPostResponse> {
+  ): Core.APIPromise<LogFetchPostResponse> {
     if (isRequestOptions(body)) {
       return this.fetchPost(projectId, {}, body);
     }
@@ -68,21 +64,21 @@ export class ProjectLogs extends APIResource {
    */
   insert(
     projectId: string,
-    body: ProjectLogInsertParams,
+    body: LogInsertParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<ProjectLogInsertResponse> {
+  ): Core.APIPromise<LogInsertResponse> {
     return this._client.post(`/v1/project_logs/${projectId}/insert`, { body, ...options });
   }
 }
 
-export interface ProjectLogFetchResponse {
+export interface LogFetchResponse {
   /**
    * A list of fetched events
    */
-  events: Array<ProjectLogFetchResponse.Event>;
+  events: Array<LogFetchResponse.Event>;
 }
 
-export namespace ProjectLogFetchResponse {
+export namespace LogFetchResponse {
   export interface Event {
     /**
      * A unique identifier for the project logs event. If you don't provide one,
@@ -268,14 +264,14 @@ export namespace ProjectLogFetchResponse {
   }
 }
 
-export interface ProjectLogFetchPostResponse {
+export interface LogFetchPostResponse {
   /**
    * A list of fetched events
    */
-  events: Array<ProjectLogFetchPostResponse.Event>;
+  events: Array<LogFetchPostResponse.Event>;
 }
 
-export namespace ProjectLogFetchPostResponse {
+export namespace LogFetchPostResponse {
   export interface Event {
     /**
      * A unique identifier for the project logs event. If you don't provide one,
@@ -461,7 +457,7 @@ export namespace ProjectLogFetchPostResponse {
   }
 }
 
-export interface ProjectLogInsertResponse {
+export interface LogInsertResponse {
   /**
    * The ids of all rows that were inserted, aligning one-to-one with the rows
    * provided as input
@@ -469,14 +465,14 @@ export interface ProjectLogInsertResponse {
   row_ids: Array<string>;
 }
 
-export interface ProjectLogFeedbackParams {
+export interface LogFeedbackParams {
   /**
    * A list of project logs feedback items
    */
-  feedback: Array<ProjectLogFeedbackParams.Feedback>;
+  feedback: Array<LogFeedbackParams.Feedback>;
 }
 
-export namespace ProjectLogFeedbackParams {
+export namespace LogFeedbackParams {
   export interface Feedback {
     /**
      * The id of the project logs event to log feedback for. This is the row `id`
@@ -514,7 +510,7 @@ export namespace ProjectLogFeedbackParams {
   }
 }
 
-export interface ProjectLogFetchParams {
+export interface LogFetchParams {
   /**
    * Fetch queries may be paginated if the total result size is expected to be large
    * (e.g. project_logs which accumulate over a long time). Note that fetch queries
@@ -556,12 +552,12 @@ export interface ProjectLogFetchParams {
   version?: number;
 }
 
-export interface ProjectLogFetchPostParams {
+export interface LogFetchPostParams {
   /**
    * A list of filters on the events to fetch. Currently, only path-lookup type
    * filters are supported, but we may add more in the future
    */
-  filters?: Array<ProjectLogFetchPostParams.Filter> | null;
+  filters?: Array<LogFetchPostParams.Filter> | null;
 
   /**
    * Fetch queries may be paginated if the total result size is expected to be large
@@ -604,7 +600,7 @@ export interface ProjectLogFetchPostParams {
   version?: number | null;
 }
 
-export namespace ProjectLogFetchPostParams {
+export namespace LogFetchPostParams {
   /**
    * A path-lookup filter describes an equality comparison against a specific
    * sub-field in the event row. For instance, if you wish to filter on the value of
@@ -635,16 +631,14 @@ export namespace ProjectLogFetchPostParams {
   }
 }
 
-export interface ProjectLogInsertParams {
+export interface LogInsertParams {
   /**
    * A list of project logs events to insert
    */
-  events: Array<
-    ProjectLogInsertParams.InsertProjectLogsEventReplace | ProjectLogInsertParams.InsertProjectLogsEventMerge
-  >;
+  events: Array<LogInsertParams.InsertProjectLogsEventReplace | LogInsertParams.InsertProjectLogsEventMerge>;
 }
 
-export namespace ProjectLogInsertParams {
+export namespace LogInsertParams {
   export interface InsertProjectLogsEventReplace {
     /**
      * A unique identifier for the project logs event. If you don't provide one,
@@ -993,12 +987,12 @@ export namespace ProjectLogInsertParams {
   }
 }
 
-export namespace ProjectLogs {
-  export import ProjectLogFetchResponse = ProjectLogsAPI.ProjectLogFetchResponse;
-  export import ProjectLogFetchPostResponse = ProjectLogsAPI.ProjectLogFetchPostResponse;
-  export import ProjectLogInsertResponse = ProjectLogsAPI.ProjectLogInsertResponse;
-  export import ProjectLogFeedbackParams = ProjectLogsAPI.ProjectLogFeedbackParams;
-  export import ProjectLogFetchParams = ProjectLogsAPI.ProjectLogFetchParams;
-  export import ProjectLogFetchPostParams = ProjectLogsAPI.ProjectLogFetchPostParams;
-  export import ProjectLogInsertParams = ProjectLogsAPI.ProjectLogInsertParams;
+export namespace Logs {
+  export import LogFetchResponse = LogsAPI.LogFetchResponse;
+  export import LogFetchPostResponse = LogsAPI.LogFetchPostResponse;
+  export import LogInsertResponse = LogsAPI.LogInsertResponse;
+  export import LogFeedbackParams = LogsAPI.LogFeedbackParams;
+  export import LogFetchParams = LogsAPI.LogFetchParams;
+  export import LogFetchPostParams = LogsAPI.LogFetchPostParams;
+  export import LogInsertParams = LogsAPI.LogInsertParams;
 }

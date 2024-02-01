@@ -1,31 +1,31 @@
-# Braintrust Sdk Kotlin Node API Library
+# Braintrustdata Node API Library
 
-[![NPM version](https://img.shields.io/npm/v/braintrust-sdk-kotlin.svg)](https://npmjs.org/package/braintrust-sdk-kotlin)
+[![NPM version](https://img.shields.io/npm/v/braintrust.svg)](https://npmjs.org/package/braintrust)
 
-This library provides convenient access to the Braintrust Sdk Kotlin REST API from server-side TypeScript or JavaScript.
+This library provides convenient access to the Braintrustdata REST API from server-side TypeScript or JavaScript.
 
-The REST API documentation can be found [on docs.braintrust-sdk-kotlin.com](https://docs.braintrust-sdk-kotlin.com). The full API of this library can be found in [api.md](https://www.github.com/braintrust-sdk-kotlin/braintrust-sdk-kotlin-node/blob/main/api.md).
+The REST API documentation can be found [on docs.braintrustdata.com](https://docs.braintrustdata.com). The full API of this library can be found in [api.md](https://www.github.com/braintrustdata/braintrust-node/blob/main/api.md).
 
 ## Installation
 
 ```sh
-npm install --save braintrust-sdk-kotlin
+npm install --save braintrust
 # or
-yarn add braintrust-sdk-kotlin
+yarn add braintrust
 ```
 
 ## Usage
 
-The full API of this library can be found in [api.md](https://www.github.com/braintrust-sdk-kotlin/braintrust-sdk-kotlin-node/blob/main/api.md).
+The full API of this library can be found in [api.md](https://www.github.com/braintrustdata/braintrust-node/blob/main/api.md).
 
 <!-- prettier-ignore -->
 ```js
-import BraintrustSdkKotlin from 'braintrust-sdk-kotlin';
+import Braintrustdata from 'braintrust';
 
-const braintrustSdkKotlin = new BraintrustSdkKotlin();
+const braintrustdata = new Braintrustdata();
 
 async function main() {
-  const project = await braintrustSdkKotlin.project.create({ name: 'string' });
+  const project = await braintrustdata.project.create({ name: 'string' });
 
   console.log(project.id);
 }
@@ -39,13 +39,13 @@ This library includes TypeScript definitions for all request params and response
 
 <!-- prettier-ignore -->
 ```ts
-import BraintrustSdkKotlin from 'braintrust-sdk-kotlin';
+import Braintrustdata from 'braintrust';
 
-const braintrustSdkKotlin = new BraintrustSdkKotlin();
+const braintrustdata = new Braintrustdata();
 
 async function main() {
-  const params: BraintrustSdkKotlin.ProjectCreateParams = { name: 'string' };
-  const project: BraintrustSdkKotlin.Project = await braintrustSdkKotlin.project.create(params);
+  const params: Braintrustdata.ProjectCreateParams = { name: 'string' };
+  const project: Braintrustdata.Project = await braintrustdata.project.create(params);
 }
 
 main();
@@ -62,8 +62,8 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const project = await braintrustSdkKotlin.project.create({ name: 'string' }).catch((err) => {
-    if (err instanceof BraintrustSdkKotlin.APIError) {
+  const project = await braintrustdata.project.create({ name: 'string' }).catch((err) => {
+    if (err instanceof Braintrustdata.APIError) {
       console.log(err.status); // 400
       console.log(err.name); // BadRequestError
       console.log(err.headers); // {server: 'nginx', ...}
@@ -100,12 +100,12 @@ You can use the `maxRetries` option to configure or disable this:
 <!-- prettier-ignore -->
 ```js
 // Configure the default for all requests:
-const braintrustSdkKotlin = new BraintrustSdkKotlin({
+const braintrustdata = new Braintrustdata({
   maxRetries: 0, // default is 2
 });
 
 // Or, configure per-request:
-await braintrustSdkKotlin.project.create({ name: 'string' }, {
+await braintrustdata.project.create({ name: 'string' }, {
   maxRetries: 5,
 });
 ```
@@ -117,12 +117,12 @@ Requests time out after 1 minute by default. You can configure this with a `time
 <!-- prettier-ignore -->
 ```ts
 // Configure the default for all requests:
-const braintrustSdkKotlin = new BraintrustSdkKotlin({
+const braintrustdata = new Braintrustdata({
   timeout: 20 * 1000, // 20 seconds (default is 1 minute)
 });
 
 // Override per-request:
-await braintrustSdkKotlin.project.create({ name: 'string' }, {
+await braintrustdata.project.create({ name: 'string' }, {
   timeout: 5 * 1000,
 });
 ```
@@ -141,13 +141,13 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 
 <!-- prettier-ignore -->
 ```ts
-const braintrustSdkKotlin = new BraintrustSdkKotlin();
+const braintrustdata = new Braintrustdata();
 
-const response = await braintrustSdkKotlin.project.create({ name: 'string' }).asResponse();
+const response = await braintrustdata.project.create({ name: 'string' }).asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: project, response: raw } = await braintrustSdkKotlin.project
+const { data: project, response: raw } = await braintrustdata.project
   .create({ name: 'string' })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
@@ -160,26 +160,26 @@ By default, this library uses `node-fetch` in Node, and expects a global `fetch`
 
 If you would prefer to use a global, web-standards-compliant `fetch` function even in a Node environment,
 (for example, if you are running Node with `--experimental-fetch` or using NextJS which polyfills with `undici`),
-add the following import before your first import `from "BraintrustSdkKotlin"`:
+add the following import before your first import `from "Braintrustdata"`:
 
 ```ts
 // Tell TypeScript and the package to use the global web fetch instead of node-fetch.
 // Note, despite the name, this does not add any polyfills, but expects them to be provided if needed.
-import 'braintrust-sdk-kotlin/shims/web';
-import BraintrustSdkKotlin from 'braintrust-sdk-kotlin';
+import 'braintrust/shims/web';
+import Braintrustdata from 'braintrust';
 ```
 
-To do the inverse, add `import "braintrust-sdk-kotlin/shims/node"` (which does import polyfills).
-This can also be useful if you are getting the wrong TypeScript types for `Response` - more details [here](https://github.com/braintrust-sdk-kotlin/tree/main/src/_shims#readme).
+To do the inverse, add `import "braintrust/shims/node"` (which does import polyfills).
+This can also be useful if you are getting the wrong TypeScript types for `Response` - more details [here](https://github.com/braintrustdata/tree/main/src/_shims#readme).
 
 You may also provide a custom `fetch` function when instantiating the client,
 which can be used to inspect or alter the `Request` or `Response` before/after each request:
 
 ```ts
 import { fetch } from 'undici'; // as one example
-import BraintrustSdkKotlin from 'braintrust-sdk-kotlin';
+import Braintrustdata from 'braintrust';
 
-const client = new BraintrustSdkKotlin({
+const client = new Braintrustdata({
   fetch: async (url: RequestInfo, init?: RequestInfo): Promise<Response> => {
     console.log('About to make a request', url, init);
     const response = await fetch(url, init);
@@ -204,12 +204,12 @@ import http from 'http';
 import HttpsProxyAgent from 'https-proxy-agent';
 
 // Configure the default for all requests:
-const braintrustSdkKotlin = new BraintrustSdkKotlin({
+const braintrustdata = new Braintrustdata({
   httpAgent: new HttpsProxyAgent(process.env.PROXY_URL),
 });
 
 // Override per-request:
-await braintrustSdkKotlin.project.create({ name: 'string' }, {
+await braintrustdata.project.create({ name: 'string' }, {
   baseURL: 'http://localhost:8080/test-api',
   httpAgent: new http.Agent({ keepAlive: false }),
 })
@@ -225,7 +225,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/braintrust-sdk-kotlin/braintrust-sdk-kotlin-node/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/braintrustdata/braintrust-node/issues) with questions, bugs, or suggestions.
 
 ## Requirements
 
@@ -234,7 +234,7 @@ TypeScript >= 4.5 is supported.
 The following runtimes are supported:
 
 - Node.js 18 LTS or later ([non-EOL](https://endoflife.date/nodejs)) versions.
-- Deno v1.28.0 or higher, using `import BraintrustSdkKotlin from "npm:braintrust-sdk-kotlin"`.
+- Deno v1.28.0 or higher, using `import Braintrustdata from "npm:braintrust"`.
 - Bun 1.0 or later.
 - Cloudflare Workers.
 - Vercel Edge Runtime.

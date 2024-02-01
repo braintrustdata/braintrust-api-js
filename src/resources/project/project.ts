@@ -1,13 +1,13 @@
 // File generated from our OpenAPI spec by Stainless.
 
-import * as Core from 'braintrust-sdk-kotlin/core';
-import { APIResource } from 'braintrust-sdk-kotlin/resource';
-import { isRequestOptions } from 'braintrust-sdk-kotlin/core';
-import * as ProjectAPI from 'braintrust-sdk-kotlin/resources/project/project';
-import * as ProjectLogsAPI from 'braintrust-sdk-kotlin/resources/project/project-logs';
+import * as Core from 'braintrust/core';
+import { APIResource } from 'braintrust/resource';
+import { isRequestOptions } from 'braintrust/core';
+import * as ProjectAPI from 'braintrust/resources/project/project';
+import * as LogsAPI from 'braintrust/resources/project/logs';
 
 export class ProjectResource extends APIResource {
-  projectLogs: ProjectLogsAPI.ProjectLogs = new ProjectLogsAPI.ProjectLogs(this._client);
+  logs: LogsAPI.Logs = new LogsAPI.Logs(this._client);
 
   /**
    * Create a new project. If there is an existing project with the same name as the
@@ -193,5 +193,5 @@ export namespace ProjectResource {
   export import ProjectUpdateParams = ProjectAPI.ProjectUpdateParams;
   export import ProjectListParams = ProjectAPI.ProjectListParams;
   export import ProjectReplaceParams = ProjectAPI.ProjectReplaceParams;
-  export import ProjectLogs = ProjectLogsAPI.ProjectLogs;
+  export import Logs = LogsAPI.Logs;
 }

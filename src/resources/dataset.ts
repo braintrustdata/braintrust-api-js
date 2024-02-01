@@ -1,18 +1,18 @@
 // File generated from our OpenAPI spec by Stainless.
 
-import * as Core from 'braintrust-sdk-kotlin/core';
-import { APIResource } from 'braintrust-sdk-kotlin/resource';
-import { isRequestOptions } from 'braintrust-sdk-kotlin/core';
-import * as DatasetsAPI from 'braintrust-sdk-kotlin/resources/datasets';
+import * as Core from 'braintrust/core';
+import { APIResource } from 'braintrust/resource';
+import { isRequestOptions } from 'braintrust/core';
+import * as DatasetAPI from 'braintrust/resources/dataset';
 
-export class Datasets extends APIResource {
+export class DatasetResource extends APIResource {
   /**
-   * Create or replace a new dataset. If there is an existing dataset in the project
-   * with the same name as the one specified in the request, will replace the
-   * existing dataset with the provided fields
+   * Create a new dataset. If there is an existing dataset in the project with the
+   * same name as the one specified in the request, will return the existing dataset
+   * unmodified
    */
   create(body: DatasetCreateParams, options?: Core.RequestOptions): Core.APIPromise<Dataset> {
-    return this._client.put('/v1/dataset', { body, ...options });
+    return this._client.post('/v1/dataset', { body, ...options });
   }
 
   /**
@@ -54,6 +54,13 @@ export class Datasets extends APIResource {
   }
 
   /**
+   * Delete a dataset object by its id
+   */
+  delete(datasetId: string, options?: Core.RequestOptions): Core.APIPromise<Dataset> {
+    return this._client.delete(`/v1/dataset/${datasetId}`, options);
+  }
+
+  /**
    * Log feedback for a set of dataset events
    */
   feedback(
@@ -90,6 +97,27 @@ export class Datasets extends APIResource {
   }
 
   /**
+   * Fetch the events in a dataset. Equivalent to the GET form of the same path, but
+   * with the parameters in the request body rather than in the URL query
+   */
+  fetchPost(
+    datasetId: string,
+    body?: DatasetFetchPostParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<DatasetFetchPostResponse>;
+  fetchPost(datasetId: string, options?: Core.RequestOptions): Core.APIPromise<DatasetFetchPostResponse>;
+  fetchPost(
+    datasetId: string,
+    body: DatasetFetchPostParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<DatasetFetchPostResponse> {
+    if (isRequestOptions(body)) {
+      return this.fetchPost(datasetId, {}, body);
+    }
+    return this._client.post(`/v1/dataset/${datasetId}/fetch`, { body, ...options });
+  }
+
+  /**
    * Insert a set of events into the dataset
    */
   insert(
@@ -98,6 +126,15 @@ export class Datasets extends APIResource {
     options?: Core.RequestOptions,
   ): Core.APIPromise<DatasetInsertResponse> {
     return this._client.post(`/v1/dataset/${datasetId}/insert`, { body, ...options });
+  }
+
+  /**
+   * Create or replace a new dataset. If there is an existing dataset in the project
+   * with the same name as the one specified in the request, will replace the
+   * existing dataset with the provided fields
+   */
+  replace(body: DatasetReplaceParams, options?: Core.RequestOptions): Core.APIPromise<Dataset> {
+    return this._client.put('/v1/dataset', { body, ...options });
   }
 }
 
@@ -153,6 +190,72 @@ export interface DatasetFetchResponse {
 }
 
 export namespace DatasetFetchResponse {
+  export interface Event {
+    /**
+     * A unique identifier for the dataset event. If you don't provide one, BrainTrust
+     * will generate one for you
+     */
+    id: string;
+
+    /**
+     * The transaction id of an event is unique to the network operation that processed
+     * the event insertion. Transaction ids are monotonically increasing over time and
+     * can be used to retrieve a versioned snapshot of the dataset (see the `version`
+     * parameter)
+     */
+    _xact_id: number;
+
+    /**
+     * Unique identifier for the dataset
+     */
+    dataset_id: string;
+
+    /**
+     * The `span_id` of the root of the trace this dataset event belongs to
+     */
+    root_span_id: string;
+
+    /**
+     * The timestamp the dataset event was created
+     */
+    created?: string | null;
+
+    /**
+     * The argument that uniquely define an input case (an arbitrary, JSON serializable
+     * object)
+     */
+    input?: unknown;
+
+    /**
+     * A dictionary with additional data about the test example, model outputs, or just
+     * about anything else that's relevant, that you can use to help find and analyze
+     * examples later. For example, you could log the `prompt`, example's `id`, or
+     * anything else that would be useful to slice/dice later. The values in `metadata`
+     * can be any JSON-serializable type, but its keys must be strings
+     */
+    metadata?: Record<string, unknown> | null;
+
+    /**
+     * The output of your application, including post-processing (an arbitrary, JSON
+     * serializable object)
+     */
+    output?: unknown;
+
+    /**
+     * Unique identifier for the project that the dataset belongs under
+     */
+    project_id?: string | null;
+  }
+}
+
+export interface DatasetFetchPostResponse {
+  /**
+   * A list of fetched events
+   */
+  events: Array<DatasetFetchPostResponse.Event>;
+}
+
+export namespace DatasetFetchPostResponse {
   export interface Event {
     /**
      * A unique identifier for the dataset event. If you don't provide one, BrainTrust
@@ -359,6 +462,85 @@ export interface DatasetFetchParams {
   version?: number;
 }
 
+export interface DatasetFetchPostParams {
+  /**
+   * A list of filters on the events to fetch. Currently, only path-lookup type
+   * filters are supported, but we may add more in the future
+   */
+  filters?: Array<DatasetFetchPostParams.Filter> | null;
+
+  /**
+   * Fetch queries may be paginated if the total result size is expected to be large
+   * (e.g. project_logs which accumulate over a long time). Note that fetch queries
+   * only support pagination in descending time order (from latest to earliest
+   * `_xact_id`. Furthermore, later pages may return rows which showed up in earlier
+   * pages, except with an earlier `_xact_id`. This happens because pagination occurs
+   * over the whole version history of the event log. You will most likely want to
+   * exclude any such duplicate, outdated rows (by `id`) from your combined result
+   * set.
+   *
+   * The `limit` parameter controls the number of full traces to return. So you may
+   * end up with more individual rows than the specified limit if you are fetching
+   * events containing traces.
+   */
+  limit?: number | null;
+
+  /**
+   * Together, `max_xact_id` and `max_root_span_id` form a cursor for paginating
+   * event fetches. Given a previous fetch with a list of rows, you can determine
+   * `max_root_span_id` as the maximum of the `root_span_id` field over all rows. See
+   * the documentation for `limit` for an overview of paginating fetch queries.
+   */
+  max_root_span_id?: string | null;
+
+  /**
+   * Together, `max_xact_id` and `max_root_span_id` form a cursor for paginating
+   * event fetches. Given a previous fetch with a list of rows, you can determine
+   * `max_xact_id` as the maximum of the `_xact_id` field over all rows. See the
+   * documentation for `limit` for an overview of paginating fetch queries.
+   */
+  max_xact_id?: number | null;
+
+  /**
+   * You may specify a version id to retrieve a snapshot of the events from a past
+   * time. The version id is essentially a filter on the latest event transaction id.
+   * You can use the `max_xact_id` returned by a past fetch as the version to
+   * reproduce that exact fetch.
+   */
+  version?: number | null;
+}
+
+export namespace DatasetFetchPostParams {
+  /**
+   * A path-lookup filter describes an equality comparison against a specific
+   * sub-field in the event row. For instance, if you wish to filter on the value of
+   * `c` in `{"input": {"a": {"b": {"c": "hello"}}}}`, pass
+   * `path=["input", "a", "b", "c"]` and `value="hello"`
+   */
+  export interface Filter {
+    /**
+     * List of fields describing the path to the value to be checked against. For
+     * instance, if you wish to filter on the value of `c` in
+     * `{"input": {"a": {"b": {"c": "hello"}}}}`, pass `path=["input", "a", "b", "c"]`
+     */
+    path: Array<string>;
+
+    /**
+     * Denotes the type of filter as a path-lookup filter
+     */
+    type: 'path_lookup';
+
+    /**
+     * The value to compare equality-wise against the event value at the specified
+     * `path`. The value must be a "primitive", that is, any JSON-serializable object
+     * except for objects and arrays. For instance, if you wish to filter on the value
+     * of "input.a.b.c" in the object `{"input": {"a": {"b": {"c": "hello"}}}}`, pass
+     * `value="hello"`
+     */
+    value?: unknown;
+  }
+}
+
 export interface DatasetInsertParams {
   /**
    * A list of dataset events to insert
@@ -501,15 +683,35 @@ export namespace DatasetInsertParams {
   }
 }
 
-export namespace Datasets {
-  export import Dataset = DatasetsAPI.Dataset;
-  export import DatasetListResponse = DatasetsAPI.DatasetListResponse;
-  export import DatasetFetchResponse = DatasetsAPI.DatasetFetchResponse;
-  export import DatasetInsertResponse = DatasetsAPI.DatasetInsertResponse;
-  export import DatasetCreateParams = DatasetsAPI.DatasetCreateParams;
-  export import DatasetUpdateParams = DatasetsAPI.DatasetUpdateParams;
-  export import DatasetListParams = DatasetsAPI.DatasetListParams;
-  export import DatasetFeedbackParams = DatasetsAPI.DatasetFeedbackParams;
-  export import DatasetFetchParams = DatasetsAPI.DatasetFetchParams;
-  export import DatasetInsertParams = DatasetsAPI.DatasetInsertParams;
+export interface DatasetReplaceParams {
+  /**
+   * Name of the dataset. Within a project, dataset names are unique
+   */
+  name: string;
+
+  /**
+   * Textual description of the dataset
+   */
+  description?: string | null;
+
+  /**
+   * Unique identifier for the project that the dataset belongs under
+   */
+  project_id?: string | null;
+}
+
+export namespace DatasetResource {
+  export import Dataset = DatasetAPI.Dataset;
+  export import DatasetListResponse = DatasetAPI.DatasetListResponse;
+  export import DatasetFetchResponse = DatasetAPI.DatasetFetchResponse;
+  export import DatasetFetchPostResponse = DatasetAPI.DatasetFetchPostResponse;
+  export import DatasetInsertResponse = DatasetAPI.DatasetInsertResponse;
+  export import DatasetCreateParams = DatasetAPI.DatasetCreateParams;
+  export import DatasetUpdateParams = DatasetAPI.DatasetUpdateParams;
+  export import DatasetListParams = DatasetAPI.DatasetListParams;
+  export import DatasetFeedbackParams = DatasetAPI.DatasetFeedbackParams;
+  export import DatasetFetchParams = DatasetAPI.DatasetFetchParams;
+  export import DatasetFetchPostParams = DatasetAPI.DatasetFetchPostParams;
+  export import DatasetInsertParams = DatasetAPI.DatasetInsertParams;
+  export import DatasetReplaceParams = DatasetAPI.DatasetReplaceParams;
 }

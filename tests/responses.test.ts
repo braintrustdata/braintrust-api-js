@@ -1,5 +1,5 @@
-import { createResponseHeaders } from 'braintrust-sdk-kotlin/core';
-import { Headers } from 'braintrust-sdk-kotlin/_shims/index';
+import { createResponseHeaders } from 'braintrust/core';
+import { Headers } from 'braintrust/_shims/index';
 
 describe('response parsing', () => {
   // TODO: test unicode characters

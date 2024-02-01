@@ -4,9 +4,9 @@ const config: JestConfigWithTsJest = {
   preset: 'ts-jest/presets/default-esm',
   testEnvironment: 'node',
   moduleNameMapper: {
-    '^braintrust-sdk-kotlin$': '<rootDir>/src/index.ts',
-    '^braintrust-sdk-kotlin/_shims/auto/(.*)$': '<rootDir>/src/_shims/auto/$1-node',
-    '^braintrust-sdk-kotlin/(.*)$': '<rootDir>/src/$1',
+    '^braintrust$': '<rootDir>/src/index.ts',
+    '^braintrust/_shims/auto/(.*)$': '<rootDir>/src/_shims/auto/$1-node',
+    '^braintrust/(.*)$': '<rootDir>/src/$1',
   },
   modulePathIgnorePatterns: [
     '<rootDir>/ecosystem-tests/',

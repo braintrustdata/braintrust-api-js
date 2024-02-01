@@ -1,11 +1,11 @@
 // File generated from our OpenAPI spec by Stainless.
 
-import type { BraintrustSdkKotlin } from './index';
+import type { Braintrustdata } from './index';
 
 export class APIResource {
-  protected _client: BraintrustSdkKotlin;
+  protected _client: Braintrustdata;
 
-  constructor(client: BraintrustSdkKotlin) {
+  constructor(client: Braintrustdata) {
     this._client = client;
   }
 }
