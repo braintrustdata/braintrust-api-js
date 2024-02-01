@@ -2,7 +2,6 @@
 
 export {
   Dataset,
-  DatasetListResponse,
   DatasetFetchResponse,
   DatasetFetchPostResponse,
   DatasetInsertResponse,
@@ -14,11 +13,11 @@ export {
   DatasetFetchPostParams,
   DatasetInsertParams,
   DatasetReplaceParams,
+  DatasetsListObjects,
   DatasetResource,
 } from './dataset';
 export {
   Experiment,
-  ExperimentListResponse,
   ExperimentFetchResponse,
   ExperimentFetchPostResponse,
   ExperimentInsertResponse,
@@ -30,6 +29,7 @@ export {
   ExperimentFetchPostParams,
   ExperimentInsertParams,
   ExperimentReplaceParams,
+  ExperimentsListObjects,
   ExperimentResource,
 } from './experiment';
 export {
@@ -44,11 +44,11 @@ export {
 } from './logs';
 export {
   Project,
-  ProjectListResponse,
   ProjectCreateParams,
   ProjectUpdateParams,
   ProjectListParams,
   ProjectReplaceParams,
+  ProjectsListObjects,
   ProjectResource,
 } from './project/project';
 export { TopLevelHelloWorldResponse, TopLevel } from './top-level';

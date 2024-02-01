@@ -5,6 +5,7 @@ import { APIResource } from 'braintrust/resource';
 import { isRequestOptions } from 'braintrust/core';
 import * as ProjectAPI from 'braintrust/resources/project/project';
 import * as LogsAPI from 'braintrust/resources/project/logs';
+import { ListObjects } from 'braintrust/pagination';
 
 export class ProjectResource extends APIResource {
   logs: LogsAPI.Logs = new LogsAPI.Logs(this._client);
@@ -52,16 +53,19 @@ export class ProjectResource extends APIResource {
    * List out all projects. The projects are sorted by creation date, with the most
    * recently-created projects coming first
    */
-  list(query?: ProjectListParams, options?: Core.RequestOptions): Core.APIPromise<ProjectListResponse>;
-  list(options?: Core.RequestOptions): Core.APIPromise<ProjectListResponse>;
+  list(
+    query?: ProjectListParams,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<ProjectsListObjects, Project>;
+  list(options?: Core.RequestOptions): Core.PagePromise<ProjectsListObjects, Project>;
   list(
     query: ProjectListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<ProjectListResponse> {
+  ): Core.PagePromise<ProjectsListObjects, Project> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this._client.get('/v1/project', { query, ...options });
+    return this._client.getAPIList('/v1/project', ProjectsListObjects, { query, ...options });
   }
 
   /**
@@ -80,6 +84,11 @@ export class ProjectResource extends APIResource {
     return this._client.put('/v1/project', { body, ...options });
   }
 }
+
+/**
+ * Pagination for endpoints which list data objects
+ */
+export class ProjectsListObjects extends ListObjects<Project> {}
 
 export interface Project {
   /**
@@ -111,13 +120,6 @@ export interface Project {
    * Identifies the user who created the project
    */
   user_id?: string | null;
-}
-
-export interface ProjectListResponse {
-  /**
-   * A list of project objects
-   */
-  objects: Array<Project>;
 }
 
 export interface ProjectCreateParams {
@@ -188,7 +190,7 @@ export interface ProjectReplaceParams {
 
 export namespace ProjectResource {
   export import Project = ProjectAPI.Project;
-  export import ProjectListResponse = ProjectAPI.ProjectListResponse;
+  export import ProjectsListObjects = ProjectAPI.ProjectsListObjects;
   export import ProjectCreateParams = ProjectAPI.ProjectCreateParams;
   export import ProjectUpdateParams = ProjectAPI.ProjectUpdateParams;
   export import ProjectListParams = ProjectAPI.ProjectListParams;

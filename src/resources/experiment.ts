@@ -4,6 +4,7 @@ import * as Core from 'braintrust/core';
 import { APIResource } from 'braintrust/resource';
 import { isRequestOptions } from 'braintrust/core';
 import * as ExperimentAPI from 'braintrust/resources/experiment';
+import { ListObjects } from 'braintrust/pagination';
 
 export class ExperimentResource extends APIResource {
   /**
@@ -50,16 +51,19 @@ export class ExperimentResource extends APIResource {
    * List out all experiments. The experiments are sorted by creation date, with the
    * most recently-created experiments coming first
    */
-  list(query?: ExperimentListParams, options?: Core.RequestOptions): Core.APIPromise<ExperimentListResponse>;
-  list(options?: Core.RequestOptions): Core.APIPromise<ExperimentListResponse>;
+  list(
+    query?: ExperimentListParams,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<ExperimentsListObjects, Experiment>;
+  list(options?: Core.RequestOptions): Core.PagePromise<ExperimentsListObjects, Experiment>;
   list(
     query: ExperimentListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<ExperimentListResponse> {
+  ): Core.PagePromise<ExperimentsListObjects, Experiment> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this._client.get('/v1/experiment', { query, ...options });
+    return this._client.getAPIList('/v1/experiment', ExperimentsListObjects, { query, ...options });
   }
 
   /**
@@ -149,6 +153,11 @@ export class ExperimentResource extends APIResource {
     return this._client.put('/v1/experiment', { body, ...options });
   }
 }
+
+/**
+ * Pagination for endpoints which list data objects
+ */
+export class ExperimentsListObjects extends ListObjects<Experiment> {}
 
 export interface Experiment {
   /**
@@ -276,13 +285,6 @@ export namespace Experiment {
      */
     tag?: string | null;
   }
-}
-
-export interface ExperimentListResponse {
-  /**
-   * A list of experiment objects
-   */
-  objects: Array<Experiment>;
 }
 
 export interface ExperimentFetchResponse {
@@ -1575,10 +1577,10 @@ export namespace ExperimentReplaceParams {
 
 export namespace ExperimentResource {
   export import Experiment = ExperimentAPI.Experiment;
-  export import ExperimentListResponse = ExperimentAPI.ExperimentListResponse;
   export import ExperimentFetchResponse = ExperimentAPI.ExperimentFetchResponse;
   export import ExperimentFetchPostResponse = ExperimentAPI.ExperimentFetchPostResponse;
   export import ExperimentInsertResponse = ExperimentAPI.ExperimentInsertResponse;
+  export import ExperimentsListObjects = ExperimentAPI.ExperimentsListObjects;
   export import ExperimentCreateParams = ExperimentAPI.ExperimentCreateParams;
   export import ExperimentUpdateParams = ExperimentAPI.ExperimentUpdateParams;
   export import ExperimentListParams = ExperimentAPI.ExperimentListParams;

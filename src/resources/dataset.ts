@@ -4,6 +4,7 @@ import * as Core from 'braintrust/core';
 import { APIResource } from 'braintrust/resource';
 import { isRequestOptions } from 'braintrust/core';
 import * as DatasetAPI from 'braintrust/resources/dataset';
+import { ListObjects } from 'braintrust/pagination';
 
 export class DatasetResource extends APIResource {
   /**
@@ -41,16 +42,19 @@ export class DatasetResource extends APIResource {
    * List out all datasets. The datasets are sorted by creation date, with the most
    * recently-created datasets coming first
    */
-  list(query?: DatasetListParams, options?: Core.RequestOptions): Core.APIPromise<DatasetListResponse>;
-  list(options?: Core.RequestOptions): Core.APIPromise<DatasetListResponse>;
+  list(
+    query?: DatasetListParams,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<DatasetsListObjects, Dataset>;
+  list(options?: Core.RequestOptions): Core.PagePromise<DatasetsListObjects, Dataset>;
   list(
     query: DatasetListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<DatasetListResponse> {
+  ): Core.PagePromise<DatasetsListObjects, Dataset> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this._client.get('/v1/dataset', { query, ...options });
+    return this._client.getAPIList('/v1/dataset', DatasetsListObjects, { query, ...options });
   }
 
   /**
@@ -138,6 +142,11 @@ export class DatasetResource extends APIResource {
   }
 }
 
+/**
+ * Pagination for endpoints which list data objects
+ */
+export class DatasetsListObjects extends ListObjects<Dataset> {}
+
 export interface Dataset {
   /**
    * Unique identifier for the dataset
@@ -173,13 +182,6 @@ export interface Dataset {
    * Identifies the user who created the dataset
    */
   user_id?: string | null;
-}
-
-export interface DatasetListResponse {
-  /**
-   * A list of dataset objects
-   */
-  objects: Array<Dataset>;
 }
 
 export interface DatasetFetchResponse {
@@ -702,10 +704,10 @@ export interface DatasetReplaceParams {
 
 export namespace DatasetResource {
   export import Dataset = DatasetAPI.Dataset;
-  export import DatasetListResponse = DatasetAPI.DatasetListResponse;
   export import DatasetFetchResponse = DatasetAPI.DatasetFetchResponse;
   export import DatasetFetchPostResponse = DatasetAPI.DatasetFetchPostResponse;
   export import DatasetInsertResponse = DatasetAPI.DatasetInsertResponse;
+  export import DatasetsListObjects = DatasetAPI.DatasetsListObjects;
   export import DatasetCreateParams = DatasetAPI.DatasetCreateParams;
   export import DatasetUpdateParams = DatasetAPI.DatasetUpdateParams;
   export import DatasetListParams = DatasetAPI.DatasetListParams;

@@ -182,7 +182,7 @@ export namespace Braintrust {
 
   export import ProjectResource = API.ProjectResource;
   export import Project = API.Project;
-  export import ProjectListResponse = API.ProjectListResponse;
+  export import ProjectsListObjects = API.ProjectsListObjects;
   export import ProjectCreateParams = API.ProjectCreateParams;
   export import ProjectUpdateParams = API.ProjectUpdateParams;
   export import ProjectListParams = API.ProjectListParams;
@@ -199,10 +199,10 @@ export namespace Braintrust {
 
   export import ExperimentResource = API.ExperimentResource;
   export import Experiment = API.Experiment;
-  export import ExperimentListResponse = API.ExperimentListResponse;
   export import ExperimentFetchResponse = API.ExperimentFetchResponse;
   export import ExperimentFetchPostResponse = API.ExperimentFetchPostResponse;
   export import ExperimentInsertResponse = API.ExperimentInsertResponse;
+  export import ExperimentsListObjects = API.ExperimentsListObjects;
   export import ExperimentCreateParams = API.ExperimentCreateParams;
   export import ExperimentUpdateParams = API.ExperimentUpdateParams;
   export import ExperimentListParams = API.ExperimentListParams;
@@ -214,10 +214,10 @@ export namespace Braintrust {
 
   export import DatasetResource = API.DatasetResource;
   export import Dataset = API.Dataset;
-  export import DatasetListResponse = API.DatasetListResponse;
   export import DatasetFetchResponse = API.DatasetFetchResponse;
   export import DatasetFetchPostResponse = API.DatasetFetchPostResponse;
   export import DatasetInsertResponse = API.DatasetInsertResponse;
+  export import DatasetsListObjects = API.DatasetsListObjects;
   export import DatasetCreateParams = API.DatasetCreateParams;
   export import DatasetUpdateParams = API.DatasetUpdateParams;
   export import DatasetListParams = API.DatasetListParams;

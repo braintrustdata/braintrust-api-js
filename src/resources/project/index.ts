@@ -3,10 +3,10 @@
 export { Logs } from './logs';
 export {
   Project,
-  ProjectListResponse,
   ProjectCreateParams,
   ProjectUpdateParams,
   ProjectListParams,
   ProjectReplaceParams,
+  ProjectsListObjects,
   ProjectResource,
 } from './project';
