@@ -15,20 +15,18 @@ Methods:
 
 ## Logs
 
-# Logs
-
 Types:
 
-- <code><a href="./src/resources/logs.ts">LogFetchResponse</a></code>
-- <code><a href="./src/resources/logs.ts">LogFetchPostResponse</a></code>
-- <code><a href="./src/resources/logs.ts">LogInsertResponse</a></code>
+- <code><a href="./src/resources/project/logs.ts">LogFetchResponse</a></code>
+- <code><a href="./src/resources/project/logs.ts">LogFetchPostResponse</a></code>
+- <code><a href="./src/resources/project/logs.ts">LogInsertResponse</a></code>
 
 Methods:
 
-- <code title="post /v1/project_logs/{project_id}/feedback">client.logs.<a href="./src/resources/logs.ts">feedback</a>(projectId, { ...params }) -> void</code>
-- <code title="get /v1/project_logs/{project_id}/fetch">client.logs.<a href="./src/resources/logs.ts">fetch</a>(projectId, { ...params }) -> LogFetchResponse</code>
-- <code title="post /v1/project_logs/{project_id}/fetch">client.logs.<a href="./src/resources/logs.ts">fetchPost</a>(projectId, { ...params }) -> LogFetchPostResponse</code>
-- <code title="post /v1/project_logs/{project_id}/insert">client.logs.<a href="./src/resources/logs.ts">insert</a>(projectId, { ...params }) -> LogInsertResponse</code>
+- <code title="post /v1/project_logs/{project_id}/feedback">client.project.logs.<a href="./src/resources/project/logs.ts">feedback</a>(projectId, { ...params }) -> void</code>
+- <code title="get /v1/project_logs/{project_id}/fetch">client.project.logs.<a href="./src/resources/project/logs.ts">fetch</a>(projectId, { ...params }) -> LogFetchResponse</code>
+- <code title="post /v1/project_logs/{project_id}/fetch">client.project.logs.<a href="./src/resources/project/logs.ts">fetchPost</a>(projectId, { ...params }) -> LogFetchPostResponse</code>
+- <code title="post /v1/project_logs/{project_id}/insert">client.project.logs.<a href="./src/resources/project/logs.ts">insert</a>(projectId, { ...params }) -> LogInsertResponse</code>
 
 # Experiment
 

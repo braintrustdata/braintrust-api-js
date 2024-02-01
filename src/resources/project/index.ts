@@ -1,6 +1,15 @@
 // File generated from our OpenAPI spec by Stainless.
 
-export { Logs } from './logs';
+export {
+  LogFetchResponse,
+  LogFetchPostResponse,
+  LogInsertResponse,
+  LogFeedbackParams,
+  LogFetchParams,
+  LogFetchPostParams,
+  LogInsertParams,
+  Logs,
+} from './logs';
 export {
   Project,
   ProjectCreateParams,

@@ -117,7 +117,6 @@ export class Braintrust extends Core.APIClient {
   }
 
   project: API.ProjectResource = new API.ProjectResource(this);
-  logs: API.Logs = new API.Logs(this);
   experiment: API.ExperimentResource = new API.ExperimentResource(this);
   dataset: API.DatasetResource = new API.DatasetResource(this);
   topLevel: API.TopLevel = new API.TopLevel(this);
@@ -187,15 +186,6 @@ export namespace Braintrust {
   export import ProjectUpdateParams = API.ProjectUpdateParams;
   export import ProjectListParams = API.ProjectListParams;
   export import ProjectReplaceParams = API.ProjectReplaceParams;
-
-  export import Logs = API.Logs;
-  export import LogFetchResponse = API.LogFetchResponse;
-  export import LogFetchPostResponse = API.LogFetchPostResponse;
-  export import LogInsertResponse = API.LogInsertResponse;
-  export import LogFeedbackParams = API.LogFeedbackParams;
-  export import LogFetchParams = API.LogFetchParams;
-  export import LogFetchPostParams = API.LogFetchPostParams;
-  export import LogInsertParams = API.LogInsertParams;
 
   export import ExperimentResource = API.ExperimentResource;
   export import Experiment = API.Experiment;

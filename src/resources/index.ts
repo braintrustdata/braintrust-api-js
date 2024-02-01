@@ -33,16 +33,6 @@ export {
   ExperimentResource,
 } from './experiment';
 export {
-  LogFetchResponse,
-  LogFetchPostResponse,
-  LogInsertResponse,
-  LogFeedbackParams,
-  LogFetchParams,
-  LogFetchPostParams,
-  LogInsertParams,
-  Logs,
-} from './logs';
-export {
   Project,
   ProjectCreateParams,
   ProjectUpdateParams,

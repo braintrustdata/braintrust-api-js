@@ -196,4 +196,11 @@ export namespace ProjectResource {
   export import ProjectListParams = ProjectAPI.ProjectListParams;
   export import ProjectReplaceParams = ProjectAPI.ProjectReplaceParams;
   export import Logs = LogsAPI.Logs;
+  export import LogFetchResponse = LogsAPI.LogFetchResponse;
+  export import LogFetchPostResponse = LogsAPI.LogFetchPostResponse;
+  export import LogInsertResponse = LogsAPI.LogInsertResponse;
+  export import LogFeedbackParams = LogsAPI.LogFeedbackParams;
+  export import LogFetchParams = LogsAPI.LogFetchParams;
+  export import LogFetchPostParams = LogsAPI.LogFetchPostParams;
+  export import LogInsertParams = LogsAPI.LogInsertParams;
 }
