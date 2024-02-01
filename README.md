@@ -1,8 +1,8 @@
-# Braintrustdata Node API Library
+# Braintrust Node API Library
 
 [![NPM version](https://img.shields.io/npm/v/braintrust.svg)](https://npmjs.org/package/braintrust)
 
-This library provides convenient access to the Braintrustdata REST API from server-side TypeScript or JavaScript.
+This library provides convenient access to the Braintrust REST API from server-side TypeScript or JavaScript.
 
 The REST API documentation can be found [on docs.braintrustdata.com](https://docs.braintrustdata.com). The full API of this library can be found in [api.md](https://www.github.com/braintrustdata/braintrust-node/blob/main/api.md).
 
@@ -20,12 +20,12 @@ The full API of this library can be found in [api.md](https://www.github.com/bra
 
 <!-- prettier-ignore -->
 ```js
-import Braintrustdata from 'braintrust';
+import Braintrust from 'braintrust';
 
-const braintrustdata = new Braintrustdata();
+const braintrust = new Braintrust();
 
 async function main() {
-  const project = await braintrustdata.project.create({ name: 'string' });
+  const project = await braintrust.project.create({ name: 'string' });
 
   console.log(project.id);
 }
@@ -39,13 +39,13 @@ This library includes TypeScript definitions for all request params and response
 
 <!-- prettier-ignore -->
 ```ts
-import Braintrustdata from 'braintrust';
+import Braintrust from 'braintrust';
 
-const braintrustdata = new Braintrustdata();
+const braintrust = new Braintrust();
 
 async function main() {
-  const params: Braintrustdata.ProjectCreateParams = { name: 'string' };
-  const project: Braintrustdata.Project = await braintrustdata.project.create(params);
+  const params: Braintrust.ProjectCreateParams = { name: 'string' };
+  const project: Braintrust.Project = await braintrust.project.create(params);
 }
 
 main();
@@ -62,8 +62,8 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const project = await braintrustdata.project.create({ name: 'string' }).catch((err) => {
-    if (err instanceof Braintrustdata.APIError) {
+  const project = await braintrust.project.create({ name: 'string' }).catch((err) => {
+    if (err instanceof Braintrust.APIError) {
       console.log(err.status); // 400
       console.log(err.name); // BadRequestError
       console.log(err.headers); // {server: 'nginx', ...}
@@ -100,12 +100,12 @@ You can use the `maxRetries` option to configure or disable this:
 <!-- prettier-ignore -->
 ```js
 // Configure the default for all requests:
-const braintrustdata = new Braintrustdata({
+const braintrust = new Braintrust({
   maxRetries: 0, // default is 2
 });
 
 // Or, configure per-request:
-await braintrustdata.project.create({ name: 'string' }, {
+await braintrust.project.create({ name: 'string' }, {
   maxRetries: 5,
 });
 ```
@@ -117,12 +117,12 @@ Requests time out after 1 minute by default. You can configure this with a `time
 <!-- prettier-ignore -->
 ```ts
 // Configure the default for all requests:
-const braintrustdata = new Braintrustdata({
+const braintrust = new Braintrust({
   timeout: 20 * 1000, // 20 seconds (default is 1 minute)
 });
 
 // Override per-request:
-await braintrustdata.project.create({ name: 'string' }, {
+await braintrust.project.create({ name: 'string' }, {
   timeout: 5 * 1000,
 });
 ```
@@ -141,15 +141,13 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 
 <!-- prettier-ignore -->
 ```ts
-const braintrustdata = new Braintrustdata();
+const braintrust = new Braintrust();
 
-const response = await braintrustdata.project.create({ name: 'string' }).asResponse();
+const response = await braintrust.project.create({ name: 'string' }).asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: project, response: raw } = await braintrustdata.project
-  .create({ name: 'string' })
-  .withResponse();
+const { data: project, response: raw } = await braintrust.project.create({ name: 'string' }).withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(project.id);
 ```
@@ -160,13 +158,13 @@ By default, this library uses `node-fetch` in Node, and expects a global `fetch`
 
 If you would prefer to use a global, web-standards-compliant `fetch` function even in a Node environment,
 (for example, if you are running Node with `--experimental-fetch` or using NextJS which polyfills with `undici`),
-add the following import before your first import `from "Braintrustdata"`:
+add the following import before your first import `from "Braintrust"`:
 
 ```ts
 // Tell TypeScript and the package to use the global web fetch instead of node-fetch.
 // Note, despite the name, this does not add any polyfills, but expects them to be provided if needed.
 import 'braintrust/shims/web';
-import Braintrustdata from 'braintrust';
+import Braintrust from 'braintrust';
 ```
 
 To do the inverse, add `import "braintrust/shims/node"` (which does import polyfills).
@@ -177,9 +175,9 @@ which can be used to inspect or alter the `Request` or `Response` before/after e
 
 ```ts
 import { fetch } from 'undici'; // as one example
-import Braintrustdata from 'braintrust';
+import Braintrust from 'braintrust';
 
-const client = new Braintrustdata({
+const client = new Braintrust({
   fetch: async (url: RequestInfo, init?: RequestInfo): Promise<Response> => {
     console.log('About to make a request', url, init);
     const response = await fetch(url, init);
@@ -204,12 +202,12 @@ import http from 'http';
 import HttpsProxyAgent from 'https-proxy-agent';
 
 // Configure the default for all requests:
-const braintrustdata = new Braintrustdata({
+const braintrust = new Braintrust({
   httpAgent: new HttpsProxyAgent(process.env.PROXY_URL),
 });
 
 // Override per-request:
-await braintrustdata.project.create({ name: 'string' }, {
+await braintrust.project.create({ name: 'string' }, {
   baseURL: 'http://localhost:8080/test-api',
   httpAgent: new http.Agent({ keepAlive: false }),
 })
@@ -234,7 +232,7 @@ TypeScript >= 4.5 is supported.
 The following runtimes are supported:
 
 - Node.js 18 LTS or later ([non-EOL](https://endoflife.date/nodejs)) versions.
-- Deno v1.28.0 or higher, using `import Braintrustdata from "npm:braintrust"`.
+- Deno v1.28.0 or higher, using `import Braintrust from "npm:braintrust"`.
 - Bun 1.0 or later.
 - Cloudflare Workers.
 - Vercel Edge Runtime.
