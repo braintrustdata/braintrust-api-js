@@ -7,23 +7,10 @@ export interface ListObjectsResponse<Item> {
 }
 
 export interface ListObjectsParams {
-  /**
-   * A cursor for pagination. For example, if the final item in the last page you
-   * fetched had an id of `foo`, pass `starting_after=foo` to fetch the next page.
-   * Note: you may only pass one of `starting_after` and `ending_before`
-   */
   starting_after?: string;
 
-  /**
-   * A cursor for pagination. For example, if the initial item in the last page you
-   * fetched had an id of `foo`, pass `ending_before=foo` to fetch the previous page.
-   * Note: you may only pass one of `starting_after` and `ending_before`
-   */
   ending_before?: string;
 
-  /**
-   * Limit the number of objects to return
-   */
   limit?: number;
 }
 
