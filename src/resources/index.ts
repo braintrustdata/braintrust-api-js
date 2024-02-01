@@ -15,12 +15,14 @@ export {
 } from './datasets';
 export {
   Experiment,
-  ExperimentFetchEventsResponse,
+  ExperimentFetchResponse,
+  ExperimentFetchPostResponse,
   ExperimentInsertResponse,
   ExperimentCreateParams,
   ExperimentUpdateParams,
   ExperimentFeedbackParams,
-  ExperimentFetchEventsParams,
+  ExperimentFetchParams,
+  ExperimentFetchPostParams,
   ExperimentInsertParams,
   ExperimentUpdatePartialParams,
   ExperimentResource,
@@ -32,17 +34,17 @@ export {
   ProjectCreateParams,
   ProjectUpdateParams,
   ProjectListParams,
-  ProjectCreateOrReplaceParams,
+  ProjectReplaceParams,
   ProjectResource,
 } from './project/project';
 export {
   ProjectLogFetchResponse,
+  ProjectLogFetchPostResponse,
   ProjectLogInsertResponse,
-  ProjectLogInsertFetchResponse,
+  ProjectLogFeedbackParams,
   ProjectLogFetchParams,
+  ProjectLogFetchPostParams,
   ProjectLogInsertParams,
-  ProjectLogInsertFetchParams,
-  ProjectLogLogFeedbackParams,
   ProjectLogs,
 } from './project-logs';
 export { TopLevel } from './top-level';

@@ -188,25 +188,27 @@ export namespace BraintrustSdkKotlin {
   export import ProjectCreateParams = API.ProjectCreateParams;
   export import ProjectUpdateParams = API.ProjectUpdateParams;
   export import ProjectListParams = API.ProjectListParams;
-  export import ProjectCreateOrReplaceParams = API.ProjectCreateOrReplaceParams;
+  export import ProjectReplaceParams = API.ProjectReplaceParams;
 
   export import ProjectLogs = API.ProjectLogs;
   export import ProjectLogFetchResponse = API.ProjectLogFetchResponse;
+  export import ProjectLogFetchPostResponse = API.ProjectLogFetchPostResponse;
   export import ProjectLogInsertResponse = API.ProjectLogInsertResponse;
-  export import ProjectLogInsertFetchResponse = API.ProjectLogInsertFetchResponse;
+  export import ProjectLogFeedbackParams = API.ProjectLogFeedbackParams;
   export import ProjectLogFetchParams = API.ProjectLogFetchParams;
+  export import ProjectLogFetchPostParams = API.ProjectLogFetchPostParams;
   export import ProjectLogInsertParams = API.ProjectLogInsertParams;
-  export import ProjectLogInsertFetchParams = API.ProjectLogInsertFetchParams;
-  export import ProjectLogLogFeedbackParams = API.ProjectLogLogFeedbackParams;
 
   export import ExperimentResource = API.ExperimentResource;
   export import Experiment = API.Experiment;
-  export import ExperimentFetchEventsResponse = API.ExperimentFetchEventsResponse;
+  export import ExperimentFetchResponse = API.ExperimentFetchResponse;
+  export import ExperimentFetchPostResponse = API.ExperimentFetchPostResponse;
   export import ExperimentInsertResponse = API.ExperimentInsertResponse;
   export import ExperimentCreateParams = API.ExperimentCreateParams;
   export import ExperimentUpdateParams = API.ExperimentUpdateParams;
   export import ExperimentFeedbackParams = API.ExperimentFeedbackParams;
-  export import ExperimentFetchEventsParams = API.ExperimentFetchEventsParams;
+  export import ExperimentFetchParams = API.ExperimentFetchParams;
+  export import ExperimentFetchPostParams = API.ExperimentFetchPostParams;
   export import ExperimentInsertParams = API.ExperimentInsertParams;
   export import ExperimentUpdatePartialParams = API.ExperimentUpdatePartialParams;
 

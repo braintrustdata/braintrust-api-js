@@ -76,10 +76,7 @@ export class ProjectResource extends APIResource {
    * name as the one specified in the request, will replace the existing project with
    * the provided fields
    */
-  createOrReplace(
-    body: ProjectCreateOrReplaceParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Project> {
+  replace(body: ProjectReplaceParams, options?: Core.RequestOptions): Core.APIPromise<Project> {
     return this._client.put('/v1/project', { body, ...options });
   }
 }
@@ -175,7 +172,7 @@ export interface ProjectListParams {
   starting_after?: string;
 }
 
-export interface ProjectCreateOrReplaceParams {
+export interface ProjectReplaceParams {
   /**
    * Name of the project
    */
@@ -195,6 +192,6 @@ export namespace ProjectResource {
   export import ProjectCreateParams = ProjectAPI.ProjectCreateParams;
   export import ProjectUpdateParams = ProjectAPI.ProjectUpdateParams;
   export import ProjectListParams = ProjectAPI.ProjectListParams;
-  export import ProjectCreateOrReplaceParams = ProjectAPI.ProjectCreateOrReplaceParams;
+  export import ProjectReplaceParams = ProjectAPI.ProjectReplaceParams;
   export import ProjectLogs = ProjectLogsAPI.ProjectLogs;
 }

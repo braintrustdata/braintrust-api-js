@@ -6,7 +6,7 @@ export {
   ProjectCreateParams,
   ProjectUpdateParams,
   ProjectListParams,
-  ProjectCreateOrReplaceParams,
+  ProjectReplaceParams,
   ProjectResource,
 } from './project';
 export { ProjectLogs } from './project-logs';

@@ -167,10 +167,8 @@ describe('resource experiment', () => {
     });
   });
 
-  test('fetchEvents', async () => {
-    const responsePromise = braintrustSdkKotlin.experiment.fetchEvents(
-      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-    );
+  test('fetch', async () => {
+    const responsePromise = braintrustSdkKotlin.experiment.fetch('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -180,21 +178,62 @@ describe('resource experiment', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('fetchEvents: request options instead of params are passed correctly', async () => {
+  test('fetch: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrustSdkKotlin.experiment.fetchEvents('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      braintrustSdkKotlin.experiment.fetch('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(BraintrustSdkKotlin.NotFoundError);
   });
 
-  test('fetchEvents: request options and params are passed correctly', async () => {
+  test('fetch: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrustSdkKotlin.experiment.fetchEvents(
+      braintrustSdkKotlin.experiment.fetch(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         { limit: 0, max_root_span_id: 'string', max_xact_id: 0, version: 0 },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(BraintrustSdkKotlin.NotFoundError);
+  });
+
+  test('fetchPost', async () => {
+    const responsePromise = braintrustSdkKotlin.experiment.fetchPost('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('fetchPost: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      braintrustSdkKotlin.experiment.fetchPost('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+        path: '/_stainless_unknown_path',
+      }),
+    ).rejects.toThrow(BraintrustSdkKotlin.NotFoundError);
+  });
+
+  test('fetchPost: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      braintrustSdkKotlin.experiment.fetchPost(
+        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+        {
+          filters: [
+            { type: 'path_lookup', path: ['string', 'string', 'string'], value: {} },
+            { type: 'path_lookup', path: ['string', 'string', 'string'], value: {} },
+            { type: 'path_lookup', path: ['string', 'string', 'string'], value: {} },
+          ],
+          limit: 0,
+          max_root_span_id: 'string',
+          max_xact_id: 0,
+          version: 0,
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(BraintrustSdkKotlin.NotFoundError);

@@ -57,24 +57,45 @@ export class ExperimentResource extends APIResource {
    * Fetch the events in an experiment. Equivalent to the POST form of the same path,
    * but with the parameters in the URL query rather than in the request body
    */
-  fetchEvents(
+  fetch(
     experimentId: string,
-    query?: ExperimentFetchEventsParams,
+    query?: ExperimentFetchParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<ExperimentFetchEventsResponse>;
-  fetchEvents(
+  ): Core.APIPromise<ExperimentFetchResponse>;
+  fetch(experimentId: string, options?: Core.RequestOptions): Core.APIPromise<ExperimentFetchResponse>;
+  fetch(
     experimentId: string,
+    query: ExperimentFetchParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<ExperimentFetchEventsResponse>;
-  fetchEvents(
-    experimentId: string,
-    query: ExperimentFetchEventsParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ExperimentFetchEventsResponse> {
+  ): Core.APIPromise<ExperimentFetchResponse> {
     if (isRequestOptions(query)) {
-      return this.fetchEvents(experimentId, {}, query);
+      return this.fetch(experimentId, {}, query);
     }
     return this._client.get(`/v1/experiment/${experimentId}/fetch`, { query, ...options });
+  }
+
+  /**
+   * Fetch the events in an experiment. Equivalent to the GET form of the same path,
+   * but with the parameters in the request body rather than in the URL query
+   */
+  fetchPost(
+    experimentId: string,
+    body?: ExperimentFetchPostParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<ExperimentFetchPostResponse>;
+  fetchPost(
+    experimentId: string,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<ExperimentFetchPostResponse>;
+  fetchPost(
+    experimentId: string,
+    body: ExperimentFetchPostParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<ExperimentFetchPostResponse> {
+    if (isRequestOptions(body)) {
+      return this.fetchPost(experimentId, {}, body);
+    }
+    return this._client.post(`/v1/experiment/${experimentId}/fetch`, { body, ...options });
   }
 
   /**
@@ -241,14 +262,212 @@ export namespace Experiment {
   }
 }
 
-export interface ExperimentFetchEventsResponse {
+export interface ExperimentFetchResponse {
   /**
    * A list of fetched events
    */
-  events: Array<ExperimentFetchEventsResponse.Event>;
+  events: Array<ExperimentFetchResponse.Event>;
 }
 
-export namespace ExperimentFetchEventsResponse {
+export namespace ExperimentFetchResponse {
+  export interface Event {
+    /**
+     * A unique identifier for the experiment event. If you don't provide one,
+     * BrainTrust will generate one for you
+     */
+    id: string;
+
+    /**
+     * The transaction id of an event is unique to the network operation that processed
+     * the event insertion. Transaction ids are monotonically increasing over time and
+     * can be used to retrieve a versioned snapshot of the experiment (see the
+     * `version` parameter)
+     */
+    _xact_id: number;
+
+    /**
+     * Unique identifier for the experiment
+     */
+    experiment_id: string;
+
+    /**
+     * Unique identifier for the project that the experiment belongs under
+     */
+    project_id: string;
+
+    /**
+     * The `span_id` of the root of the trace this experiment event belongs to
+     */
+    root_span_id: string;
+
+    /**
+     * A unique identifier used to link different experiment events together as part of
+     * a full trace. See the
+     * [tracing guide](https://www.braintrustdata.com/docs/guides/tracing) for full
+     * details on tracing
+     */
+    span_id: string;
+
+    /**
+     * Context is additional information about the code that produced the experiment
+     * event. It is essentially the textual counterpart to `metrics`. Use the
+     * `caller_*` attributes to track the location in code which produced the
+     * experiment event
+     */
+    context?: Event.Context | null;
+
+    /**
+     * The timestamp the experiment event was created
+     */
+    created?: string | null;
+
+    /**
+     * If the experiment is associated to a dataset, this is the event-level dataset id
+     * this experiment event is tied to
+     */
+    dataset_record_id?: string | null;
+
+    /**
+     * The ground truth value (an arbitrary, JSON serializable object) that you'd
+     * compare to `output` to determine if your `output` value is correct or not.
+     * Braintrust currently does not compare `output` to `expected` for you, since
+     * there are so many different ways to do that correctly. Instead, these values are
+     * just used to help you navigate your experiments while digging into analyses.
+     * However, we may later use these values to re-score outputs or fine-tune your
+     * models
+     */
+    expected?: unknown;
+
+    /**
+     * The arguments that uniquely define a test case (an arbitrary, JSON serializable
+     * object). Later on, Braintrust will use the `input` to know whether two test
+     * cases are the same between experiments, so they should not contain
+     * experiment-specific state. A simple rule of thumb is that if you run the same
+     * experiment twice, the `input` should be identical
+     */
+    input?: unknown;
+
+    /**
+     * A dictionary with additional data about the test example, model outputs, or just
+     * about anything else that's relevant, that you can use to help find and analyze
+     * examples later. For example, you could log the `prompt`, example's `id`, or
+     * anything else that would be useful to slice/dice later. The values in `metadata`
+     * can be any JSON-serializable type, but its keys must be strings
+     */
+    metadata?: Record<string, unknown> | null;
+
+    /**
+     * Metrics are numerical measurements tracking the execution of the code that
+     * produced the experiment event. Use "start" and "end" to track the time span over
+     * which the experiment event was produced
+     */
+    metrics?: Event.Metrics | null;
+
+    /**
+     * The output of your application, including post-processing (an arbitrary, JSON
+     * serializable object), that allows you to determine whether the result is correct
+     * or not. For example, in an app that generates SQL queries, the `output` should
+     * be the _result_ of the SQL query generated by the model, not the query itself,
+     * because there may be multiple valid queries that answer a single question
+     */
+    output?: unknown;
+
+    /**
+     * A dictionary of numeric values (between 0 and 1) to log. The scores should give
+     * you a variety of signals that help you determine how accurate the outputs are
+     * compared to what you expect and diagnose failures. For example, a summarization
+     * app might have one score that tells you how accurate the summary is, and another
+     * that measures the word similarity between the generated and grouth truth
+     * summary. The word similarity score could help you determine whether the
+     * summarization was covering similar concepts or not. You can use these scores to
+     * help you sort, filter, and compare experiments
+     */
+    scores?: Record<string, number | null> | null;
+
+    /**
+     * Human-identifying attributes of the span, such as name, type, etc.
+     */
+    span_attributes?: Event.SpanAttributes | null;
+
+    /**
+     * An array of the parent `span_ids` of this experiment event. This should be empty
+     * for the root span of a trace, and should most often contain just one parent
+     * element for subspans
+     */
+    span_parents?: Array<string> | null;
+  }
+
+  export namespace Event {
+    /**
+     * Context is additional information about the code that produced the experiment
+     * event. It is essentially the textual counterpart to `metrics`. Use the
+     * `caller_*` attributes to track the location in code which produced the
+     * experiment event
+     */
+    export interface Context {
+      /**
+       * Name of the file in code where the experiment event was created
+       */
+      caller_filename?: string | null;
+
+      /**
+       * The function in code which created the experiment event
+       */
+      caller_functionname?: string | null;
+
+      /**
+       * Line of code where the experiment event was created
+       */
+      caller_lineno?: number | null;
+      [k: string]: unknown;
+    }
+
+    /**
+     * Metrics are numerical measurements tracking the execution of the code that
+     * produced the experiment event. Use "start" and "end" to track the time span over
+     * which the experiment event was produced
+     */
+    export interface Metrics {
+      /**
+       * A unix timestamp recording when the section of code which produced the
+       * experiment event finished
+       */
+      end?: number | null;
+
+      /**
+       * A unix timestamp recording when the section of code which produced the
+       * experiment event started
+       */
+      start?: number | null;
+      [k: string]: unknown;
+    }
+
+    /**
+     * Human-identifying attributes of the span, such as name, type, etc.
+     */
+    export interface SpanAttributes {
+      /**
+       * Name of the span, for display purposes only
+       */
+      name?: string | null;
+
+      /**
+       * Type of the span, for display purposes only
+       */
+      type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
+      [k: string]: unknown;
+    }
+  }
+}
+
+export interface ExperimentFetchPostResponse {
+  /**
+   * A list of fetched events
+   */
+  events: Array<ExperimentFetchPostResponse.Event>;
+}
+
+export namespace ExperimentFetchPostResponse {
   export interface Event {
     /**
      * A unique identifier for the experiment event. If you don't provide one,
@@ -698,7 +917,7 @@ export namespace ExperimentFeedbackParams {
   }
 }
 
-export interface ExperimentFetchEventsParams {
+export interface ExperimentFetchParams {
   /**
    * Fetch queries may be paginated if the total result size is expected to be large
    * (e.g. project_logs which accumulate over a long time). Note that fetch queries
@@ -738,6 +957,85 @@ export interface ExperimentFetchEventsParams {
    * reproduce that exact fetch.
    */
   version?: number;
+}
+
+export interface ExperimentFetchPostParams {
+  /**
+   * A list of filters on the events to fetch. Currently, only path-lookup type
+   * filters are supported, but we may add more in the future
+   */
+  filters?: Array<ExperimentFetchPostParams.Filter> | null;
+
+  /**
+   * Fetch queries may be paginated if the total result size is expected to be large
+   * (e.g. project_logs which accumulate over a long time). Note that fetch queries
+   * only support pagination in descending time order (from latest to earliest
+   * `_xact_id`. Furthermore, later pages may return rows which showed up in earlier
+   * pages, except with an earlier `_xact_id`. This happens because pagination occurs
+   * over the whole version history of the event log. You will most likely want to
+   * exclude any such duplicate, outdated rows (by `id`) from your combined result
+   * set.
+   *
+   * The `limit` parameter controls the number of full traces to return. So you may
+   * end up with more individual rows than the specified limit if you are fetching
+   * events containing traces.
+   */
+  limit?: number | null;
+
+  /**
+   * Together, `max_xact_id` and `max_root_span_id` form a cursor for paginating
+   * event fetches. Given a previous fetch with a list of rows, you can determine
+   * `max_root_span_id` as the maximum of the `root_span_id` field over all rows. See
+   * the documentation for `limit` for an overview of paginating fetch queries.
+   */
+  max_root_span_id?: string | null;
+
+  /**
+   * Together, `max_xact_id` and `max_root_span_id` form a cursor for paginating
+   * event fetches. Given a previous fetch with a list of rows, you can determine
+   * `max_xact_id` as the maximum of the `_xact_id` field over all rows. See the
+   * documentation for `limit` for an overview of paginating fetch queries.
+   */
+  max_xact_id?: number | null;
+
+  /**
+   * You may specify a version id to retrieve a snapshot of the events from a past
+   * time. The version id is essentially a filter on the latest event transaction id.
+   * You can use the `max_xact_id` returned by a past fetch as the version to
+   * reproduce that exact fetch.
+   */
+  version?: number | null;
+}
+
+export namespace ExperimentFetchPostParams {
+  /**
+   * A path-lookup filter describes an equality comparison against a specific
+   * sub-field in the event row. For instance, if you wish to filter on the value of
+   * `c` in `{"input": {"a": {"b": {"c": "hello"}}}}`, pass
+   * `path=["input", "a", "b", "c"]` and `value="hello"`
+   */
+  export interface Filter {
+    /**
+     * List of fields describing the path to the value to be checked against. For
+     * instance, if you wish to filter on the value of `c` in
+     * `{"input": {"a": {"b": {"c": "hello"}}}}`, pass `path=["input", "a", "b", "c"]`
+     */
+    path: Array<string>;
+
+    /**
+     * Denotes the type of filter as a path-lookup filter
+     */
+    type: 'path_lookup';
+
+    /**
+     * The value to compare equality-wise against the event value at the specified
+     * `path`. The value must be a "primitive", that is, any JSON-serializable object
+     * except for objects and arrays. For instance, if you wish to filter on the value
+     * of "input.a.b.c" in the object `{"input": {"a": {"b": {"c": "hello"}}}}`, pass
+     * `value="hello"`
+     */
+    value?: unknown;
+  }
 }
 
 export interface ExperimentInsertParams {
@@ -1218,12 +1516,14 @@ export namespace ExperimentUpdatePartialParams {
 
 export namespace ExperimentResource {
   export import Experiment = ExperimentAPI.Experiment;
-  export import ExperimentFetchEventsResponse = ExperimentAPI.ExperimentFetchEventsResponse;
+  export import ExperimentFetchResponse = ExperimentAPI.ExperimentFetchResponse;
+  export import ExperimentFetchPostResponse = ExperimentAPI.ExperimentFetchPostResponse;
   export import ExperimentInsertResponse = ExperimentAPI.ExperimentInsertResponse;
   export import ExperimentCreateParams = ExperimentAPI.ExperimentCreateParams;
   export import ExperimentUpdateParams = ExperimentAPI.ExperimentUpdateParams;
   export import ExperimentFeedbackParams = ExperimentAPI.ExperimentFeedbackParams;
-  export import ExperimentFetchEventsParams = ExperimentAPI.ExperimentFetchEventsParams;
+  export import ExperimentFetchParams = ExperimentAPI.ExperimentFetchParams;
+  export import ExperimentFetchPostParams = ExperimentAPI.ExperimentFetchPostParams;
   export import ExperimentInsertParams = ExperimentAPI.ExperimentInsertParams;
   export import ExperimentUpdatePartialParams = ExperimentAPI.ExperimentUpdatePartialParams;
 }

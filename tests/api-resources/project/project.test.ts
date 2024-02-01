@@ -129,8 +129,8 @@ describe('resource project', () => {
     ).rejects.toThrow(BraintrustSdkKotlin.NotFoundError);
   });
 
-  test('createOrReplace: only required params', async () => {
-    const responsePromise = braintrustSdkKotlin.project.createOrReplace({ name: 'string' });
+  test('replace: only required params', async () => {
+    const responsePromise = braintrustSdkKotlin.project.replace({ name: 'string' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -140,10 +140,7 @@ describe('resource project', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('createOrReplace: required and optional params', async () => {
-    const response = await braintrustSdkKotlin.project.createOrReplace({
-      name: 'string',
-      org_name: 'string',
-    });
+  test('replace: required and optional params', async () => {
+    const response = await braintrustSdkKotlin.project.replace({ name: 'string', org_name: 'string' });
   });
 });

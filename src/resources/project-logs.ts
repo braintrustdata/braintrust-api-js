@@ -7,6 +7,21 @@ import * as ProjectLogsAPI from 'braintrust-sdk-kotlin/resources/project-logs';
 
 export class ProjectLogs extends APIResource {
   /**
+   * Log feedback for a set of project logs events
+   */
+  feedback(
+    projectId: string,
+    body: ProjectLogFeedbackParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<void> {
+    return this._client.post(`/v1/project_logs/${projectId}/feedback`, {
+      body,
+      ...options,
+      headers: { Accept: '*/*', ...options?.headers },
+    });
+  }
+
+  /**
    * Fetch the events in a project logs. Equivalent to the POST form of the same
    * path, but with the parameters in the URL query rather than in the request body
    */
@@ -28,6 +43,27 @@ export class ProjectLogs extends APIResource {
   }
 
   /**
+   * Fetch the events in a project logs. Equivalent to the GET form of the same path,
+   * but with the parameters in the request body rather than in the URL query
+   */
+  fetchPost(
+    projectId: string,
+    body?: ProjectLogFetchPostParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<ProjectLogFetchPostResponse>;
+  fetchPost(projectId: string, options?: Core.RequestOptions): Core.APIPromise<ProjectLogFetchPostResponse>;
+  fetchPost(
+    projectId: string,
+    body: ProjectLogFetchPostParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<ProjectLogFetchPostResponse> {
+    if (isRequestOptions(body)) {
+      return this.fetchPost(projectId, {}, body);
+    }
+    return this._client.post(`/v1/project_logs/${projectId}/fetch`, { body, ...options });
+  }
+
+  /**
    * Insert a set of events into the project logs
    */
   insert(
@@ -36,45 +72,6 @@ export class ProjectLogs extends APIResource {
     options?: Core.RequestOptions,
   ): Core.APIPromise<ProjectLogInsertResponse> {
     return this._client.post(`/v1/project_logs/${projectId}/insert`, { body, ...options });
-  }
-
-  /**
-   * Fetch the events in a project logs. Equivalent to the GET form of the same path,
-   * but with the parameters in the request body rather than in the URL query
-   */
-  insertFetch(
-    projectId: string,
-    body?: ProjectLogInsertFetchParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ProjectLogInsertFetchResponse>;
-  insertFetch(
-    projectId: string,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ProjectLogInsertFetchResponse>;
-  insertFetch(
-    projectId: string,
-    body: ProjectLogInsertFetchParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ProjectLogInsertFetchResponse> {
-    if (isRequestOptions(body)) {
-      return this.insertFetch(projectId, {}, body);
-    }
-    return this._client.post(`/v1/project_logs/${projectId}/fetch`, { body, ...options });
-  }
-
-  /**
-   * Log feedback for a set of project logs events
-   */
-  logFeedback(
-    projectId: string,
-    body: ProjectLogLogFeedbackParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<void> {
-    return this._client.post(`/v1/project_logs/${projectId}/feedback`, {
-      body,
-      ...options,
-      headers: { Accept: '*/*', ...options?.headers },
-    });
   }
 }
 
@@ -271,22 +268,14 @@ export namespace ProjectLogFetchResponse {
   }
 }
 
-export interface ProjectLogInsertResponse {
-  /**
-   * The ids of all rows that were inserted, aligning one-to-one with the rows
-   * provided as input
-   */
-  row_ids: Array<string>;
-}
-
-export interface ProjectLogInsertFetchResponse {
+export interface ProjectLogFetchPostResponse {
   /**
    * A list of fetched events
    */
-  events: Array<ProjectLogInsertFetchResponse.Event>;
+  events: Array<ProjectLogFetchPostResponse.Event>;
 }
 
-export namespace ProjectLogInsertFetchResponse {
+export namespace ProjectLogFetchPostResponse {
   export interface Event {
     /**
      * A unique identifier for the project logs event. If you don't provide one,
@@ -472,6 +461,59 @@ export namespace ProjectLogInsertFetchResponse {
   }
 }
 
+export interface ProjectLogInsertResponse {
+  /**
+   * The ids of all rows that were inserted, aligning one-to-one with the rows
+   * provided as input
+   */
+  row_ids: Array<string>;
+}
+
+export interface ProjectLogFeedbackParams {
+  /**
+   * A list of project logs feedback items
+   */
+  feedback: Array<ProjectLogFeedbackParams.Feedback>;
+}
+
+export namespace ProjectLogFeedbackParams {
+  export interface Feedback {
+    /**
+     * The id of the project logs event to log feedback for. This is the row `id`
+     * returned by `POST /v1/project_logs/{project_id}/insert`
+     */
+    id: string;
+
+    /**
+     * An optional comment string to log about the project logs event
+     */
+    comment?: string | null;
+
+    /**
+     * The ground truth value (an arbitrary, JSON serializable object) that you'd
+     * compare to `output` to determine if your `output` value is correct or not
+     */
+    expected?: unknown;
+
+    /**
+     * A dictionary with additional data about the feedback. If you have a `user_id`,
+     * you can log it here and access it in the Braintrust UI.
+     */
+    metadata?: Record<string, unknown> | null;
+
+    /**
+     * A dictionary of numeric values (between 0 and 1) to log. These scores will be
+     * merged into the existing scores for the project logs event
+     */
+    scores?: Record<string, number | null> | null;
+
+    /**
+     * The source of the feedback. Must be one of "external" (default), "app", or "api"
+     */
+    source?: 'app' | 'api' | 'external' | null;
+  }
+}
+
 export interface ProjectLogFetchParams {
   /**
    * Fetch queries may be paginated if the total result size is expected to be large
@@ -512,6 +554,85 @@ export interface ProjectLogFetchParams {
    * reproduce that exact fetch.
    */
   version?: number;
+}
+
+export interface ProjectLogFetchPostParams {
+  /**
+   * A list of filters on the events to fetch. Currently, only path-lookup type
+   * filters are supported, but we may add more in the future
+   */
+  filters?: Array<ProjectLogFetchPostParams.Filter> | null;
+
+  /**
+   * Fetch queries may be paginated if the total result size is expected to be large
+   * (e.g. project_logs which accumulate over a long time). Note that fetch queries
+   * only support pagination in descending time order (from latest to earliest
+   * `_xact_id`. Furthermore, later pages may return rows which showed up in earlier
+   * pages, except with an earlier `_xact_id`. This happens because pagination occurs
+   * over the whole version history of the event log. You will most likely want to
+   * exclude any such duplicate, outdated rows (by `id`) from your combined result
+   * set.
+   *
+   * The `limit` parameter controls the number of full traces to return. So you may
+   * end up with more individual rows than the specified limit if you are fetching
+   * events containing traces.
+   */
+  limit?: number | null;
+
+  /**
+   * Together, `max_xact_id` and `max_root_span_id` form a cursor for paginating
+   * event fetches. Given a previous fetch with a list of rows, you can determine
+   * `max_root_span_id` as the maximum of the `root_span_id` field over all rows. See
+   * the documentation for `limit` for an overview of paginating fetch queries.
+   */
+  max_root_span_id?: string | null;
+
+  /**
+   * Together, `max_xact_id` and `max_root_span_id` form a cursor for paginating
+   * event fetches. Given a previous fetch with a list of rows, you can determine
+   * `max_xact_id` as the maximum of the `_xact_id` field over all rows. See the
+   * documentation for `limit` for an overview of paginating fetch queries.
+   */
+  max_xact_id?: number | null;
+
+  /**
+   * You may specify a version id to retrieve a snapshot of the events from a past
+   * time. The version id is essentially a filter on the latest event transaction id.
+   * You can use the `max_xact_id` returned by a past fetch as the version to
+   * reproduce that exact fetch.
+   */
+  version?: number | null;
+}
+
+export namespace ProjectLogFetchPostParams {
+  /**
+   * A path-lookup filter describes an equality comparison against a specific
+   * sub-field in the event row. For instance, if you wish to filter on the value of
+   * `c` in `{"input": {"a": {"b": {"c": "hello"}}}}`, pass
+   * `path=["input", "a", "b", "c"]` and `value="hello"`
+   */
+  export interface Filter {
+    /**
+     * List of fields describing the path to the value to be checked against. For
+     * instance, if you wish to filter on the value of `c` in
+     * `{"input": {"a": {"b": {"c": "hello"}}}}`, pass `path=["input", "a", "b", "c"]`
+     */
+    path: Array<string>;
+
+    /**
+     * Denotes the type of filter as a path-lookup filter
+     */
+    type: 'path_lookup';
+
+    /**
+     * The value to compare equality-wise against the event value at the specified
+     * `path`. The value must be a "primitive", that is, any JSON-serializable object
+     * except for objects and arrays. For instance, if you wish to filter on the value
+     * of "input.a.b.c" in the object `{"input": {"a": {"b": {"c": "hello"}}}}`, pass
+     * `value="hello"`
+     */
+    value?: unknown;
+  }
 }
 
 export interface ProjectLogInsertParams {
@@ -872,136 +993,12 @@ export namespace ProjectLogInsertParams {
   }
 }
 
-export interface ProjectLogInsertFetchParams {
-  /**
-   * A list of filters on the events to fetch. Currently, only path-lookup type
-   * filters are supported, but we may add more in the future
-   */
-  filters?: Array<ProjectLogInsertFetchParams.Filter> | null;
-
-  /**
-   * Fetch queries may be paginated if the total result size is expected to be large
-   * (e.g. project_logs which accumulate over a long time). Note that fetch queries
-   * only support pagination in descending time order (from latest to earliest
-   * `_xact_id`. Furthermore, later pages may return rows which showed up in earlier
-   * pages, except with an earlier `_xact_id`. This happens because pagination occurs
-   * over the whole version history of the event log. You will most likely want to
-   * exclude any such duplicate, outdated rows (by `id`) from your combined result
-   * set.
-   *
-   * The `limit` parameter controls the number of full traces to return. So you may
-   * end up with more individual rows than the specified limit if you are fetching
-   * events containing traces.
-   */
-  limit?: number | null;
-
-  /**
-   * Together, `max_xact_id` and `max_root_span_id` form a cursor for paginating
-   * event fetches. Given a previous fetch with a list of rows, you can determine
-   * `max_root_span_id` as the maximum of the `root_span_id` field over all rows. See
-   * the documentation for `limit` for an overview of paginating fetch queries.
-   */
-  max_root_span_id?: string | null;
-
-  /**
-   * Together, `max_xact_id` and `max_root_span_id` form a cursor for paginating
-   * event fetches. Given a previous fetch with a list of rows, you can determine
-   * `max_xact_id` as the maximum of the `_xact_id` field over all rows. See the
-   * documentation for `limit` for an overview of paginating fetch queries.
-   */
-  max_xact_id?: number | null;
-
-  /**
-   * You may specify a version id to retrieve a snapshot of the events from a past
-   * time. The version id is essentially a filter on the latest event transaction id.
-   * You can use the `max_xact_id` returned by a past fetch as the version to
-   * reproduce that exact fetch.
-   */
-  version?: number | null;
-}
-
-export namespace ProjectLogInsertFetchParams {
-  /**
-   * A path-lookup filter describes an equality comparison against a specific
-   * sub-field in the event row. For instance, if you wish to filter on the value of
-   * `c` in `{"input": {"a": {"b": {"c": "hello"}}}}`, pass
-   * `path=["input", "a", "b", "c"]` and `value="hello"`
-   */
-  export interface Filter {
-    /**
-     * List of fields describing the path to the value to be checked against. For
-     * instance, if you wish to filter on the value of `c` in
-     * `{"input": {"a": {"b": {"c": "hello"}}}}`, pass `path=["input", "a", "b", "c"]`
-     */
-    path: Array<string>;
-
-    /**
-     * Denotes the type of filter as a path-lookup filter
-     */
-    type: 'path_lookup';
-
-    /**
-     * The value to compare equality-wise against the event value at the specified
-     * `path`. The value must be a "primitive", that is, any JSON-serializable object
-     * except for objects and arrays. For instance, if you wish to filter on the value
-     * of "input.a.b.c" in the object `{"input": {"a": {"b": {"c": "hello"}}}}`, pass
-     * `value="hello"`
-     */
-    value?: unknown;
-  }
-}
-
-export interface ProjectLogLogFeedbackParams {
-  /**
-   * A list of project logs feedback items
-   */
-  feedback: Array<ProjectLogLogFeedbackParams.Feedback>;
-}
-
-export namespace ProjectLogLogFeedbackParams {
-  export interface Feedback {
-    /**
-     * The id of the project logs event to log feedback for. This is the row `id`
-     * returned by `POST /v1/project_logs/{project_id}/insert`
-     */
-    id: string;
-
-    /**
-     * An optional comment string to log about the project logs event
-     */
-    comment?: string | null;
-
-    /**
-     * The ground truth value (an arbitrary, JSON serializable object) that you'd
-     * compare to `output` to determine if your `output` value is correct or not
-     */
-    expected?: unknown;
-
-    /**
-     * A dictionary with additional data about the feedback. If you have a `user_id`,
-     * you can log it here and access it in the Braintrust UI.
-     */
-    metadata?: Record<string, unknown> | null;
-
-    /**
-     * A dictionary of numeric values (between 0 and 1) to log. These scores will be
-     * merged into the existing scores for the project logs event
-     */
-    scores?: Record<string, number | null> | null;
-
-    /**
-     * The source of the feedback. Must be one of "external" (default), "app", or "api"
-     */
-    source?: 'app' | 'api' | 'external' | null;
-  }
-}
-
 export namespace ProjectLogs {
   export import ProjectLogFetchResponse = ProjectLogsAPI.ProjectLogFetchResponse;
+  export import ProjectLogFetchPostResponse = ProjectLogsAPI.ProjectLogFetchPostResponse;
   export import ProjectLogInsertResponse = ProjectLogsAPI.ProjectLogInsertResponse;
-  export import ProjectLogInsertFetchResponse = ProjectLogsAPI.ProjectLogInsertFetchResponse;
+  export import ProjectLogFeedbackParams = ProjectLogsAPI.ProjectLogFeedbackParams;
   export import ProjectLogFetchParams = ProjectLogsAPI.ProjectLogFetchParams;
+  export import ProjectLogFetchPostParams = ProjectLogsAPI.ProjectLogFetchPostParams;
   export import ProjectLogInsertParams = ProjectLogsAPI.ProjectLogInsertParams;
-  export import ProjectLogInsertFetchParams = ProjectLogsAPI.ProjectLogInsertFetchParams;
-  export import ProjectLogLogFeedbackParams = ProjectLogsAPI.ProjectLogLogFeedbackParams;
 }
