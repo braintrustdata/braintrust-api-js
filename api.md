@@ -1,3 +1,13 @@
+# TopLevel
+
+Types:
+
+- <code><a href="./src/resources/top-level.ts">TopLevelHelloWorldResponse</a></code>
+
+Methods:
+
+- <code title="get /v1">client.topLevel.<a href="./src/resources/top-level.ts">helloWorld</a>() -> string</code>
+
 # Project
 
 Types:
@@ -71,13 +81,3 @@ Methods:
 - <code title="post /v1/dataset/{dataset_id}/fetch">client.dataset.<a href="./src/resources/dataset.ts">fetchPost</a>(datasetId, { ...params }) -> DatasetFetchPostResponse</code>
 - <code title="post /v1/dataset/{dataset_id}/insert">client.dataset.<a href="./src/resources/dataset.ts">insert</a>(datasetId, { ...params }) -> DatasetInsertResponse</code>
 - <code title="put /v1/dataset">client.dataset.<a href="./src/resources/dataset.ts">replace</a>({ ...params }) -> Dataset</code>
-
-# TopLevel
-
-Types:
-
-- <code><a href="./src/resources/top-level.ts">TopLevelHelloWorldResponse</a></code>
-
-Methods:
-
-- <code title="get /v1">client.topLevel.<a href="./src/resources/top-level.ts">helloWorld</a>() -> string</code>

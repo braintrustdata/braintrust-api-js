@@ -116,10 +116,10 @@ export class Braintrust extends Core.APIClient {
     this.apiKey = apiKey;
   }
 
+  topLevel: API.TopLevel = new API.TopLevel(this);
   project: API.ProjectResource = new API.ProjectResource(this);
   experiment: API.ExperimentResource = new API.ExperimentResource(this);
   dataset: API.DatasetResource = new API.DatasetResource(this);
-  topLevel: API.TopLevel = new API.TopLevel(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
@@ -179,6 +179,9 @@ export namespace Braintrust {
 
   export import RequestOptions = Core.RequestOptions;
 
+  export import TopLevel = API.TopLevel;
+  export import TopLevelHelloWorldResponse = API.TopLevelHelloWorldResponse;
+
   export import ProjectResource = API.ProjectResource;
   export import Project = API.Project;
   export import ProjectsListObjects = API.ProjectsListObjects;
@@ -216,9 +219,6 @@ export namespace Braintrust {
   export import DatasetFetchPostParams = API.DatasetFetchPostParams;
   export import DatasetInsertParams = API.DatasetInsertParams;
   export import DatasetReplaceParams = API.DatasetReplaceParams;
-
-  export import TopLevel = API.TopLevel;
-  export import TopLevelHelloWorldResponse = API.TopLevelHelloWorldResponse;
 }
 
 export default Braintrust;
