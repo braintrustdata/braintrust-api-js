@@ -415,7 +415,7 @@ export namespace DatasetFeedbackParams {
     /**
      * The source of the feedback. Must be one of "external" (default), "app", or "api"
      */
-    source?: string | null;
+    source?: 'app' | 'api' | 'external' | null;
   }
 }
 
@@ -527,7 +527,7 @@ export namespace DatasetFetchPostParams {
     /**
      * Denotes the type of filter as a path-lookup filter
      */
-    type: string;
+    type: 'path_lookup';
 
     /**
      * The value to compare equality-wise against the event value at the specified
@@ -568,7 +568,7 @@ export namespace DatasetInsertParams {
      * new row as `{"id": "foo", "input": {"b": 11, "c": 20}}`, the new row will be
      * `{"id": "foo", "input": {"b": 11, "c": 20}}`
      */
-    _is_merge?: boolean | null;
+    _is_merge?: false | null;
 
     /**
      * Pass `_object_delete=true` to mark the dataset event deleted. Deleted events
@@ -628,7 +628,7 @@ export namespace DatasetInsertParams {
      * new row as `{"id": "foo", "input": {"b": 11, "c": 20}}`, the new row will be
      * `{"id": "foo", "input": {"b": 11, "c": 20}}`
      */
-    _is_merge: boolean;
+    _is_merge: true;
 
     /**
      * A unique identifier for the dataset event. If you don't provide one, BrainTrust

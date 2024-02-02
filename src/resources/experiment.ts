@@ -479,7 +479,7 @@ export namespace ExperimentFetchResponse {
       /**
        * Type of the span, for display purposes only
        */
-      type?: string | null;
+      type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
       [k: string]: unknown;
     }
   }
@@ -677,7 +677,7 @@ export namespace ExperimentFetchPostResponse {
       /**
        * Type of the span, for display purposes only
        */
-      type?: string | null;
+      type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
       [k: string]: unknown;
     }
   }
@@ -950,7 +950,7 @@ export namespace ExperimentFeedbackParams {
     /**
      * The source of the feedback. Must be one of "external" (default), "app", or "api"
      */
-    source?: string | null;
+    source?: 'app' | 'api' | 'external' | null;
   }
 }
 
@@ -1062,7 +1062,7 @@ export namespace ExperimentFetchPostParams {
     /**
      * Denotes the type of filter as a path-lookup filter
      */
-    type: string;
+    type: 'path_lookup';
 
     /**
      * The value to compare equality-wise against the event value at the specified
@@ -1105,7 +1105,7 @@ export namespace ExperimentInsertParams {
      * new row as `{"id": "foo", "input": {"b": 11, "c": 20}}`, the new row will be
      * `{"id": "foo", "input": {"b": 11, "c": 20}}`
      */
-    _is_merge?: boolean | null;
+    _is_merge?: false | null;
 
     /**
      * Pass `_object_delete=true` to mark the experiment event deleted. Deleted events
@@ -1263,7 +1263,7 @@ export namespace ExperimentInsertParams {
       /**
        * Type of the span, for display purposes only
        */
-      type?: string | null;
+      type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
       [k: string]: unknown;
     }
   }
@@ -1282,7 +1282,7 @@ export namespace ExperimentInsertParams {
      * new row as `{"id": "foo", "input": {"b": 11, "c": 20}}`, the new row will be
      * `{"id": "foo", "input": {"b": 11, "c": 20}}`
      */
-    _is_merge: boolean;
+    _is_merge: true;
 
     /**
      * A unique identifier for the experiment event. If you don't provide one,
@@ -1447,7 +1447,7 @@ export namespace ExperimentInsertParams {
       /**
        * Type of the span, for display purposes only
        */
-      type?: string | null;
+      type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
       [k: string]: unknown;
     }
   }
