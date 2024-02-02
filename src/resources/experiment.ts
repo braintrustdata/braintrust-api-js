@@ -1105,7 +1105,7 @@ export namespace ExperimentInsertParams {
      * new row as `{"id": "foo", "input": {"b": 11, "c": 20}}`, the new row will be
      * `{"id": "foo", "input": {"b": 11, "c": 20}}`
      */
-    _is_merge?: false | null;
+    _is_merge?: boolean | null;
 
     /**
      * Pass `_object_delete=true` to mark the experiment event deleted. Deleted events
@@ -1282,7 +1282,7 @@ export namespace ExperimentInsertParams {
      * new row as `{"id": "foo", "input": {"b": 11, "c": 20}}`, the new row will be
      * `{"id": "foo", "input": {"b": 11, "c": 20}}`
      */
-    _is_merge: true;
+    _is_merge: boolean;
 
     /**
      * A unique identifier for the experiment event. If you don't provide one,

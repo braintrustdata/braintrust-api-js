@@ -659,7 +659,7 @@ export namespace LogInsertParams {
      * new row as `{"id": "foo", "input": {"b": 11, "c": 20}}`, the new row will be
      * `{"id": "foo", "input": {"b": 11, "c": 20}}`
      */
-    _is_merge?: false | null;
+    _is_merge?: boolean | null;
 
     /**
      * Pass `_object_delete=true` to mark the project logs event deleted. Deleted
@@ -826,7 +826,7 @@ export namespace LogInsertParams {
      * new row as `{"id": "foo", "input": {"b": 11, "c": 20}}`, the new row will be
      * `{"id": "foo", "input": {"b": 11, "c": 20}}`
      */
-    _is_merge: true;
+    _is_merge: boolean;
 
     /**
      * A unique identifier for the project logs event. If you don't provide one,
