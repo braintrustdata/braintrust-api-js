@@ -97,7 +97,7 @@ export namespace LogFetchResponse {
     /**
      * A literal 'g' which identifies the log as a project log
      */
-    log_id: 'g';
+    log_id: string;
 
     /**
      * Unique id for the organization that the project belongs under
@@ -258,7 +258,7 @@ export namespace LogFetchResponse {
       /**
        * Type of the span, for display purposes only
        */
-      type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
+      type?: string | null;
       [k: string]: unknown;
     }
   }
@@ -290,7 +290,7 @@ export namespace LogFetchPostResponse {
     /**
      * A literal 'g' which identifies the log as a project log
      */
-    log_id: 'g';
+    log_id: string;
 
     /**
      * Unique id for the organization that the project belongs under
@@ -451,7 +451,7 @@ export namespace LogFetchPostResponse {
       /**
        * Type of the span, for display purposes only
        */
-      type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
+      type?: string | null;
       [k: string]: unknown;
     }
   }
@@ -506,7 +506,7 @@ export namespace LogFeedbackParams {
     /**
      * The source of the feedback. Must be one of "external" (default), "app", or "api"
      */
-    source?: 'app' | 'api' | 'external' | null;
+    source?: string | null;
   }
 }
 
@@ -618,7 +618,7 @@ export namespace LogFetchPostParams {
     /**
      * Denotes the type of filter as a path-lookup filter
      */
-    type: 'path_lookup';
+    type: string;
 
     /**
      * The value to compare equality-wise against the event value at the specified
@@ -659,7 +659,7 @@ export namespace LogInsertParams {
      * new row as `{"id": "foo", "input": {"b": 11, "c": 20}}`, the new row will be
      * `{"id": "foo", "input": {"b": 11, "c": 20}}`
      */
-    _is_merge?: false | unknown | null;
+    _is_merge?: boolean | null;
 
     /**
      * Pass `_object_delete=true` to mark the project logs event deleted. Deleted
@@ -807,7 +807,7 @@ export namespace LogInsertParams {
       /**
        * Type of the span, for display purposes only
        */
-      type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
+      type?: string | null;
       [k: string]: unknown;
     }
   }
@@ -826,7 +826,7 @@ export namespace LogInsertParams {
      * new row as `{"id": "foo", "input": {"b": 11, "c": 20}}`, the new row will be
      * `{"id": "foo", "input": {"b": 11, "c": 20}}`
      */
-    _is_merge: true;
+    _is_merge: boolean;
 
     /**
      * A unique identifier for the project logs event. If you don't provide one,
@@ -981,7 +981,7 @@ export namespace LogInsertParams {
       /**
        * Type of the span, for display purposes only
        */
-      type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
+      type?: string | null;
       [k: string]: unknown;
     }
   }

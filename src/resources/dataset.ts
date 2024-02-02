@@ -218,6 +218,14 @@ export namespace DatasetFetchResponse {
     root_span_id: string;
 
     /**
+     * A unique identifier used to link different dataset events together as part of a
+     * full trace. See the
+     * [tracing guide](https://www.braintrustdata.com/docs/guides/tracing) for full
+     * details on tracing
+     */
+    span_id: string;
+
+    /**
      * The timestamp the dataset event was created
      */
     created?: string | null;
@@ -282,6 +290,14 @@ export namespace DatasetFetchPostResponse {
      * The `span_id` of the root of the trace this dataset event belongs to
      */
     root_span_id: string;
+
+    /**
+     * A unique identifier used to link different dataset events together as part of a
+     * full trace. See the
+     * [tracing guide](https://www.braintrustdata.com/docs/guides/tracing) for full
+     * details on tracing
+     */
+    span_id: string;
 
     /**
      * The timestamp the dataset event was created
@@ -399,7 +415,7 @@ export namespace DatasetFeedbackParams {
     /**
      * The source of the feedback. Must be one of "external" (default), "app", or "api"
      */
-    source?: 'app' | 'api' | 'external' | null;
+    source?: string | null;
   }
 }
 
@@ -511,7 +527,7 @@ export namespace DatasetFetchPostParams {
     /**
      * Denotes the type of filter as a path-lookup filter
      */
-    type: 'path_lookup';
+    type: string;
 
     /**
      * The value to compare equality-wise against the event value at the specified
@@ -552,7 +568,7 @@ export namespace DatasetInsertParams {
      * new row as `{"id": "foo", "input": {"b": 11, "c": 20}}`, the new row will be
      * `{"id": "foo", "input": {"b": 11, "c": 20}}`
      */
-    _is_merge?: false | unknown | null;
+    _is_merge?: boolean | null;
 
     /**
      * Pass `_object_delete=true` to mark the dataset event deleted. Deleted events
@@ -612,7 +628,7 @@ export namespace DatasetInsertParams {
      * new row as `{"id": "foo", "input": {"b": 11, "c": 20}}`, the new row will be
      * `{"id": "foo", "input": {"b": 11, "c": 20}}`
      */
-    _is_merge: true;
+    _is_merge: boolean;
 
     /**
      * A unique identifier for the dataset event. If you don't provide one, BrainTrust

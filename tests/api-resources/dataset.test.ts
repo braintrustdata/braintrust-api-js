@@ -137,9 +137,9 @@ describe('resource dataset', () => {
   test('feedback: required and optional params', async () => {
     const response = await braintrust.dataset.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       feedback: [
-        { id: 'string', comment: 'string', metadata: { foo: {} }, source: 'app' },
-        { id: 'string', comment: 'string', metadata: { foo: {} }, source: 'app' },
-        { id: 'string', comment: 'string', metadata: { foo: {} }, source: 'app' },
+        { id: 'string', comment: 'string', metadata: { foo: {} }, source: 'string' },
+        { id: 'string', comment: 'string', metadata: { foo: {} }, source: 'string' },
+        { id: 'string', comment: 'string', metadata: { foo: {} }, source: 'string' },
       ],
     });
   });
@@ -200,9 +200,9 @@ describe('resource dataset', () => {
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         {
           filters: [
-            { type: 'path_lookup', path: ['string', 'string', 'string'], value: {} },
-            { type: 'path_lookup', path: ['string', 'string', 'string'], value: {} },
-            { type: 'path_lookup', path: ['string', 'string', 'string'], value: {} },
+            { type: 'string', path: ['string', 'string', 'string'], value: {} },
+            { type: 'string', path: ['string', 'string', 'string'], value: {} },
+            { type: 'string', path: ['string', 'string', 'string'], value: {} },
           ],
           limit: 0,
           max_root_span_id: 'string',
