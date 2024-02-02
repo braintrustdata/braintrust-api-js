@@ -4,7 +4,7 @@ import * as Core from 'braintrust/core';
 import { APIResource } from 'braintrust/resource';
 import { isRequestOptions } from 'braintrust/core';
 import * as DatasetAPI from 'braintrust/resources/dataset';
-import { ListObjects } from 'braintrust/pagination';
+import { ListObjects, type ListObjectsParams } from 'braintrust/pagination';
 
 export class DatasetResource extends APIResource {
   /**
@@ -353,23 +353,11 @@ export interface DatasetUpdateParams {
   description?: string | null;
 }
 
-export interface DatasetListParams {
+export interface DatasetListParams extends ListObjectsParams {
   /**
    * Name of the dataset to search for
    */
   dataset_name?: string;
-
-  /**
-   * A cursor for pagination. For example, if the initial item in the last page you
-   * fetched had an id of `foo`, pass `ending_before=foo` to fetch the previous page.
-   * Note: you may only pass one of `starting_after` and `ending_before`
-   */
-  ending_before?: string;
-
-  /**
-   * Limit the number of objects to return
-   */
-  limit?: number;
 
   /**
    * Filter search results to within a particular organization
@@ -380,13 +368,6 @@ export interface DatasetListParams {
    * Name of the project to search for
    */
   project_name?: string;
-
-  /**
-   * A cursor for pagination. For example, if the final item in the last page you
-   * fetched had an id of `foo`, pass `starting_after=foo` to fetch the next page.
-   * Note: you may only pass one of `starting_after` and `ending_before`
-   */
-  starting_after?: string;
 }
 
 export interface DatasetFeedbackParams {

@@ -4,6 +4,7 @@ import * as Core from './core';
 import * as Errors from './error';
 import { type Agent } from './_shims/index';
 import * as Uploads from './uploads';
+import * as Pagination from 'braintrust/pagination';
 import * as API from 'braintrust/resources/index';
 
 export interface ClientOptions {
@@ -178,6 +179,10 @@ export namespace Braintrust {
   export import fileFromPath = Uploads.fileFromPath;
 
   export import RequestOptions = Core.RequestOptions;
+
+  export import ListObjects = Pagination.ListObjects;
+  export import ListObjectsParams = Pagination.ListObjectsParams;
+  export import ListObjectsResponse = Pagination.ListObjectsResponse;
 
   export import TopLevel = API.TopLevel;
   export import TopLevelHelloWorldResponse = API.TopLevelHelloWorldResponse;

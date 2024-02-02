@@ -4,7 +4,7 @@
 
 This library provides convenient access to the Braintrust REST API from server-side TypeScript or JavaScript.
 
-The REST API documentation can be found [on www.braintrustdata.com](https://www.braintrustdata.com/docs/api/spec). The full API of this library can be found in [api.md](https://www.github.com/braintrustdata/braintrust-node/blob/main/api.md).
+The REST API documentation can be found [on www.braintrustdata.com](https://www.braintrustdata.com/docs/api/spec). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
@@ -16,7 +16,7 @@ yarn add braintrust
 
 ## Usage
 
-The full API of this library can be found in [api.md](https://www.github.com/braintrustdata/braintrust-node/blob/main/api.md).
+The full API of this library can be found in [api.md](api.md).
 
 <!-- prettier-ignore -->
 ```js
@@ -130,6 +130,37 @@ await braintrust.project.create({ name: 'string' }, {
 On timeout, an `APIConnectionTimeoutError` is thrown.
 
 Note that requests which time out will be [retried twice by default](#retries).
+
+## Auto-pagination
+
+List methods in the Braintrust API are paginated.
+You can use `for await … of` syntax to iterate through items across all pages:
+
+```ts
+async function fetchAllProjects(params) {
+  const allProjects = [];
+  // Automatically fetches more pages as needed.
+  for await (const project of braintrust.project.list()) {
+    allProjects.push(project);
+  }
+  return allProjects;
+}
+```
+
+Alternatively, you can make request a single page at a time:
+
+```ts
+let page = await braintrust.project.list();
+for (const project of page.objects) {
+  console.log(project);
+}
+
+// Convenience methods are provided for manually paginating:
+while (page.hasNextPage()) {
+  page = page.getNextPage();
+  // ...
+}
+```
 
 ## Advanced Usage
 
