@@ -9,7 +9,6 @@
       "braintrust/_shims/auto/*": ["deno/_shims/auto/*-deno"],
       "braintrust/*": ["deno/*"],
       "braintrust": ["deno/index.ts"],
-      "digest-fetch": ["./typings/digest-fetch"]
     },
     "noEmit": true,
     "declaration": true,
