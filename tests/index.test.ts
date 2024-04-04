@@ -1,4 +1,4 @@
-// File generated from our OpenAPI spec by Stainless.
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import Braintrust from 'braintrust';
 import { APIUserAbortError } from 'braintrust';
@@ -221,8 +221,8 @@ describe('retries', () => {
     let count = 0;
     const testFetch = async (url: RequestInfo, { signal }: RequestInit = {}): Promise<Response> => {
       if (count++ === 0) {
-        return new Promise((resolve, reject) =>
-          signal?.addEventListener('abort', () => reject(new Error('timed out'))),
+        return new Promise(
+          (resolve, reject) => signal?.addEventListener('abort', () => reject(new Error('timed out'))),
         );
       }
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
