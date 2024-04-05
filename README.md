@@ -25,7 +25,7 @@ import Braintrust from 'braintrust';
 const braintrust = new Braintrust();
 
 async function main() {
-  const project = await braintrust.project.create({ name: 'string' });
+  const project = await braintrust.project.create({ name: 'first model' });
 
   console.log(project.id);
 }
