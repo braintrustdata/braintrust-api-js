@@ -44,7 +44,7 @@ import Braintrust from 'braintrust';
 const braintrust = new Braintrust();
 
 async function main() {
-  const params: Braintrust.ProjectCreateParams = { name: 'string' };
+  const params: Braintrust.ProjectCreateParams = { name: 'first model' };
   const project: Braintrust.Project = await braintrust.project.create(params);
 }
 
@@ -62,7 +62,7 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const project = await braintrust.project.create({ name: 'string' }).catch(async (err) => {
+  const project = await braintrust.project.create({ name: 'first model' }).catch(async (err) => {
     if (err instanceof Braintrust.APIError) {
       console.log(err.status); // 400
       console.log(err.name); // BadRequestError
@@ -105,7 +105,7 @@ const braintrust = new Braintrust({
 });
 
 // Or, configure per-request:
-await braintrust.project.create({ name: 'string' }, {
+await braintrust.project.create({ name: 'first model' }, {
   maxRetries: 5,
 });
 ```
@@ -122,7 +122,7 @@ const braintrust = new Braintrust({
 });
 
 // Override per-request:
-await braintrust.project.create({ name: 'string' }, {
+await braintrust.project.create({ name: 'first model' }, {
   timeout: 5 * 1000,
 });
 ```
@@ -174,11 +174,13 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 ```ts
 const braintrust = new Braintrust();
 
-const response = await braintrust.project.create({ name: 'string' }).asResponse();
+const response = await braintrust.project.create({ name: 'first model' }).asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: project, response: raw } = await braintrust.project.create({ name: 'string' }).withResponse();
+const { data: project, response: raw } = await braintrust.project
+  .create({ name: 'first model' })
+  .withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(project.id);
 ```
@@ -285,7 +287,7 @@ const braintrust = new Braintrust({
 
 // Override per-request:
 await braintrust.project.create(
-  { name: 'string' },
+  { name: 'first model' },
   {
     httpAgent: new http.Agent({ keepAlive: false }),
   },
