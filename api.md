@@ -86,24 +86,17 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/prompt.ts">PromptCreateResponse</a></code>
-- <code><a href="./src/resources/prompt.ts">PromptRetrieveResponse</a></code>
-- <code><a href="./src/resources/prompt.ts">PromptUpdateResponse</a></code>
-- <code><a href="./src/resources/prompt.ts">PromptListResponse</a></code>
-- <code><a href="./src/resources/prompt.ts">PromptDeleteResponse</a></code>
-- <code><a href="./src/resources/prompt.ts">PromptReplaceResponse</a></code>
+- <code><a href="./src/resources/prompt.ts">Prompt</a></code>
 
 Methods:
 
-- <code title="post /v1/prompt">client.prompt.<a href="./src/resources/prompt.ts">create</a>({ ...params }) -> PromptCreateResponse</code>
-- <code title="get /v1/prompt/{prompt_id}">client.prompt.<a href="./src/resources/prompt.ts">retrieve</a>(promptId) -> PromptRetrieveResponse</code>
-- <code title="patch /v1/prompt/{prompt_id}">client.prompt.<a href="./src/resources/prompt.ts">update</a>(promptId, { ...params }) -> PromptUpdateResponse</code>
-- <code title="get /v1/prompt">client.prompt.<a href="./src/resources/prompt.ts">list</a>({ ...params }) -> PromptListResponsesListObjects</code>
-- <code title="delete /v1/prompt/{prompt_id}">client.prompt.<a href="./src/resources/prompt.ts">delete</a>(promptId) -> PromptDeleteResponse</code>
+- <code title="post /v1/prompt">client.prompt.<a href="./src/resources/prompt.ts">create</a>({ ...params }) -> Prompt</code>
+- <code title="get /v1/prompt/{prompt_id}">client.prompt.<a href="./src/resources/prompt.ts">retrieve</a>(promptId) -> Prompt</code>
+- <code title="patch /v1/prompt/{prompt_id}">client.prompt.<a href="./src/resources/prompt.ts">update</a>(promptId, { ...params }) -> Prompt</code>
+- <code title="get /v1/prompt">client.prompt.<a href="./src/resources/prompt.ts">list</a>({ ...params }) -> PromptsListObjects</code>
+- <code title="delete /v1/prompt/{prompt_id}">client.prompt.<a href="./src/resources/prompt.ts">delete</a>(promptId) -> Prompt</code>
 - <code title="post /v1/prompt/{prompt_id}/feedback">client.prompt.<a href="./src/resources/prompt.ts">feedback</a>(promptId, { ...params }) -> void</code>
-- <code title="put /v1/prompt">client.prompt.<a href="./src/resources/prompt.ts">replace</a>({ ...params }) -> PromptReplaceResponse</code>
-
-# PromptSession
+- <code title="put /v1/prompt">client.prompt.<a href="./src/resources/prompt.ts">replace</a>({ ...params }) -> Prompt</code>
 
 # Role
 
