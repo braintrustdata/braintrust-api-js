@@ -28,9 +28,7 @@ export class ProjectResource extends APIResource {
   /**
    * Partially update a project object. Specify the fields to update in the payload.
    * Any object-type fields will be deep-merged with existing content. Currently we
-   * do not support removing fields or setting them to null. As a workaround, you may
-   * retrieve the full object with `GET /project/{id}` and then replace it with
-   * `PUT /project`.
+   * do not support removing fields or setting them to null.
    */
   update(
     projectId: string,
@@ -76,9 +74,10 @@ export class ProjectResource extends APIResource {
   }
 
   /**
-   * Create or replace a new project. If there is an existing project with the same
-   * name as the one specified in the request, will replace the existing project with
-   * the provided fields
+   * NOTE: This operation is deprecated and will be removed in a future revision of
+   * the API. Create or replace a new project. If there is an existing project with
+   * the same name as the one specified in the request, will return the existing
+   * project unmodified, will replace the existing project with the provided fields
    */
   replace(body: ProjectReplaceParams, options?: Core.RequestOptions): Core.APIPromise<Project> {
     return this._client.put('/v1/project', { body, ...options });
@@ -144,6 +143,12 @@ export interface ProjectUpdateParams {
 }
 
 export interface ProjectListParams extends ListObjectsParams {
+  /**
+   * Filter search results to a particular set of object IDs. To specify a list of
+   * IDs, include the query param multiple times
+   */
+  ids?: string | Array<string>;
+
   /**
    * Filter search results to within a particular organization
    */

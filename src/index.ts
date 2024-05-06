@@ -4,6 +4,7 @@ import * as Core from './core';
 import * as Errors from './error';
 import { type Agent } from './_shims/index';
 import * as Uploads from './uploads';
+import * as qs from 'qs';
 import * as Pagination from 'braintrust/pagination';
 import * as API from 'braintrust/resources/index';
 
@@ -121,6 +122,12 @@ export class Braintrust extends Core.APIClient {
   project: API.ProjectResource = new API.ProjectResource(this);
   experiment: API.ExperimentResource = new API.ExperimentResource(this);
   dataset: API.DatasetResource = new API.DatasetResource(this);
+  prompt: API.Prompt = new API.Prompt(this);
+  promptSession: API.PromptSession = new API.PromptSession(this);
+  role: API.RoleResource = new API.RoleResource(this);
+  group: API.GroupResource = new API.GroupResource(this);
+  acl: API.ACLResource = new API.ACLResource(this);
+  user: API.UserResource = new API.UserResource(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
@@ -135,6 +142,10 @@ export class Braintrust extends Core.APIClient {
 
   protected override authHeaders(opts: Core.FinalRequestOptions): Core.Headers {
     return { Authorization: `Bearer ${this.apiKey}` };
+  }
+
+  protected override stringifyQuery(query: Record<string, unknown>): string {
+    return qs.stringify(query, { arrayFormat: 'comma' });
   }
 
   static Braintrust = this;
@@ -223,6 +234,50 @@ export namespace Braintrust {
   export import DatasetFetchPostParams = API.DatasetFetchPostParams;
   export import DatasetInsertParams = API.DatasetInsertParams;
   export import DatasetReplaceParams = API.DatasetReplaceParams;
+
+  export import Prompt = API.Prompt;
+  export import PromptCreateResponse = API.PromptCreateResponse;
+  export import PromptRetrieveResponse = API.PromptRetrieveResponse;
+  export import PromptUpdateResponse = API.PromptUpdateResponse;
+  export import PromptListResponse = API.PromptListResponse;
+  export import PromptDeleteResponse = API.PromptDeleteResponse;
+  export import PromptReplaceResponse = API.PromptReplaceResponse;
+  export import PromptListResponsesListObjects = API.PromptListResponsesListObjects;
+  export import PromptCreateParams = API.PromptCreateParams;
+  export import PromptUpdateParams = API.PromptUpdateParams;
+  export import PromptListParams = API.PromptListParams;
+  export import PromptFeedbackParams = API.PromptFeedbackParams;
+  export import PromptReplaceParams = API.PromptReplaceParams;
+
+  export import PromptSession = API.PromptSession;
+
+  export import RoleResource = API.RoleResource;
+  export import Role = API.Role;
+  export import RolesListObjects = API.RolesListObjects;
+  export import RoleCreateParams = API.RoleCreateParams;
+  export import RoleUpdateParams = API.RoleUpdateParams;
+  export import RoleListParams = API.RoleListParams;
+  export import RoleReplaceParams = API.RoleReplaceParams;
+
+  export import GroupResource = API.GroupResource;
+  export import Group = API.Group;
+  export import GroupsListObjects = API.GroupsListObjects;
+  export import GroupCreateParams = API.GroupCreateParams;
+  export import GroupUpdateParams = API.GroupUpdateParams;
+  export import GroupListParams = API.GroupListParams;
+  export import GroupReplaceParams = API.GroupReplaceParams;
+
+  export import ACLResource = API.ACLResource;
+  export import ACL = API.ACL;
+  export import ACLsListObjects = API.ACLsListObjects;
+  export import ACLCreateParams = API.ACLCreateParams;
+  export import ACLListParams = API.ACLListParams;
+  export import ACLReplaceParams = API.ACLReplaceParams;
+
+  export import UserResource = API.UserResource;
+  export import User = API.User;
+  export import UsersListObjects = API.UsersListObjects;
+  export import UserListParams = API.UserListParams;
 }
 
 export default Braintrust;
