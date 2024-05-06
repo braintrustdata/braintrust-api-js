@@ -48,10 +48,8 @@ describe('resource dataset', () => {
     ).rejects.toThrow(Braintrust.NotFoundError);
   });
 
-  test('update: only required params', async () => {
-    const responsePromise = braintrust.dataset.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      name: 'string',
-    });
+  test('update', async () => {
+    const responsePromise = braintrust.dataset.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -61,11 +59,22 @@ describe('resource dataset', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('update: required and optional params', async () => {
-    const response = await braintrust.dataset.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      name: 'string',
-      description: 'string',
-    });
+  test('update: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      braintrust.dataset.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Braintrust.NotFoundError);
+  });
+
+  test('update: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      braintrust.dataset.update(
+        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+        { description: 'string', name: 'string' },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Braintrust.NotFoundError);
   });
 
   test('list', async () => {
@@ -93,6 +102,7 @@ describe('resource dataset', () => {
         {
           dataset_name: 'string',
           ending_before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+          ids: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           limit: 0,
           org_name: 'string',
           project_name: 'string',
@@ -167,7 +177,7 @@ describe('resource dataset', () => {
     await expect(
       braintrust.dataset.fetch(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        { limit: 0, max_root_span_id: 'string', max_xact_id: 0, version: 0 },
+        { limit: 0, max_root_span_id: 'string', max_xact_id: 'string', version: 'string' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Braintrust.NotFoundError);
@@ -206,8 +216,8 @@ describe('resource dataset', () => {
           ],
           limit: 0,
           max_root_span_id: 'string',
-          max_xact_id: 0,
-          version: 0,
+          max_xact_id: 'string',
+          version: 'string',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -232,8 +242,9 @@ describe('resource dataset', () => {
       events: [
         {
           input: {},
-          output: {},
+          expected: {},
           metadata: { foo: {} },
+          tags: ['string', 'string', 'string'],
           id: 'string',
           _object_delete: true,
           _is_merge: true,
@@ -241,8 +252,9 @@ describe('resource dataset', () => {
         },
         {
           input: {},
-          output: {},
+          expected: {},
           metadata: { foo: {} },
+          tags: ['string', 'string', 'string'],
           id: 'string',
           _object_delete: true,
           _is_merge: true,
@@ -250,8 +262,9 @@ describe('resource dataset', () => {
         },
         {
           input: {},
-          output: {},
+          expected: {},
           metadata: { foo: {} },
+          tags: ['string', 'string', 'string'],
           id: 'string',
           _object_delete: true,
           _is_merge: true,

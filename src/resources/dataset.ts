@@ -26,15 +26,22 @@ export class DatasetResource extends APIResource {
   /**
    * Partially update a dataset object. Specify the fields to update in the payload.
    * Any object-type fields will be deep-merged with existing content. Currently we
-   * do not support removing fields or setting them to null. As a workaround, you may
-   * retrieve the full object with `GET /dataset/{id}` and then replace it with
-   * `PUT /dataset`.
+   * do not support removing fields or setting them to null.
    */
   update(
     datasetId: string,
-    body: DatasetUpdateParams,
+    body?: DatasetUpdateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Dataset>;
+  update(datasetId: string, options?: Core.RequestOptions): Core.APIPromise<Dataset>;
+  update(
+    datasetId: string,
+    body: DatasetUpdateParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.APIPromise<Dataset> {
+    if (isRequestOptions(body)) {
+      return this.update(datasetId, {}, body);
+    }
     return this._client.patch(`/v1/dataset/${datasetId}`, { body, ...options });
   }
 
@@ -133,9 +140,11 @@ export class DatasetResource extends APIResource {
   }
 
   /**
-   * Create or replace a new dataset. If there is an existing dataset in the project
-   * with the same name as the one specified in the request, will replace the
-   * existing dataset with the provided fields
+   * NOTE: This operation is deprecated and will be removed in a future revision of
+   * the API. Create or replace a new dataset. If there is an existing dataset in the
+   * project with the same name as the one specified in the request, will return the
+   * existing dataset unmodified, will replace the existing dataset with the provided
+   * fields
    */
   replace(body: DatasetReplaceParams, options?: Core.RequestOptions): Core.APIPromise<Dataset> {
     return this._client.put('/v1/dataset', { body, ...options });
@@ -205,7 +214,12 @@ export namespace DatasetFetchResponse {
      * can be used to retrieve a versioned snapshot of the dataset (see the `version`
      * parameter)
      */
-    _xact_id: number;
+    _xact_id: string;
+
+    /**
+     * The timestamp the dataset event was created
+     */
+    created: string;
 
     /**
      * Unique identifier for the dataset
@@ -226,9 +240,10 @@ export namespace DatasetFetchResponse {
     span_id: string;
 
     /**
-     * The timestamp the dataset event was created
+     * The output of your application, including post-processing (an arbitrary, JSON
+     * serializable object)
      */
-    created?: string | null;
+    expected?: unknown;
 
     /**
      * The argument that uniquely define an input case (an arbitrary, JSON serializable
@@ -246,15 +261,14 @@ export namespace DatasetFetchResponse {
     metadata?: Record<string, unknown> | null;
 
     /**
-     * The output of your application, including post-processing (an arbitrary, JSON
-     * serializable object)
-     */
-    output?: unknown;
-
-    /**
      * Unique identifier for the project that the dataset belongs under
      */
     project_id?: string | null;
+
+    /**
+     * A list of tags to log
+     */
+    tags?: Array<string> | null;
   }
 }
 
@@ -279,7 +293,12 @@ export namespace DatasetFetchPostResponse {
      * can be used to retrieve a versioned snapshot of the dataset (see the `version`
      * parameter)
      */
-    _xact_id: number;
+    _xact_id: string;
+
+    /**
+     * The timestamp the dataset event was created
+     */
+    created: string;
 
     /**
      * Unique identifier for the dataset
@@ -300,9 +319,10 @@ export namespace DatasetFetchPostResponse {
     span_id: string;
 
     /**
-     * The timestamp the dataset event was created
+     * The output of your application, including post-processing (an arbitrary, JSON
+     * serializable object)
      */
-    created?: string | null;
+    expected?: unknown;
 
     /**
      * The argument that uniquely define an input case (an arbitrary, JSON serializable
@@ -320,15 +340,14 @@ export namespace DatasetFetchPostResponse {
     metadata?: Record<string, unknown> | null;
 
     /**
-     * The output of your application, including post-processing (an arbitrary, JSON
-     * serializable object)
-     */
-    output?: unknown;
-
-    /**
      * Unique identifier for the project that the dataset belongs under
      */
     project_id?: string | null;
+
+    /**
+     * A list of tags to log
+     */
+    tags?: Array<string> | null;
   }
 }
 
@@ -359,14 +378,14 @@ export interface DatasetCreateParams {
 
 export interface DatasetUpdateParams {
   /**
-   * Name of the dataset. Within a project, dataset names are unique
-   */
-  name: string;
-
-  /**
    * Textual description of the dataset
    */
   description?: string | null;
+
+  /**
+   * Name of the dataset. Within a project, dataset names are unique
+   */
+  name?: string | null;
 }
 
 export interface DatasetListParams extends ListObjectsParams {
@@ -374,6 +393,12 @@ export interface DatasetListParams extends ListObjectsParams {
    * Name of the dataset to search for
    */
   dataset_name?: string;
+
+  /**
+   * Filter search results to a particular set of object IDs. To specify a list of
+   * IDs, include the query param multiple times
+   */
+  ids?: string | Array<string>;
 
   /**
    * Filter search results to within a particular organization
@@ -421,6 +446,8 @@ export namespace DatasetFeedbackParams {
 
 export interface DatasetFetchParams {
   /**
+   * limit the number of traces fetched
+   *
    * Fetch queries may be paginated if the total result size is expected to be large
    * (e.g. project_logs which accumulate over a long time). Note that fetch queries
    * only support pagination in descending time order (from latest to earliest
@@ -437,28 +464,33 @@ export interface DatasetFetchParams {
   limit?: number;
 
   /**
-   * Together, `max_xact_id` and `max_root_span_id` form a cursor for paginating
-   * event fetches. Given a previous fetch with a list of rows, you can determine
-   * `max_root_span_id` as the maximum of the `root_span_id` field over all rows. See
-   * the documentation for `limit` for an overview of paginating fetch queries.
+   * Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+   *
+   * Since a paginated fetch query returns results in order from latest to earliest,
+   * the cursor for the next page can be found as the row with the minimum (earliest)
+   * value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
+   * for an overview of paginating fetch queries.
    */
   max_root_span_id?: string;
 
   /**
-   * Together, `max_xact_id` and `max_root_span_id` form a cursor for paginating
-   * event fetches. Given a previous fetch with a list of rows, you can determine
-   * `max_xact_id` as the maximum of the `_xact_id` field over all rows. See the
-   * documentation for `limit` for an overview of paginating fetch queries.
+   * Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+   *
+   * Since a paginated fetch query returns results in order from latest to earliest,
+   * the cursor for the next page can be found as the row with the minimum (earliest)
+   * value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
+   * for an overview of paginating fetch queries.
    */
-  max_xact_id?: number;
+  max_xact_id?: string;
 
   /**
-   * You may specify a version id to retrieve a snapshot of the events from a past
-   * time. The version id is essentially a filter on the latest event transaction id.
-   * You can use the `max_xact_id` returned by a past fetch as the version to
-   * reproduce that exact fetch.
+   * Retrieve a snapshot of events from a past time
+   *
+   * The version id is essentially a filter on the latest event transaction id. You
+   * can use the `max_xact_id` returned by a past fetch as the version to reproduce
+   * that exact fetch.
    */
-  version?: number;
+  version?: string;
 }
 
 export interface DatasetFetchPostParams {
@@ -469,6 +501,8 @@ export interface DatasetFetchPostParams {
   filters?: Array<DatasetFetchPostParams.Filter> | null;
 
   /**
+   * limit the number of traces fetched
+   *
    * Fetch queries may be paginated if the total result size is expected to be large
    * (e.g. project_logs which accumulate over a long time). Note that fetch queries
    * only support pagination in descending time order (from latest to earliest
@@ -485,28 +519,33 @@ export interface DatasetFetchPostParams {
   limit?: number | null;
 
   /**
-   * Together, `max_xact_id` and `max_root_span_id` form a cursor for paginating
-   * event fetches. Given a previous fetch with a list of rows, you can determine
-   * `max_root_span_id` as the maximum of the `root_span_id` field over all rows. See
-   * the documentation for `limit` for an overview of paginating fetch queries.
+   * Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+   *
+   * Since a paginated fetch query returns results in order from latest to earliest,
+   * the cursor for the next page can be found as the row with the minimum (earliest)
+   * value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
+   * for an overview of paginating fetch queries.
    */
   max_root_span_id?: string | null;
 
   /**
-   * Together, `max_xact_id` and `max_root_span_id` form a cursor for paginating
-   * event fetches. Given a previous fetch with a list of rows, you can determine
-   * `max_xact_id` as the maximum of the `_xact_id` field over all rows. See the
-   * documentation for `limit` for an overview of paginating fetch queries.
+   * Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+   *
+   * Since a paginated fetch query returns results in order from latest to earliest,
+   * the cursor for the next page can be found as the row with the minimum (earliest)
+   * value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
+   * for an overview of paginating fetch queries.
    */
-  max_xact_id?: number | null;
+  max_xact_id?: string | null;
 
   /**
-   * You may specify a version id to retrieve a snapshot of the events from a past
-   * time. The version id is essentially a filter on the latest event transaction id.
-   * You can use the `max_xact_id` returned by a past fetch as the version to
-   * reproduce that exact fetch.
+   * Retrieve a snapshot of events from a past time
+   *
+   * The version id is essentially a filter on the latest event transaction id. You
+   * can use the `max_xact_id` returned by a past fetch as the version to reproduce
+   * that exact fetch.
    */
-  version?: number | null;
+  version?: string | null;
 }
 
 export namespace DatasetFetchPostParams {
@@ -593,6 +632,12 @@ export namespace DatasetInsertParams {
     _parent_id?: string | null;
 
     /**
+     * The output of your application, including post-processing (an arbitrary, JSON
+     * serializable object)
+     */
+    expected?: unknown;
+
+    /**
      * The argument that uniquely define an input case (an arbitrary, JSON serializable
      * object)
      */
@@ -608,10 +653,9 @@ export namespace DatasetInsertParams {
     metadata?: Record<string, unknown> | null;
 
     /**
-     * The output of your application, including post-processing (an arbitrary, JSON
-     * serializable object)
+     * A list of tags to log
      */
-    output?: unknown;
+    tags?: Array<string> | null;
   }
 
   export interface InsertDatasetEventMerge {
@@ -660,6 +704,12 @@ export namespace DatasetInsertParams {
     _object_delete?: boolean | null;
 
     /**
+     * The output of your application, including post-processing (an arbitrary, JSON
+     * serializable object)
+     */
+    expected?: unknown;
+
+    /**
      * The argument that uniquely define an input case (an arbitrary, JSON serializable
      * object)
      */
@@ -675,10 +725,9 @@ export namespace DatasetInsertParams {
     metadata?: Record<string, unknown> | null;
 
     /**
-     * The output of your application, including post-processing (an arbitrary, JSON
-     * serializable object)
+     * A list of tags to log
      */
-    output?: unknown;
+    tags?: Array<string> | null;
   }
 }
 

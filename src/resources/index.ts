@@ -1,5 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+export { ACL, ACLCreateParams, ACLListParams, ACLReplaceParams, ACLsListObjects, ACLResource } from './acl';
 export {
   Dataset,
   DatasetFetchResponse,
@@ -33,6 +34,15 @@ export {
   ExperimentResource,
 } from './experiment';
 export {
+  Group,
+  GroupCreateParams,
+  GroupUpdateParams,
+  GroupListParams,
+  GroupReplaceParams,
+  GroupsListObjects,
+  GroupResource,
+} from './group';
+export {
   Project,
   ProjectCreateParams,
   ProjectUpdateParams,
@@ -41,4 +51,30 @@ export {
   ProjectsListObjects,
   ProjectResource,
 } from './project/project';
+export {
+  PromptCreateResponse,
+  PromptRetrieveResponse,
+  PromptUpdateResponse,
+  PromptListResponse,
+  PromptDeleteResponse,
+  PromptReplaceResponse,
+  PromptCreateParams,
+  PromptUpdateParams,
+  PromptListParams,
+  PromptFeedbackParams,
+  PromptReplaceParams,
+  PromptListResponsesListObjects,
+  Prompt,
+} from './prompt';
+export { PromptSession } from './prompt-session';
+export {
+  Role,
+  RoleCreateParams,
+  RoleUpdateParams,
+  RoleListParams,
+  RoleReplaceParams,
+  RolesListObjects,
+  RoleResource,
+} from './role';
 export { TopLevelHelloWorldResponse, TopLevel } from './top-level';
+export { User, UserListParams, UsersListObjects, UserResource } from './user';
