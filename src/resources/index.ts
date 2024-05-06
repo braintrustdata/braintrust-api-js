@@ -52,21 +52,15 @@ export {
   ProjectResource,
 } from './project/project';
 export {
-  PromptCreateResponse,
-  PromptRetrieveResponse,
-  PromptUpdateResponse,
-  PromptListResponse,
-  PromptDeleteResponse,
-  PromptReplaceResponse,
+  Prompt,
   PromptCreateParams,
   PromptUpdateParams,
   PromptListParams,
   PromptFeedbackParams,
   PromptReplaceParams,
-  PromptListResponsesListObjects,
-  Prompt,
+  PromptsListObjects,
+  PromptResource,
 } from './prompt';
-export { PromptSession } from './prompt-session';
 export {
   Role,
   RoleCreateParams,

@@ -122,8 +122,7 @@ export class Braintrust extends Core.APIClient {
   project: API.ProjectResource = new API.ProjectResource(this);
   experiment: API.ExperimentResource = new API.ExperimentResource(this);
   dataset: API.DatasetResource = new API.DatasetResource(this);
-  prompt: API.Prompt = new API.Prompt(this);
-  promptSession: API.PromptSession = new API.PromptSession(this);
+  prompt: API.PromptResource = new API.PromptResource(this);
   role: API.RoleResource = new API.RoleResource(this);
   group: API.GroupResource = new API.GroupResource(this);
   acl: API.ACLResource = new API.ACLResource(this);
@@ -235,21 +234,14 @@ export namespace Braintrust {
   export import DatasetInsertParams = API.DatasetInsertParams;
   export import DatasetReplaceParams = API.DatasetReplaceParams;
 
+  export import PromptResource = API.PromptResource;
   export import Prompt = API.Prompt;
-  export import PromptCreateResponse = API.PromptCreateResponse;
-  export import PromptRetrieveResponse = API.PromptRetrieveResponse;
-  export import PromptUpdateResponse = API.PromptUpdateResponse;
-  export import PromptListResponse = API.PromptListResponse;
-  export import PromptDeleteResponse = API.PromptDeleteResponse;
-  export import PromptReplaceResponse = API.PromptReplaceResponse;
-  export import PromptListResponsesListObjects = API.PromptListResponsesListObjects;
+  export import PromptsListObjects = API.PromptsListObjects;
   export import PromptCreateParams = API.PromptCreateParams;
   export import PromptUpdateParams = API.PromptUpdateParams;
   export import PromptListParams = API.PromptListParams;
   export import PromptFeedbackParams = API.PromptFeedbackParams;
   export import PromptReplaceParams = API.PromptReplaceParams;
-
-  export import PromptSession = API.PromptSession;
 
   export import RoleResource = API.RoleResource;
   export import Role = API.Role;
