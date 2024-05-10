@@ -24,7 +24,6 @@ describe('instantiate client', () => {
       baseURL: 'http://localhost:5000/',
       defaultHeaders: { 'X-My-Default-Header': '2' },
       apiKey: 'My API Key',
-      baseURL: 'My Base URL',
     });
 
     test('they are used in the request', () => {
@@ -57,7 +56,6 @@ describe('instantiate client', () => {
         baseURL: 'http://localhost:5000/',
         defaultQuery: { apiVersion: 'foo' },
         apiKey: 'My API Key',
-        baseURL: 'My Base URL',
       });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/foo?apiVersion=foo');
     });
@@ -67,7 +65,6 @@ describe('instantiate client', () => {
         baseURL: 'http://localhost:5000/',
         defaultQuery: { apiVersion: 'foo', hello: 'world' },
         apiKey: 'My API Key',
-        baseURL: 'My Base URL',
       });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/foo?apiVersion=foo&hello=world');
     });
@@ -77,7 +74,6 @@ describe('instantiate client', () => {
         baseURL: 'http://localhost:5000/',
         defaultQuery: { hello: 'world' },
         apiKey: 'My API Key',
-        baseURL: 'My Base URL',
       });
       expect(client.buildURL('/foo', { hello: undefined })).toEqual('http://localhost:5000/foo');
     });
@@ -87,7 +83,6 @@ describe('instantiate client', () => {
     const client = new Braintrust({
       baseURL: 'http://localhost:5000/',
       apiKey: 'My API Key',
-      baseURL: 'My Base URL',
       fetch: (url) => {
         return Promise.resolve(
           new Response(JSON.stringify({ url, custom: true }), {
@@ -105,7 +100,6 @@ describe('instantiate client', () => {
     const client = new Braintrust({
       baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
       apiKey: 'My API Key',
-      baseURL: 'My Base URL',
       fetch: (...args) => {
         return new Promise((resolve, reject) =>
           setTimeout(
@@ -130,20 +124,12 @@ describe('instantiate client', () => {
 
   describe('baseUrl', () => {
     test('trailing slash', () => {
-      const client = new Braintrust({
-        baseURL: 'http://localhost:5000/custom/path/',
-        apiKey: 'My API Key',
-        baseURL: 'My Base URL',
-      });
+      const client = new Braintrust({ baseURL: 'http://localhost:5000/custom/path/', apiKey: 'My API Key' });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/custom/path/foo');
     });
 
     test('no trailing slash', () => {
-      const client = new Braintrust({
-        baseURL: 'http://localhost:5000/custom/path',
-        apiKey: 'My API Key',
-        baseURL: 'My Base URL',
-      });
+      const client = new Braintrust({ baseURL: 'http://localhost:5000/custom/path', apiKey: 'My API Key' });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/custom/path/foo');
     });
 
@@ -152,63 +138,55 @@ describe('instantiate client', () => {
     });
 
     test('explicit option', () => {
-      const client = new Braintrust({
-        baseURL: 'https://example.com',
-        apiKey: 'My API Key',
-        baseURL: 'My Base URL',
-      });
+      const client = new Braintrust({ baseURL: 'https://example.com', apiKey: 'My API Key' });
       expect(client.baseURL).toEqual('https://example.com');
     });
 
     test('env variable', () => {
       process.env['BRAINTRUST_BASE_URL'] = 'https://example.com/from_env';
-      const client = new Braintrust({ apiKey: 'My API Key', baseURL: 'My Base URL' });
+      const client = new Braintrust({ apiKey: 'My API Key' });
       expect(client.baseURL).toEqual('https://example.com/from_env');
     });
 
     test('empty env variable', () => {
       process.env['BRAINTRUST_BASE_URL'] = ''; // empty
-      const client = new Braintrust({ apiKey: 'My API Key', baseURL: 'My Base URL' });
+      const client = new Braintrust({ apiKey: 'My API Key' });
       expect(client.baseURL).toEqual('https://api.braintrustdata.com');
     });
 
     test('blank env variable', () => {
       process.env['BRAINTRUST_BASE_URL'] = '  '; // blank
-      const client = new Braintrust({ apiKey: 'My API Key', baseURL: 'My Base URL' });
+      const client = new Braintrust({ apiKey: 'My API Key' });
       expect(client.baseURL).toEqual('https://api.braintrustdata.com');
     });
   });
 
   test('maxRetries option is correctly set', () => {
-    const client = new Braintrust({ maxRetries: 4, apiKey: 'My API Key', baseURL: 'My Base URL' });
+    const client = new Braintrust({ maxRetries: 4, apiKey: 'My API Key' });
     expect(client.maxRetries).toEqual(4);
 
     // default
-    const client2 = new Braintrust({ apiKey: 'My API Key', baseURL: 'My Base URL' });
+    const client2 = new Braintrust({ apiKey: 'My API Key' });
     expect(client2.maxRetries).toEqual(2);
   });
 
   test('with environment variable arguments', () => {
     // set options via env var
     process.env['BRAINTRUST_API_KEY'] = 'My API Key';
-    process.env['BRAINTRUST_APP_URL'] = 'My Base URL';
     const client = new Braintrust();
     expect(client.apiKey).toBe('My API Key');
-    expect(client.baseURL).toBe('My Base URL');
   });
 
   test('with overriden environment variable arguments', () => {
     // set options via env var
     process.env['BRAINTRUST_API_KEY'] = 'another My API Key';
-    process.env['BRAINTRUST_APP_URL'] = 'another My Base URL';
-    const client = new Braintrust({ apiKey: 'My API Key', baseURL: 'My Base URL' });
+    const client = new Braintrust({ apiKey: 'My API Key' });
     expect(client.apiKey).toBe('My API Key');
-    expect(client.baseURL).toBe('My Base URL');
   });
 });
 
 describe('request building', () => {
-  const client = new Braintrust({ apiKey: 'My API Key', baseURL: 'My Base URL' });
+  const client = new Braintrust({ apiKey: 'My API Key' });
 
   describe('Content-Length', () => {
     test('handles multi-byte characters', () => {
@@ -250,12 +228,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new Braintrust({
-      apiKey: 'My API Key',
-      baseURL: 'My Base URL',
-      timeout: 10,
-      fetch: testFetch,
-    });
+    const client = new Braintrust({ apiKey: 'My API Key', timeout: 10, fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);
@@ -282,7 +255,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new Braintrust({ apiKey: 'My API Key', baseURL: 'My Base URL', fetch: testFetch });
+    const client = new Braintrust({ apiKey: 'My API Key', fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);
@@ -309,7 +282,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new Braintrust({ apiKey: 'My API Key', baseURL: 'My Base URL', fetch: testFetch });
+    const client = new Braintrust({ apiKey: 'My API Key', fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);
