@@ -92,7 +92,8 @@ export interface ACL {
     | 'project_score'
     | 'project_tag'
     | 'group'
-    | 'role';
+    | 'role'
+    | null;
 
   /**
    * Date of acl creation
@@ -118,7 +119,6 @@ export interface ACL {
     | 'read_acls'
     | 'update_acls'
     | 'delete_acls'
-    | ACL.UnionMember1
     | null;
 
   /**
@@ -135,7 +135,6 @@ export interface ACL {
     | 'project_tag'
     | 'group'
     | 'role'
-    | ACL.UnionMember1
     | null;
 
   /**
@@ -149,12 +148,6 @@ export interface ACL {
    * be provided
    */
   user_id?: string | null;
-}
-
-export namespace ACL {
-  export interface UnionMember1 {}
-
-  export interface UnionMember1 {}
 }
 
 export interface ACLCreateParams {
@@ -176,7 +169,8 @@ export interface ACLCreateParams {
     | 'project_score'
     | 'project_tag'
     | 'group'
-    | 'role';
+    | 'role'
+    | null;
 
   /**
    * Id of the group the ACL applies to. Exactly one of `user_id` and `group_id` will
@@ -197,7 +191,6 @@ export interface ACLCreateParams {
     | 'read_acls'
     | 'update_acls'
     | 'delete_acls'
-    | ACLCreateParams.UnionMember1
     | null;
 
   /**
@@ -214,7 +207,6 @@ export interface ACLCreateParams {
     | 'project_tag'
     | 'group'
     | 'role'
-    | ACLCreateParams.UnionMember1
     | null;
 
   /**
@@ -228,12 +220,6 @@ export interface ACLCreateParams {
    * be provided
    */
   user_id?: string | null;
-}
-
-export namespace ACLCreateParams {
-  export interface UnionMember1 {}
-
-  export interface UnionMember1 {}
 }
 
 export interface ACLListParams extends ListObjectsParams {
@@ -255,7 +241,8 @@ export interface ACLListParams extends ListObjectsParams {
     | 'project_score'
     | 'project_tag'
     | 'group'
-    | 'role';
+    | 'role'
+    | null;
 }
 
 export interface ACLReplaceParams {
@@ -277,7 +264,8 @@ export interface ACLReplaceParams {
     | 'project_score'
     | 'project_tag'
     | 'group'
-    | 'role';
+    | 'role'
+    | null;
 
   /**
    * Id of the group the ACL applies to. Exactly one of `user_id` and `group_id` will
@@ -298,7 +286,6 @@ export interface ACLReplaceParams {
     | 'read_acls'
     | 'update_acls'
     | 'delete_acls'
-    | ACLReplaceParams.UnionMember1
     | null;
 
   /**
@@ -315,7 +302,6 @@ export interface ACLReplaceParams {
     | 'project_tag'
     | 'group'
     | 'role'
-    | ACLReplaceParams.UnionMember1
     | null;
 
   /**
@@ -329,12 +315,6 @@ export interface ACLReplaceParams {
    * be provided
    */
   user_id?: string | null;
-}
-
-export namespace ACLReplaceParams {
-  export interface UnionMember1 {}
-
-  export interface UnionMember1 {}
 }
 
 export namespace ACLResource {
