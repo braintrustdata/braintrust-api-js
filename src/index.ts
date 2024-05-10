@@ -15,6 +15,11 @@ export interface ClientOptions {
   apiKey?: string | undefined;
 
   /**
+   * Defaults to process.env['BRAINTRUST_APP_URL'].
+   */
+  baseURL?: string | undefined;
+
+  /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
    *
    * Defaults to process.env['BRAINTRUST_BASE_URL'].
@@ -74,6 +79,7 @@ export interface ClientOptions {
 /** API Client for interfacing with the Braintrust API. */
 export class Braintrust extends Core.APIClient {
   apiKey: string;
+  baseURL: string;
 
   private _options: ClientOptions;
 
@@ -81,6 +87,7 @@ export class Braintrust extends Core.APIClient {
    * API Client for interfacing with the Braintrust API.
    *
    * @param {string | undefined} [opts.apiKey=process.env['BRAINTRUST_API_KEY'] ?? undefined]
+   * @param {string | undefined} [opts.baseURL=process.env['BRAINTRUST_APP_URL'] ?? undefined]
    * @param {string} [opts.baseURL=process.env['BRAINTRUST_BASE_URL'] ?? https://api.braintrustdata.com] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {number} [opts.httpAgent] - An HTTP agent used to manage HTTP(s) connections.
@@ -92,6 +99,7 @@ export class Braintrust extends Core.APIClient {
   constructor({
     baseURL = Core.readEnv('BRAINTRUST_BASE_URL'),
     apiKey = Core.readEnv('BRAINTRUST_API_KEY'),
+    baseURL = Core.readEnv('BRAINTRUST_APP_URL'),
     ...opts
   }: ClientOptions = {}) {
     if (apiKey === undefined) {
@@ -99,9 +107,15 @@ export class Braintrust extends Core.APIClient {
         "The BRAINTRUST_API_KEY environment variable is missing or empty; either provide it, or instantiate the Braintrust client with an apiKey option, like new Braintrust({ apiKey: 'My API Key' }).",
       );
     }
+    if (baseURL === undefined) {
+      throw new Errors.BraintrustError(
+        "The BRAINTRUST_APP_URL environment variable is missing or empty; either provide it, or instantiate the Braintrust client with an baseURL option, like new Braintrust({ baseURL: 'My Base URL' }).",
+      );
+    }
 
     const options: ClientOptions = {
       apiKey,
+      baseURL,
       ...opts,
       baseURL: baseURL || `https://api.braintrustdata.com`,
     };
@@ -116,6 +130,7 @@ export class Braintrust extends Core.APIClient {
     this._options = options;
 
     this.apiKey = apiKey;
+    this.baseURL = baseURL;
   }
 
   topLevel: API.TopLevel = new API.TopLevel(this);
