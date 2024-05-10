@@ -115,7 +115,15 @@ export interface Role {
    * Permissions which belong to this role
    */
   member_permissions?: Array<
-    'create' | 'read' | 'update' | 'delete' | 'create_acls' | 'read_acls' | 'update_acls' | 'delete_acls'
+    | 'create'
+    | 'read'
+    | 'update'
+    | 'delete'
+    | 'create_acls'
+    | 'read_acls'
+    | 'update_acls'
+    | 'delete_acls'
+    | null
   > | null;
 
   /**
@@ -157,7 +165,15 @@ export interface RoleCreateParams {
    * Permissions which belong to this role
    */
   member_permissions?: Array<
-    'create' | 'read' | 'update' | 'delete' | 'create_acls' | 'read_acls' | 'update_acls' | 'delete_acls'
+    | 'create'
+    | 'read'
+    | 'update'
+    | 'delete'
+    | 'create_acls'
+    | 'read_acls'
+    | 'update_acls'
+    | 'delete_acls'
+    | null
   > | null;
 
   /**
@@ -186,7 +202,15 @@ export interface RoleUpdateParams {
    * Permissions which belong to this role
    */
   member_permissions?: Array<
-    'create' | 'read' | 'update' | 'delete' | 'create_acls' | 'read_acls' | 'update_acls' | 'delete_acls'
+    | 'create'
+    | 'read'
+    | 'update'
+    | 'delete'
+    | 'create_acls'
+    | 'read_acls'
+    | 'update_acls'
+    | 'delete_acls'
+    | null
   > | null;
 
   /**
@@ -236,7 +260,15 @@ export interface RoleReplaceParams {
    * Permissions which belong to this role
    */
   member_permissions?: Array<
-    'create' | 'read' | 'update' | 'delete' | 'create_acls' | 'read_acls' | 'update_acls' | 'delete_acls'
+    | 'create'
+    | 'read'
+    | 'update'
+    | 'delete'
+    | 'create_acls'
+    | 'read_acls'
+    | 'update_acls'
+    | 'delete_acls'
+    | null
   > | null;
 
   /**
