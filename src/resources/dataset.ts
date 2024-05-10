@@ -149,6 +149,26 @@ export class DatasetResource extends APIResource {
   replace(body: DatasetReplaceParams, options?: Core.RequestOptions): Core.APIPromise<Dataset> {
     return this._client.put('/v1/dataset', { body, ...options });
   }
+
+  /**
+   * Summarize dataset
+   */
+  summarize(
+    datasetId: string,
+    query?: DatasetSummarizeParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<DatasetSummarizeResponse>;
+  summarize(datasetId: string, options?: Core.RequestOptions): Core.APIPromise<DatasetSummarizeResponse>;
+  summarize(
+    datasetId: string,
+    query: DatasetSummarizeParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<DatasetSummarizeResponse> {
+    if (isRequestOptions(query)) {
+      return this.summarize(datasetId, {}, query);
+    }
+    return this._client.get(`/v1/dataset/${datasetId}/summarize`, { query, ...options });
+  }
 }
 
 /**
@@ -198,6 +218,14 @@ export interface DatasetFetchResponse {
    * A list of fetched events
    */
   events: Array<DatasetFetchResponse.Event>;
+
+  /**
+   * Pagination cursor
+   *
+   * Pass this string directly as the `cursor` param to your next fetch request to
+   * get the next page of results. Not provided if the returned result set is empty.
+   */
+  cursor?: string | null;
 }
 
 export namespace DatasetFetchResponse {
@@ -277,6 +305,14 @@ export interface DatasetFetchPostResponse {
    * A list of fetched events
    */
   events: Array<DatasetFetchPostResponse.Event>;
+
+  /**
+   * Pagination cursor
+   *
+   * Pass this string directly as the `cursor` param to your next fetch request to
+   * get the next page of results. Not provided if the returned result set is empty.
+   */
+  cursor?: string | null;
 }
 
 export namespace DatasetFetchPostResponse {
@@ -357,6 +393,48 @@ export interface DatasetInsertResponse {
    * provided as input
    */
   row_ids: Array<string>;
+}
+
+/**
+ * Summary of a dataset
+ */
+export interface DatasetSummarizeResponse {
+  /**
+   * Name of the dataset
+   */
+  dataset_name: string;
+
+  /**
+   * URL to the dataset's page in the Braintrust app
+   */
+  dataset_url: string;
+
+  /**
+   * Name of the project that the dataset belongs to
+   */
+  project_name: string;
+
+  /**
+   * URL to the project's page in the Braintrust app
+   */
+  project_url: string;
+
+  /**
+   * Summary of a dataset's data
+   */
+  data_summary?: DatasetSummarizeResponse.DataSummary | null;
+}
+
+export namespace DatasetSummarizeResponse {
+  /**
+   * Summary of a dataset's data
+   */
+  export interface DataSummary {
+    /**
+     * Total number of records in the dataset
+     */
+    total_records: number;
+  }
 }
 
 export interface DatasetCreateParams {
@@ -464,6 +542,10 @@ export interface DatasetFetchParams {
   limit?: number;
 
   /**
+   * DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+   * favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+   * the 'cursor' argument going forwards.
+   *
    * Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
    *
    * Since a paginated fetch query returns results in order from latest to earliest,
@@ -474,6 +556,10 @@ export interface DatasetFetchParams {
   max_root_span_id?: string;
 
   /**
+   * DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+   * favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+   * the 'cursor' argument going forwards.
+   *
    * Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
    *
    * Since a paginated fetch query returns results in order from latest to earliest,
@@ -494,6 +580,15 @@ export interface DatasetFetchParams {
 }
 
 export interface DatasetFetchPostParams {
+  /**
+   * An opaque string to be used as a cursor for the next page of results, in order
+   * from latest to earliest.
+   *
+   * The string can be obtained directly from the `cursor` property of the previous
+   * fetch query
+   */
+  cursor?: string | null;
+
   /**
    * A list of filters on the events to fetch. Currently, only path-lookup type
    * filters are supported, but we may add more in the future
@@ -519,6 +614,10 @@ export interface DatasetFetchPostParams {
   limit?: number | null;
 
   /**
+   * DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+   * favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+   * the 'cursor' argument going forwards.
+   *
    * Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
    *
    * Since a paginated fetch query returns results in order from latest to earliest,
@@ -529,6 +628,10 @@ export interface DatasetFetchPostParams {
   max_root_span_id?: string | null;
 
   /**
+   * DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+   * favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+   * the 'cursor' argument going forwards.
+   *
    * Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
    *
    * Since a paginated fetch query returns results in order from latest to earliest,
@@ -748,11 +851,20 @@ export interface DatasetReplaceParams {
   project_id?: string | null;
 }
 
+export interface DatasetSummarizeParams {
+  /**
+   * Whether to summarize the data. If false (or omitted), only the metadata will be
+   * returned.
+   */
+  summarize_data?: boolean;
+}
+
 export namespace DatasetResource {
   export import Dataset = DatasetAPI.Dataset;
   export import DatasetFetchResponse = DatasetAPI.DatasetFetchResponse;
   export import DatasetFetchPostResponse = DatasetAPI.DatasetFetchPostResponse;
   export import DatasetInsertResponse = DatasetAPI.DatasetInsertResponse;
+  export import DatasetSummarizeResponse = DatasetAPI.DatasetSummarizeResponse;
   export import DatasetsListObjects = DatasetAPI.DatasetsListObjects;
   export import DatasetCreateParams = DatasetAPI.DatasetCreateParams;
   export import DatasetUpdateParams = DatasetAPI.DatasetUpdateParams;
@@ -762,4 +874,5 @@ export namespace DatasetResource {
   export import DatasetFetchPostParams = DatasetAPI.DatasetFetchPostParams;
   export import DatasetInsertParams = DatasetAPI.DatasetInsertParams;
   export import DatasetReplaceParams = DatasetAPI.DatasetReplaceParams;
+  export import DatasetSummarizeParams = DatasetAPI.DatasetSummarizeParams;
 }

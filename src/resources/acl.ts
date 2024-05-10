@@ -144,7 +144,7 @@ export namespace ACL {
        * This is just a placeholder nullable object. Only pass null, not the object
        * itself
        */
-      __reserved_only_allow_null: unknown;
+      __reserved_only_allow_null: Record<string, unknown>;
     }
   }
 
@@ -218,7 +218,7 @@ export namespace ACL {
        * This is just a placeholder nullable object. Only pass null, not the object
        * itself
        */
-      __reserved_only_allow_null: unknown;
+      __reserved_only_allow_null: Record<string, unknown>;
     }
   }
 
@@ -300,7 +300,7 @@ export namespace ACL {
        * This is just a placeholder nullable object. Only pass null, not the object
        * itself
        */
-      __reserved_only_allow_null: unknown;
+      __reserved_only_allow_null: Record<string, unknown>;
     }
   }
 
@@ -374,7 +374,7 @@ export namespace ACL {
        * This is just a placeholder nullable object. Only pass null, not the object
        * itself
        */
-      __reserved_only_allow_null: unknown;
+      __reserved_only_allow_null: Record<string, unknown>;
     }
   }
 }
@@ -449,7 +449,7 @@ export namespace ACLCreateParams {
        * This is just a placeholder nullable object. Only pass null, not the object
        * itself
        */
-      __reserved_only_allow_null: unknown;
+      __reserved_only_allow_null: Record<string, unknown>;
     }
   }
 
@@ -508,7 +508,7 @@ export namespace ACLCreateParams {
        * This is just a placeholder nullable object. Only pass null, not the object
        * itself
        */
-      __reserved_only_allow_null: unknown;
+      __reserved_only_allow_null: Record<string, unknown>;
     }
   }
 
@@ -575,7 +575,7 @@ export namespace ACLCreateParams {
        * This is just a placeholder nullable object. Only pass null, not the object
        * itself
        */
-      __reserved_only_allow_null: unknown;
+      __reserved_only_allow_null: Record<string, unknown>;
     }
   }
 
@@ -634,7 +634,7 @@ export namespace ACLCreateParams {
        * This is just a placeholder nullable object. Only pass null, not the object
        * itself
        */
-      __reserved_only_allow_null: unknown;
+      __reserved_only_allow_null: Record<string, unknown>;
     }
   }
 }
@@ -731,7 +731,7 @@ export namespace ACLReplaceParams {
        * This is just a placeholder nullable object. Only pass null, not the object
        * itself
        */
-      __reserved_only_allow_null: unknown;
+      __reserved_only_allow_null: Record<string, unknown>;
     }
   }
 
@@ -790,7 +790,7 @@ export namespace ACLReplaceParams {
        * This is just a placeholder nullable object. Only pass null, not the object
        * itself
        */
-      __reserved_only_allow_null: unknown;
+      __reserved_only_allow_null: Record<string, unknown>;
     }
   }
 
@@ -857,7 +857,7 @@ export namespace ACLReplaceParams {
        * This is just a placeholder nullable object. Only pass null, not the object
        * itself
        */
-      __reserved_only_allow_null: unknown;
+      __reserved_only_allow_null: Record<string, unknown>;
     }
   }
 
@@ -916,7 +916,7 @@ export namespace ACLReplaceParams {
        * This is just a placeholder nullable object. Only pass null, not the object
        * itself
        */
-      __reserved_only_allow_null: unknown;
+      __reserved_only_allow_null: Record<string, unknown>;
     }
   }
 }

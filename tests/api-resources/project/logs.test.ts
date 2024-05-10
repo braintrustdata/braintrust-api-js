@@ -110,6 +110,7 @@ describe('resource logs', () => {
       braintrust.project.logs.fetchPost(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         {
+          cursor: 'string',
           filters: [
             { type: 'path_lookup', path: ['string', 'string', 'string'], value: {} },
             { type: 'path_lookup', path: ['string', 'string', 'string'], value: {} },

@@ -6,6 +6,7 @@ export {
   DatasetFetchResponse,
   DatasetFetchPostResponse,
   DatasetInsertResponse,
+  DatasetSummarizeResponse,
   DatasetCreateParams,
   DatasetUpdateParams,
   DatasetListParams,
@@ -14,6 +15,7 @@ export {
   DatasetFetchPostParams,
   DatasetInsertParams,
   DatasetReplaceParams,
+  DatasetSummarizeParams,
   DatasetsListObjects,
   DatasetResource,
 } from './dataset';
@@ -22,6 +24,7 @@ export {
   ExperimentFetchResponse,
   ExperimentFetchPostResponse,
   ExperimentInsertResponse,
+  ExperimentSummarizeResponse,
   ExperimentCreateParams,
   ExperimentUpdateParams,
   ExperimentListParams,
@@ -30,6 +33,7 @@ export {
   ExperimentFetchPostParams,
   ExperimentInsertParams,
   ExperimentReplaceParams,
+  ExperimentSummarizeParams,
   ExperimentsListObjects,
   ExperimentResource,
 } from './experiment';

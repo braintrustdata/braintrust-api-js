@@ -390,7 +390,7 @@ export namespace Prompt {
        * This is just a placeholder nullable object. Only pass null, not the object
        * itself
        */
-      __reserved_only_allow_null: unknown;
+      __reserved_only_allow_null: Record<string, unknown>;
     }
   }
 }
@@ -656,7 +656,7 @@ export namespace PromptCreateParams {
        * This is just a placeholder nullable object. Only pass null, not the object
        * itself
        */
-      __reserved_only_allow_null: unknown;
+      __reserved_only_allow_null: Record<string, unknown>;
     }
   }
 }
@@ -912,7 +912,7 @@ export namespace PromptUpdateParams {
        * This is just a placeholder nullable object. Only pass null, not the object
        * itself
        */
-      __reserved_only_allow_null: unknown;
+      __reserved_only_allow_null: Record<string, unknown>;
     }
   }
 }
@@ -1248,7 +1248,7 @@ export namespace PromptReplaceParams {
        * This is just a placeholder nullable object. Only pass null, not the object
        * itself
        */
-      __reserved_only_allow_null: unknown;
+      __reserved_only_allow_null: Record<string, unknown>;
     }
   }
 }

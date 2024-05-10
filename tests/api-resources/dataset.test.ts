@@ -209,6 +209,7 @@ describe('resource dataset', () => {
       braintrust.dataset.fetchPost(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         {
+          cursor: 'string',
           filters: [
             { type: 'path_lookup', path: ['string', 'string', 'string'], value: {} },
             { type: 'path_lookup', path: ['string', 'string', 'string'], value: {} },
@@ -291,5 +292,36 @@ describe('resource dataset', () => {
       description: 'string',
       project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     });
+  });
+
+  test('summarize', async () => {
+    const responsePromise = braintrust.dataset.summarize('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('summarize: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      braintrust.dataset.summarize('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+        path: '/_stainless_unknown_path',
+      }),
+    ).rejects.toThrow(Braintrust.NotFoundError);
+  });
+
+  test('summarize: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      braintrust.dataset.summarize(
+        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+        { summarize_data: true },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Braintrust.NotFoundError);
   });
 });
