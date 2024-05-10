@@ -76,6 +76,14 @@ export interface LogFetchResponse {
    * A list of fetched events
    */
   events: Array<LogFetchResponse.Event>;
+
+  /**
+   * Pagination cursor
+   *
+   * Pass this string directly as the `cursor` param to your next fetch request to
+   * get the next page of results. Not provided if the returned result set is empty.
+   */
+  cursor?: string | null;
 }
 
 export namespace LogFetchResponse {
@@ -291,6 +299,14 @@ export interface LogFetchPostResponse {
    * A list of fetched events
    */
   events: Array<LogFetchPostResponse.Event>;
+
+  /**
+   * Pagination cursor
+   *
+   * Pass this string directly as the `cursor` param to your next fetch request to
+   * get the next page of results. Not provided if the returned result set is empty.
+   */
+  cursor?: string | null;
 }
 
 export namespace LogFetchPostResponse {
@@ -574,6 +590,10 @@ export interface LogFetchParams {
   limit?: number;
 
   /**
+   * DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+   * favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+   * the 'cursor' argument going forwards.
+   *
    * Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
    *
    * Since a paginated fetch query returns results in order from latest to earliest,
@@ -584,6 +604,10 @@ export interface LogFetchParams {
   max_root_span_id?: string;
 
   /**
+   * DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+   * favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+   * the 'cursor' argument going forwards.
+   *
    * Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
    *
    * Since a paginated fetch query returns results in order from latest to earliest,
@@ -604,6 +628,15 @@ export interface LogFetchParams {
 }
 
 export interface LogFetchPostParams {
+  /**
+   * An opaque string to be used as a cursor for the next page of results, in order
+   * from latest to earliest.
+   *
+   * The string can be obtained directly from the `cursor` property of the previous
+   * fetch query
+   */
+  cursor?: string | null;
+
   /**
    * A list of filters on the events to fetch. Currently, only path-lookup type
    * filters are supported, but we may add more in the future
@@ -629,6 +662,10 @@ export interface LogFetchPostParams {
   limit?: number | null;
 
   /**
+   * DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+   * favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+   * the 'cursor' argument going forwards.
+   *
    * Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
    *
    * Since a paginated fetch query returns results in order from latest to earliest,
@@ -639,6 +676,10 @@ export interface LogFetchPostParams {
   max_root_span_id?: string | null;
 
   /**
+   * DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+   * favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+   * the 'cursor' argument going forwards.
+   *
    * Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
    *
    * Since a paginated fetch query returns results in order from latest to earliest,

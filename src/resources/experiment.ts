@@ -152,6 +152,29 @@ export class ExperimentResource extends APIResource {
   replace(body: ExperimentReplaceParams, options?: Core.RequestOptions): Core.APIPromise<Experiment> {
     return this._client.put('/v1/experiment', { body, ...options });
   }
+
+  /**
+   * Summarize experiment
+   */
+  summarize(
+    experimentId: string,
+    query?: ExperimentSummarizeParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<ExperimentSummarizeResponse>;
+  summarize(
+    experimentId: string,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<ExperimentSummarizeResponse>;
+  summarize(
+    experimentId: string,
+    query: ExperimentSummarizeParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<ExperimentSummarizeResponse> {
+    if (isRequestOptions(query)) {
+      return this.summarize(experimentId, {}, query);
+    }
+    return this._client.get(`/v1/experiment/${experimentId}/summarize`, { query, ...options });
+  }
 }
 
 /**
@@ -292,6 +315,14 @@ export interface ExperimentFetchResponse {
    * A list of fetched events
    */
   events: Array<ExperimentFetchResponse.Event>;
+
+  /**
+   * Pagination cursor
+   *
+   * Pass this string directly as the `cursor` param to your next fetch request to
+   * get the next page of results. Not provided if the returned result set is empty.
+   */
+  cursor?: string | null;
 }
 
 export namespace ExperimentFetchResponse {
@@ -512,6 +543,14 @@ export interface ExperimentFetchPostResponse {
    * A list of fetched events
    */
   events: Array<ExperimentFetchPostResponse.Event>;
+
+  /**
+   * Pagination cursor
+   *
+   * Pass this string directly as the `cursor` param to your next fetch request to
+   * get the next page of results. Not provided if the returned result set is empty.
+   */
+  cursor?: string | null;
 }
 
 export namespace ExperimentFetchPostResponse {
@@ -733,6 +772,113 @@ export interface ExperimentInsertResponse {
    * provided as input
    */
   row_ids: Array<string>;
+}
+
+/**
+ * Summary of an experiment
+ */
+export interface ExperimentSummarizeResponse {
+  /**
+   * Name of the experiment
+   */
+  experiment_name: string;
+
+  /**
+   * URL to the experiment's page in the Braintrust app
+   */
+  experiment_url: string;
+
+  /**
+   * Name of the project that the experiment belongs to
+   */
+  project_name: string;
+
+  /**
+   * URL to the project's page in the Braintrust app
+   */
+  project_url: string;
+
+  /**
+   * The experiment which scores are baselined against
+   */
+  comparison_experiment_name?: string | null;
+
+  /**
+   * Summary of the experiment's metrics
+   */
+  metrics?: Record<string, ExperimentSummarizeResponse.Metrics> | null;
+
+  /**
+   * Summary of the experiment's scores
+   */
+  scores?: Record<string, ExperimentSummarizeResponse.Scores> | null;
+}
+
+export namespace ExperimentSummarizeResponse {
+  /**
+   * Summary of a metric's performance
+   */
+  export interface Metrics {
+    /**
+     * Number of improvements in the metric
+     */
+    improvements: number;
+
+    /**
+     * Average metric across all examples
+     */
+    metric: number;
+
+    /**
+     * Name of the metric
+     */
+    name: string;
+
+    /**
+     * Number of regressions in the metric
+     */
+    regressions: number;
+
+    /**
+     * Unit label for the metric
+     */
+    unit: string;
+
+    /**
+     * Difference in metric between the current and comparison experiment
+     */
+    diff?: number;
+  }
+
+  /**
+   * Summary of a score's performance
+   */
+  export interface Scores {
+    /**
+     * Number of improvements in the score
+     */
+    improvements: number;
+
+    /**
+     * Name of the score
+     */
+    name: string;
+
+    /**
+     * Number of regressions in the score
+     */
+    regressions: number;
+
+    /**
+     * Average score across all examples
+     */
+    score: number;
+
+    /**
+     * Difference in score between the current and comparison experiment
+     */
+    diff?: number;
+  }
 }
 
 export interface ExperimentCreateParams {
@@ -1032,6 +1178,10 @@ export interface ExperimentFetchParams {
   limit?: number;
 
   /**
+   * DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+   * favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+   * the 'cursor' argument going forwards.
+   *
    * Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
    *
    * Since a paginated fetch query returns results in order from latest to earliest,
@@ -1042,6 +1192,10 @@ export interface ExperimentFetchParams {
   max_root_span_id?: string;
 
   /**
+   * DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+   * favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+   * the 'cursor' argument going forwards.
+   *
    * Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
    *
    * Since a paginated fetch query returns results in order from latest to earliest,
@@ -1062,6 +1216,15 @@ export interface ExperimentFetchParams {
 }
 
 export interface ExperimentFetchPostParams {
+  /**
+   * An opaque string to be used as a cursor for the next page of results, in order
+   * from latest to earliest.
+   *
+   * The string can be obtained directly from the `cursor` property of the previous
+   * fetch query
+   */
+  cursor?: string | null;
+
   /**
    * A list of filters on the events to fetch. Currently, only path-lookup type
    * filters are supported, but we may add more in the future
@@ -1087,6 +1250,10 @@ export interface ExperimentFetchPostParams {
   limit?: number | null;
 
   /**
+   * DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+   * favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+   * the 'cursor' argument going forwards.
+   *
    * Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
    *
    * Since a paginated fetch query returns results in order from latest to earliest,
@@ -1097,6 +1264,10 @@ export interface ExperimentFetchPostParams {
   max_root_span_id?: string | null;
 
   /**
+   * DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+   * favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+   * the 'cursor' argument going forwards.
+   *
    * Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
    *
    * Since a paginated fetch query returns results in order from latest to earliest,
@@ -1680,11 +1851,28 @@ export namespace ExperimentReplaceParams {
   }
 }
 
+export interface ExperimentSummarizeParams {
+  /**
+   * The experiment to compare against, if summarizing scores and metrics. If
+   * omitted, will fall back to the `base_exp_id` stored in the experiment metadata,
+   * and then to the most recent experiment run in the same project. Must pass
+   * `summarize_scores=true` for this id to be used
+   */
+  comparison_experiment_id?: string;
+
+  /**
+   * Whether to summarize the scores and metrics. If false (or omitted), only the
+   * metadata will be returned.
+   */
+  summarize_scores?: boolean;
+}
+
 export namespace ExperimentResource {
   export import Experiment = ExperimentAPI.Experiment;
   export import ExperimentFetchResponse = ExperimentAPI.ExperimentFetchResponse;
   export import ExperimentFetchPostResponse = ExperimentAPI.ExperimentFetchPostResponse;
   export import ExperimentInsertResponse = ExperimentAPI.ExperimentInsertResponse;
+  export import ExperimentSummarizeResponse = ExperimentAPI.ExperimentSummarizeResponse;
   export import ExperimentsListObjects = ExperimentAPI.ExperimentsListObjects;
   export import ExperimentCreateParams = ExperimentAPI.ExperimentCreateParams;
   export import ExperimentUpdateParams = ExperimentAPI.ExperimentUpdateParams;
@@ -1694,4 +1882,5 @@ export namespace ExperimentResource {
   export import ExperimentFetchPostParams = ExperimentAPI.ExperimentFetchPostParams;
   export import ExperimentInsertParams = ExperimentAPI.ExperimentInsertParams;
   export import ExperimentReplaceParams = ExperimentAPI.ExperimentReplaceParams;
+  export import ExperimentSummarizeParams = ExperimentAPI.ExperimentSummarizeParams;
 }

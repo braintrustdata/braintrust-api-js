@@ -46,6 +46,7 @@ Types:
 - <code><a href="./src/resources/experiment.ts">ExperimentFetchResponse</a></code>
 - <code><a href="./src/resources/experiment.ts">ExperimentFetchPostResponse</a></code>
 - <code><a href="./src/resources/experiment.ts">ExperimentInsertResponse</a></code>
+- <code><a href="./src/resources/experiment.ts">ExperimentSummarizeResponse</a></code>
 
 Methods:
 
@@ -59,6 +60,7 @@ Methods:
 - <code title="post /v1/experiment/{experiment_id}/fetch">client.experiment.<a href="./src/resources/experiment.ts">fetchPost</a>(experimentId, { ...params }) -> ExperimentFetchPostResponse</code>
 - <code title="post /v1/experiment/{experiment_id}/insert">client.experiment.<a href="./src/resources/experiment.ts">insert</a>(experimentId, { ...params }) -> ExperimentInsertResponse</code>
 - <code title="put /v1/experiment">client.experiment.<a href="./src/resources/experiment.ts">replace</a>({ ...params }) -> Experiment</code>
+- <code title="get /v1/experiment/{experiment_id}/summarize">client.experiment.<a href="./src/resources/experiment.ts">summarize</a>(experimentId, { ...params }) -> ExperimentSummarizeResponse</code>
 
 # Dataset
 
@@ -68,6 +70,7 @@ Types:
 - <code><a href="./src/resources/dataset.ts">DatasetFetchResponse</a></code>
 - <code><a href="./src/resources/dataset.ts">DatasetFetchPostResponse</a></code>
 - <code><a href="./src/resources/dataset.ts">DatasetInsertResponse</a></code>
+- <code><a href="./src/resources/dataset.ts">DatasetSummarizeResponse</a></code>
 
 Methods:
 
@@ -81,6 +84,7 @@ Methods:
 - <code title="post /v1/dataset/{dataset_id}/fetch">client.dataset.<a href="./src/resources/dataset.ts">fetchPost</a>(datasetId, { ...params }) -> DatasetFetchPostResponse</code>
 - <code title="post /v1/dataset/{dataset_id}/insert">client.dataset.<a href="./src/resources/dataset.ts">insert</a>(datasetId, { ...params }) -> DatasetInsertResponse</code>
 - <code title="put /v1/dataset">client.dataset.<a href="./src/resources/dataset.ts">replace</a>({ ...params }) -> Dataset</code>
+- <code title="get /v1/dataset/{dataset_id}/summarize">client.dataset.<a href="./src/resources/dataset.ts">summarize</a>(datasetId, { ...params }) -> DatasetSummarizeResponse</code>
 
 # Prompt
 

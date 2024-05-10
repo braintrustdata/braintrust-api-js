@@ -209,6 +209,7 @@ export namespace Braintrust {
   export import ExperimentFetchResponse = API.ExperimentFetchResponse;
   export import ExperimentFetchPostResponse = API.ExperimentFetchPostResponse;
   export import ExperimentInsertResponse = API.ExperimentInsertResponse;
+  export import ExperimentSummarizeResponse = API.ExperimentSummarizeResponse;
   export import ExperimentsListObjects = API.ExperimentsListObjects;
   export import ExperimentCreateParams = API.ExperimentCreateParams;
   export import ExperimentUpdateParams = API.ExperimentUpdateParams;
@@ -218,12 +219,14 @@ export namespace Braintrust {
   export import ExperimentFetchPostParams = API.ExperimentFetchPostParams;
   export import ExperimentInsertParams = API.ExperimentInsertParams;
   export import ExperimentReplaceParams = API.ExperimentReplaceParams;
+  export import ExperimentSummarizeParams = API.ExperimentSummarizeParams;
 
   export import DatasetResource = API.DatasetResource;
   export import Dataset = API.Dataset;
   export import DatasetFetchResponse = API.DatasetFetchResponse;
   export import DatasetFetchPostResponse = API.DatasetFetchPostResponse;
   export import DatasetInsertResponse = API.DatasetInsertResponse;
+  export import DatasetSummarizeResponse = API.DatasetSummarizeResponse;
   export import DatasetsListObjects = API.DatasetsListObjects;
   export import DatasetCreateParams = API.DatasetCreateParams;
   export import DatasetUpdateParams = API.DatasetUpdateParams;
@@ -233,6 +236,7 @@ export namespace Braintrust {
   export import DatasetFetchPostParams = API.DatasetFetchPostParams;
   export import DatasetInsertParams = API.DatasetInsertParams;
   export import DatasetReplaceParams = API.DatasetReplaceParams;
+  export import DatasetSummarizeParams = API.DatasetSummarizeParams;
 
   export import PromptResource = API.PromptResource;
   export import Prompt = API.Prompt;
