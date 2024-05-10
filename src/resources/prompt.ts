@@ -170,7 +170,7 @@ export namespace Prompt {
 
     origin?: PromptData.Origin | null;
 
-    prompt?: PromptData.UnionMember0 | PromptData.UnionMember1 | PromptData._ReservedOnlyAllowNull | null;
+    prompt?: PromptData.UnionMember0 | PromptData.UnionMember1 | PromptData.UnionMember2 | null;
   }
 
   export namespace PromptData {
@@ -385,21 +385,7 @@ export namespace Prompt {
       }
     }
 
-    export interface _ReservedOnlyAllowNull {
-      /**
-       * This is just a placeholder nullable object. Only pass null, not the object
-       * itself
-       */
-      __reserved_only_allow_null: _ReservedOnlyAllowNull._ReservedOnlyAllowNull;
-    }
-
-    export namespace _ReservedOnlyAllowNull {
-      /**
-       * This is just a placeholder nullable object. Only pass null, not the object
-       * itself
-       */
-      export interface _ReservedOnlyAllowNull {}
-    }
+    export interface UnionMember2 {}
   }
 }
 
@@ -444,7 +430,7 @@ export namespace PromptCreateParams {
 
     origin?: PromptData.Origin | null;
 
-    prompt?: PromptData.UnionMember0 | PromptData.UnionMember1 | PromptData._ReservedOnlyAllowNull | null;
+    prompt?: PromptData.UnionMember0 | PromptData.UnionMember1 | PromptData.UnionMember2 | null;
   }
 
   export namespace PromptData {
@@ -659,21 +645,7 @@ export namespace PromptCreateParams {
       }
     }
 
-    export interface _ReservedOnlyAllowNull {
-      /**
-       * This is just a placeholder nullable object. Only pass null, not the object
-       * itself
-       */
-      __reserved_only_allow_null: _ReservedOnlyAllowNull._ReservedOnlyAllowNull;
-    }
-
-    export namespace _ReservedOnlyAllowNull {
-      /**
-       * This is just a placeholder nullable object. Only pass null, not the object
-       * itself
-       */
-      export interface _ReservedOnlyAllowNull {}
-    }
+    export interface UnionMember2 {}
   }
 }
 
@@ -708,7 +680,7 @@ export namespace PromptUpdateParams {
 
     origin?: PromptData.Origin | null;
 
-    prompt?: PromptData.UnionMember0 | PromptData.UnionMember1 | PromptData._ReservedOnlyAllowNull | null;
+    prompt?: PromptData.UnionMember0 | PromptData.UnionMember1 | PromptData.UnionMember2 | null;
   }
 
   export namespace PromptData {
@@ -923,21 +895,7 @@ export namespace PromptUpdateParams {
       }
     }
 
-    export interface _ReservedOnlyAllowNull {
-      /**
-       * This is just a placeholder nullable object. Only pass null, not the object
-       * itself
-       */
-      __reserved_only_allow_null: _ReservedOnlyAllowNull._ReservedOnlyAllowNull;
-    }
-
-    export namespace _ReservedOnlyAllowNull {
-      /**
-       * This is just a placeholder nullable object. Only pass null, not the object
-       * itself
-       */
-      export interface _ReservedOnlyAllowNull {}
-    }
+    export interface UnionMember2 {}
   }
 }
 
@@ -1052,7 +1010,7 @@ export namespace PromptReplaceParams {
 
     origin?: PromptData.Origin | null;
 
-    prompt?: PromptData.UnionMember0 | PromptData.UnionMember1 | PromptData._ReservedOnlyAllowNull | null;
+    prompt?: PromptData.UnionMember0 | PromptData.UnionMember1 | PromptData.UnionMember2 | null;
   }
 
   export namespace PromptData {
@@ -1267,21 +1225,7 @@ export namespace PromptReplaceParams {
       }
     }
 
-    export interface _ReservedOnlyAllowNull {
-      /**
-       * This is just a placeholder nullable object. Only pass null, not the object
-       * itself
-       */
-      __reserved_only_allow_null: _ReservedOnlyAllowNull._ReservedOnlyAllowNull;
-    }
-
-    export namespace _ReservedOnlyAllowNull {
-      /**
-       * This is just a placeholder nullable object. Only pass null, not the object
-       * itself
-       */
-      export interface _ReservedOnlyAllowNull {}
-    }
+    export interface UnionMember2 {}
   }
 }
 
