@@ -63,532 +63,177 @@ export class ACLsListObjects extends ListObjects<ACL> {}
  * To restrict a grant to a particular sub-object, you may specify
  * `restrict_object_type` in the ACL.
  */
-export type ACL = ACL.UserPermissionACL | ACL.UserRoleACL | ACL.GroupPermissionACL | ACL.GroupRoleACL;
+export interface ACL {
+  /**
+   * Unique identifier for the acl
+   */
+  id: string;
 
-export namespace ACL {
-  export interface UserPermissionACL {
-    /**
-     * Unique identifier for the acl
-     */
-    id: string;
+  /**
+   * The organization the ACL's referred object belongs to
+   */
+  _object_org_id: string;
 
-    /**
-     * The organization the ACL's referred object belongs to
-     */
-    _object_org_id: string;
+  /**
+   * The id of the object the ACL applies to
+   */
+  object_id: string;
 
-    /**
-     * The id of the object the ACL applies to
-     */
-    object_id: string;
+  /**
+   * The object type that the ACL applies to
+   */
+  object_type:
+    | 'organization'
+    | 'project'
+    | 'experiment'
+    | 'dataset'
+    | 'prompt'
+    | 'prompt_session'
+    | 'project_score'
+    | 'project_tag'
+    | 'group'
+    | 'role';
 
-    /**
-     * The object type that the ACL applies to
-     */
-    object_type:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'project_score'
-      | 'project_tag'
-      | 'group'
-      | 'role';
+  /**
+   * Date of acl creation
+   */
+  created?: string | null;
 
-    /**
-     * Permission the ACL grants
-     */
-    permission:
-      | 'create'
-      | 'read'
-      | 'update'
-      | 'delete'
-      | 'create_acls'
-      | 'read_acls'
-      | 'update_acls'
-      | 'delete_acls';
+  /**
+   * Id of the group the ACL applies to. Exactly one of `user_id` and `group_id` will
+   * be provided
+   */
+  group_id?: string | null;
 
-    /**
-     * Id of the user the ACL applies to
-     */
-    user_id: string;
+  /**
+   * Permission the ACL grants. Exactly one of `permission` and `role_id` will be
+   * provided
+   */
+  permission?:
+    | 'create'
+    | 'read'
+    | 'update'
+    | 'delete'
+    | 'create_acls'
+    | 'read_acls'
+    | 'update_acls'
+    | 'delete_acls'
+    | ACL.UnionMember1
+    | null;
 
-    /**
-     * Date of acl creation
-     */
-    created?: string | null;
+  /**
+   * Optionally restricts the permission grant to just the specified object type
+   */
+  restrict_object_type?:
+    | 'organization'
+    | 'project'
+    | 'experiment'
+    | 'dataset'
+    | 'prompt'
+    | 'prompt_session'
+    | 'project_score'
+    | 'project_tag'
+    | 'group'
+    | 'role'
+    | ACL.UnionMember1
+    | null;
 
-    /**
-     * Optionally restricts the permission grant to just the specified object type
-     */
-    restrict_object_type?:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'project_score'
-      | 'project_tag'
-      | 'group'
-      | 'role'
-      | UserPermissionACL.UnionMember1
-      | null;
-  }
+  /**
+   * Id of the role the ACL grants. Exactly one of `permission` and `role_id` will be
+   * provided
+   */
+  role_id?: string | null;
 
-  export namespace UserPermissionACL {
-    export interface UnionMember1 {}
-  }
-
-  export interface UserRoleACL {
-    /**
-     * Unique identifier for the acl
-     */
-    id: string;
-
-    /**
-     * The organization the ACL's referred object belongs to
-     */
-    _object_org_id: string;
-
-    /**
-     * The id of the object the ACL applies to
-     */
-    object_id: string;
-
-    /**
-     * The object type that the ACL applies to
-     */
-    object_type:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'project_score'
-      | 'project_tag'
-      | 'group'
-      | 'role';
-
-    /**
-     * Id of the role the ACL grants
-     */
-    role_id: string;
-
-    /**
-     * Id of the user the ACL applies to
-     */
-    user_id: string;
-
-    /**
-     * Date of acl creation
-     */
-    created?: string | null;
-
-    /**
-     * Optionally restricts the permission grant to just the specified object type
-     */
-    restrict_object_type?:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'project_score'
-      | 'project_tag'
-      | 'group'
-      | 'role'
-      | UserRoleACL.UnionMember1
-      | null;
-  }
-
-  export namespace UserRoleACL {
-    export interface UnionMember1 {}
-  }
-
-  export interface GroupPermissionACL {
-    /**
-     * Unique identifier for the acl
-     */
-    id: string;
-
-    /**
-     * The organization the ACL's referred object belongs to
-     */
-    _object_org_id: string;
-
-    /**
-     * Id of the group the ACL applies to
-     */
-    group_id: string;
-
-    /**
-     * The id of the object the ACL applies to
-     */
-    object_id: string;
-
-    /**
-     * The object type that the ACL applies to
-     */
-    object_type:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'project_score'
-      | 'project_tag'
-      | 'group'
-      | 'role';
-
-    /**
-     * Permission the ACL grants
-     */
-    permission:
-      | 'create'
-      | 'read'
-      | 'update'
-      | 'delete'
-      | 'create_acls'
-      | 'read_acls'
-      | 'update_acls'
-      | 'delete_acls';
-
-    /**
-     * Date of acl creation
-     */
-    created?: string | null;
-
-    /**
-     * Optionally restricts the permission grant to just the specified object type
-     */
-    restrict_object_type?:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'project_score'
-      | 'project_tag'
-      | 'group'
-      | 'role'
-      | GroupPermissionACL.UnionMember1
-      | null;
-  }
-
-  export namespace GroupPermissionACL {
-    export interface UnionMember1 {}
-  }
-
-  export interface GroupRoleACL {
-    /**
-     * Unique identifier for the acl
-     */
-    id: string;
-
-    /**
-     * The organization the ACL's referred object belongs to
-     */
-    _object_org_id: string;
-
-    /**
-     * Id of the group the ACL applies to
-     */
-    group_id: string;
-
-    /**
-     * The id of the object the ACL applies to
-     */
-    object_id: string;
-
-    /**
-     * The object type that the ACL applies to
-     */
-    object_type:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'project_score'
-      | 'project_tag'
-      | 'group'
-      | 'role';
-
-    /**
-     * Id of the role the ACL grants
-     */
-    role_id: string;
-
-    /**
-     * Date of acl creation
-     */
-    created?: string | null;
-
-    /**
-     * Optionally restricts the permission grant to just the specified object type
-     */
-    restrict_object_type?:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'project_score'
-      | 'project_tag'
-      | 'group'
-      | 'role'
-      | GroupRoleACL.UnionMember1
-      | null;
-  }
-
-  export namespace GroupRoleACL {
-    export interface UnionMember1 {}
-  }
+  /**
+   * Id of the user the ACL applies to. Exactly one of `user_id` and `group_id` will
+   * be provided
+   */
+  user_id?: string | null;
 }
 
-export type ACLCreateParams =
-  | ACLCreateParams.CreateUserPermissionACL
-  | ACLCreateParams.CreateUserRoleACL
-  | ACLCreateParams.CreateGroupPermissionACL
-  | ACLCreateParams.CreateGroupRoleACL;
+export namespace ACL {
+  export interface UnionMember1 {}
+
+  export interface UnionMember1 {}
+}
+
+export interface ACLCreateParams {
+  /**
+   * The id of the object the ACL applies to
+   */
+  object_id: string;
+
+  /**
+   * The object type that the ACL applies to
+   */
+  object_type:
+    | 'organization'
+    | 'project'
+    | 'experiment'
+    | 'dataset'
+    | 'prompt'
+    | 'prompt_session'
+    | 'project_score'
+    | 'project_tag'
+    | 'group'
+    | 'role';
+
+  /**
+   * Id of the group the ACL applies to. Exactly one of `user_id` and `group_id` will
+   * be provided
+   */
+  group_id?: string | null;
+
+  /**
+   * Permission the ACL grants. Exactly one of `permission` and `role_id` will be
+   * provided
+   */
+  permission?:
+    | 'create'
+    | 'read'
+    | 'update'
+    | 'delete'
+    | 'create_acls'
+    | 'read_acls'
+    | 'update_acls'
+    | 'delete_acls'
+    | ACLCreateParams.UnionMember1
+    | null;
+
+  /**
+   * Optionally restricts the permission grant to just the specified object type
+   */
+  restrict_object_type?:
+    | 'organization'
+    | 'project'
+    | 'experiment'
+    | 'dataset'
+    | 'prompt'
+    | 'prompt_session'
+    | 'project_score'
+    | 'project_tag'
+    | 'group'
+    | 'role'
+    | ACLCreateParams.UnionMember1
+    | null;
+
+  /**
+   * Id of the role the ACL grants. Exactly one of `permission` and `role_id` will be
+   * provided
+   */
+  role_id?: string | null;
+
+  /**
+   * Id of the user the ACL applies to. Exactly one of `user_id` and `group_id` will
+   * be provided
+   */
+  user_id?: string | null;
+}
 
 export namespace ACLCreateParams {
-  export interface CreateUserPermissionACL {
-    /**
-     * The id of the object the ACL applies to
-     */
-    object_id: string;
+  export interface UnionMember1 {}
 
-    /**
-     * The object type that the ACL applies to
-     */
-    object_type:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'project_score'
-      | 'project_tag'
-      | 'group'
-      | 'role';
-
-    /**
-     * Permission the ACL grants
-     */
-    permission:
-      | 'create'
-      | 'read'
-      | 'update'
-      | 'delete'
-      | 'create_acls'
-      | 'read_acls'
-      | 'update_acls'
-      | 'delete_acls';
-
-    /**
-     * Id of the user the ACL applies to
-     */
-    user_id: string;
-
-    /**
-     * Optionally restricts the permission grant to just the specified object type
-     */
-    restrict_object_type?:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'project_score'
-      | 'project_tag'
-      | 'group'
-      | 'role'
-      | ACLCreateParams.CreateUserPermissionACL.UnionMember1
-      | null;
-  }
-
-  export namespace CreateUserPermissionACL {
-    export interface UnionMember1 {}
-  }
-
-  export interface CreateUserRoleACL {
-    /**
-     * The id of the object the ACL applies to
-     */
-    object_id: string;
-
-    /**
-     * The object type that the ACL applies to
-     */
-    object_type:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'project_score'
-      | 'project_tag'
-      | 'group'
-      | 'role';
-
-    /**
-     * Id of the role the ACL grants
-     */
-    role_id: string;
-
-    /**
-     * Id of the user the ACL applies to
-     */
-    user_id: string;
-
-    /**
-     * Optionally restricts the permission grant to just the specified object type
-     */
-    restrict_object_type?:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'project_score'
-      | 'project_tag'
-      | 'group'
-      | 'role'
-      | ACLCreateParams.CreateUserRoleACL.UnionMember1
-      | null;
-  }
-
-  export namespace CreateUserRoleACL {
-    export interface UnionMember1 {}
-  }
-
-  export interface CreateGroupPermissionACL {
-    /**
-     * Id of the group the ACL applies to
-     */
-    group_id: string;
-
-    /**
-     * The id of the object the ACL applies to
-     */
-    object_id: string;
-
-    /**
-     * The object type that the ACL applies to
-     */
-    object_type:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'project_score'
-      | 'project_tag'
-      | 'group'
-      | 'role';
-
-    /**
-     * Permission the ACL grants
-     */
-    permission:
-      | 'create'
-      | 'read'
-      | 'update'
-      | 'delete'
-      | 'create_acls'
-      | 'read_acls'
-      | 'update_acls'
-      | 'delete_acls';
-
-    /**
-     * Optionally restricts the permission grant to just the specified object type
-     */
-    restrict_object_type?:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'project_score'
-      | 'project_tag'
-      | 'group'
-      | 'role'
-      | ACLCreateParams.CreateGroupPermissionACL.UnionMember1
-      | null;
-  }
-
-  export namespace CreateGroupPermissionACL {
-    export interface UnionMember1 {}
-  }
-
-  export interface CreateGroupRoleACL {
-    /**
-     * Id of the group the ACL applies to
-     */
-    group_id: string;
-
-    /**
-     * The id of the object the ACL applies to
-     */
-    object_id: string;
-
-    /**
-     * The object type that the ACL applies to
-     */
-    object_type:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'project_score'
-      | 'project_tag'
-      | 'group'
-      | 'role';
-
-    /**
-     * Id of the role the ACL grants
-     */
-    role_id: string;
-
-    /**
-     * Optionally restricts the permission grant to just the specified object type
-     */
-    restrict_object_type?:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'project_score'
-      | 'project_tag'
-      | 'group'
-      | 'role'
-      | ACLCreateParams.CreateGroupRoleACL.UnionMember1
-      | null;
-  }
-
-  export namespace CreateGroupRoleACL {
-    export interface UnionMember1 {}
-  }
+  export interface UnionMember1 {}
 }
 
 export interface ACLListParams extends ListObjectsParams {
@@ -613,240 +258,83 @@ export interface ACLListParams extends ListObjectsParams {
     | 'role';
 }
 
-export type ACLReplaceParams =
-  | ACLReplaceParams.CreateUserPermissionACL
-  | ACLReplaceParams.CreateUserRoleACL
-  | ACLReplaceParams.CreateGroupPermissionACL
-  | ACLReplaceParams.CreateGroupRoleACL;
+export interface ACLReplaceParams {
+  /**
+   * The id of the object the ACL applies to
+   */
+  object_id: string;
+
+  /**
+   * The object type that the ACL applies to
+   */
+  object_type:
+    | 'organization'
+    | 'project'
+    | 'experiment'
+    | 'dataset'
+    | 'prompt'
+    | 'prompt_session'
+    | 'project_score'
+    | 'project_tag'
+    | 'group'
+    | 'role';
+
+  /**
+   * Id of the group the ACL applies to. Exactly one of `user_id` and `group_id` will
+   * be provided
+   */
+  group_id?: string | null;
+
+  /**
+   * Permission the ACL grants. Exactly one of `permission` and `role_id` will be
+   * provided
+   */
+  permission?:
+    | 'create'
+    | 'read'
+    | 'update'
+    | 'delete'
+    | 'create_acls'
+    | 'read_acls'
+    | 'update_acls'
+    | 'delete_acls'
+    | ACLReplaceParams.UnionMember1
+    | null;
+
+  /**
+   * Optionally restricts the permission grant to just the specified object type
+   */
+  restrict_object_type?:
+    | 'organization'
+    | 'project'
+    | 'experiment'
+    | 'dataset'
+    | 'prompt'
+    | 'prompt_session'
+    | 'project_score'
+    | 'project_tag'
+    | 'group'
+    | 'role'
+    | ACLReplaceParams.UnionMember1
+    | null;
+
+  /**
+   * Id of the role the ACL grants. Exactly one of `permission` and `role_id` will be
+   * provided
+   */
+  role_id?: string | null;
+
+  /**
+   * Id of the user the ACL applies to. Exactly one of `user_id` and `group_id` will
+   * be provided
+   */
+  user_id?: string | null;
+}
 
 export namespace ACLReplaceParams {
-  export interface CreateUserPermissionACL {
-    /**
-     * The id of the object the ACL applies to
-     */
-    object_id: string;
+  export interface UnionMember1 {}
 
-    /**
-     * The object type that the ACL applies to
-     */
-    object_type:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'project_score'
-      | 'project_tag'
-      | 'group'
-      | 'role';
-
-    /**
-     * Permission the ACL grants
-     */
-    permission:
-      | 'create'
-      | 'read'
-      | 'update'
-      | 'delete'
-      | 'create_acls'
-      | 'read_acls'
-      | 'update_acls'
-      | 'delete_acls';
-
-    /**
-     * Id of the user the ACL applies to
-     */
-    user_id: string;
-
-    /**
-     * Optionally restricts the permission grant to just the specified object type
-     */
-    restrict_object_type?:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'project_score'
-      | 'project_tag'
-      | 'group'
-      | 'role'
-      | ACLReplaceParams.CreateUserPermissionACL.UnionMember1
-      | null;
-  }
-
-  export namespace CreateUserPermissionACL {
-    export interface UnionMember1 {}
-  }
-
-  export interface CreateUserRoleACL {
-    /**
-     * The id of the object the ACL applies to
-     */
-    object_id: string;
-
-    /**
-     * The object type that the ACL applies to
-     */
-    object_type:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'project_score'
-      | 'project_tag'
-      | 'group'
-      | 'role';
-
-    /**
-     * Id of the role the ACL grants
-     */
-    role_id: string;
-
-    /**
-     * Id of the user the ACL applies to
-     */
-    user_id: string;
-
-    /**
-     * Optionally restricts the permission grant to just the specified object type
-     */
-    restrict_object_type?:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'project_score'
-      | 'project_tag'
-      | 'group'
-      | 'role'
-      | ACLReplaceParams.CreateUserRoleACL.UnionMember1
-      | null;
-  }
-
-  export namespace CreateUserRoleACL {
-    export interface UnionMember1 {}
-  }
-
-  export interface CreateGroupPermissionACL {
-    /**
-     * Id of the group the ACL applies to
-     */
-    group_id: string;
-
-    /**
-     * The id of the object the ACL applies to
-     */
-    object_id: string;
-
-    /**
-     * The object type that the ACL applies to
-     */
-    object_type:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'project_score'
-      | 'project_tag'
-      | 'group'
-      | 'role';
-
-    /**
-     * Permission the ACL grants
-     */
-    permission:
-      | 'create'
-      | 'read'
-      | 'update'
-      | 'delete'
-      | 'create_acls'
-      | 'read_acls'
-      | 'update_acls'
-      | 'delete_acls';
-
-    /**
-     * Optionally restricts the permission grant to just the specified object type
-     */
-    restrict_object_type?:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'project_score'
-      | 'project_tag'
-      | 'group'
-      | 'role'
-      | ACLReplaceParams.CreateGroupPermissionACL.UnionMember1
-      | null;
-  }
-
-  export namespace CreateGroupPermissionACL {
-    export interface UnionMember1 {}
-  }
-
-  export interface CreateGroupRoleACL {
-    /**
-     * Id of the group the ACL applies to
-     */
-    group_id: string;
-
-    /**
-     * The id of the object the ACL applies to
-     */
-    object_id: string;
-
-    /**
-     * The object type that the ACL applies to
-     */
-    object_type:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'project_score'
-      | 'project_tag'
-      | 'group'
-      | 'role';
-
-    /**
-     * Id of the role the ACL grants
-     */
-    role_id: string;
-
-    /**
-     * Optionally restricts the permission grant to just the specified object type
-     */
-    restrict_object_type?:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'project_score'
-      | 'project_tag'
-      | 'group'
-      | 'role'
-      | ACLReplaceParams.CreateGroupRoleACL.UnionMember1
-      | null;
-  }
-
-  export namespace CreateGroupRoleACL {
-    export interface UnionMember1 {}
-  }
+  export interface UnionMember1 {}
 }
 
 export namespace ACLResource {

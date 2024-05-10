@@ -13,8 +13,6 @@ describe('resource acl', () => {
     const responsePromise = braintrust.acl.create({
       object_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       object_type: 'organization',
-      permission: 'create',
-      user_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -29,9 +27,11 @@ describe('resource acl', () => {
     const response = await braintrust.acl.create({
       object_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       object_type: 'organization',
+      group_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       permission: 'create',
-      user_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       restrict_object_type: 'organization',
+      role_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      user_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     });
   });
 
@@ -99,8 +99,6 @@ describe('resource acl', () => {
     const responsePromise = braintrust.acl.replace({
       object_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       object_type: 'organization',
-      permission: 'create',
-      user_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -115,9 +113,11 @@ describe('resource acl', () => {
     const response = await braintrust.acl.replace({
       object_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       object_type: 'organization',
+      group_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       permission: 'create',
-      user_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       restrict_object_type: 'organization',
+      role_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      user_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     });
   });
 });
