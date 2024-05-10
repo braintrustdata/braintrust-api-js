@@ -134,26 +134,12 @@ export namespace ACL {
       | 'project_tag'
       | 'group'
       | 'role'
-      | UserPermissionACL._ReservedOnlyAllowNull
+      | UserPermissionACL.UnionMember1
       | null;
   }
 
   export namespace UserPermissionACL {
-    export interface _ReservedOnlyAllowNull {
-      /**
-       * This is just a placeholder nullable object. Only pass null, not the object
-       * itself
-       */
-      __reserved_only_allow_null: _ReservedOnlyAllowNull._ReservedOnlyAllowNull;
-    }
-
-    export namespace _ReservedOnlyAllowNull {
-      /**
-       * This is just a placeholder nullable object. Only pass null, not the object
-       * itself
-       */
-      export interface _ReservedOnlyAllowNull {}
-    }
+    export interface UnionMember1 {}
   }
 
   export interface UserRoleACL {
@@ -216,26 +202,12 @@ export namespace ACL {
       | 'project_tag'
       | 'group'
       | 'role'
-      | UserRoleACL._ReservedOnlyAllowNull
+      | UserRoleACL.UnionMember1
       | null;
   }
 
   export namespace UserRoleACL {
-    export interface _ReservedOnlyAllowNull {
-      /**
-       * This is just a placeholder nullable object. Only pass null, not the object
-       * itself
-       */
-      __reserved_only_allow_null: _ReservedOnlyAllowNull._ReservedOnlyAllowNull;
-    }
-
-    export namespace _ReservedOnlyAllowNull {
-      /**
-       * This is just a placeholder nullable object. Only pass null, not the object
-       * itself
-       */
-      export interface _ReservedOnlyAllowNull {}
-    }
+    export interface UnionMember1 {}
   }
 
   export interface GroupPermissionACL {
@@ -306,26 +278,12 @@ export namespace ACL {
       | 'project_tag'
       | 'group'
       | 'role'
-      | GroupPermissionACL._ReservedOnlyAllowNull
+      | GroupPermissionACL.UnionMember1
       | null;
   }
 
   export namespace GroupPermissionACL {
-    export interface _ReservedOnlyAllowNull {
-      /**
-       * This is just a placeholder nullable object. Only pass null, not the object
-       * itself
-       */
-      __reserved_only_allow_null: _ReservedOnlyAllowNull._ReservedOnlyAllowNull;
-    }
-
-    export namespace _ReservedOnlyAllowNull {
-      /**
-       * This is just a placeholder nullable object. Only pass null, not the object
-       * itself
-       */
-      export interface _ReservedOnlyAllowNull {}
-    }
+    export interface UnionMember1 {}
   }
 
   export interface GroupRoleACL {
@@ -388,26 +346,12 @@ export namespace ACL {
       | 'project_tag'
       | 'group'
       | 'role'
-      | GroupRoleACL._ReservedOnlyAllowNull
+      | GroupRoleACL.UnionMember1
       | null;
   }
 
   export namespace GroupRoleACL {
-    export interface _ReservedOnlyAllowNull {
-      /**
-       * This is just a placeholder nullable object. Only pass null, not the object
-       * itself
-       */
-      __reserved_only_allow_null: _ReservedOnlyAllowNull._ReservedOnlyAllowNull;
-    }
-
-    export namespace _ReservedOnlyAllowNull {
-      /**
-       * This is just a placeholder nullable object. Only pass null, not the object
-       * itself
-       */
-      export interface _ReservedOnlyAllowNull {}
-    }
+    export interface UnionMember1 {}
   }
 }
 
@@ -471,26 +415,12 @@ export namespace ACLCreateParams {
       | 'project_tag'
       | 'group'
       | 'role'
-      | ACLCreateParams.CreateUserPermissionACL._ReservedOnlyAllowNull
+      | ACLCreateParams.CreateUserPermissionACL.UnionMember1
       | null;
   }
 
   export namespace CreateUserPermissionACL {
-    export interface _ReservedOnlyAllowNull {
-      /**
-       * This is just a placeholder nullable object. Only pass null, not the object
-       * itself
-       */
-      __reserved_only_allow_null: _ReservedOnlyAllowNull._ReservedOnlyAllowNull;
-    }
-
-    export namespace _ReservedOnlyAllowNull {
-      /**
-       * This is just a placeholder nullable object. Only pass null, not the object
-       * itself
-       */
-      export interface _ReservedOnlyAllowNull {}
-    }
+    export interface UnionMember1 {}
   }
 
   export interface CreateUserRoleACL {
@@ -538,26 +468,12 @@ export namespace ACLCreateParams {
       | 'project_tag'
       | 'group'
       | 'role'
-      | ACLCreateParams.CreateUserRoleACL._ReservedOnlyAllowNull
+      | ACLCreateParams.CreateUserRoleACL.UnionMember1
       | null;
   }
 
   export namespace CreateUserRoleACL {
-    export interface _ReservedOnlyAllowNull {
-      /**
-       * This is just a placeholder nullable object. Only pass null, not the object
-       * itself
-       */
-      __reserved_only_allow_null: _ReservedOnlyAllowNull._ReservedOnlyAllowNull;
-    }
-
-    export namespace _ReservedOnlyAllowNull {
-      /**
-       * This is just a placeholder nullable object. Only pass null, not the object
-       * itself
-       */
-      export interface _ReservedOnlyAllowNull {}
-    }
+    export interface UnionMember1 {}
   }
 
   export interface CreateGroupPermissionACL {
@@ -613,26 +529,12 @@ export namespace ACLCreateParams {
       | 'project_tag'
       | 'group'
       | 'role'
-      | ACLCreateParams.CreateGroupPermissionACL._ReservedOnlyAllowNull
+      | ACLCreateParams.CreateGroupPermissionACL.UnionMember1
       | null;
   }
 
   export namespace CreateGroupPermissionACL {
-    export interface _ReservedOnlyAllowNull {
-      /**
-       * This is just a placeholder nullable object. Only pass null, not the object
-       * itself
-       */
-      __reserved_only_allow_null: _ReservedOnlyAllowNull._ReservedOnlyAllowNull;
-    }
-
-    export namespace _ReservedOnlyAllowNull {
-      /**
-       * This is just a placeholder nullable object. Only pass null, not the object
-       * itself
-       */
-      export interface _ReservedOnlyAllowNull {}
-    }
+    export interface UnionMember1 {}
   }
 
   export interface CreateGroupRoleACL {
@@ -680,26 +582,12 @@ export namespace ACLCreateParams {
       | 'project_tag'
       | 'group'
       | 'role'
-      | ACLCreateParams.CreateGroupRoleACL._ReservedOnlyAllowNull
+      | ACLCreateParams.CreateGroupRoleACL.UnionMember1
       | null;
   }
 
   export namespace CreateGroupRoleACL {
-    export interface _ReservedOnlyAllowNull {
-      /**
-       * This is just a placeholder nullable object. Only pass null, not the object
-       * itself
-       */
-      __reserved_only_allow_null: _ReservedOnlyAllowNull._ReservedOnlyAllowNull;
-    }
-
-    export namespace _ReservedOnlyAllowNull {
-      /**
-       * This is just a placeholder nullable object. Only pass null, not the object
-       * itself
-       */
-      export interface _ReservedOnlyAllowNull {}
-    }
+    export interface UnionMember1 {}
   }
 }
 
@@ -785,26 +673,12 @@ export namespace ACLReplaceParams {
       | 'project_tag'
       | 'group'
       | 'role'
-      | ACLReplaceParams.CreateUserPermissionACL._ReservedOnlyAllowNull
+      | ACLReplaceParams.CreateUserPermissionACL.UnionMember1
       | null;
   }
 
   export namespace CreateUserPermissionACL {
-    export interface _ReservedOnlyAllowNull {
-      /**
-       * This is just a placeholder nullable object. Only pass null, not the object
-       * itself
-       */
-      __reserved_only_allow_null: _ReservedOnlyAllowNull._ReservedOnlyAllowNull;
-    }
-
-    export namespace _ReservedOnlyAllowNull {
-      /**
-       * This is just a placeholder nullable object. Only pass null, not the object
-       * itself
-       */
-      export interface _ReservedOnlyAllowNull {}
-    }
+    export interface UnionMember1 {}
   }
 
   export interface CreateUserRoleACL {
@@ -852,26 +726,12 @@ export namespace ACLReplaceParams {
       | 'project_tag'
       | 'group'
       | 'role'
-      | ACLReplaceParams.CreateUserRoleACL._ReservedOnlyAllowNull
+      | ACLReplaceParams.CreateUserRoleACL.UnionMember1
       | null;
   }
 
   export namespace CreateUserRoleACL {
-    export interface _ReservedOnlyAllowNull {
-      /**
-       * This is just a placeholder nullable object. Only pass null, not the object
-       * itself
-       */
-      __reserved_only_allow_null: _ReservedOnlyAllowNull._ReservedOnlyAllowNull;
-    }
-
-    export namespace _ReservedOnlyAllowNull {
-      /**
-       * This is just a placeholder nullable object. Only pass null, not the object
-       * itself
-       */
-      export interface _ReservedOnlyAllowNull {}
-    }
+    export interface UnionMember1 {}
   }
 
   export interface CreateGroupPermissionACL {
@@ -927,26 +787,12 @@ export namespace ACLReplaceParams {
       | 'project_tag'
       | 'group'
       | 'role'
-      | ACLReplaceParams.CreateGroupPermissionACL._ReservedOnlyAllowNull
+      | ACLReplaceParams.CreateGroupPermissionACL.UnionMember1
       | null;
   }
 
   export namespace CreateGroupPermissionACL {
-    export interface _ReservedOnlyAllowNull {
-      /**
-       * This is just a placeholder nullable object. Only pass null, not the object
-       * itself
-       */
-      __reserved_only_allow_null: _ReservedOnlyAllowNull._ReservedOnlyAllowNull;
-    }
-
-    export namespace _ReservedOnlyAllowNull {
-      /**
-       * This is just a placeholder nullable object. Only pass null, not the object
-       * itself
-       */
-      export interface _ReservedOnlyAllowNull {}
-    }
+    export interface UnionMember1 {}
   }
 
   export interface CreateGroupRoleACL {
@@ -994,26 +840,12 @@ export namespace ACLReplaceParams {
       | 'project_tag'
       | 'group'
       | 'role'
-      | ACLReplaceParams.CreateGroupRoleACL._ReservedOnlyAllowNull
+      | ACLReplaceParams.CreateGroupRoleACL.UnionMember1
       | null;
   }
 
   export namespace CreateGroupRoleACL {
-    export interface _ReservedOnlyAllowNull {
-      /**
-       * This is just a placeholder nullable object. Only pass null, not the object
-       * itself
-       */
-      __reserved_only_allow_null: _ReservedOnlyAllowNull._ReservedOnlyAllowNull;
-    }
-
-    export namespace _ReservedOnlyAllowNull {
-      /**
-       * This is just a placeholder nullable object. Only pass null, not the object
-       * itself
-       */
-      export interface _ReservedOnlyAllowNull {}
-    }
+    export interface UnionMember1 {}
   }
 }
 
