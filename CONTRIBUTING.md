@@ -50,7 +50,7 @@ Alternatively, to link a local copy of the repo:
 ```bash
 # Clone
 git clone https://www.github.com/stainless-sdks/braintrust-sdk-kotlin-node
-cd braintrust-node
+cd braintrust-sdk-kotlin-node
 
 # With yarn
 yarn link
