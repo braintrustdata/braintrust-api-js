@@ -1,6 +1,6 @@
 # Braintrust Node API Library
 
-[![NPM version](https://img.shields.io/npm/v/braintrust.svg)](https://npmjs.org/package/braintrust)
+[![NPM version](https://img.shields.io/npm/v/braintrust.svg)](https://npmjs.org/package/braintrust) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/braintrust)
 
 This library provides convenient access to the Braintrust REST API from server-side TypeScript or JavaScript.
 
