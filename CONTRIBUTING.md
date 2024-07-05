@@ -55,12 +55,12 @@ cd braintrust-sdk-node
 # With yarn
 yarn link
 cd ../my-package
-yarn link braintrust
+yarn link @braintrust/api
 
 # With pnpm
 pnpm link --global
 cd ../my-package
-pnpm link -—global braintrust
+pnpm link -—global @braintrust/api
 ```
 
 ## Running tests

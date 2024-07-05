@@ -9,9 +9,9 @@
     "esModuleInterop": true,
     "baseUrl": "./",
     "paths": {
-      "braintrust/_shims/auto/*": ["src/_shims/auto/*-node"],
-      "braintrust/*": ["src/*"],
-      "braintrust": ["src/index.ts"],
+      "@braintrust/api/_shims/auto/*": ["src/_shims/auto/*-node"],
+      "@braintrust/api/*": ["src/*"],
+      "@braintrust/api": ["src/index.ts"],
     },
     "noEmit": true,
 

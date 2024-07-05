@@ -5,8 +5,8 @@
   "compilerOptions": {
     "rootDir": "./dist/src",
     "paths": {
-      "braintrust/*": ["dist/src/*"],
-      "braintrust": ["dist/src/index.ts"],
+      "@braintrust/api/*": ["dist/src/*"],
+      "@braintrust/api": ["dist/src/index.ts"],
     },
     "noEmit": false,
     "declaration": true,

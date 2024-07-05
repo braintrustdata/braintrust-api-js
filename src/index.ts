@@ -1,12 +1,12 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from './core';
 import * as Errors from './error';
-import { type Agent } from './_shims/index';
 import * as Uploads from './uploads';
+import { type Agent } from './_shims/index';
 import * as qs from 'qs';
-import * as Pagination from './pagination';
-import * as API from './resources/index';
+import * as Core from '@braintrust/api/core';
+import * as Pagination from '@braintrust/api/pagination';
+import * as API from '@braintrust/api/resources/index';
 
 export interface ClientOptions {
   /**
@@ -71,7 +71,9 @@ export interface ClientOptions {
   defaultQuery?: Core.DefaultQuery;
 }
 
-/** API Client for interfacing with the Braintrust API. */
+/**
+ * API Client for interfacing with the Braintrust API.
+ */
 export class Braintrust extends Core.APIClient {
   apiKey: string;
 
@@ -113,6 +115,7 @@ export class Braintrust extends Core.APIClient {
       maxRetries: options.maxRetries,
       fetch: options.fetch,
     });
+
     this._options = options;
 
     this.apiKey = apiKey;

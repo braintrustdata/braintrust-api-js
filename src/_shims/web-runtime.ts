@@ -9,9 +9,9 @@ export function getRuntime({ manuallyImported }: { manuallyImported?: boolean } 
   const recommendation =
     manuallyImported ?
       `You may need to use polyfills`
-    : `Add one of these imports before your first \`import … from 'braintrust'\`:
-- \`import 'braintrust/shims/node'\` (if you're running on Node)
-- \`import 'braintrust/shims/web'\` (otherwise)
+    : `Add one of these imports before your first \`import … from '@braintrust/api'\`:
+- \`import '@braintrust/api/shims/node'\` (if you're running on Node)
+- \`import '@braintrust/api/shims/web'\` (otherwise)
 `;
 
   let _fetch, _Request, _Response, _Headers;

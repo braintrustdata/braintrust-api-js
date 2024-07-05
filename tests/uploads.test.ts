@@ -1,6 +1,6 @@
 import fs from 'fs';
-import { toFile, type ResponseLike } from 'braintrust/uploads';
-import { File } from 'braintrust/_shims/index';
+import { toFile, type ResponseLike } from '@braintrust/api/uploads';
+import { File } from '@braintrust/api/_shims/index';
 
 class MyClass {
   name: string = 'foo';

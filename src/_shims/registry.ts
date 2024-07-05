@@ -42,12 +42,12 @@ export let isFsReadStream: Shims['isFsReadStream'] | undefined = undefined;
 export function setShims(shims: Shims, options: { auto: boolean } = { auto: false }) {
   if (auto) {
     throw new Error(
-      `you must \`import 'braintrust/shims/${shims.kind}'\` before importing anything else from braintrust`,
+      `you must \`import '@braintrust/api/shims/${shims.kind}'\` before importing anything else from @braintrust/api`,
     );
   }
   if (kind) {
     throw new Error(
-      `can't \`import 'braintrust/shims/${shims.kind}'\` after \`import 'braintrust/shims/${kind}'\``,
+      `can't \`import '@braintrust/api/shims/${shims.kind}'\` after \`import '@braintrust/api/shims/${kind}'\``,
     );
   }
   auto = options.auto;

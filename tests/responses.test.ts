@@ -1,5 +1,5 @@
-import { createResponseHeaders } from 'braintrust/core';
-import { Headers } from 'braintrust/_shims/index';
+import { createResponseHeaders } from '@braintrust/api/core';
+import { Headers } from '@braintrust/api/_shims/index';
 
 describe('response parsing', () => {
   // TODO: test unicode characters

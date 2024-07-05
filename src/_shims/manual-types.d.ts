@@ -4,8 +4,8 @@
 /**
  * Types will get added to this namespace when you import one of the following:
  *
- *   import 'braintrust/shims/node'
- *   import 'braintrust/shims/web'
+ *   import '@braintrust/api/shims/node'
+ *   import '@braintrust/api/shims/web'
  *
  * Importing more than one will cause type and runtime errors.
  */

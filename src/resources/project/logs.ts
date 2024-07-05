@@ -1,9 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from '../../core';
-import { APIResource } from '../../resource';
-import { isRequestOptions } from '../../core';
-import * as LogsAPI from './logs';
+import { APIResource } from '@braintrust/api/resource';
+import { isRequestOptions } from '@braintrust/api/core';
+import * as Core from '@braintrust/api/core';
+import * as LogsAPI from '@braintrust/api/resources/project/logs';
 
 export class Logs extends APIResource {
   /**
