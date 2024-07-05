@@ -7,9 +7,9 @@ const config: JestConfigWithTsJest = {
     '^.+\\.(t|j)sx?$': ['@swc/jest', { sourceMaps: 'inline' }],
   },
   moduleNameMapper: {
-    '^braintrust$': '<rootDir>/src/index.ts',
-    '^braintrust/_shims/auto/(.*)$': '<rootDir>/src/_shims/auto/$1-node',
-    '^braintrust/(.*)$': '<rootDir>/src/$1',
+    '^@braintrust/api$': '<rootDir>/src/index.ts',
+    '^@braintrust/api/_shims/auto/(.*)$': '<rootDir>/src/_shims/auto/$1-node',
+    '^@braintrust/api/(.*)$': '<rootDir>/src/$1',
   },
   modulePathIgnorePatterns: [
     '<rootDir>/ecosystem-tests/',

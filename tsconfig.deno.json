@@ -6,9 +6,9 @@
     "rootDir": "./deno",
     "lib": ["es2020", "DOM"],
     "paths": {
-      "braintrust/_shims/auto/*": ["deno/_shims/auto/*-deno"],
-      "braintrust/*": ["deno/*"],
-      "braintrust": ["deno/index.ts"],
+      "@braintrust/api/_shims/auto/*": ["deno/_shims/auto/*-deno"],
+      "@braintrust/api/*": ["deno/*"],
+      "@braintrust/api": ["deno/index.ts"],
     },
     "noEmit": true,
     "declaration": true,

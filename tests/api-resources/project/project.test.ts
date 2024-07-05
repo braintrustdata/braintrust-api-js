@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Braintrust from 'braintrust';
+import Braintrust from '@braintrust/api';
 import { Response } from 'node-fetch';
 
 const braintrust = new Braintrust({

@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from '../core';
-import { APIResource } from '../resource';
-import { isRequestOptions } from '../core';
-import * as UserAPI from './user';
-import { ListObjects, type ListObjectsParams } from '../pagination';
+import { APIResource } from '@braintrust/api/resource';
+import { isRequestOptions } from '@braintrust/api/core';
+import * as Core from '@braintrust/api/core';
+import * as UserAPI from '@braintrust/api/resources/user';
+import { ListObjects, type ListObjectsParams } from '@braintrust/api/pagination';
 
 export class UserResource extends APIResource {
   /**

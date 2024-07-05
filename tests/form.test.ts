@@ -1,6 +1,6 @@
-import { multipartFormRequestOptions, createForm } from 'braintrust/core';
-import { Blob } from 'braintrust/_shims/index';
-import { toFile } from 'braintrust';
+import { multipartFormRequestOptions, createForm } from '@braintrust/api/core';
+import { Blob } from '@braintrust/api/_shims/index';
+import { toFile } from '@braintrust/api';
 
 describe('form data validation', () => {
   test('valid values do not error', async () => {

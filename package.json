@@ -1,5 +1,5 @@
 {
-  "name": "braintrust",
+  "name": "@braintrust/api",
   "version": "0.0.1",
   "description": "The official TypeScript library for the Braintrust API",
   "author": "Braintrust <info@braintrustdata.com>",
@@ -62,8 +62,8 @@
     "./shims/web.mjs"
   ],
   "imports": {
-    "braintrust": ".",
-    "braintrust/*": "./src/*"
+    "@braintrust/api": ".",
+    "@braintrust/api/*": "./src/*"
   },
   "exports": {
     "./_shims/auto/*": {
