@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.1 (2024-07-09)
+
+Full Changelog: [v0.1.0...v0.1.1](https://github.com/braintrustdata/braintrust-api-js/compare/v0.1.0...v0.1.1)
+
+### Chores
+
+* go live ([#2](https://github.com/braintrustdata/braintrust-api-js/issues/2)) ([fe36441](https://github.com/braintrustdata/braintrust-api-js/commit/fe364416c6e05e2f1e730117a85daa9d489ed5f2))
+* go live ([#2](https://github.com/braintrustdata/braintrust-api-js/issues/2)) ([a588455](https://github.com/braintrustdata/braintrust-api-js/commit/a58845510c1f4af5b7416f2adf8a1445279ddbbc))
+
 ## 0.1.0 (2024-07-09)
 
 Full Changelog: [v0.0.1...v0.1.0](https://github.com/braintrustdata/braintrust-node/compare/v0.0.1...v0.1.0)
