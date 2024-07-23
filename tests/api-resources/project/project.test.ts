@@ -10,7 +10,7 @@ const braintrust = new Braintrust({
 
 describe('resource project', () => {
   test('create: only required params', async () => {
-    const responsePromise = braintrust.project.create({ name: 'string' });
+    const responsePromise = braintrust.project.create({ name: 'name' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,7 +21,7 @@ describe('resource project', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await braintrust.project.create({ name: 'string', org_name: 'string' });
+    const response = await braintrust.project.create({ name: 'name', org_name: 'org_name' });
   });
 
   test('retrieve', async () => {
@@ -67,7 +67,7 @@ describe('resource project', () => {
     await expect(
       braintrust.project.update(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        { name: 'string', settings: { comparison_key: 'string' } },
+        { name: 'name', settings: { comparison_key: 'comparison_key' } },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Braintrust.NotFoundError);
@@ -99,8 +99,8 @@ describe('resource project', () => {
           ending_before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           ids: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           limit: 0,
-          org_name: 'string',
-          project_name: 'string',
+          org_name: 'org_name',
+          project_name: 'project_name',
           starting_after: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         },
         { path: '/_stainless_unknown_path' },

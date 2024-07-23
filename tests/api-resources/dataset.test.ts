@@ -10,7 +10,7 @@ const braintrust = new Braintrust({
 
 describe('resource dataset', () => {
   test('create: only required params', async () => {
-    const responsePromise = braintrust.dataset.create({ name: 'string' });
+    const responsePromise = braintrust.dataset.create({ name: 'name' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,8 +22,8 @@ describe('resource dataset', () => {
 
   test('create: required and optional params', async () => {
     const response = await braintrust.dataset.create({
-      name: 'string',
-      description: 'string',
+      name: 'name',
+      description: 'description',
       project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     });
   });
@@ -71,7 +71,7 @@ describe('resource dataset', () => {
     await expect(
       braintrust.dataset.update(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        { description: 'string', metadata: { foo: {} }, name: 'string' },
+        { description: 'description', metadata: { foo: {} }, name: 'name' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Braintrust.NotFoundError);
@@ -100,12 +100,12 @@ describe('resource dataset', () => {
     await expect(
       braintrust.dataset.list(
         {
-          dataset_name: 'string',
+          dataset_name: 'dataset_name',
           ending_before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           ids: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           limit: 0,
-          org_name: 'string',
-          project_name: 'string',
+          org_name: 'org_name',
+          project_name: 'project_name',
           starting_after: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         },
         { path: '/_stainless_unknown_path' },
@@ -133,7 +133,7 @@ describe('resource dataset', () => {
 
   test('feedback: only required params', async () => {
     const responsePromise = braintrust.dataset.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      feedback: [{ id: 'string' }, { id: 'string' }, { id: 'string' }],
+      feedback: [{ id: 'id' }, { id: 'id' }, { id: 'id' }],
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -147,9 +147,9 @@ describe('resource dataset', () => {
   test('feedback: required and optional params', async () => {
     const response = await braintrust.dataset.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       feedback: [
-        { id: 'string', comment: 'string', metadata: { foo: {} }, source: 'app' },
-        { id: 'string', comment: 'string', metadata: { foo: {} }, source: 'app' },
-        { id: 'string', comment: 'string', metadata: { foo: {} }, source: 'app' },
+        { id: 'id', comment: 'comment', metadata: { foo: {} }, source: 'app' },
+        { id: 'id', comment: 'comment', metadata: { foo: {} }, source: 'app' },
+        { id: 'id', comment: 'comment', metadata: { foo: {} }, source: 'app' },
       ],
     });
   });
@@ -177,7 +177,7 @@ describe('resource dataset', () => {
     await expect(
       braintrust.dataset.fetch(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        { limit: 0, max_root_span_id: 'string', max_xact_id: 'string', version: 'string' },
+        { limit: 0, max_root_span_id: 'max_root_span_id', max_xact_id: 'max_xact_id', version: 'version' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Braintrust.NotFoundError);
@@ -209,16 +209,16 @@ describe('resource dataset', () => {
       braintrust.dataset.fetchPost(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         {
-          cursor: 'string',
+          cursor: 'cursor',
           filters: [
             { type: 'path_lookup', path: ['string', 'string', 'string'], value: {} },
             { type: 'path_lookup', path: ['string', 'string', 'string'], value: {} },
             { type: 'path_lookup', path: ['string', 'string', 'string'], value: {} },
           ],
           limit: 0,
-          max_root_span_id: 'string',
-          max_xact_id: 'string',
-          version: 'string',
+          max_root_span_id: 'max_root_span_id',
+          max_xact_id: 'max_xact_id',
+          version: 'version',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -246,33 +246,33 @@ describe('resource dataset', () => {
           expected: {},
           metadata: { foo: {} },
           tags: ['string', 'string', 'string'],
-          id: 'string',
+          id: 'id',
           created: '2019-12-27T18:11:19.117Z',
           _object_delete: true,
           _is_merge: true,
-          _parent_id: 'string',
+          _parent_id: '_parent_id',
         },
         {
           input: {},
           expected: {},
           metadata: { foo: {} },
           tags: ['string', 'string', 'string'],
-          id: 'string',
+          id: 'id',
           created: '2019-12-27T18:11:19.117Z',
           _object_delete: true,
           _is_merge: true,
-          _parent_id: 'string',
+          _parent_id: '_parent_id',
         },
         {
           input: {},
           expected: {},
           metadata: { foo: {} },
           tags: ['string', 'string', 'string'],
-          id: 'string',
+          id: 'id',
           created: '2019-12-27T18:11:19.117Z',
           _object_delete: true,
           _is_merge: true,
-          _parent_id: 'string',
+          _parent_id: '_parent_id',
         },
       ],
     });

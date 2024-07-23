@@ -11,7 +11,7 @@ const braintrust = new Braintrust({
 describe('resource view', () => {
   test('create: only required params', async () => {
     const responsePromise = braintrust.view.create({
-      name: 'string',
+      name: 'name',
       object_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       object_type: 'organization',
       view_type: 'projects',
@@ -27,7 +27,7 @@ describe('resource view', () => {
 
   test('create: required and optional params', async () => {
     const response = await braintrust.view.create({
-      name: 'string',
+      name: 'name',
       object_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       object_type: 'organization',
       view_type: 'projects',
@@ -83,7 +83,7 @@ describe('resource view', () => {
     const response = await braintrust.view.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       object_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       object_type: 'organization',
-      name: 'string',
+      name: 'name',
       options: {
         columnVisibility: { foo: true },
         columnOrder: ['string', 'string', 'string'],
@@ -118,9 +118,9 @@ describe('resource view', () => {
       ending_before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       ids: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       limit: 0,
-      project_name: 'string',
+      project_name: 'project_name',
       starting_after: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      view_name: 'string',
+      view_name: 'view_name',
       view_type: 'projects',
     });
   });
@@ -148,7 +148,7 @@ describe('resource view', () => {
 
   test('replace: only required params', async () => {
     const responsePromise = braintrust.view.replace({
-      name: 'string',
+      name: 'name',
       object_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       object_type: 'organization',
       view_type: 'projects',
@@ -164,7 +164,7 @@ describe('resource view', () => {
 
   test('replace: required and optional params', async () => {
     const response = await braintrust.view.replace({
-      name: 'string',
+      name: 'name',
       object_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       object_type: 'organization',
       view_type: 'projects',

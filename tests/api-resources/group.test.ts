@@ -10,7 +10,7 @@ const braintrust = new Braintrust({
 
 describe('resource group', () => {
   test('create: only required params', async () => {
-    const responsePromise = braintrust.group.create({ name: 'string' });
+    const responsePromise = braintrust.group.create({ name: 'name' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,8 +22,8 @@ describe('resource group', () => {
 
   test('create: required and optional params', async () => {
     const response = await braintrust.group.create({
-      name: 'string',
-      description: 'string',
+      name: 'name',
+      description: 'description',
       member_groups: [
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -34,7 +34,7 @@ describe('resource group', () => {
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       ],
-      org_name: 'string',
+      org_name: 'org_name',
     });
   });
 
@@ -90,8 +90,8 @@ describe('resource group', () => {
             '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
             '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           ],
-          description: 'string',
-          name: 'string',
+          description: 'description',
+          name: 'name',
           remove_member_groups: [
             '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
             '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -132,10 +132,10 @@ describe('resource group', () => {
       braintrust.group.list(
         {
           ending_before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          group_name: 'string',
+          group_name: 'group_name',
           ids: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           limit: 0,
-          org_name: 'string',
+          org_name: 'org_name',
           starting_after: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         },
         { path: '/_stainless_unknown_path' },
@@ -162,7 +162,7 @@ describe('resource group', () => {
   });
 
   test('replace: only required params', async () => {
-    const responsePromise = braintrust.group.replace({ name: 'string' });
+    const responsePromise = braintrust.group.replace({ name: 'name' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -174,8 +174,8 @@ describe('resource group', () => {
 
   test('replace: required and optional params', async () => {
     const response = await braintrust.group.replace({
-      name: 'string',
-      description: 'string',
+      name: 'name',
+      description: 'description',
       member_groups: [
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -186,7 +186,7 @@ describe('resource group', () => {
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       ],
-      org_name: 'string',
+      org_name: 'org_name',
     });
   });
 });

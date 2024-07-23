@@ -11,9 +11,9 @@ const braintrust = new Braintrust({
 describe('resource prompt', () => {
   test('create: only required params', async () => {
     const responsePromise = braintrust.prompt.create({
-      name: 'string',
+      name: 'name',
       project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      slug: 'string',
+      slug: 'slug',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -26,14 +26,14 @@ describe('resource prompt', () => {
 
   test('create: required and optional params', async () => {
     const response = await braintrust.prompt.create({
-      name: 'string',
+      name: 'name',
       project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      slug: 'string',
-      description: 'string',
+      slug: 'slug',
+      description: 'description',
       prompt_data: {
-        prompt: { type: 'completion', content: 'string' },
+        prompt: { type: 'completion', content: 'content' },
         options: {
-          model: 'string',
+          model: 'model',
           params: {
             use_cache: true,
             temperature: 0,
@@ -47,9 +47,9 @@ describe('resource prompt', () => {
             n: 0,
             stop: ['string', 'string', 'string'],
           },
-          position: 'string',
+          position: 'position',
         },
-        origin: { prompt_id: 'string', project_id: 'string', prompt_version: 'string' },
+        origin: { prompt_id: 'prompt_id', project_id: 'project_id', prompt_version: 'prompt_version' },
       },
       tags: ['string', 'string', 'string'],
     });
@@ -99,12 +99,12 @@ describe('resource prompt', () => {
       braintrust.prompt.update(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         {
-          description: 'string',
-          name: 'string',
+          description: 'description',
+          name: 'name',
           prompt_data: {
-            prompt: { type: 'completion', content: 'string' },
+            prompt: { type: 'completion', content: 'content' },
             options: {
-              model: 'string',
+              model: 'model',
               params: {
                 use_cache: true,
                 temperature: 0,
@@ -118,9 +118,9 @@ describe('resource prompt', () => {
                 n: 0,
                 stop: ['string', 'string', 'string'],
               },
-              position: 'string',
+              position: 'position',
             },
-            origin: { prompt_id: 'string', project_id: 'string', prompt_version: 'string' },
+            origin: { prompt_id: 'prompt_id', project_id: 'project_id', prompt_version: 'prompt_version' },
           },
           tags: ['string', 'string', 'string'],
         },
@@ -155,12 +155,12 @@ describe('resource prompt', () => {
           ending_before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           ids: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           limit: 0,
-          org_name: 'string',
-          project_name: 'string',
-          prompt_name: 'string',
-          slug: 'string',
+          org_name: 'org_name',
+          project_name: 'project_name',
+          prompt_name: 'prompt_name',
+          slug: 'slug',
           starting_after: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          version: 'string',
+          version: 'version',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -187,7 +187,7 @@ describe('resource prompt', () => {
 
   test('feedback: only required params', async () => {
     const responsePromise = braintrust.prompt.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      feedback: [{ id: 'string' }, { id: 'string' }, { id: 'string' }],
+      feedback: [{ id: 'id' }, { id: 'id' }, { id: 'id' }],
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -201,18 +201,18 @@ describe('resource prompt', () => {
   test('feedback: required and optional params', async () => {
     const response = await braintrust.prompt.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       feedback: [
-        { id: 'string', comment: 'string', metadata: { foo: {} }, source: 'app' },
-        { id: 'string', comment: 'string', metadata: { foo: {} }, source: 'app' },
-        { id: 'string', comment: 'string', metadata: { foo: {} }, source: 'app' },
+        { id: 'id', comment: 'comment', metadata: { foo: {} }, source: 'app' },
+        { id: 'id', comment: 'comment', metadata: { foo: {} }, source: 'app' },
+        { id: 'id', comment: 'comment', metadata: { foo: {} }, source: 'app' },
       ],
     });
   });
 
   test('replace: only required params', async () => {
     const responsePromise = braintrust.prompt.replace({
-      name: 'string',
+      name: 'name',
       project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      slug: 'string',
+      slug: 'slug',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -225,14 +225,14 @@ describe('resource prompt', () => {
 
   test('replace: required and optional params', async () => {
     const response = await braintrust.prompt.replace({
-      name: 'string',
+      name: 'name',
       project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      slug: 'string',
-      description: 'string',
+      slug: 'slug',
+      description: 'description',
       prompt_data: {
-        prompt: { type: 'completion', content: 'string' },
+        prompt: { type: 'completion', content: 'content' },
         options: {
-          model: 'string',
+          model: 'model',
           params: {
             use_cache: true,
             temperature: 0,
@@ -246,9 +246,9 @@ describe('resource prompt', () => {
             n: 0,
             stop: ['string', 'string', 'string'],
           },
-          position: 'string',
+          position: 'position',
         },
-        origin: { prompt_id: 'string', project_id: 'string', prompt_version: 'string' },
+        origin: { prompt_id: 'prompt_id', project_id: 'project_id', prompt_version: 'prompt_version' },
       },
       tags: ['string', 'string', 'string'],
     });
