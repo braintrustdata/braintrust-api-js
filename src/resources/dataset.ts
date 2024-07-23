@@ -140,17 +140,6 @@ export class DatasetResource extends APIResource {
   }
 
   /**
-   * NOTE: This operation is deprecated and will be removed in a future revision of
-   * the API. Create or replace a new dataset. If there is an existing dataset in the
-   * project with the same name as the one specified in the request, will return the
-   * existing dataset unmodified, will replace the existing dataset with the provided
-   * fields
-   */
-  replace(body: DatasetReplaceParams, options?: Core.RequestOptions): Core.APIPromise<Dataset> {
-    return this._client.put('/v1/dataset', { body, ...options });
-  }
-
-  /**
    * Summarize dataset
    */
   summarize(
@@ -201,6 +190,11 @@ export interface Dataset {
    * Textual description of the dataset
    */
   description?: string | null;
+
+  /**
+   * User-controlled metadata about the dataset
+   */
+  metadata?: Record<string, unknown> | null;
 
   /**
    * Unique identifier for the project that the dataset belongs under
@@ -262,8 +256,8 @@ export namespace DatasetFetchResponse {
     /**
      * A unique identifier used to link different dataset events together as part of a
      * full trace. See the
-     * [tracing guide](https://www.braintrustdata.com/docs/guides/tracing) for full
-     * details on tracing
+     * [tracing guide](https://www.braintrust.dev/docs/guides/tracing) for full details
+     * on tracing
      */
     span_id: string;
 
@@ -349,8 +343,8 @@ export namespace DatasetFetchPostResponse {
     /**
      * A unique identifier used to link different dataset events together as part of a
      * full trace. See the
-     * [tracing guide](https://www.braintrustdata.com/docs/guides/tracing) for full
-     * details on tracing
+     * [tracing guide](https://www.braintrust.dev/docs/guides/tracing) for full details
+     * on tracing
      */
     span_id: string;
 
@@ -459,6 +453,11 @@ export interface DatasetUpdateParams {
    * Textual description of the dataset
    */
   description?: string | null;
+
+  /**
+   * User-controlled metadata about the dataset
+   */
+  metadata?: Record<string, unknown> | null;
 
   /**
    * Name of the dataset. Within a project, dataset names are unique
@@ -722,7 +721,7 @@ export namespace DatasetInsertParams {
      * Use the `_parent_id` field to create this row as a subspan of an existing row.
      * It cannot be specified alongside `_is_merge=true`. Tracking hierarchical
      * relationships are important for tracing (see the
-     * [guide](https://www.braintrustdata.com/docs/guides/tracing) for full details).
+     * [guide](https://www.braintrust.dev/docs/guides/tracing) for full details).
      *
      * For example, say we have logged a row
      * `{"id": "abc", "input": "foo", "output": "bar", "expected": "boo", "scores": {"correctness": 0.33}}`.
@@ -733,6 +732,11 @@ export namespace DatasetInsertParams {
      * clicking on the "abc" row.
      */
     _parent_id?: string | null;
+
+    /**
+     * The timestamp the dataset event was created
+     */
+    created?: string | null;
 
     /**
      * The output of your application, including post-processing (an arbitrary, JSON
@@ -807,6 +811,11 @@ export namespace DatasetInsertParams {
     _object_delete?: boolean | null;
 
     /**
+     * The timestamp the dataset event was created
+     */
+    created?: string | null;
+
+    /**
      * The output of your application, including post-processing (an arbitrary, JSON
      * serializable object)
      */
@@ -834,23 +843,6 @@ export namespace DatasetInsertParams {
   }
 }
 
-export interface DatasetReplaceParams {
-  /**
-   * Name of the dataset. Within a project, dataset names are unique
-   */
-  name: string;
-
-  /**
-   * Textual description of the dataset
-   */
-  description?: string | null;
-
-  /**
-   * Unique identifier for the project that the dataset belongs under
-   */
-  project_id?: string | null;
-}
-
 export interface DatasetSummarizeParams {
   /**
    * Whether to summarize the data. If false (or omitted), only the metadata will be
@@ -873,6 +865,5 @@ export namespace DatasetResource {
   export import DatasetFetchParams = DatasetAPI.DatasetFetchParams;
   export import DatasetFetchPostParams = DatasetAPI.DatasetFetchPostParams;
   export import DatasetInsertParams = DatasetAPI.DatasetInsertParams;
-  export import DatasetReplaceParams = DatasetAPI.DatasetReplaceParams;
   export import DatasetSummarizeParams = DatasetAPI.DatasetSummarizeParams;
 }

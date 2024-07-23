@@ -3,76 +3,83 @@
 import { APIResource } from '@braintrust/api/resource';
 import { isRequestOptions } from '@braintrust/api/core';
 import * as Core from '@braintrust/api/core';
-import * as PromptAPI from '@braintrust/api/resources/prompt';
+import * as FunctionAPI from '@braintrust/api/resources/function';
 import { ListObjects, type ListObjectsParams } from '@braintrust/api/pagination';
 
-export class PromptResource extends APIResource {
+export class FunctionResource extends APIResource {
   /**
-   * Create a new prompt. If there is an existing prompt in the project with the same
-   * slug as the one specified in the request, will return the existing prompt
+   * Create a new function. If there is an existing function in the project with the
+   * same slug as the one specified in the request, will return the existing function
    * unmodified
    */
-  create(body: PromptCreateParams, options?: Core.RequestOptions): Core.APIPromise<Prompt> {
-    return this._client.post('/v1/prompt', { body, ...options });
+  create(body: FunctionCreateParams, options?: Core.RequestOptions): Core.APIPromise<Function> {
+    return this._client.post('/v1/function', { body, ...options });
   }
 
   /**
-   * Get a prompt object by its id
+   * Get a function object by its id
    */
-  retrieve(promptId: string, options?: Core.RequestOptions): Core.APIPromise<Prompt> {
-    return this._client.get(`/v1/prompt/${promptId}`, options);
+  retrieve(functionId: string, options?: Core.RequestOptions): Core.APIPromise<Function> {
+    return this._client.get(`/v1/function/${functionId}`, options);
   }
 
   /**
-   * Partially update a prompt object. Specify the fields to update in the payload.
+   * Partially update a function object. Specify the fields to update in the payload.
    * Any object-type fields will be deep-merged with existing content. Currently we
    * do not support removing fields or setting them to null.
    */
-  update(promptId: string, body?: PromptUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Prompt>;
-  update(promptId: string, options?: Core.RequestOptions): Core.APIPromise<Prompt>;
   update(
-    promptId: string,
-    body: PromptUpdateParams | Core.RequestOptions = {},
+    functionId: string,
+    body?: FunctionUpdateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Prompt> {
+  ): Core.APIPromise<Function>;
+  update(functionId: string, options?: Core.RequestOptions): Core.APIPromise<Function>;
+  update(
+    functionId: string,
+    body: FunctionUpdateParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Function> {
     if (isRequestOptions(body)) {
-      return this.update(promptId, {}, body);
+      return this.update(functionId, {}, body);
     }
-    return this._client.patch(`/v1/prompt/${promptId}`, { body, ...options });
+    return this._client.patch(`/v1/function/${functionId}`, { body, ...options });
   }
 
   /**
-   * List out all prompts. The prompts are sorted by creation date, with the most
-   * recently-created prompts coming first
+   * List out all functions. The functions are sorted by creation date, with the most
+   * recently-created functions coming first
    */
-  list(query?: PromptListParams, options?: Core.RequestOptions): Core.PagePromise<PromptsListObjects, Prompt>;
-  list(options?: Core.RequestOptions): Core.PagePromise<PromptsListObjects, Prompt>;
   list(
-    query: PromptListParams | Core.RequestOptions = {},
+    query?: FunctionListParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<PromptsListObjects, Prompt> {
+  ): Core.PagePromise<FunctionsListObjects, Function>;
+  list(options?: Core.RequestOptions): Core.PagePromise<FunctionsListObjects, Function>;
+  list(
+    query: FunctionListParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<FunctionsListObjects, Function> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this._client.getAPIList('/v1/prompt', PromptsListObjects, { query, ...options });
+    return this._client.getAPIList('/v1/function', FunctionsListObjects, { query, ...options });
   }
 
   /**
-   * Delete a prompt object by its id
+   * Delete a function object by its id
    */
-  delete(promptId: string, options?: Core.RequestOptions): Core.APIPromise<Prompt> {
-    return this._client.delete(`/v1/prompt/${promptId}`, options);
+  delete(functionId: string, options?: Core.RequestOptions): Core.APIPromise<Function> {
+    return this._client.delete(`/v1/function/${functionId}`, options);
   }
 
   /**
-   * Log feedback for a set of prompt events
+   * Log feedback for a set of function events
    */
   feedback(
-    promptId: string,
-    body: PromptFeedbackParams,
+    functionId: string,
+    body: FunctionFeedbackParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<void> {
-    return this._client.post(`/v1/prompt/${promptId}/feedback`, {
+    return this._client.post(`/v1/function/${functionId}/feedback`, {
       body,
       ...options,
       headers: { Accept: '*/*', ...options?.headers },
@@ -80,21 +87,21 @@ export class PromptResource extends APIResource {
   }
 
   /**
-   * Create or replace prompt. If there is an existing prompt in the project with the
-   * same slug as the one specified in the request, will replace the existing prompt
-   * with the provided fields
+   * Create or replace function. If there is an existing function in the project with
+   * the same slug as the one specified in the request, will replace the existing
+   * function with the provided fields
    */
-  replace(body: PromptReplaceParams, options?: Core.RequestOptions): Core.APIPromise<Prompt> {
-    return this._client.put('/v1/prompt', { body, ...options });
+  replace(body: FunctionReplaceParams, options?: Core.RequestOptions): Core.APIPromise<Function> {
+    return this._client.put('/v1/function', { body, ...options });
   }
 }
 
 /**
  * Pagination for endpoints which list data objects
  */
-export class PromptsListObjects extends ListObjects<Prompt> {}
+export class FunctionsListObjects extends ListObjects<Function> {}
 
-export interface Prompt {
+export interface Function {
   /**
    * Unique identifier for the prompt
    */
@@ -107,6 +114,8 @@ export interface Prompt {
    * parameter)
    */
   _xact_id: string;
+
+  function_data: Function.Type | Function.UnionMember1 | Function.UnionMember2;
 
   /**
    * A literal 'p' which identifies the object as a project prompt
@@ -151,7 +160,7 @@ export interface Prompt {
   /**
    * The prompt, model, and its parameters
    */
-  prompt_data?: Prompt.PromptData | null;
+  prompt_data?: Function.PromptData | null;
 
   /**
    * A list of tags for the prompt
@@ -159,7 +168,55 @@ export interface Prompt {
   tags?: Array<string> | null;
 }
 
-export namespace Prompt {
+export namespace Function {
+  export interface Type {
+    type: 'prompt';
+  }
+
+  export interface UnionMember1 {
+    data: UnionMember1.Data;
+
+    type: 'code';
+  }
+
+  export namespace UnionMember1 {
+    export interface Data {
+      bundle_id: string;
+
+      location: Data.Location;
+
+      runtime_context: Data.RuntimeContext;
+    }
+
+    export namespace Data {
+      export interface Location {
+        eval_name: string;
+
+        position: 'task' | Location.Score;
+
+        type: 'experiment';
+      }
+
+      export namespace Location {
+        export interface Score {
+          score: number;
+        }
+      }
+
+      export interface RuntimeContext {
+        runtime: 'node';
+
+        version: string;
+      }
+    }
+  }
+
+  export interface UnionMember2 {
+    name: string;
+
+    type: 'global';
+  }
+
   /**
    * The prompt, model, and its parameters
    */
@@ -407,7 +464,12 @@ export namespace Prompt {
   }
 }
 
-export interface PromptCreateParams {
+export interface FunctionCreateParams {
+  function_data:
+    | FunctionCreateParams.Type
+    | FunctionCreateParams.UnionMember1
+    | FunctionCreateParams.UnionMember2;
+
   /**
    * Name of the prompt
    */
@@ -431,7 +493,7 @@ export interface PromptCreateParams {
   /**
    * The prompt, model, and its parameters
    */
-  prompt_data?: PromptCreateParams.PromptData | null;
+  prompt_data?: FunctionCreateParams.PromptData | null;
 
   /**
    * A list of tags for the prompt
@@ -439,7 +501,55 @@ export interface PromptCreateParams {
   tags?: Array<string> | null;
 }
 
-export namespace PromptCreateParams {
+export namespace FunctionCreateParams {
+  export interface Type {
+    type: 'prompt';
+  }
+
+  export interface UnionMember1 {
+    data: UnionMember1.Data;
+
+    type: 'code';
+  }
+
+  export namespace UnionMember1 {
+    export interface Data {
+      bundle_id: string;
+
+      location: Data.Location;
+
+      runtime_context: Data.RuntimeContext;
+    }
+
+    export namespace Data {
+      export interface Location {
+        eval_name: string;
+
+        position: 'task' | Location.Score;
+
+        type: 'experiment';
+      }
+
+      export namespace Location {
+        export interface Score {
+          score: number;
+        }
+      }
+
+      export interface RuntimeContext {
+        runtime: 'node';
+
+        version: string;
+      }
+    }
+  }
+
+  export interface UnionMember2 {
+    name: string;
+
+    type: 'global';
+  }
+
   /**
    * The prompt, model, and its parameters
    */
@@ -687,11 +797,18 @@ export namespace PromptCreateParams {
   }
 }
 
-export interface PromptUpdateParams {
+export interface FunctionUpdateParams {
   /**
    * Textual description of the prompt
    */
   description?: string | null;
+
+  function_data?:
+    | FunctionUpdateParams.Type
+    | FunctionUpdateParams.UnionMember1
+    | FunctionUpdateParams.UnionMember2
+    | FunctionUpdateParams.UnionMember3
+    | null;
 
   /**
    * Name of the prompt
@@ -701,7 +818,7 @@ export interface PromptUpdateParams {
   /**
    * The prompt, model, and its parameters
    */
-  prompt_data?: PromptUpdateParams.PromptData | null;
+  prompt_data?: FunctionUpdateParams.PromptData | null;
 
   /**
    * A list of tags for the prompt
@@ -709,7 +826,57 @@ export interface PromptUpdateParams {
   tags?: Array<string> | null;
 }
 
-export namespace PromptUpdateParams {
+export namespace FunctionUpdateParams {
+  export interface Type {
+    type: 'prompt';
+  }
+
+  export interface UnionMember1 {
+    data: UnionMember1.Data;
+
+    type: 'code';
+  }
+
+  export namespace UnionMember1 {
+    export interface Data {
+      bundle_id: string;
+
+      location: Data.Location;
+
+      runtime_context: Data.RuntimeContext;
+    }
+
+    export namespace Data {
+      export interface Location {
+        eval_name: string;
+
+        position: 'task' | Location.Score;
+
+        type: 'experiment';
+      }
+
+      export namespace Location {
+        export interface Score {
+          score: number;
+        }
+      }
+
+      export interface RuntimeContext {
+        runtime: 'node';
+
+        version: string;
+      }
+    }
+  }
+
+  export interface UnionMember2 {
+    name: string;
+
+    type: 'global';
+  }
+
+  export interface UnionMember3 {}
+
   /**
    * The prompt, model, and its parameters
    */
@@ -957,7 +1124,12 @@ export namespace PromptUpdateParams {
   }
 }
 
-export interface PromptListParams extends ListObjectsParams {
+export interface FunctionListParams extends ListObjectsParams {
+  /**
+   * Name of the function to search for
+   */
+  function_name?: string;
+
   /**
    * Filter search results to a particular set of object IDs. To specify a list of
    * IDs, include the query param multiple times
@@ -975,11 +1147,6 @@ export interface PromptListParams extends ListObjectsParams {
   project_name?: string;
 
   /**
-   * Name of the prompt to search for
-   */
-  prompt_name?: string;
-
-  /**
    * Retrieve prompt with a specific slug
    */
   slug?: string;
@@ -993,23 +1160,23 @@ export interface PromptListParams extends ListObjectsParams {
   version?: string;
 }
 
-export interface PromptFeedbackParams {
+export interface FunctionFeedbackParams {
   /**
-   * A list of prompt feedback items
+   * A list of function feedback items
    */
-  feedback: Array<PromptFeedbackParams.Feedback>;
+  feedback: Array<FunctionFeedbackParams.Feedback>;
 }
 
-export namespace PromptFeedbackParams {
+export namespace FunctionFeedbackParams {
   export interface Feedback {
     /**
-     * The id of the prompt event to log feedback for. This is the row `id` returned by
-     * `POST /v1/prompt/{prompt_id}/insert`
+     * The id of the function event to log feedback for. This is the row `id` returned
+     * by `POST /v1/function/{function_id}/insert`
      */
     id: string;
 
     /**
-     * An optional comment string to log about the prompt event
+     * An optional comment string to log about the function event
      */
     comment?: string | null;
 
@@ -1026,7 +1193,12 @@ export namespace PromptFeedbackParams {
   }
 }
 
-export interface PromptReplaceParams {
+export interface FunctionReplaceParams {
+  function_data:
+    | FunctionReplaceParams.Type
+    | FunctionReplaceParams.UnionMember1
+    | FunctionReplaceParams.UnionMember2;
+
   /**
    * Name of the prompt
    */
@@ -1050,7 +1222,7 @@ export interface PromptReplaceParams {
   /**
    * The prompt, model, and its parameters
    */
-  prompt_data?: PromptReplaceParams.PromptData | null;
+  prompt_data?: FunctionReplaceParams.PromptData | null;
 
   /**
    * A list of tags for the prompt
@@ -1058,7 +1230,55 @@ export interface PromptReplaceParams {
   tags?: Array<string> | null;
 }
 
-export namespace PromptReplaceParams {
+export namespace FunctionReplaceParams {
+  export interface Type {
+    type: 'prompt';
+  }
+
+  export interface UnionMember1 {
+    data: UnionMember1.Data;
+
+    type: 'code';
+  }
+
+  export namespace UnionMember1 {
+    export interface Data {
+      bundle_id: string;
+
+      location: Data.Location;
+
+      runtime_context: Data.RuntimeContext;
+    }
+
+    export namespace Data {
+      export interface Location {
+        eval_name: string;
+
+        position: 'task' | Location.Score;
+
+        type: 'experiment';
+      }
+
+      export namespace Location {
+        export interface Score {
+          score: number;
+        }
+      }
+
+      export interface RuntimeContext {
+        runtime: 'node';
+
+        version: string;
+      }
+    }
+  }
+
+  export interface UnionMember2 {
+    name: string;
+
+    type: 'global';
+  }
+
   /**
    * The prompt, model, and its parameters
    */
@@ -1306,12 +1526,12 @@ export namespace PromptReplaceParams {
   }
 }
 
-export namespace PromptResource {
-  export import Prompt = PromptAPI.Prompt;
-  export import PromptsListObjects = PromptAPI.PromptsListObjects;
-  export import PromptCreateParams = PromptAPI.PromptCreateParams;
-  export import PromptUpdateParams = PromptAPI.PromptUpdateParams;
-  export import PromptListParams = PromptAPI.PromptListParams;
-  export import PromptFeedbackParams = PromptAPI.PromptFeedbackParams;
-  export import PromptReplaceParams = PromptAPI.PromptReplaceParams;
+export namespace FunctionResource {
+  export import Function = FunctionAPI.Function;
+  export import FunctionsListObjects = FunctionAPI.FunctionsListObjects;
+  export import FunctionCreateParams = FunctionAPI.FunctionCreateParams;
+  export import FunctionUpdateParams = FunctionAPI.FunctionUpdateParams;
+  export import FunctionListParams = FunctionAPI.FunctionListParams;
+  export import FunctionFeedbackParams = FunctionAPI.FunctionFeedbackParams;
+  export import FunctionReplaceParams = FunctionAPI.FunctionReplaceParams;
 }

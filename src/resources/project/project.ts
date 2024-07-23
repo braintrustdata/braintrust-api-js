@@ -72,16 +72,6 @@ export class ProjectResource extends APIResource {
   delete(projectId: string, options?: Core.RequestOptions): Core.APIPromise<Project> {
     return this._client.delete(`/v1/project/${projectId}`, options);
   }
-
-  /**
-   * NOTE: This operation is deprecated and will be removed in a future revision of
-   * the API. Create or replace a new project. If there is an existing project with
-   * the same name as the one specified in the request, will return the existing
-   * project unmodified, will replace the existing project with the provided fields
-   */
-  replace(body: ProjectReplaceParams, options?: Core.RequestOptions): Core.APIPromise<Project> {
-    return this._client.put('/v1/project', { body, ...options });
-  }
 }
 
 /**
@@ -115,10 +105,21 @@ export interface Project {
    */
   deleted_at?: string | null;
 
+  settings?: Project.Settings | null;
+
   /**
    * Identifies the user who created the project
    */
   user_id?: string | null;
+}
+
+export namespace Project {
+  export interface Settings {
+    /**
+     * The key used to join two experiments (defaults to `input`).
+     */
+    comparison_key?: string | null;
+  }
 }
 
 export interface ProjectCreateParams {
@@ -140,6 +141,25 @@ export interface ProjectUpdateParams {
    * Name of the project
    */
   name?: string | null;
+
+  /**
+   * Project settings. Patch operations replace all settings, so make sure you
+   * include all settings you want to keep.
+   */
+  settings?: ProjectUpdateParams.Settings | null;
+}
+
+export namespace ProjectUpdateParams {
+  /**
+   * Project settings. Patch operations replace all settings, so make sure you
+   * include all settings you want to keep.
+   */
+  export interface Settings {
+    /**
+     * The key used to join two experiments (defaults to `input`).
+     */
+    comparison_key?: string | null;
+  }
 }
 
 export interface ProjectListParams extends ListObjectsParams {
@@ -160,27 +180,12 @@ export interface ProjectListParams extends ListObjectsParams {
   project_name?: string;
 }
 
-export interface ProjectReplaceParams {
-  /**
-   * Name of the project
-   */
-  name: string;
-
-  /**
-   * For nearly all users, this parameter should be unnecessary. But in the rare case
-   * that your API key belongs to multiple organizations, you may specify the name of
-   * the organization the project belongs in.
-   */
-  org_name?: string | null;
-}
-
 export namespace ProjectResource {
   export import Project = ProjectAPI.Project;
   export import ProjectsListObjects = ProjectAPI.ProjectsListObjects;
   export import ProjectCreateParams = ProjectAPI.ProjectCreateParams;
   export import ProjectUpdateParams = ProjectAPI.ProjectUpdateParams;
   export import ProjectListParams = ProjectAPI.ProjectListParams;
-  export import ProjectReplaceParams = ProjectAPI.ProjectReplaceParams;
   export import Logs = LogsAPI.Logs;
   export import LogFetchResponse = LogsAPI.LogFetchResponse;
   export import LogFetchPostResponse = LogsAPI.LogFetchPostResponse;

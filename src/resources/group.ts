@@ -64,10 +64,9 @@ export class GroupResource extends APIResource {
   }
 
   /**
-   * NOTE: This operation is deprecated and will be removed in a future revision of
-   * the API. Create or replace a new group. If there is an existing group with the
-   * same name as the one specified in the request, will return the existing group
-   * unmodified, will replace the existing group with the provided fields
+   * Create or replace group. If there is an existing group with the same name as the
+   * one specified in the request, will replace the existing group with the provided
+   * fields
    */
   replace(body: GroupReplaceParams, options?: Core.RequestOptions): Core.APIPromise<Group> {
     return this._client.put('/v1/group', { body, ...options });
@@ -171,27 +170,34 @@ export interface GroupCreateParams {
 
 export interface GroupUpdateParams {
   /**
+   * A list of group IDs to add to the group's inheriting-from set
+   */
+  add_member_groups?: Array<string> | null;
+
+  /**
+   * A list of user IDs to add to the group
+   */
+  add_member_users?: Array<string> | null;
+
+  /**
    * Textual description of the group
    */
   description?: string | null;
 
   /**
-   * Ids of the groups this group inherits from
-   *
-   * An inheriting group has all the users contained in its member groups, as well as
-   * all of their inherited users
-   */
-  member_groups?: Array<string> | null;
-
-  /**
-   * Ids of users which belong to this group
-   */
-  member_users?: Array<string> | null;
-
-  /**
    * Name of the group
    */
   name?: string | null;
+
+  /**
+   * A list of group IDs to remove from the group's inheriting-from set
+   */
+  remove_member_groups?: Array<string> | null;
+
+  /**
+   * A list of user IDs to remove from the group
+   */
+  remove_member_users?: Array<string> | null;
 }
 
 export interface GroupListParams extends ListObjectsParams {
