@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '@braintrust/api/resource';
-import { isRequestOptions } from '@braintrust/api/core';
-import * as Core from '@braintrust/api/core';
-import * as GroupsAPI from '@braintrust/api/resources/groups';
-import { ListObjects, type ListObjectsParams } from '@braintrust/api/pagination';
+import { APIResource } from '../resource';
+import { isRequestOptions } from '../core';
+import * as Core from '../core';
+import * as GroupsAPI from './groups';
+import { ListObjects, type ListObjectsParams } from '../pagination';
 
 export class Groups extends APIResource {
   /**

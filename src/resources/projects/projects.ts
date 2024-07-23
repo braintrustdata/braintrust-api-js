@@ -1,11 +1,11 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '@braintrust/api/resource';
-import { isRequestOptions } from '@braintrust/api/core';
-import * as Core from '@braintrust/api/core';
-import * as ProjectsAPI from '@braintrust/api/resources/projects/projects';
-import * as LogsAPI from '@braintrust/api/resources/projects/logs';
-import { ListObjects, type ListObjectsParams } from '@braintrust/api/pagination';
+import { APIResource } from '../../resource';
+import { isRequestOptions } from '../../core';
+import * as Core from '../../core';
+import * as ProjectsAPI from './projects';
+import * as LogsAPI from './logs';
+import { ListObjects, type ListObjectsParams } from '../../pagination';
 
 export class Projects extends APIResource {
   logs: LogsAPI.Logs = new LogsAPI.Logs(this._client);

@@ -1,9 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '@braintrust/api/resource';
-import * as Core from '@braintrust/api/core';
-import * as ACLsAPI from '@braintrust/api/resources/acls';
-import { ListObjects, type ListObjectsParams } from '@braintrust/api/pagination';
+import { APIResource } from '../resource';
+import * as Core from '../core';
+import * as ACLsAPI from './acls';
+import { ListObjects, type ListObjectsParams } from '../pagination';
 
 export class ACLs extends APIResource {
   /**
