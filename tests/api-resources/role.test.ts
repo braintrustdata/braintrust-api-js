@@ -24,7 +24,11 @@ describe('resource role', () => {
     const response = await braintrust.role.create({
       name: 'string',
       description: 'string',
-      member_permissions: ['create', 'read', 'update'],
+      member_permissions: [
+        { permission: 'create', restrict_object_type: 'organization' },
+        { permission: 'create', restrict_object_type: 'organization' },
+        { permission: 'create', restrict_object_type: 'organization' },
+      ],
       member_roles: [
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -76,14 +80,28 @@ describe('resource role', () => {
       braintrust.role.update(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         {
-          description: 'string',
-          member_permissions: ['create', 'read', 'update'],
-          member_roles: [
+          add_member_permissions: [
+            { permission: 'create', restrict_object_type: 'organization' },
+            { permission: 'create', restrict_object_type: 'organization' },
+            { permission: 'create', restrict_object_type: 'organization' },
+          ],
+          add_member_roles: [
             '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
             '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
             '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           ],
+          description: 'string',
           name: 'string',
+          remove_member_permissions: [
+            { permission: 'create', restrict_object_type: 'organization' },
+            { permission: 'create', restrict_object_type: 'organization' },
+            { permission: 'create', restrict_object_type: 'organization' },
+          ],
+          remove_member_roles: [
+            '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+            '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+            '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+          ],
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -158,7 +176,11 @@ describe('resource role', () => {
     const response = await braintrust.role.replace({
       name: 'string',
       description: 'string',
-      member_permissions: ['create', 'read', 'update'],
+      member_permissions: [
+        { permission: 'create', restrict_object_type: 'organization' },
+        { permission: 'create', restrict_object_type: 'organization' },
+        { permission: 'create', restrict_object_type: 'organization' },
+      ],
       member_roles: [
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',

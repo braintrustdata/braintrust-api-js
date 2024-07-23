@@ -8,12 +8,9 @@ const braintrust = new Braintrust({
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
-describe('resource acl', () => {
+describe('resource apiKey', () => {
   test('create: only required params', async () => {
-    const responsePromise = braintrust.acl.create({
-      object_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      object_type: 'organization',
-    });
+    const responsePromise = braintrust.apiKey.create({ name: 'string' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -24,19 +21,11 @@ describe('resource acl', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await braintrust.acl.create({
-      object_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      object_type: 'organization',
-      group_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      permission: 'create',
-      restrict_object_type: 'organization',
-      role_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      user_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-    });
+    const response = await braintrust.apiKey.create({ name: 'string', org_name: 'string' });
   });
 
   test('retrieve', async () => {
-    const responsePromise = braintrust.acl.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = braintrust.apiKey.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -49,15 +38,14 @@ describe('resource acl', () => {
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.acl.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
+      braintrust.apiKey.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+        path: '/_stainless_unknown_path',
+      }),
     ).rejects.toThrow(Braintrust.NotFoundError);
   });
 
-  test('list: only required params', async () => {
-    const responsePromise = braintrust.acl.list({
-      object_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      object_type: 'organization',
-    });
+  test('list', async () => {
+    const responsePromise = braintrust.apiKey.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -67,19 +55,32 @@ describe('resource acl', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list: required and optional params', async () => {
-    const response = await braintrust.acl.list({
-      object_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      object_type: 'organization',
-      ending_before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      ids: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      limit: 0,
-      starting_after: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-    });
+  test('list: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(braintrust.apiKey.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+      Braintrust.NotFoundError,
+    );
+  });
+
+  test('list: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      braintrust.apiKey.list(
+        {
+          api_key_name: 'string',
+          ending_before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+          ids: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+          limit: 0,
+          org_name: 'string',
+          starting_after: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Braintrust.NotFoundError);
   });
 
   test('delete', async () => {
-    const responsePromise = braintrust.acl.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = braintrust.apiKey.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -92,7 +93,7 @@ describe('resource acl', () => {
   test('delete: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.acl.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
+      braintrust.apiKey.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Braintrust.NotFoundError);
   });
 });
