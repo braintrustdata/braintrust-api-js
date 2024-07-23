@@ -1,14 +1,14 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export { ACL, ACLCreateParams, ACLListParams, ACLsListObjects, ACLResource } from './acl';
+export { ACL, ACLCreateParams, ACLListParams, ACLsListObjects, ACLs } from './acls';
 export {
   APIKey,
   APIKeyCreateResponse,
   APIKeyCreateParams,
   APIKeyListParams,
   APIKeysListObjects,
-  APIKeyResource,
-} from './api-key';
+  APIKeys,
+} from './api-keys';
 export {
   Dataset,
   DatasetFetchResponse,
@@ -24,8 +24,8 @@ export {
   DatasetInsertParams,
   DatasetSummarizeParams,
   DatasetsListObjects,
-  DatasetResource,
-} from './dataset';
+  Datasets,
+} from './datasets';
 export {
   Experiment,
   ExperimentFetchResponse,
@@ -41,8 +41,8 @@ export {
   ExperimentInsertParams,
   ExperimentSummarizeParams,
   ExperimentsListObjects,
-  ExperimentResource,
-} from './experiment';
+  Experiments,
+} from './experiments';
 export {
   Function,
   FunctionCreateParams,
@@ -51,8 +51,8 @@ export {
   FunctionFeedbackParams,
   FunctionReplaceParams,
   FunctionsListObjects,
-  FunctionResource,
-} from './function';
+  Functions,
+} from './functions';
 export {
   Group,
   GroupCreateParams,
@@ -60,23 +60,23 @@ export {
   GroupListParams,
   GroupReplaceParams,
   GroupsListObjects,
-  GroupResource,
-} from './group';
+  Groups,
+} from './groups';
 export {
   Organization,
   OrganizationUpdateParams,
   OrganizationListParams,
   OrganizationsListObjects,
-  OrganizationResource,
-} from './organization';
+  Organizations,
+} from './organizations';
 export {
   Project,
   ProjectCreateParams,
   ProjectUpdateParams,
   ProjectListParams,
   ProjectsListObjects,
-  ProjectResource,
-} from './project/project';
+  Projects,
+} from './projects/projects';
 export {
   ProjectScore,
   ProjectScoreCreateParams,
@@ -84,8 +84,8 @@ export {
   ProjectScoreListParams,
   ProjectScoreReplaceParams,
   ProjectScoresListObjects,
-  ProjectScoreResource,
-} from './project-score';
+  ProjectScores,
+} from './project-scores';
 export {
   ProjectTag,
   ProjectTagCreateParams,
@@ -93,8 +93,8 @@ export {
   ProjectTagListParams,
   ProjectTagReplaceParams,
   ProjectTagsListObjects,
-  ProjectTagResource,
-} from './project-tag';
+  ProjectTags,
+} from './project-tags';
 export {
   Prompt,
   PromptCreateParams,
@@ -103,8 +103,8 @@ export {
   PromptFeedbackParams,
   PromptReplaceParams,
   PromptsListObjects,
-  PromptResource,
-} from './prompt';
+  Prompts,
+} from './prompts';
 export {
   Role,
   RoleCreateParams,
@@ -112,10 +112,10 @@ export {
   RoleListParams,
   RoleReplaceParams,
   RolesListObjects,
-  RoleResource,
-} from './role';
+  Roles,
+} from './roles';
 export { TopLevelHelloWorldResponse, TopLevel } from './top-level';
-export { User, UserListParams, UsersListObjects, UserResource } from './user';
+export { User, UserListParams, UsersListObjects, Users } from './users';
 export {
   View,
   ViewCreateParams,
@@ -125,5 +125,5 @@ export {
   ViewDeleteParams,
   ViewReplaceParams,
   ViewsListObjects,
-  ViewResource,
-} from './view';
+  Views,
+} from './views';
