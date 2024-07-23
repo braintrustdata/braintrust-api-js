@@ -67,7 +67,7 @@ describe('resource project', () => {
     await expect(
       braintrust.project.update(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        { name: 'string' },
+        { name: 'string', settings: { comparison_key: 'string' } },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Braintrust.NotFoundError);
@@ -124,20 +124,5 @@ describe('resource project', () => {
     await expect(
       braintrust.project.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Braintrust.NotFoundError);
-  });
-
-  test('replace: only required params', async () => {
-    const responsePromise = braintrust.project.replace({ name: 'string' });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('replace: required and optional params', async () => {
-    const response = await braintrust.project.replace({ name: 'string', org_name: 'string' });
   });
 });

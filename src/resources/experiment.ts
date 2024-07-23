@@ -143,17 +143,6 @@ export class ExperimentResource extends APIResource {
   }
 
   /**
-   * NOTE: This operation is deprecated and will be removed in a future revision of
-   * the API. Create or replace a new experiment. If there is an existing experiment
-   * in the project with the same name as the one specified in the request, will
-   * return the existing experiment unmodified, will replace the existing experiment
-   * with the provided fields
-   */
-  replace(body: ExperimentReplaceParams, options?: Core.RequestOptions): Core.APIPromise<Experiment> {
-    return this._client.put('/v1/experiment', { body, ...options });
-  }
-
-  /**
    * Summarize experiment
    */
   summarize(
@@ -364,8 +353,8 @@ export namespace ExperimentFetchResponse {
     /**
      * A unique identifier used to link different experiment events together as part of
      * a full trace. See the
-     * [tracing guide](https://www.braintrustdata.com/docs/guides/tracing) for full
-     * details on tracing
+     * [tracing guide](https://www.braintrust.dev/docs/guides/tracing) for full details
+     * on tracing
      */
     span_id: string;
 
@@ -592,8 +581,8 @@ export namespace ExperimentFetchPostResponse {
     /**
      * A unique identifier used to link different experiment events together as part of
      * a full trace. See the
-     * [tracing guide](https://www.braintrustdata.com/docs/guides/tracing) for full
-     * details on tracing
+     * [tracing guide](https://www.braintrust.dev/docs/guides/tracing) for full details
+     * on tracing
      */
     span_id: string;
 
@@ -1360,7 +1349,7 @@ export namespace ExperimentInsertParams {
      * Use the `_parent_id` field to create this row as a subspan of an existing row.
      * It cannot be specified alongside `_is_merge=true`. Tracking hierarchical
      * relationships are important for tracing (see the
-     * [guide](https://www.braintrustdata.com/docs/guides/tracing) for full details).
+     * [guide](https://www.braintrust.dev/docs/guides/tracing) for full details).
      *
      * For example, say we have logged a row
      * `{"id": "abc", "input": "foo", "output": "bar", "expected": "boo", "scores": {"correctness": 0.33}}`.
@@ -1379,6 +1368,11 @@ export namespace ExperimentInsertParams {
      * experiment event
      */
     context?: InsertExperimentEventReplace.Context | null;
+
+    /**
+     * The timestamp the experiment event was created
+     */
+    created?: string | null;
 
     /**
      * If the experiment is associated to a dataset, this is the event-level dataset id
@@ -1587,6 +1581,11 @@ export namespace ExperimentInsertParams {
     context?: InsertExperimentEventMerge.Context | null;
 
     /**
+     * The timestamp the experiment event was created
+     */
+    created?: string | null;
+
+    /**
      * If the experiment is associated to a dataset, this is the event-level dataset id
      * this experiment event is tied to
      */
@@ -1740,117 +1739,6 @@ export namespace ExperimentInsertParams {
   }
 }
 
-export interface ExperimentReplaceParams {
-  /**
-   * Unique identifier for the project that the experiment belongs under
-   */
-  project_id: string;
-
-  /**
-   * Id of default base experiment to compare against when viewing this experiment
-   */
-  base_exp_id?: string | null;
-
-  /**
-   * Identifier of the linked dataset, or null if the experiment is not linked to a
-   * dataset
-   */
-  dataset_id?: string | null;
-
-  /**
-   * Version number of the linked dataset the experiment was run against. This can be
-   * used to reproduce the experiment after the dataset has been modified.
-   */
-  dataset_version?: string | null;
-
-  /**
-   * Textual description of the experiment
-   */
-  description?: string | null;
-
-  /**
-   * Normally, creating an experiment with the same name as an existing experiment
-   * will return the existing one un-modified. But if `ensure_new` is true,
-   * registration will generate a new experiment with a unique name in case of a
-   * conflict.
-   */
-  ensure_new?: boolean | null;
-
-  /**
-   * User-controlled metadata about the experiment
-   */
-  metadata?: Record<string, unknown> | null;
-
-  /**
-   * Name of the experiment. Within a project, experiment names are unique
-   */
-  name?: string | null;
-
-  /**
-   * Whether or not the experiment is public. Public experiments can be viewed by
-   * anybody inside or outside the organization
-   */
-  public?: boolean | null;
-
-  /**
-   * Metadata about the state of the repo when the experiment was created
-   */
-  repo_info?: ExperimentReplaceParams.RepoInfo | null;
-}
-
-export namespace ExperimentReplaceParams {
-  /**
-   * Metadata about the state of the repo when the experiment was created
-   */
-  export interface RepoInfo {
-    /**
-     * Email of the author of the most recent commit
-     */
-    author_email?: string | null;
-
-    /**
-     * Name of the author of the most recent commit
-     */
-    author_name?: string | null;
-
-    /**
-     * Name of the branch the most recent commit belongs to
-     */
-    branch?: string | null;
-
-    /**
-     * SHA of most recent commit
-     */
-    commit?: string | null;
-
-    /**
-     * Most recent commit message
-     */
-    commit_message?: string | null;
-
-    /**
-     * Time of the most recent commit
-     */
-    commit_time?: string | null;
-
-    /**
-     * Whether or not the repo had uncommitted changes when snapshotted
-     */
-    dirty?: boolean | null;
-
-    /**
-     * If the repo was dirty when run, this includes the diff between the current state
-     * of the repo and the most recent commit.
-     */
-    git_diff?: string | null;
-
-    /**
-     * Name of the tag on the most recent commit
-     */
-    tag?: string | null;
-  }
-}
-
 export interface ExperimentSummarizeParams {
   /**
    * The experiment to compare against, if summarizing scores and metrics. If
@@ -1881,6 +1769,5 @@ export namespace ExperimentResource {
   export import ExperimentFetchParams = ExperimentAPI.ExperimentFetchParams;
   export import ExperimentFetchPostParams = ExperimentAPI.ExperimentFetchPostParams;
   export import ExperimentInsertParams = ExperimentAPI.ExperimentInsertParams;
-  export import ExperimentReplaceParams = ExperimentAPI.ExperimentReplaceParams;
   export import ExperimentSummarizeParams = ExperimentAPI.ExperimentSummarizeParams;
 }
