@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '@braintrust/api/resource';
-import * as Core from '@braintrust/api/core';
-import * as TopLevelAPI from '@braintrust/api/resources/top-level';
+import { APIResource } from '../resource';
+import * as Core from '../core';
+import * as TopLevelAPI from './top-level';
 
 export class TopLevel extends APIResource {
   /**

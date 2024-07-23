@@ -4,9 +4,9 @@ import * as Errors from './error';
 import * as Uploads from './uploads';
 import { type Agent } from './_shims/index';
 import * as qs from 'qs';
-import * as Core from '@braintrust/api/core';
-import * as Pagination from '@braintrust/api/pagination';
-import * as API from '@braintrust/api/resources/index';
+import * as Core from './core';
+import * as Pagination from './pagination';
+import * as API from './resources/index';
 
 export interface ClientOptions {
   /**
