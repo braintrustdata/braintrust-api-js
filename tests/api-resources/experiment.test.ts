@@ -318,6 +318,7 @@ describe('resource experiment', () => {
           span_attributes: { name: 'string', type: 'llm' },
           id: 'string',
           dataset_record_id: 'string',
+          created: '2019-12-27T18:11:19.117Z',
           _object_delete: true,
           _is_merge: true,
           _parent_id: 'string',
@@ -334,6 +335,7 @@ describe('resource experiment', () => {
           span_attributes: { name: 'string', type: 'llm' },
           id: 'string',
           dataset_record_id: 'string',
+          created: '2019-12-27T18:11:19.117Z',
           _object_delete: true,
           _is_merge: true,
           _parent_id: 'string',
@@ -350,49 +352,12 @@ describe('resource experiment', () => {
           span_attributes: { name: 'string', type: 'llm' },
           id: 'string',
           dataset_record_id: 'string',
+          created: '2019-12-27T18:11:19.117Z',
           _object_delete: true,
           _is_merge: true,
           _parent_id: 'string',
         },
       ],
-    });
-  });
-
-  test('replace: only required params', async () => {
-    const responsePromise = braintrust.experiment.replace({
-      project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('replace: required and optional params', async () => {
-    const response = await braintrust.experiment.replace({
-      project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      base_exp_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      dataset_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      dataset_version: 'string',
-      description: 'string',
-      ensure_new: true,
-      metadata: { foo: {} },
-      name: 'string',
-      public: true,
-      repo_info: {
-        commit: 'string',
-        branch: 'string',
-        tag: 'string',
-        dirty: true,
-        author_name: 'string',
-        author_email: 'string',
-        commit_message: 'string',
-        commit_time: 'string',
-        git_diff: 'string',
-      },
     });
   });
 

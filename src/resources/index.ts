@@ -1,6 +1,14 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export { ACL, ACLCreateParams, ACLListParams, ACLReplaceParams, ACLsListObjects, ACLResource } from './acl';
+export { ACL, ACLCreateParams, ACLListParams, ACLsListObjects, ACLResource } from './acl';
+export {
+  APIKey,
+  APIKeyCreateResponse,
+  APIKeyCreateParams,
+  APIKeyListParams,
+  APIKeysListObjects,
+  APIKeyResource,
+} from './api-key';
 export {
   Dataset,
   DatasetFetchResponse,
@@ -14,7 +22,6 @@ export {
   DatasetFetchParams,
   DatasetFetchPostParams,
   DatasetInsertParams,
-  DatasetReplaceParams,
   DatasetSummarizeParams,
   DatasetsListObjects,
   DatasetResource,
@@ -32,11 +39,20 @@ export {
   ExperimentFetchParams,
   ExperimentFetchPostParams,
   ExperimentInsertParams,
-  ExperimentReplaceParams,
   ExperimentSummarizeParams,
   ExperimentsListObjects,
   ExperimentResource,
 } from './experiment';
+export {
+  Function,
+  FunctionCreateParams,
+  FunctionUpdateParams,
+  FunctionListParams,
+  FunctionFeedbackParams,
+  FunctionReplaceParams,
+  FunctionsListObjects,
+  FunctionResource,
+} from './function';
 export {
   Group,
   GroupCreateParams,
@@ -47,14 +63,38 @@ export {
   GroupResource,
 } from './group';
 export {
+  Organization,
+  OrganizationUpdateParams,
+  OrganizationListParams,
+  OrganizationsListObjects,
+  OrganizationResource,
+} from './organization';
+export {
   Project,
   ProjectCreateParams,
   ProjectUpdateParams,
   ProjectListParams,
-  ProjectReplaceParams,
   ProjectsListObjects,
   ProjectResource,
 } from './project/project';
+export {
+  ProjectScore,
+  ProjectScoreCreateParams,
+  ProjectScoreUpdateParams,
+  ProjectScoreListParams,
+  ProjectScoreReplaceParams,
+  ProjectScoresListObjects,
+  ProjectScoreResource,
+} from './project-score';
+export {
+  ProjectTag,
+  ProjectTagCreateParams,
+  ProjectTagUpdateParams,
+  ProjectTagListParams,
+  ProjectTagReplaceParams,
+  ProjectTagsListObjects,
+  ProjectTagResource,
+} from './project-tag';
 export {
   Prompt,
   PromptCreateParams,
@@ -76,3 +116,14 @@ export {
 } from './role';
 export { TopLevelHelloWorldResponse, TopLevel } from './top-level';
 export { User, UserListParams, UsersListObjects, UserResource } from './user';
+export {
+  View,
+  ViewCreateParams,
+  ViewRetrieveParams,
+  ViewUpdateParams,
+  ViewListParams,
+  ViewDeleteParams,
+  ViewReplaceParams,
+  ViewsListObjects,
+  ViewResource,
+} from './view';

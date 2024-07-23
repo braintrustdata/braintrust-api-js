@@ -15,7 +15,6 @@ export {
   ProjectCreateParams,
   ProjectUpdateParams,
   ProjectListParams,
-  ProjectReplaceParams,
   ProjectsListObjects,
   ProjectResource,
 } from './project';

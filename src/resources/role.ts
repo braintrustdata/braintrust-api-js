@@ -64,10 +64,9 @@ export class RoleResource extends APIResource {
   }
 
   /**
-   * NOTE: This operation is deprecated and will be removed in a future revision of
-   * the API. Create or replace a new role. If there is an existing role with the
-   * same name as the one specified in the request, will return the existing role
-   * unmodified, will replace the existing role with the provided fields
+   * Create or replace role. If there is an existing role with the same name as the
+   * one specified in the request, will replace the existing role with the provided
+   * fields
    */
   replace(body: RoleReplaceParams, options?: Core.RequestOptions): Core.APIPromise<Role> {
     return this._client.put('/v1/role', { body, ...options });
@@ -112,19 +111,9 @@ export interface Role {
   description?: string | null;
 
   /**
-   * Permissions which belong to this role
+   * (permission, restrict_object_type) tuples which belong to this role
    */
-  member_permissions?: Array<
-    | 'create'
-    | 'read'
-    | 'update'
-    | 'delete'
-    | 'create_acls'
-    | 'read_acls'
-    | 'update_acls'
-    | 'delete_acls'
-    | null
-  > | null;
+  member_permissions?: Array<Role.MemberPermission> | null;
 
   /**
    * Ids of the roles this role inherits from
@@ -150,6 +139,44 @@ export interface Role {
   user_id?: string | null;
 }
 
+export namespace Role {
+  export interface MemberPermission {
+    /**
+     * Each permission permits a certain type of operation on an object in the system
+     *
+     * Permissions can be assigned to to objects on an individual basis, or grouped
+     * into roles
+     */
+    permission:
+      | 'create'
+      | 'read'
+      | 'update'
+      | 'delete'
+      | 'create_acls'
+      | 'read_acls'
+      | 'update_acls'
+      | 'delete_acls'
+      | null;
+
+    /**
+     * The object type that the ACL applies to
+     */
+    restrict_object_type?:
+      | 'organization'
+      | 'project'
+      | 'experiment'
+      | 'dataset'
+      | 'prompt'
+      | 'prompt_session'
+      | 'group'
+      | 'role'
+      | 'org_member'
+      | 'project_log'
+      | 'org_project'
+      | null;
+  }
+}
+
 export interface RoleCreateParams {
   /**
    * Name of the role
@@ -162,19 +189,9 @@ export interface RoleCreateParams {
   description?: string | null;
 
   /**
-   * Permissions which belong to this role
+   * (permission, restrict_object_type) tuples which belong to this role
    */
-  member_permissions?: Array<
-    | 'create'
-    | 'read'
-    | 'update'
-    | 'delete'
-    | 'create_acls'
-    | 'read_acls'
-    | 'update_acls'
-    | 'delete_acls'
-    | null
-  > | null;
+  member_permissions?: Array<RoleCreateParams.MemberPermission> | null;
 
   /**
    * Ids of the roles this role inherits from
@@ -192,39 +209,148 @@ export interface RoleCreateParams {
   org_name?: string | null;
 }
 
+export namespace RoleCreateParams {
+  export interface MemberPermission {
+    /**
+     * Each permission permits a certain type of operation on an object in the system
+     *
+     * Permissions can be assigned to to objects on an individual basis, or grouped
+     * into roles
+     */
+    permission:
+      | 'create'
+      | 'read'
+      | 'update'
+      | 'delete'
+      | 'create_acls'
+      | 'read_acls'
+      | 'update_acls'
+      | 'delete_acls'
+      | null;
+
+    /**
+     * The object type that the ACL applies to
+     */
+    restrict_object_type?:
+      | 'organization'
+      | 'project'
+      | 'experiment'
+      | 'dataset'
+      | 'prompt'
+      | 'prompt_session'
+      | 'group'
+      | 'role'
+      | 'org_member'
+      | 'project_log'
+      | 'org_project'
+      | null;
+  }
+}
+
 export interface RoleUpdateParams {
+  /**
+   * A list of permissions to add to the role
+   */
+  add_member_permissions?: Array<RoleUpdateParams.AddMemberPermission> | null;
+
+  /**
+   * A list of role IDs to add to the role's inheriting-from set
+   */
+  add_member_roles?: Array<string> | null;
+
   /**
    * Textual description of the role
    */
   description?: string | null;
 
   /**
-   * Permissions which belong to this role
-   */
-  member_permissions?: Array<
-    | 'create'
-    | 'read'
-    | 'update'
-    | 'delete'
-    | 'create_acls'
-    | 'read_acls'
-    | 'update_acls'
-    | 'delete_acls'
-    | null
-  > | null;
-
-  /**
-   * Ids of the roles this role inherits from
-   *
-   * An inheriting role has all the permissions contained in its member roles, as
-   * well as all of their inherited permissions
-   */
-  member_roles?: Array<string> | null;
-
-  /**
    * Name of the role
    */
   name?: string | null;
+
+  /**
+   * A list of permissions to remove from the role
+   */
+  remove_member_permissions?: Array<RoleUpdateParams.RemoveMemberPermission> | null;
+
+  /**
+   * A list of role IDs to remove from the role's inheriting-from set
+   */
+  remove_member_roles?: Array<string> | null;
+}
+
+export namespace RoleUpdateParams {
+  export interface AddMemberPermission {
+    /**
+     * Each permission permits a certain type of operation on an object in the system
+     *
+     * Permissions can be assigned to to objects on an individual basis, or grouped
+     * into roles
+     */
+    permission:
+      | 'create'
+      | 'read'
+      | 'update'
+      | 'delete'
+      | 'create_acls'
+      | 'read_acls'
+      | 'update_acls'
+      | 'delete_acls'
+      | null;
+
+    /**
+     * The object type that the ACL applies to
+     */
+    restrict_object_type?:
+      | 'organization'
+      | 'project'
+      | 'experiment'
+      | 'dataset'
+      | 'prompt'
+      | 'prompt_session'
+      | 'group'
+      | 'role'
+      | 'org_member'
+      | 'project_log'
+      | 'org_project'
+      | null;
+  }
+
+  export interface RemoveMemberPermission {
+    /**
+     * Each permission permits a certain type of operation on an object in the system
+     *
+     * Permissions can be assigned to to objects on an individual basis, or grouped
+     * into roles
+     */
+    permission:
+      | 'create'
+      | 'read'
+      | 'update'
+      | 'delete'
+      | 'create_acls'
+      | 'read_acls'
+      | 'update_acls'
+      | 'delete_acls'
+      | null;
+
+    /**
+     * The object type that the ACL applies to
+     */
+    restrict_object_type?:
+      | 'organization'
+      | 'project'
+      | 'experiment'
+      | 'dataset'
+      | 'prompt'
+      | 'prompt_session'
+      | 'group'
+      | 'role'
+      | 'org_member'
+      | 'project_log'
+      | 'org_project'
+      | null;
+  }
 }
 
 export interface RoleListParams extends ListObjectsParams {
@@ -257,19 +383,9 @@ export interface RoleReplaceParams {
   description?: string | null;
 
   /**
-   * Permissions which belong to this role
+   * (permission, restrict_object_type) tuples which belong to this role
    */
-  member_permissions?: Array<
-    | 'create'
-    | 'read'
-    | 'update'
-    | 'delete'
-    | 'create_acls'
-    | 'read_acls'
-    | 'update_acls'
-    | 'delete_acls'
-    | null
-  > | null;
+  member_permissions?: Array<RoleReplaceParams.MemberPermission> | null;
 
   /**
    * Ids of the roles this role inherits from
@@ -285,6 +401,44 @@ export interface RoleReplaceParams {
    * the organization the role belongs in.
    */
   org_name?: string | null;
+}
+
+export namespace RoleReplaceParams {
+  export interface MemberPermission {
+    /**
+     * Each permission permits a certain type of operation on an object in the system
+     *
+     * Permissions can be assigned to to objects on an individual basis, or grouped
+     * into roles
+     */
+    permission:
+      | 'create'
+      | 'read'
+      | 'update'
+      | 'delete'
+      | 'create_acls'
+      | 'read_acls'
+      | 'update_acls'
+      | 'delete_acls'
+      | null;
+
+    /**
+     * The object type that the ACL applies to
+     */
+    restrict_object_type?:
+      | 'organization'
+      | 'project'
+      | 'experiment'
+      | 'dataset'
+      | 'prompt'
+      | 'prompt_session'
+      | 'group'
+      | 'role'
+      | 'org_member'
+      | 'project_log'
+      | 'org_project'
+      | null;
+  }
 }
 
 export namespace RoleResource {

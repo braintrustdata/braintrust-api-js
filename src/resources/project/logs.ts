@@ -130,8 +130,8 @@ export namespace LogFetchResponse {
     /**
      * A unique identifier used to link different project logs events together as part
      * of a full trace. See the
-     * [tracing guide](https://www.braintrustdata.com/docs/guides/tracing) for full
-     * details on tracing
+     * [tracing guide](https://www.braintrust.dev/docs/guides/tracing) for full details
+     * on tracing
      */
     span_id: string;
 
@@ -353,8 +353,8 @@ export namespace LogFetchPostResponse {
     /**
      * A unique identifier used to link different project logs events together as part
      * of a full trace. See the
-     * [tracing guide](https://www.braintrustdata.com/docs/guides/tracing) for full
-     * details on tracing
+     * [tracing guide](https://www.braintrust.dev/docs/guides/tracing) for full details
+     * on tracing
      */
     span_id: string;
 
@@ -770,7 +770,7 @@ export namespace LogInsertParams {
      * Use the `_parent_id` field to create this row as a subspan of an existing row.
      * It cannot be specified alongside `_is_merge=true`. Tracking hierarchical
      * relationships are important for tracing (see the
-     * [guide](https://www.braintrustdata.com/docs/guides/tracing) for full details).
+     * [guide](https://www.braintrust.dev/docs/guides/tracing) for full details).
      *
      * For example, say we have logged a row
      * `{"id": "abc", "input": "foo", "output": "bar", "expected": "boo", "scores": {"correctness": 0.33}}`.
@@ -789,6 +789,11 @@ export namespace LogInsertParams {
      * logs event
      */
     context?: InsertProjectLogsEventReplace.Context | null;
+
+    /**
+     * The timestamp the project logs event was created
+     */
+    created?: string | null;
 
     /**
      * The ground truth value (an arbitrary, JSON serializable object) that you'd
@@ -985,6 +990,11 @@ export namespace LogInsertParams {
      * logs event
      */
     context?: InsertProjectLogsEventMerge.Context | null;
+
+    /**
+     * The timestamp the project logs event was created
+     */
+    created?: string | null;
 
     /**
      * The ground truth value (an arbitrary, JSON serializable object) that you'd

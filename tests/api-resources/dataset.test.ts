@@ -71,7 +71,7 @@ describe('resource dataset', () => {
     await expect(
       braintrust.dataset.update(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        { description: 'string', name: 'string' },
+        { description: 'string', metadata: { foo: {} }, name: 'string' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Braintrust.NotFoundError);
@@ -247,6 +247,7 @@ describe('resource dataset', () => {
           metadata: { foo: {} },
           tags: ['string', 'string', 'string'],
           id: 'string',
+          created: '2019-12-27T18:11:19.117Z',
           _object_delete: true,
           _is_merge: true,
           _parent_id: 'string',
@@ -257,6 +258,7 @@ describe('resource dataset', () => {
           metadata: { foo: {} },
           tags: ['string', 'string', 'string'],
           id: 'string',
+          created: '2019-12-27T18:11:19.117Z',
           _object_delete: true,
           _is_merge: true,
           _parent_id: 'string',
@@ -267,30 +269,12 @@ describe('resource dataset', () => {
           metadata: { foo: {} },
           tags: ['string', 'string', 'string'],
           id: 'string',
+          created: '2019-12-27T18:11:19.117Z',
           _object_delete: true,
           _is_merge: true,
           _parent_id: 'string',
         },
       ],
-    });
-  });
-
-  test('replace: only required params', async () => {
-    const responsePromise = braintrust.dataset.replace({ name: 'string' });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('replace: required and optional params', async () => {
-    const response = await braintrust.dataset.replace({
-      name: 'string',
-      description: 'string',
-      project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     });
   });
 

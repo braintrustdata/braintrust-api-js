@@ -8,9 +8,14 @@ const braintrust = new Braintrust({
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
-describe('resource group', () => {
+describe('resource function', () => {
   test('create: only required params', async () => {
-    const responsePromise = braintrust.group.create({ name: 'string' });
+    const responsePromise = braintrust.function.create({
+      function_data: { type: 'prompt' },
+      name: 'string',
+      project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      slug: 'string',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,25 +26,39 @@ describe('resource group', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await braintrust.group.create({
+    const response = await braintrust.function.create({
+      function_data: { type: 'prompt' },
       name: 'string',
+      project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      slug: 'string',
       description: 'string',
-      member_groups: [
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      ],
-      member_users: [
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      ],
-      org_name: 'string',
+      prompt_data: {
+        prompt: { type: 'completion', content: 'string' },
+        options: {
+          model: 'string',
+          params: {
+            use_cache: true,
+            temperature: 0,
+            top_p: 0,
+            max_tokens: 0,
+            frequency_penalty: 0,
+            presence_penalty: 0,
+            response_format: { type: 'json_object' },
+            tool_choice: 'auto',
+            function_call: 'auto',
+            n: 0,
+            stop: ['string', 'string', 'string'],
+          },
+          position: 'string',
+        },
+        origin: { prompt_id: 'string', project_id: 'string', prompt_version: 'string' },
+      },
+      tags: ['string', 'string', 'string'],
     });
   });
 
   test('retrieve', async () => {
-    const responsePromise = braintrust.group.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = braintrust.function.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -52,12 +71,14 @@ describe('resource group', () => {
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.group.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
+      braintrust.function.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+        path: '/_stainless_unknown_path',
+      }),
     ).rejects.toThrow(Braintrust.NotFoundError);
   });
 
   test('update', async () => {
-    const responsePromise = braintrust.group.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = braintrust.function.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -70,38 +91,43 @@ describe('resource group', () => {
   test('update: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.group.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
+      braintrust.function.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+        path: '/_stainless_unknown_path',
+      }),
     ).rejects.toThrow(Braintrust.NotFoundError);
   });
 
   test('update: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.group.update(
+      braintrust.function.update(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         {
-          add_member_groups: [
-            '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-            '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-            '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          ],
-          add_member_users: [
-            '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-            '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-            '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          ],
           description: 'string',
+          function_data: { type: 'prompt' },
           name: 'string',
-          remove_member_groups: [
-            '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-            '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-            '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          ],
-          remove_member_users: [
-            '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-            '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-            '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          ],
+          prompt_data: {
+            prompt: { type: 'completion', content: 'string' },
+            options: {
+              model: 'string',
+              params: {
+                use_cache: true,
+                temperature: 0,
+                top_p: 0,
+                max_tokens: 0,
+                frequency_penalty: 0,
+                presence_penalty: 0,
+                response_format: { type: 'json_object' },
+                tool_choice: 'auto',
+                function_call: 'auto',
+                n: 0,
+                stop: ['string', 'string', 'string'],
+              },
+              position: 'string',
+            },
+            origin: { prompt_id: 'string', project_id: 'string', prompt_version: 'string' },
+          },
+          tags: ['string', 'string', 'string'],
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -109,7 +135,7 @@ describe('resource group', () => {
   });
 
   test('list', async () => {
-    const responsePromise = braintrust.group.list();
+    const responsePromise = braintrust.function.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -121,7 +147,7 @@ describe('resource group', () => {
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(braintrust.group.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(braintrust.function.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Braintrust.NotFoundError,
     );
   });
@@ -129,14 +155,17 @@ describe('resource group', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.group.list(
+      braintrust.function.list(
         {
           ending_before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          group_name: 'string',
+          function_name: 'string',
           ids: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           limit: 0,
           org_name: 'string',
+          project_name: 'string',
+          slug: 'string',
           starting_after: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+          version: 'string',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -144,7 +173,7 @@ describe('resource group', () => {
   });
 
   test('delete', async () => {
-    const responsePromise = braintrust.group.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = braintrust.function.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -157,12 +186,42 @@ describe('resource group', () => {
   test('delete: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.group.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
+      braintrust.function.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+        path: '/_stainless_unknown_path',
+      }),
     ).rejects.toThrow(Braintrust.NotFoundError);
   });
 
+  test('feedback: only required params', async () => {
+    const responsePromise = braintrust.function.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      feedback: [{ id: 'string' }, { id: 'string' }, { id: 'string' }],
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('feedback: required and optional params', async () => {
+    const response = await braintrust.function.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      feedback: [
+        { id: 'string', comment: 'string', metadata: { foo: {} }, source: 'app' },
+        { id: 'string', comment: 'string', metadata: { foo: {} }, source: 'app' },
+        { id: 'string', comment: 'string', metadata: { foo: {} }, source: 'app' },
+      ],
+    });
+  });
+
   test('replace: only required params', async () => {
-    const responsePromise = braintrust.group.replace({ name: 'string' });
+    const responsePromise = braintrust.function.replace({
+      function_data: { type: 'prompt' },
+      name: 'string',
+      project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      slug: 'string',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -173,20 +232,34 @@ describe('resource group', () => {
   });
 
   test('replace: required and optional params', async () => {
-    const response = await braintrust.group.replace({
+    const response = await braintrust.function.replace({
+      function_data: { type: 'prompt' },
       name: 'string',
+      project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      slug: 'string',
       description: 'string',
-      member_groups: [
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      ],
-      member_users: [
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      ],
-      org_name: 'string',
+      prompt_data: {
+        prompt: { type: 'completion', content: 'string' },
+        options: {
+          model: 'string',
+          params: {
+            use_cache: true,
+            temperature: 0,
+            top_p: 0,
+            max_tokens: 0,
+            frequency_penalty: 0,
+            presence_penalty: 0,
+            response_format: { type: 'json_object' },
+            tool_choice: 'auto',
+            function_call: 'auto',
+            n: 0,
+            stop: ['string', 'string', 'string'],
+          },
+          position: 'string',
+        },
+        origin: { prompt_id: 'string', project_id: 'string', prompt_version: 'string' },
+      },
+      tags: ['string', 'string', 'string'],
     });
   });
 });
