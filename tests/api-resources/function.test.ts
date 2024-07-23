@@ -12,9 +12,9 @@ describe('resource function', () => {
   test('create: only required params', async () => {
     const responsePromise = braintrust.function.create({
       function_data: { type: 'prompt' },
-      name: 'string',
+      name: 'name',
       project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      slug: 'string',
+      slug: 'slug',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -28,14 +28,14 @@ describe('resource function', () => {
   test('create: required and optional params', async () => {
     const response = await braintrust.function.create({
       function_data: { type: 'prompt' },
-      name: 'string',
+      name: 'name',
       project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      slug: 'string',
-      description: 'string',
+      slug: 'slug',
+      description: 'description',
       prompt_data: {
-        prompt: { type: 'completion', content: 'string' },
+        prompt: { type: 'completion', content: 'content' },
         options: {
-          model: 'string',
+          model: 'model',
           params: {
             use_cache: true,
             temperature: 0,
@@ -49,9 +49,9 @@ describe('resource function', () => {
             n: 0,
             stop: ['string', 'string', 'string'],
           },
-          position: 'string',
+          position: 'position',
         },
-        origin: { prompt_id: 'string', project_id: 'string', prompt_version: 'string' },
+        origin: { prompt_id: 'prompt_id', project_id: 'project_id', prompt_version: 'prompt_version' },
       },
       tags: ['string', 'string', 'string'],
     });
@@ -103,13 +103,13 @@ describe('resource function', () => {
       braintrust.function.update(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         {
-          description: 'string',
+          description: 'description',
           function_data: { type: 'prompt' },
-          name: 'string',
+          name: 'name',
           prompt_data: {
-            prompt: { type: 'completion', content: 'string' },
+            prompt: { type: 'completion', content: 'content' },
             options: {
-              model: 'string',
+              model: 'model',
               params: {
                 use_cache: true,
                 temperature: 0,
@@ -123,9 +123,9 @@ describe('resource function', () => {
                 n: 0,
                 stop: ['string', 'string', 'string'],
               },
-              position: 'string',
+              position: 'position',
             },
-            origin: { prompt_id: 'string', project_id: 'string', prompt_version: 'string' },
+            origin: { prompt_id: 'prompt_id', project_id: 'project_id', prompt_version: 'prompt_version' },
           },
           tags: ['string', 'string', 'string'],
         },
@@ -158,14 +158,14 @@ describe('resource function', () => {
       braintrust.function.list(
         {
           ending_before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          function_name: 'string',
+          function_name: 'function_name',
           ids: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           limit: 0,
-          org_name: 'string',
-          project_name: 'string',
-          slug: 'string',
+          org_name: 'org_name',
+          project_name: 'project_name',
+          slug: 'slug',
           starting_after: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          version: 'string',
+          version: 'version',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -194,7 +194,7 @@ describe('resource function', () => {
 
   test('feedback: only required params', async () => {
     const responsePromise = braintrust.function.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      feedback: [{ id: 'string' }, { id: 'string' }, { id: 'string' }],
+      feedback: [{ id: 'id' }, { id: 'id' }, { id: 'id' }],
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -208,9 +208,9 @@ describe('resource function', () => {
   test('feedback: required and optional params', async () => {
     const response = await braintrust.function.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       feedback: [
-        { id: 'string', comment: 'string', metadata: { foo: {} }, source: 'app' },
-        { id: 'string', comment: 'string', metadata: { foo: {} }, source: 'app' },
-        { id: 'string', comment: 'string', metadata: { foo: {} }, source: 'app' },
+        { id: 'id', comment: 'comment', metadata: { foo: {} }, source: 'app' },
+        { id: 'id', comment: 'comment', metadata: { foo: {} }, source: 'app' },
+        { id: 'id', comment: 'comment', metadata: { foo: {} }, source: 'app' },
       ],
     });
   });
@@ -218,9 +218,9 @@ describe('resource function', () => {
   test('replace: only required params', async () => {
     const responsePromise = braintrust.function.replace({
       function_data: { type: 'prompt' },
-      name: 'string',
+      name: 'name',
       project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      slug: 'string',
+      slug: 'slug',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -234,14 +234,14 @@ describe('resource function', () => {
   test('replace: required and optional params', async () => {
     const response = await braintrust.function.replace({
       function_data: { type: 'prompt' },
-      name: 'string',
+      name: 'name',
       project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      slug: 'string',
-      description: 'string',
+      slug: 'slug',
+      description: 'description',
       prompt_data: {
-        prompt: { type: 'completion', content: 'string' },
+        prompt: { type: 'completion', content: 'content' },
         options: {
-          model: 'string',
+          model: 'model',
           params: {
             use_cache: true,
             temperature: 0,
@@ -255,9 +255,9 @@ describe('resource function', () => {
             n: 0,
             stop: ['string', 'string', 'string'],
           },
-          position: 'string',
+          position: 'position',
         },
-        origin: { prompt_id: 'string', project_id: 'string', prompt_version: 'string' },
+        origin: { prompt_id: 'prompt_id', project_id: 'project_id', prompt_version: 'prompt_version' },
       },
       tags: ['string', 'string', 'string'],
     });

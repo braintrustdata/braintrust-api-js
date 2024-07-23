@@ -50,13 +50,13 @@ describe('resource user', () => {
     await expect(
       braintrust.user.list(
         {
-          email: 'string',
+          email: 'email',
           ending_before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          family_name: 'string',
-          given_name: 'string',
+          family_name: 'family_name',
+          given_name: 'given_name',
           ids: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           limit: 0,
-          org_name: 'string',
+          org_name: 'org_name',
           starting_after: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         },
         { path: '/_stainless_unknown_path' },
