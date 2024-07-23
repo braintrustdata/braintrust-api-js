@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.2.0 (2024-07-23)
+
+Full Changelog: [v0.1.1...v0.2.0](https://github.com/braintrustdata/braintrust-api-js/compare/v0.1.1...v0.2.0)
+
+### Features
+
+* **api:** update via SDK Studio ([#4](https://github.com/braintrustdata/braintrust-api-js/issues/4)) ([b2c686d](https://github.com/braintrustdata/braintrust-api-js/commit/b2c686d7ff7b2e5f0660a0caeb3ea1c2d1cce49e))
+
+
+### Bug Fixes
+
+* use relative paths ([#13](https://github.com/braintrustdata/braintrust-api-js/issues/13)) ([953d3f6](https://github.com/braintrustdata/braintrust-api-js/commit/953d3f6113ebdfa4cc1520ded1abb5f91e931848))
+
+
+### Chores
+
+* **ci:** limit release doctor target branches ([#10](https://github.com/braintrustdata/braintrust-api-js/issues/10)) ([2e519b8](https://github.com/braintrustdata/braintrust-api-js/commit/2e519b841262ce8687f501e0c30f0b0bc125de96))
+* **docs:** mention support of web browser runtimes ([#8](https://github.com/braintrustdata/braintrust-api-js/issues/8)) ([edaac4c](https://github.com/braintrustdata/braintrust-api-js/commit/edaac4c4834af2141eb16bb7f0b4104c63a61352))
+* **docs:** minor update to formatting of API link in README ([#7](https://github.com/braintrustdata/braintrust-api-js/issues/7)) ([ec8a13c](https://github.com/braintrustdata/braintrust-api-js/commit/ec8a13ced7642484d444713d1509e50a61750322))
+* **docs:** use client instead of package name in Node examples ([#9](https://github.com/braintrustdata/braintrust-api-js/issues/9)) ([93d5fcf](https://github.com/braintrustdata/braintrust-api-js/commit/93d5fcf9edb31e8cede03919c24ffacdf77a92d5))
+* **internal:** codegen related update ([#6](https://github.com/braintrustdata/braintrust-api-js/issues/6)) ([42398c8](https://github.com/braintrustdata/braintrust-api-js/commit/42398c8a00a050884465efd4fa2fed74621a7529))
+* **tests:** update prism version ([#11](https://github.com/braintrustdata/braintrust-api-js/issues/11)) ([2471ebe](https://github.com/braintrustdata/braintrust-api-js/commit/2471ebe15c73825f03f800f3c236c4f3cd51c17a))
+* update SDK settings ([#12](https://github.com/braintrustdata/braintrust-api-js/issues/12)) ([ae72cca](https://github.com/braintrustdata/braintrust-api-js/commit/ae72cca49452da41930741ee323860cc909f18d9))
+
 ## 0.1.1 (2024-07-09)
 
 Full Changelog: [v0.1.0...v0.1.1](https://github.com/braintrustdata/braintrust-api-js/compare/v0.1.0...v0.1.1)
