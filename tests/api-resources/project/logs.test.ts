@@ -11,7 +11,7 @@ const braintrust = new Braintrust({
 describe('resource logs', () => {
   test('feedback: only required params', async () => {
     const responsePromise = braintrust.project.logs.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      feedback: [{ id: 'string' }, { id: 'string' }, { id: 'string' }],
+      feedback: [{ id: 'id' }, { id: 'id' }, { id: 'id' }],
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -26,26 +26,26 @@ describe('resource logs', () => {
     const response = await braintrust.project.logs.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       feedback: [
         {
-          id: 'string',
+          id: 'id',
           scores: { foo: 0 },
           expected: {},
-          comment: 'string',
+          comment: 'comment',
           metadata: { foo: {} },
           source: 'app',
         },
         {
-          id: 'string',
+          id: 'id',
           scores: { foo: 0 },
           expected: {},
-          comment: 'string',
+          comment: 'comment',
           metadata: { foo: {} },
           source: 'app',
         },
         {
-          id: 'string',
+          id: 'id',
           scores: { foo: 0 },
           expected: {},
-          comment: 'string',
+          comment: 'comment',
           metadata: { foo: {} },
           source: 'app',
         },
@@ -78,7 +78,7 @@ describe('resource logs', () => {
     await expect(
       braintrust.project.logs.fetch(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        { limit: 0, max_root_span_id: 'string', max_xact_id: 'string', version: 'string' },
+        { limit: 0, max_root_span_id: 'max_root_span_id', max_xact_id: 'max_xact_id', version: 'version' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Braintrust.NotFoundError);
@@ -110,16 +110,16 @@ describe('resource logs', () => {
       braintrust.project.logs.fetchPost(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         {
-          cursor: 'string',
+          cursor: 'cursor',
           filters: [
             { type: 'path_lookup', path: ['string', 'string', 'string'], value: {} },
             { type: 'path_lookup', path: ['string', 'string', 'string'], value: {} },
             { type: 'path_lookup', path: ['string', 'string', 'string'], value: {} },
           ],
           limit: 0,
-          max_root_span_id: 'string',
-          max_xact_id: 'string',
-          version: 'string',
+          max_root_span_id: 'max_root_span_id',
+          max_xact_id: 'max_xact_id',
+          version: 'version',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -150,13 +150,17 @@ describe('resource logs', () => {
           metadata: { foo: {} },
           tags: ['string', 'string', 'string'],
           metrics: { start: 0, end: 0, prompt_tokens: 0, completion_tokens: 0, tokens: 0 },
-          context: { caller_functionname: 'string', caller_filename: 'string', caller_lineno: 0 },
-          span_attributes: { name: 'string', type: 'llm' },
-          id: 'string',
+          context: {
+            caller_functionname: 'caller_functionname',
+            caller_filename: 'caller_filename',
+            caller_lineno: 0,
+          },
+          span_attributes: { name: 'name', type: 'llm' },
+          id: 'id',
           created: '2019-12-27T18:11:19.117Z',
           _object_delete: true,
           _is_merge: true,
-          _parent_id: 'string',
+          _parent_id: '_parent_id',
         },
         {
           input: {},
@@ -166,13 +170,17 @@ describe('resource logs', () => {
           metadata: { foo: {} },
           tags: ['string', 'string', 'string'],
           metrics: { start: 0, end: 0, prompt_tokens: 0, completion_tokens: 0, tokens: 0 },
-          context: { caller_functionname: 'string', caller_filename: 'string', caller_lineno: 0 },
-          span_attributes: { name: 'string', type: 'llm' },
-          id: 'string',
+          context: {
+            caller_functionname: 'caller_functionname',
+            caller_filename: 'caller_filename',
+            caller_lineno: 0,
+          },
+          span_attributes: { name: 'name', type: 'llm' },
+          id: 'id',
           created: '2019-12-27T18:11:19.117Z',
           _object_delete: true,
           _is_merge: true,
-          _parent_id: 'string',
+          _parent_id: '_parent_id',
         },
         {
           input: {},
@@ -182,13 +190,17 @@ describe('resource logs', () => {
           metadata: { foo: {} },
           tags: ['string', 'string', 'string'],
           metrics: { start: 0, end: 0, prompt_tokens: 0, completion_tokens: 0, tokens: 0 },
-          context: { caller_functionname: 'string', caller_filename: 'string', caller_lineno: 0 },
-          span_attributes: { name: 'string', type: 'llm' },
-          id: 'string',
+          context: {
+            caller_functionname: 'caller_functionname',
+            caller_filename: 'caller_filename',
+            caller_lineno: 0,
+          },
+          span_attributes: { name: 'name', type: 'llm' },
+          id: 'id',
           created: '2019-12-27T18:11:19.117Z',
           _object_delete: true,
           _is_merge: true,
-          _parent_id: 'string',
+          _parent_id: '_parent_id',
         },
       ],
     });
