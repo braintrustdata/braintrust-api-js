@@ -1,9 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '@braintrust/api/resource';
-import * as Core from '@braintrust/api/core';
-import * as ViewsAPI from '@braintrust/api/resources/views';
-import { ListObjects, type ListObjectsParams } from '@braintrust/api/pagination';
+import { APIResource } from '../resource';
+import * as Core from '../core';
+import * as ViewsAPI from './views';
+import { ListObjects, type ListObjectsParams } from '../pagination';
 
 export class Views extends APIResource {
   /**
