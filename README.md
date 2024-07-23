@@ -22,7 +22,7 @@ The full API of this library can be found in [api.md](api.md).
 ```js
 import Braintrust from '@braintrust/api';
 
-const braintrust = new Braintrust();
+const client = new Braintrust();
 
 async function main() {
   const project = await braintrust.project.create({ name: 'name' });
@@ -41,7 +41,7 @@ This library includes TypeScript definitions for all request params and response
 ```ts
 import Braintrust from '@braintrust/api';
 
-const braintrust = new Braintrust();
+const client = new Braintrust();
 
 async function main() {
   const params: Braintrust.ProjectCreateParams = { name: 'name' };
@@ -100,7 +100,7 @@ You can use the `maxRetries` option to configure or disable this:
 <!-- prettier-ignore -->
 ```js
 // Configure the default for all requests:
-const braintrust = new Braintrust({
+const client = new Braintrust({
   maxRetries: 0, // default is 2
 });
 
@@ -117,7 +117,7 @@ Requests time out after 1 minute by default. You can configure this with a `time
 <!-- prettier-ignore -->
 ```ts
 // Configure the default for all requests:
-const braintrust = new Braintrust({
+const client = new Braintrust({
   timeout: 20 * 1000, // 20 seconds (default is 1 minute)
 });
 
@@ -172,7 +172,7 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 
 <!-- prettier-ignore -->
 ```ts
-const braintrust = new Braintrust();
+const client = new Braintrust();
 
 const response = await braintrust.project.create({ name: 'name' }).asResponse();
 console.log(response.headers.get('X-My-Header'));
@@ -279,7 +279,7 @@ import http from 'http';
 import { HttpsProxyAgent } from 'https-proxy-agent';
 
 // Configure the default for all requests:
-const braintrust = new Braintrust({
+const client = new Braintrust({
   httpAgent: new HttpsProxyAgent(process.env.PROXY_URL),
 });
 
