@@ -11,7 +11,7 @@ const braintrust = new Braintrust({
 describe('resource projectScore', () => {
   test('create: only required params', async () => {
     const responsePromise = braintrust.projectScore.create({
-      name: 'string',
+      name: 'name',
       project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       score_type: 'slider',
     });
@@ -26,15 +26,15 @@ describe('resource projectScore', () => {
 
   test('create: required and optional params', async () => {
     const response = await braintrust.projectScore.create({
-      name: 'string',
+      name: 'name',
       project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       score_type: 'slider',
       categories: [
-        { name: 'string', value: 0 },
-        { name: 'string', value: 0 },
-        { name: 'string', value: 0 },
+        { name: 'name', value: 0 },
+        { name: 'name', value: 0 },
+        { name: 'name', value: 0 },
       ],
-      description: 'string',
+      description: 'description',
     });
   });
 
@@ -85,12 +85,12 @@ describe('resource projectScore', () => {
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         {
           categories: [
-            { name: 'string', value: 0 },
-            { name: 'string', value: 0 },
-            { name: 'string', value: 0 },
+            { name: 'name', value: 0 },
+            { name: 'name', value: 0 },
+            { name: 'name', value: 0 },
           ],
-          description: 'string',
-          name: 'string',
+          description: 'description',
+          name: 'name',
           score_type: 'slider',
         },
         { path: '/_stainless_unknown_path' },
@@ -124,9 +124,9 @@ describe('resource projectScore', () => {
           ending_before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           ids: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           limit: 0,
-          org_name: 'string',
-          project_name: 'string',
-          project_score_name: 'string',
+          org_name: 'org_name',
+          project_name: 'project_name',
+          project_score_name: 'project_score_name',
           starting_after: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         },
         { path: '/_stainless_unknown_path' },
@@ -156,7 +156,7 @@ describe('resource projectScore', () => {
 
   test('replace: only required params', async () => {
     const responsePromise = braintrust.projectScore.replace({
-      name: 'string',
+      name: 'name',
       project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       score_type: 'slider',
     });
@@ -171,15 +171,15 @@ describe('resource projectScore', () => {
 
   test('replace: required and optional params', async () => {
     const response = await braintrust.projectScore.replace({
-      name: 'string',
+      name: 'name',
       project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       score_type: 'slider',
       categories: [
-        { name: 'string', value: 0 },
-        { name: 'string', value: 0 },
-        { name: 'string', value: 0 },
+        { name: 'name', value: 0 },
+        { name: 'name', value: 0 },
+        { name: 'name', value: 0 },
       ],
-      description: 'string',
+      description: 'description',
     });
   });
 });

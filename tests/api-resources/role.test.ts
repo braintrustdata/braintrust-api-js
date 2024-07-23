@@ -10,7 +10,7 @@ const braintrust = new Braintrust({
 
 describe('resource role', () => {
   test('create: only required params', async () => {
-    const responsePromise = braintrust.role.create({ name: 'string' });
+    const responsePromise = braintrust.role.create({ name: 'name' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,8 +22,8 @@ describe('resource role', () => {
 
   test('create: required and optional params', async () => {
     const response = await braintrust.role.create({
-      name: 'string',
-      description: 'string',
+      name: 'name',
+      description: 'description',
       member_permissions: [
         { permission: 'create', restrict_object_type: 'organization' },
         { permission: 'create', restrict_object_type: 'organization' },
@@ -34,7 +34,7 @@ describe('resource role', () => {
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       ],
-      org_name: 'string',
+      org_name: 'org_name',
     });
   });
 
@@ -90,8 +90,8 @@ describe('resource role', () => {
             '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
             '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           ],
-          description: 'string',
-          name: 'string',
+          description: 'description',
+          name: 'name',
           remove_member_permissions: [
             { permission: 'create', restrict_object_type: 'organization' },
             { permission: 'create', restrict_object_type: 'organization' },
@@ -134,8 +134,8 @@ describe('resource role', () => {
           ending_before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           ids: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           limit: 0,
-          org_name: 'string',
-          role_name: 'string',
+          org_name: 'org_name',
+          role_name: 'role_name',
           starting_after: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         },
         { path: '/_stainless_unknown_path' },
@@ -162,7 +162,7 @@ describe('resource role', () => {
   });
 
   test('replace: only required params', async () => {
-    const responsePromise = braintrust.role.replace({ name: 'string' });
+    const responsePromise = braintrust.role.replace({ name: 'name' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -174,8 +174,8 @@ describe('resource role', () => {
 
   test('replace: required and optional params', async () => {
     const response = await braintrust.role.replace({
-      name: 'string',
-      description: 'string',
+      name: 'name',
+      description: 'description',
       member_permissions: [
         { permission: 'create', restrict_object_type: 'organization' },
         { permission: 'create', restrict_object_type: 'organization' },
@@ -186,7 +186,7 @@ describe('resource role', () => {
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       ],
-      org_name: 'string',
+      org_name: 'org_name',
     });
   });
 });

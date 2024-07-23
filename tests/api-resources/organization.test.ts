@@ -54,7 +54,7 @@ describe('resource organization', () => {
     await expect(
       braintrust.organization.update(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        { api_url: 'string', name: 'string', proxy_url: 'string', realtime_url: 'string' },
+        { api_url: 'api_url', name: 'name', proxy_url: 'proxy_url', realtime_url: 'realtime_url' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Braintrust.NotFoundError);
@@ -86,8 +86,8 @@ describe('resource organization', () => {
           ending_before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           ids: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           limit: 0,
-          org_name: 'string',
-          organization_name: 'string',
+          org_name: 'org_name',
+          organization_name: 'organization_name',
           starting_after: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         },
         { path: '/_stainless_unknown_path' },

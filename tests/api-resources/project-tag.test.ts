@@ -11,7 +11,7 @@ const braintrust = new Braintrust({
 describe('resource projectTag', () => {
   test('create: only required params', async () => {
     const responsePromise = braintrust.projectTag.create({
-      name: 'string',
+      name: 'name',
       project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -25,10 +25,10 @@ describe('resource projectTag', () => {
 
   test('create: required and optional params', async () => {
     const response = await braintrust.projectTag.create({
-      name: 'string',
+      name: 'name',
       project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      color: 'string',
-      description: 'string',
+      color: 'color',
+      description: 'description',
     });
   });
 
@@ -77,7 +77,7 @@ describe('resource projectTag', () => {
     await expect(
       braintrust.projectTag.update(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        { color: 'string', description: 'string', name: 'string' },
+        { color: 'color', description: 'description', name: 'name' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Braintrust.NotFoundError);
@@ -109,9 +109,9 @@ describe('resource projectTag', () => {
           ending_before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           ids: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           limit: 0,
-          org_name: 'string',
-          project_name: 'string',
-          project_tag_name: 'string',
+          org_name: 'org_name',
+          project_name: 'project_name',
+          project_tag_name: 'project_tag_name',
           starting_after: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         },
         { path: '/_stainless_unknown_path' },
@@ -141,7 +141,7 @@ describe('resource projectTag', () => {
 
   test('replace: only required params', async () => {
     const responsePromise = braintrust.projectTag.replace({
-      name: 'string',
+      name: 'name',
       project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -155,10 +155,10 @@ describe('resource projectTag', () => {
 
   test('replace: required and optional params', async () => {
     const response = await braintrust.projectTag.replace({
-      name: 'string',
+      name: 'name',
       project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      color: 'string',
-      description: 'string',
+      color: 'color',
+      description: 'description',
     });
   });
 });

@@ -10,7 +10,7 @@ const braintrust = new Braintrust({
 
 describe('resource apiKey', () => {
   test('create: only required params', async () => {
-    const responsePromise = braintrust.apiKey.create({ name: 'string' });
+    const responsePromise = braintrust.apiKey.create({ name: 'name' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,7 +21,7 @@ describe('resource apiKey', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await braintrust.apiKey.create({ name: 'string', org_name: 'string' });
+    const response = await braintrust.apiKey.create({ name: 'name', org_name: 'org_name' });
   });
 
   test('retrieve', async () => {
@@ -67,11 +67,11 @@ describe('resource apiKey', () => {
     await expect(
       braintrust.apiKey.list(
         {
-          api_key_name: 'string',
+          api_key_name: 'api_key_name',
           ending_before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           ids: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           limit: 0,
-          org_name: 'string',
+          org_name: 'org_name',
           starting_after: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         },
         { path: '/_stainless_unknown_path' },
