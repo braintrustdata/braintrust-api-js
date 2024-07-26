@@ -3,14 +3,14 @@
 import Braintrust from '@braintrust/api';
 import { Response } from 'node-fetch';
 
-const braintrust = new Braintrust({
+const client = new Braintrust({
   apiKey: 'My API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource users', () => {
   test('retrieve', async () => {
-    const responsePromise = braintrust.users.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.users.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,12 +23,12 @@ describe('resource users', () => {
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.users.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
+      client.users.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Braintrust.NotFoundError);
   });
 
   test('list', async () => {
-    const responsePromise = braintrust.users.list();
+    const responsePromise = client.users.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -40,7 +40,7 @@ describe('resource users', () => {
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(braintrust.users.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.users.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Braintrust.NotFoundError,
     );
   });
@@ -48,7 +48,7 @@ describe('resource users', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.users.list(
+      client.users.list(
         {
           email: 'email',
           ending_before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',

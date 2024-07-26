@@ -3,14 +3,14 @@
 import Braintrust from '@braintrust/api';
 import { Response } from 'node-fetch';
 
-const braintrust = new Braintrust({
+const client = new Braintrust({
   apiKey: 'My API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource groups', () => {
   test('create: only required params', async () => {
-    const responsePromise = braintrust.groups.create({ name: 'name' });
+    const responsePromise = client.groups.create({ name: 'name' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,7 +21,7 @@ describe('resource groups', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await braintrust.groups.create({
+    const response = await client.groups.create({
       name: 'name',
       description: 'description',
       member_groups: [
@@ -39,7 +39,7 @@ describe('resource groups', () => {
   });
 
   test('retrieve', async () => {
-    const responsePromise = braintrust.groups.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.groups.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -52,14 +52,12 @@ describe('resource groups', () => {
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.groups.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-        path: '/_stainless_unknown_path',
-      }),
+      client.groups.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Braintrust.NotFoundError);
   });
 
   test('update', async () => {
-    const responsePromise = braintrust.groups.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.groups.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -72,14 +70,14 @@ describe('resource groups', () => {
   test('update: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.groups.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
+      client.groups.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Braintrust.NotFoundError);
   });
 
   test('update: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.groups.update(
+      client.groups.update(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         {
           add_member_groups: [
@@ -111,7 +109,7 @@ describe('resource groups', () => {
   });
 
   test('list', async () => {
-    const responsePromise = braintrust.groups.list();
+    const responsePromise = client.groups.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -123,7 +121,7 @@ describe('resource groups', () => {
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(braintrust.groups.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.groups.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Braintrust.NotFoundError,
     );
   });
@@ -131,7 +129,7 @@ describe('resource groups', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.groups.list(
+      client.groups.list(
         {
           ending_before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           group_name: 'group_name',
@@ -146,7 +144,7 @@ describe('resource groups', () => {
   });
 
   test('delete', async () => {
-    const responsePromise = braintrust.groups.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.groups.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -159,12 +157,12 @@ describe('resource groups', () => {
   test('delete: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.groups.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
+      client.groups.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Braintrust.NotFoundError);
   });
 
   test('replace: only required params', async () => {
-    const responsePromise = braintrust.groups.replace({ name: 'name' });
+    const responsePromise = client.groups.replace({ name: 'name' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -175,7 +173,7 @@ describe('resource groups', () => {
   });
 
   test('replace: required and optional params', async () => {
-    const response = await braintrust.groups.replace({
+    const response = await client.groups.replace({
       name: 'name',
       description: 'description',
       member_groups: [

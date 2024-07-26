@@ -3,16 +3,14 @@
 import Braintrust from '@braintrust/api';
 import { Response } from 'node-fetch';
 
-const braintrust = new Braintrust({
+const client = new Braintrust({
   apiKey: 'My API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource experiments', () => {
   test('create: only required params', async () => {
-    const responsePromise = braintrust.experiments.create({
-      project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-    });
+    const responsePromise = client.experiments.create({ project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,7 +21,7 @@ describe('resource experiments', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await braintrust.experiments.create({
+    const response = await client.experiments.create({
       project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       base_exp_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       dataset_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -48,7 +46,7 @@ describe('resource experiments', () => {
   });
 
   test('retrieve', async () => {
-    const responsePromise = braintrust.experiments.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.experiments.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -61,14 +59,14 @@ describe('resource experiments', () => {
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.experiments.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      client.experiments.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Braintrust.NotFoundError);
   });
 
   test('update', async () => {
-    const responsePromise = braintrust.experiments.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.experiments.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -81,16 +79,14 @@ describe('resource experiments', () => {
   test('update: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.experiments.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-        path: '/_stainless_unknown_path',
-      }),
+      client.experiments.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Braintrust.NotFoundError);
   });
 
   test('update: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.experiments.update(
+      client.experiments.update(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         {
           base_exp_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -118,7 +114,7 @@ describe('resource experiments', () => {
   });
 
   test('list', async () => {
-    const responsePromise = braintrust.experiments.list();
+    const responsePromise = client.experiments.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -130,7 +126,7 @@ describe('resource experiments', () => {
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(braintrust.experiments.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.experiments.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Braintrust.NotFoundError,
     );
   });
@@ -138,7 +134,7 @@ describe('resource experiments', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.experiments.list(
+      client.experiments.list(
         {
           ending_before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           experiment_name: 'experiment_name',
@@ -154,7 +150,7 @@ describe('resource experiments', () => {
   });
 
   test('delete', async () => {
-    const responsePromise = braintrust.experiments.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.experiments.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -167,14 +163,12 @@ describe('resource experiments', () => {
   test('delete: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.experiments.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-        path: '/_stainless_unknown_path',
-      }),
+      client.experiments.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Braintrust.NotFoundError);
   });
 
   test('feedback: only required params', async () => {
-    const responsePromise = braintrust.experiments.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const responsePromise = client.experiments.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       feedback: [{ id: 'id' }, { id: 'id' }, { id: 'id' }],
     });
     const rawResponse = await responsePromise.asResponse();
@@ -187,7 +181,7 @@ describe('resource experiments', () => {
   });
 
   test('feedback: required and optional params', async () => {
-    const response = await braintrust.experiments.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const response = await client.experiments.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       feedback: [
         {
           id: 'id',
@@ -218,7 +212,7 @@ describe('resource experiments', () => {
   });
 
   test('fetch', async () => {
-    const responsePromise = braintrust.experiments.fetch('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.experiments.fetch('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -231,16 +225,14 @@ describe('resource experiments', () => {
   test('fetch: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.experiments.fetch('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-        path: '/_stainless_unknown_path',
-      }),
+      client.experiments.fetch('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Braintrust.NotFoundError);
   });
 
   test('fetch: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.experiments.fetch(
+      client.experiments.fetch(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         { limit: 0, max_root_span_id: 'max_root_span_id', max_xact_id: 'max_xact_id', version: 'version' },
         { path: '/_stainless_unknown_path' },
@@ -249,7 +241,7 @@ describe('resource experiments', () => {
   });
 
   test('fetchPost', async () => {
-    const responsePromise = braintrust.experiments.fetchPost('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.experiments.fetchPost('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -262,7 +254,7 @@ describe('resource experiments', () => {
   test('fetchPost: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.experiments.fetchPost('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      client.experiments.fetchPost('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Braintrust.NotFoundError);
@@ -271,7 +263,7 @@ describe('resource experiments', () => {
   test('fetchPost: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.experiments.fetchPost(
+      client.experiments.fetchPost(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         {
           cursor: 'cursor',
@@ -291,7 +283,7 @@ describe('resource experiments', () => {
   });
 
   test('insert: only required params', async () => {
-    const responsePromise = braintrust.experiments.insert('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const responsePromise = client.experiments.insert('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       events: [{}, {}, {}],
     });
     const rawResponse = await responsePromise.asResponse();
@@ -304,7 +296,7 @@ describe('resource experiments', () => {
   });
 
   test('insert: required and optional params', async () => {
-    const response = await braintrust.experiments.insert('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const response = await client.experiments.insert('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       events: [
         {
           input: {},
@@ -374,7 +366,7 @@ describe('resource experiments', () => {
   });
 
   test('summarize', async () => {
-    const responsePromise = braintrust.experiments.summarize('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.experiments.summarize('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -387,7 +379,7 @@ describe('resource experiments', () => {
   test('summarize: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.experiments.summarize('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      client.experiments.summarize('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Braintrust.NotFoundError);
@@ -396,7 +388,7 @@ describe('resource experiments', () => {
   test('summarize: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.experiments.summarize(
+      client.experiments.summarize(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         { comparison_experiment_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', summarize_scores: true },
         { path: '/_stainless_unknown_path' },
