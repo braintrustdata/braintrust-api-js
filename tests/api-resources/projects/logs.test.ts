@@ -3,14 +3,14 @@
 import Braintrust from '@braintrust/api';
 import { Response } from 'node-fetch';
 
-const braintrust = new Braintrust({
+const client = new Braintrust({
   apiKey: 'My API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource logs', () => {
   test('feedback: only required params', async () => {
-    const responsePromise = braintrust.projects.logs.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const responsePromise = client.projects.logs.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       feedback: [{ id: 'id' }, { id: 'id' }, { id: 'id' }],
     });
     const rawResponse = await responsePromise.asResponse();
@@ -23,7 +23,7 @@ describe('resource logs', () => {
   });
 
   test('feedback: required and optional params', async () => {
-    const response = await braintrust.projects.logs.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const response = await client.projects.logs.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       feedback: [
         {
           id: 'id',
@@ -54,7 +54,7 @@ describe('resource logs', () => {
   });
 
   test('fetch', async () => {
-    const responsePromise = braintrust.projects.logs.fetch('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.projects.logs.fetch('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -67,7 +67,7 @@ describe('resource logs', () => {
   test('fetch: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.projects.logs.fetch('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      client.projects.logs.fetch('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Braintrust.NotFoundError);
@@ -76,7 +76,7 @@ describe('resource logs', () => {
   test('fetch: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.projects.logs.fetch(
+      client.projects.logs.fetch(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         { limit: 0, max_root_span_id: 'max_root_span_id', max_xact_id: 'max_xact_id', version: 'version' },
         { path: '/_stainless_unknown_path' },
@@ -85,7 +85,7 @@ describe('resource logs', () => {
   });
 
   test('fetchPost', async () => {
-    const responsePromise = braintrust.projects.logs.fetchPost('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.projects.logs.fetchPost('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -98,7 +98,7 @@ describe('resource logs', () => {
   test('fetchPost: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.projects.logs.fetchPost('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      client.projects.logs.fetchPost('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Braintrust.NotFoundError);
@@ -107,7 +107,7 @@ describe('resource logs', () => {
   test('fetchPost: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.projects.logs.fetchPost(
+      client.projects.logs.fetchPost(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         {
           cursor: 'cursor',
@@ -127,7 +127,7 @@ describe('resource logs', () => {
   });
 
   test('insert: only required params', async () => {
-    const responsePromise = braintrust.projects.logs.insert('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const responsePromise = client.projects.logs.insert('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       events: [{}, {}, {}],
     });
     const rawResponse = await responsePromise.asResponse();
@@ -140,7 +140,7 @@ describe('resource logs', () => {
   });
 
   test('insert: required and optional params', async () => {
-    const response = await braintrust.projects.logs.insert('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const response = await client.projects.logs.insert('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       events: [
         {
           input: {},

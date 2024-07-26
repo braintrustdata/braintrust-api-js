@@ -3,14 +3,14 @@
 import Braintrust from '@braintrust/api';
 import { Response } from 'node-fetch';
 
-const braintrust = new Braintrust({
+const client = new Braintrust({
   apiKey: 'My API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource apiKeys', () => {
   test('create: only required params', async () => {
-    const responsePromise = braintrust.apiKeys.create({ name: 'name' });
+    const responsePromise = client.apiKeys.create({ name: 'name' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,11 +21,11 @@ describe('resource apiKeys', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await braintrust.apiKeys.create({ name: 'name', org_name: 'org_name' });
+    const response = await client.apiKeys.create({ name: 'name', org_name: 'org_name' });
   });
 
   test('retrieve', async () => {
-    const responsePromise = braintrust.apiKeys.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.apiKeys.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -38,14 +38,12 @@ describe('resource apiKeys', () => {
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.apiKeys.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-        path: '/_stainless_unknown_path',
-      }),
+      client.apiKeys.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Braintrust.NotFoundError);
   });
 
   test('list', async () => {
-    const responsePromise = braintrust.apiKeys.list();
+    const responsePromise = client.apiKeys.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -57,7 +55,7 @@ describe('resource apiKeys', () => {
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(braintrust.apiKeys.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.apiKeys.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Braintrust.NotFoundError,
     );
   });
@@ -65,7 +63,7 @@ describe('resource apiKeys', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.apiKeys.list(
+      client.apiKeys.list(
         {
           api_key_name: 'api_key_name',
           ending_before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -80,7 +78,7 @@ describe('resource apiKeys', () => {
   });
 
   test('delete', async () => {
-    const responsePromise = braintrust.apiKeys.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.apiKeys.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -93,7 +91,7 @@ describe('resource apiKeys', () => {
   test('delete: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.apiKeys.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
+      client.apiKeys.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Braintrust.NotFoundError);
   });
 });

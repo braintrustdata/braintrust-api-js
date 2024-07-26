@@ -3,14 +3,14 @@
 import Braintrust from '@braintrust/api';
 import { Response } from 'node-fetch';
 
-const braintrust = new Braintrust({
+const client = new Braintrust({
   apiKey: 'My API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource datasets', () => {
   test('create: only required params', async () => {
-    const responsePromise = braintrust.datasets.create({ name: 'name' });
+    const responsePromise = client.datasets.create({ name: 'name' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,7 +21,7 @@ describe('resource datasets', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await braintrust.datasets.create({
+    const response = await client.datasets.create({
       name: 'name',
       description: 'description',
       project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -29,7 +29,7 @@ describe('resource datasets', () => {
   });
 
   test('retrieve', async () => {
-    const responsePromise = braintrust.datasets.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.datasets.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -42,14 +42,12 @@ describe('resource datasets', () => {
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.datasets.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-        path: '/_stainless_unknown_path',
-      }),
+      client.datasets.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Braintrust.NotFoundError);
   });
 
   test('update', async () => {
-    const responsePromise = braintrust.datasets.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.datasets.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -62,16 +60,14 @@ describe('resource datasets', () => {
   test('update: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.datasets.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-        path: '/_stainless_unknown_path',
-      }),
+      client.datasets.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Braintrust.NotFoundError);
   });
 
   test('update: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.datasets.update(
+      client.datasets.update(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         { description: 'description', metadata: { foo: {} }, name: 'name' },
         { path: '/_stainless_unknown_path' },
@@ -80,7 +76,7 @@ describe('resource datasets', () => {
   });
 
   test('list', async () => {
-    const responsePromise = braintrust.datasets.list();
+    const responsePromise = client.datasets.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -92,7 +88,7 @@ describe('resource datasets', () => {
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(braintrust.datasets.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.datasets.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Braintrust.NotFoundError,
     );
   });
@@ -100,7 +96,7 @@ describe('resource datasets', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.datasets.list(
+      client.datasets.list(
         {
           dataset_name: 'dataset_name',
           ending_before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -116,7 +112,7 @@ describe('resource datasets', () => {
   });
 
   test('delete', async () => {
-    const responsePromise = braintrust.datasets.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.datasets.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -129,14 +125,12 @@ describe('resource datasets', () => {
   test('delete: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.datasets.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-        path: '/_stainless_unknown_path',
-      }),
+      client.datasets.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Braintrust.NotFoundError);
   });
 
   test('feedback: only required params', async () => {
-    const responsePromise = braintrust.datasets.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const responsePromise = client.datasets.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       feedback: [{ id: 'id' }, { id: 'id' }, { id: 'id' }],
     });
     const rawResponse = await responsePromise.asResponse();
@@ -149,7 +143,7 @@ describe('resource datasets', () => {
   });
 
   test('feedback: required and optional params', async () => {
-    const response = await braintrust.datasets.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const response = await client.datasets.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       feedback: [
         { id: 'id', comment: 'comment', metadata: { foo: {} }, source: 'app' },
         { id: 'id', comment: 'comment', metadata: { foo: {} }, source: 'app' },
@@ -159,7 +153,7 @@ describe('resource datasets', () => {
   });
 
   test('fetch', async () => {
-    const responsePromise = braintrust.datasets.fetch('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.datasets.fetch('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -172,14 +166,14 @@ describe('resource datasets', () => {
   test('fetch: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.datasets.fetch('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
+      client.datasets.fetch('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Braintrust.NotFoundError);
   });
 
   test('fetch: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.datasets.fetch(
+      client.datasets.fetch(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         { limit: 0, max_root_span_id: 'max_root_span_id', max_xact_id: 'max_xact_id', version: 'version' },
         { path: '/_stainless_unknown_path' },
@@ -188,7 +182,7 @@ describe('resource datasets', () => {
   });
 
   test('fetchPost', async () => {
-    const responsePromise = braintrust.datasets.fetchPost('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.datasets.fetchPost('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -201,16 +195,14 @@ describe('resource datasets', () => {
   test('fetchPost: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.datasets.fetchPost('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-        path: '/_stainless_unknown_path',
-      }),
+      client.datasets.fetchPost('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Braintrust.NotFoundError);
   });
 
   test('fetchPost: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.datasets.fetchPost(
+      client.datasets.fetchPost(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         {
           cursor: 'cursor',
@@ -230,7 +222,7 @@ describe('resource datasets', () => {
   });
 
   test('insert: only required params', async () => {
-    const responsePromise = braintrust.datasets.insert('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const responsePromise = client.datasets.insert('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       events: [{}, {}, {}],
     });
     const rawResponse = await responsePromise.asResponse();
@@ -243,7 +235,7 @@ describe('resource datasets', () => {
   });
 
   test('insert: required and optional params', async () => {
-    const response = await braintrust.datasets.insert('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const response = await client.datasets.insert('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       events: [
         {
           input: {},
@@ -283,7 +275,7 @@ describe('resource datasets', () => {
   });
 
   test('summarize', async () => {
-    const responsePromise = braintrust.datasets.summarize('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.datasets.summarize('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -296,16 +288,14 @@ describe('resource datasets', () => {
   test('summarize: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.datasets.summarize('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-        path: '/_stainless_unknown_path',
-      }),
+      client.datasets.summarize('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Braintrust.NotFoundError);
   });
 
   test('summarize: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      braintrust.datasets.summarize(
+      client.datasets.summarize(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         { summarize_data: true },
         { path: '/_stainless_unknown_path' },

@@ -3,14 +3,14 @@
 import Braintrust from '@braintrust/api';
 import { Response } from 'node-fetch';
 
-const braintrust = new Braintrust({
+const client = new Braintrust({
   apiKey: 'My API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource views', () => {
   test('create: only required params', async () => {
-    const responsePromise = braintrust.views.create({
+    const responsePromise = client.views.create({
       name: 'name',
       object_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       object_type: 'organization',
@@ -26,7 +26,7 @@ describe('resource views', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await braintrust.views.create({
+    const response = await client.views.create({
       name: 'name',
       object_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       object_type: 'organization',
@@ -45,7 +45,7 @@ describe('resource views', () => {
   });
 
   test('retrieve: only required params', async () => {
-    const responsePromise = braintrust.views.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const responsePromise = client.views.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       object_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       object_type: 'organization',
     });
@@ -59,14 +59,14 @@ describe('resource views', () => {
   });
 
   test('retrieve: required and optional params', async () => {
-    const response = await braintrust.views.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const response = await client.views.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       object_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       object_type: 'organization',
     });
   });
 
   test('update: only required params', async () => {
-    const responsePromise = braintrust.views.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const responsePromise = client.views.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       object_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       object_type: 'organization',
     });
@@ -80,7 +80,7 @@ describe('resource views', () => {
   });
 
   test('update: required and optional params', async () => {
-    const response = await braintrust.views.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const response = await client.views.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       object_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       object_type: 'organization',
       name: 'name',
@@ -98,7 +98,7 @@ describe('resource views', () => {
   });
 
   test('list: only required params', async () => {
-    const responsePromise = braintrust.views.list({
+    const responsePromise = client.views.list({
       object_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       object_type: 'organization',
     });
@@ -112,7 +112,7 @@ describe('resource views', () => {
   });
 
   test('list: required and optional params', async () => {
-    const response = await braintrust.views.list({
+    const response = await client.views.list({
       object_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       object_type: 'organization',
       ending_before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -126,7 +126,7 @@ describe('resource views', () => {
   });
 
   test('delete: only required params', async () => {
-    const responsePromise = braintrust.views.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const responsePromise = client.views.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       object_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       object_type: 'organization',
     });
@@ -140,14 +140,14 @@ describe('resource views', () => {
   });
 
   test('delete: required and optional params', async () => {
-    const response = await braintrust.views.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const response = await client.views.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       object_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       object_type: 'organization',
     });
   });
 
   test('replace: only required params', async () => {
-    const responsePromise = braintrust.views.replace({
+    const responsePromise = client.views.replace({
       name: 'name',
       object_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       object_type: 'organization',
@@ -163,7 +163,7 @@ describe('resource views', () => {
   });
 
   test('replace: required and optional params', async () => {
-    const response = await braintrust.views.replace({
+    const response = await client.views.replace({
       name: 'name',
       object_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       object_type: 'organization',
