@@ -225,7 +225,7 @@ export namespace Function {
 
     origin?: PromptData.Origin | null;
 
-    prompt?: PromptData.UnionMember0 | PromptData.UnionMember1 | PromptData.UnionMember2 | null;
+    prompt?: PromptData.Completion | PromptData.Completion | PromptData.UnionMember2 | null;
   }
 
   export namespace PromptData {
@@ -341,20 +341,20 @@ export namespace Function {
       prompt_version?: string;
     }
 
-    export interface UnionMember0 {
+    export interface Completion {
       content: string;
 
       type: 'completion';
     }
 
-    export interface UnionMember1 {
+    export interface Completion {
       messages: Array<
-        | UnionMember1.UnionMember0
-        | UnionMember1.UnionMember1
-        | UnionMember1.UnionMember2
-        | UnionMember1.UnionMember3
-        | UnionMember1.UnionMember4
-        | UnionMember1.UnionMember5
+        | Completion.UnionMember0
+        | Completion.UnionMember1
+        | Completion.UnionMember2
+        | Completion.UnionMember3
+        | Completion.UnionMember4
+        | Completion.UnionMember5
       >;
 
       type: 'chat';
@@ -362,7 +362,7 @@ export namespace Function {
       tools?: string;
     }
 
-    export namespace UnionMember1 {
+    export namespace Completion {
       export interface UnionMember0 {
         role: 'system';
 
@@ -558,7 +558,7 @@ export namespace FunctionCreateParams {
 
     origin?: PromptData.Origin | null;
 
-    prompt?: PromptData.UnionMember0 | PromptData.UnionMember1 | PromptData.UnionMember2 | null;
+    prompt?: PromptData.Completion | PromptData.Completion | PromptData.UnionMember2 | null;
   }
 
   export namespace PromptData {
@@ -674,20 +674,20 @@ export namespace FunctionCreateParams {
       prompt_version?: string;
     }
 
-    export interface UnionMember0 {
+    export interface Completion {
       content: string;
 
       type: 'completion';
     }
 
-    export interface UnionMember1 {
+    export interface Completion {
       messages: Array<
-        | UnionMember1.UnionMember0
-        | UnionMember1.UnionMember1
-        | UnionMember1.UnionMember2
-        | UnionMember1.UnionMember3
-        | UnionMember1.UnionMember4
-        | UnionMember1.UnionMember5
+        | Completion.UnionMember0
+        | Completion.UnionMember1
+        | Completion.UnionMember2
+        | Completion.UnionMember3
+        | Completion.UnionMember4
+        | Completion.UnionMember5
       >;
 
       type: 'chat';
@@ -695,7 +695,7 @@ export namespace FunctionCreateParams {
       tools?: string;
     }
 
-    export namespace UnionMember1 {
+    export namespace Completion {
       export interface UnionMember0 {
         role: 'system';
 
@@ -885,7 +885,7 @@ export namespace FunctionUpdateParams {
 
     origin?: PromptData.Origin | null;
 
-    prompt?: PromptData.UnionMember0 | PromptData.UnionMember1 | PromptData.UnionMember2 | null;
+    prompt?: PromptData.Completion | PromptData.Completion | PromptData.UnionMember2 | null;
   }
 
   export namespace PromptData {
@@ -1001,20 +1001,20 @@ export namespace FunctionUpdateParams {
       prompt_version?: string;
     }
 
-    export interface UnionMember0 {
+    export interface Completion {
       content: string;
 
       type: 'completion';
     }
 
-    export interface UnionMember1 {
+    export interface Completion {
       messages: Array<
-        | UnionMember1.UnionMember0
-        | UnionMember1.UnionMember1
-        | UnionMember1.UnionMember2
-        | UnionMember1.UnionMember3
-        | UnionMember1.UnionMember4
-        | UnionMember1.UnionMember5
+        | Completion.UnionMember0
+        | Completion.UnionMember1
+        | Completion.UnionMember2
+        | Completion.UnionMember3
+        | Completion.UnionMember4
+        | Completion.UnionMember5
       >;
 
       type: 'chat';
@@ -1022,7 +1022,7 @@ export namespace FunctionUpdateParams {
       tools?: string;
     }
 
-    export namespace UnionMember1 {
+    export namespace Completion {
       export interface UnionMember0 {
         role: 'system';
 
@@ -1287,7 +1287,7 @@ export namespace FunctionReplaceParams {
 
     origin?: PromptData.Origin | null;
 
-    prompt?: PromptData.UnionMember0 | PromptData.UnionMember1 | PromptData.UnionMember2 | null;
+    prompt?: PromptData.Completion | PromptData.Completion | PromptData.UnionMember2 | null;
   }
 
   export namespace PromptData {
@@ -1403,20 +1403,20 @@ export namespace FunctionReplaceParams {
       prompt_version?: string;
     }
 
-    export interface UnionMember0 {
+    export interface Completion {
       content: string;
 
       type: 'completion';
     }
 
-    export interface UnionMember1 {
+    export interface Completion {
       messages: Array<
-        | UnionMember1.UnionMember0
-        | UnionMember1.UnionMember1
-        | UnionMember1.UnionMember2
-        | UnionMember1.UnionMember3
-        | UnionMember1.UnionMember4
-        | UnionMember1.UnionMember5
+        | Completion.UnionMember0
+        | Completion.UnionMember1
+        | Completion.UnionMember2
+        | Completion.UnionMember3
+        | Completion.UnionMember4
+        | Completion.UnionMember5
       >;
 
       type: 'chat';
@@ -1424,7 +1424,7 @@ export namespace FunctionReplaceParams {
       tools?: string;
     }
 
-    export namespace UnionMember1 {
+    export namespace Completion {
       export interface UnionMember0 {
         role: 'system';
 
