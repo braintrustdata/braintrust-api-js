@@ -65,21 +65,6 @@ export class Prompts extends APIResource {
   }
 
   /**
-   * Log feedback for a set of prompt events
-   */
-  feedback(
-    promptId: string,
-    body: PromptFeedbackParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<void> {
-    return this._client.post(`/v1/prompt/${promptId}/feedback`, {
-      body,
-      ...options,
-      headers: { Accept: '*/*', ...options?.headers },
-    });
-  }
-
-  /**
    * Create or replace prompt. If there is an existing prompt in the project with the
    * same slug as the one specified in the request, will replace the existing prompt
    * with the provided fields
@@ -168,7 +153,7 @@ export namespace Prompt {
 
     origin?: PromptData.Origin | null;
 
-    prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullVariant | null;
+    prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullableVariant | null;
   }
 
   export namespace PromptData {
@@ -176,20 +161,20 @@ export namespace Prompt {
       model?: string;
 
       params?:
-        | Options.UnionMember0
-        | Options.UnionMember1
-        | Options.UnionMember2
-        | Options.UnionMember3
-        | Options.UseCache;
+        | Options.OpenAIModelParams
+        | Options.AnthropicModelParams
+        | Options.GoogleModelParams
+        | Options.WindowAIModelParams
+        | Options.JsCompletionParams;
 
       position?: string;
     }
 
     export namespace Options {
-      export interface UnionMember0 {
+      export interface OpenAIModelParams {
         frequency_penalty?: number;
 
-        function_call?: 'auto' | 'none' | UnionMember0.Name;
+        function_call?: 'auto' | 'none' | OpenAIModelParams.Name;
 
         max_tokens?: number;
 
@@ -197,20 +182,20 @@ export namespace Prompt {
 
         presence_penalty?: number;
 
-        response_format?: UnionMember0.ResponseFormat | null;
+        response_format?: OpenAIModelParams.ResponseFormat | null;
 
         stop?: Array<string>;
 
         temperature?: number;
 
-        tool_choice?: 'auto' | 'none' | UnionMember0.UnionMember2;
+        tool_choice?: 'auto' | 'none' | OpenAIModelParams.UnionMember2;
 
         top_p?: number;
 
         use_cache?: boolean;
       }
 
-      export namespace UnionMember0 {
+      export namespace OpenAIModelParams {
         export interface Name {
           name: string;
         }
@@ -232,7 +217,7 @@ export namespace Prompt {
         }
       }
 
-      export interface UnionMember1 {
+      export interface AnthropicModelParams {
         max_tokens: number;
 
         temperature: number;
@@ -251,7 +236,7 @@ export namespace Prompt {
         use_cache?: boolean;
       }
 
-      export interface UnionMember2 {
+      export interface GoogleModelParams {
         maxOutputTokens?: number;
 
         temperature?: number;
@@ -263,7 +248,7 @@ export namespace Prompt {
         use_cache?: boolean;
       }
 
-      export interface UnionMember3 {
+      export interface WindowAIModelParams {
         temperature?: number;
 
         topK?: number;
@@ -271,7 +256,7 @@ export namespace Prompt {
         use_cache?: boolean;
       }
 
-      export interface UseCache {
+      export interface JsCompletionParams {
         use_cache?: boolean;
       }
     }
@@ -291,14 +276,7 @@ export namespace Prompt {
     }
 
     export interface Chat {
-      messages: Array<
-        | Chat.UnionMember0
-        | Chat.UnionMember1
-        | Chat.UnionMember2
-        | Chat.UnionMember3
-        | Chat.UnionMember4
-        | Chat.UnionMember5
-      >;
+      messages: Array<Chat.System | Chat.User | Chat.Assistant | Chat.Tool | Chat.Function | Chat.Fallback>;
 
       type: 'chat';
 
@@ -306,7 +284,7 @@ export namespace Prompt {
     }
 
     export namespace Chat {
-      export interface UnionMember0 {
+      export interface System {
         role: 'system';
 
         content?: string;
@@ -314,28 +292,28 @@ export namespace Prompt {
         name?: string;
       }
 
-      export interface UnionMember1 {
+      export interface User {
         role: 'user';
 
-        content?: string | Array<UnionMember1.UnionMember0 | UnionMember1.UnionMember1>;
+        content?: string | Array<User.Text | User.ImageURL>;
 
         name?: string;
       }
 
-      export namespace UnionMember1 {
-        export interface UnionMember0 {
+      export namespace User {
+        export interface Text {
           type: 'text';
 
           text?: string;
         }
 
-        export interface UnionMember1 {
-          image_url: UnionMember1.ImageURL;
+        export interface ImageURL {
+          image_url: ImageURL.ImageURL;
 
           type: 'image_url';
         }
 
-        export namespace UnionMember1 {
+        export namespace ImageURL {
           export interface ImageURL {
             url: string;
 
@@ -344,19 +322,19 @@ export namespace Prompt {
         }
       }
 
-      export interface UnionMember2 {
+      export interface Assistant {
         role: 'assistant';
 
         content?: string | null;
 
-        function_call?: UnionMember2.FunctionCall;
+        function_call?: Assistant.FunctionCall;
 
         name?: string;
 
-        tool_calls?: Array<UnionMember2.ToolCall>;
+        tool_calls?: Array<Assistant.ToolCall>;
       }
 
-      export namespace UnionMember2 {
+      export namespace Assistant {
         export interface FunctionCall {
           arguments: string;
 
@@ -380,7 +358,7 @@ export namespace Prompt {
         }
       }
 
-      export interface UnionMember3 {
+      export interface Tool {
         role: 'tool';
 
         content?: string;
@@ -388,7 +366,7 @@ export namespace Prompt {
         tool_call_id?: string;
       }
 
-      export interface UnionMember4 {
+      export interface Function {
         name: string;
 
         role: 'function';
@@ -396,14 +374,14 @@ export namespace Prompt {
         content?: string;
       }
 
-      export interface UnionMember5 {
+      export interface Fallback {
         role: 'model';
 
         content?: string | null;
       }
     }
 
-    export interface NullVariant {}
+    export interface NullableVariant {}
   }
 }
 
@@ -448,7 +426,7 @@ export namespace PromptCreateParams {
 
     origin?: PromptData.Origin | null;
 
-    prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullVariant | null;
+    prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullableVariant | null;
   }
 
   export namespace PromptData {
@@ -456,20 +434,20 @@ export namespace PromptCreateParams {
       model?: string;
 
       params?:
-        | Options.UnionMember0
-        | Options.UnionMember1
-        | Options.UnionMember2
-        | Options.UnionMember3
-        | Options.UseCache;
+        | Options.OpenAIModelParams
+        | Options.AnthropicModelParams
+        | Options.GoogleModelParams
+        | Options.WindowAIModelParams
+        | Options.JsCompletionParams;
 
       position?: string;
     }
 
     export namespace Options {
-      export interface UnionMember0 {
+      export interface OpenAIModelParams {
         frequency_penalty?: number;
 
-        function_call?: 'auto' | 'none' | UnionMember0.Name;
+        function_call?: 'auto' | 'none' | OpenAIModelParams.Name;
 
         max_tokens?: number;
 
@@ -477,20 +455,20 @@ export namespace PromptCreateParams {
 
         presence_penalty?: number;
 
-        response_format?: UnionMember0.ResponseFormat | null;
+        response_format?: OpenAIModelParams.ResponseFormat | null;
 
         stop?: Array<string>;
 
         temperature?: number;
 
-        tool_choice?: 'auto' | 'none' | UnionMember0.UnionMember2;
+        tool_choice?: 'auto' | 'none' | OpenAIModelParams.UnionMember2;
 
         top_p?: number;
 
         use_cache?: boolean;
       }
 
-      export namespace UnionMember0 {
+      export namespace OpenAIModelParams {
         export interface Name {
           name: string;
         }
@@ -512,7 +490,7 @@ export namespace PromptCreateParams {
         }
       }
 
-      export interface UnionMember1 {
+      export interface AnthropicModelParams {
         max_tokens: number;
 
         temperature: number;
@@ -531,7 +509,7 @@ export namespace PromptCreateParams {
         use_cache?: boolean;
       }
 
-      export interface UnionMember2 {
+      export interface GoogleModelParams {
         maxOutputTokens?: number;
 
         temperature?: number;
@@ -543,7 +521,7 @@ export namespace PromptCreateParams {
         use_cache?: boolean;
       }
 
-      export interface UnionMember3 {
+      export interface WindowAIModelParams {
         temperature?: number;
 
         topK?: number;
@@ -551,7 +529,7 @@ export namespace PromptCreateParams {
         use_cache?: boolean;
       }
 
-      export interface UseCache {
+      export interface JsCompletionParams {
         use_cache?: boolean;
       }
     }
@@ -571,14 +549,7 @@ export namespace PromptCreateParams {
     }
 
     export interface Chat {
-      messages: Array<
-        | Chat.UnionMember0
-        | Chat.UnionMember1
-        | Chat.UnionMember2
-        | Chat.UnionMember3
-        | Chat.UnionMember4
-        | Chat.UnionMember5
-      >;
+      messages: Array<Chat.System | Chat.User | Chat.Assistant | Chat.Tool | Chat.Function | Chat.Fallback>;
 
       type: 'chat';
 
@@ -586,7 +557,7 @@ export namespace PromptCreateParams {
     }
 
     export namespace Chat {
-      export interface UnionMember0 {
+      export interface System {
         role: 'system';
 
         content?: string;
@@ -594,28 +565,28 @@ export namespace PromptCreateParams {
         name?: string;
       }
 
-      export interface UnionMember1 {
+      export interface User {
         role: 'user';
 
-        content?: string | Array<UnionMember1.UnionMember0 | UnionMember1.UnionMember1>;
+        content?: string | Array<User.Text | User.ImageURL>;
 
         name?: string;
       }
 
-      export namespace UnionMember1 {
-        export interface UnionMember0 {
+      export namespace User {
+        export interface Text {
           type: 'text';
 
           text?: string;
         }
 
-        export interface UnionMember1 {
-          image_url: UnionMember1.ImageURL;
+        export interface ImageURL {
+          image_url: ImageURL.ImageURL;
 
           type: 'image_url';
         }
 
-        export namespace UnionMember1 {
+        export namespace ImageURL {
           export interface ImageURL {
             url: string;
 
@@ -624,19 +595,19 @@ export namespace PromptCreateParams {
         }
       }
 
-      export interface UnionMember2 {
+      export interface Assistant {
         role: 'assistant';
 
         content?: string | null;
 
-        function_call?: UnionMember2.FunctionCall;
+        function_call?: Assistant.FunctionCall;
 
         name?: string;
 
-        tool_calls?: Array<UnionMember2.ToolCall>;
+        tool_calls?: Array<Assistant.ToolCall>;
       }
 
-      export namespace UnionMember2 {
+      export namespace Assistant {
         export interface FunctionCall {
           arguments: string;
 
@@ -660,7 +631,7 @@ export namespace PromptCreateParams {
         }
       }
 
-      export interface UnionMember3 {
+      export interface Tool {
         role: 'tool';
 
         content?: string;
@@ -668,7 +639,7 @@ export namespace PromptCreateParams {
         tool_call_id?: string;
       }
 
-      export interface UnionMember4 {
+      export interface Function {
         name: string;
 
         role: 'function';
@@ -676,14 +647,14 @@ export namespace PromptCreateParams {
         content?: string;
       }
 
-      export interface UnionMember5 {
+      export interface Fallback {
         role: 'model';
 
         content?: string | null;
       }
     }
 
-    export interface NullVariant {}
+    export interface NullableVariant {}
   }
 }
 
@@ -718,7 +689,7 @@ export namespace PromptUpdateParams {
 
     origin?: PromptData.Origin | null;
 
-    prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullVariant | null;
+    prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullableVariant | null;
   }
 
   export namespace PromptData {
@@ -726,20 +697,20 @@ export namespace PromptUpdateParams {
       model?: string;
 
       params?:
-        | Options.UnionMember0
-        | Options.UnionMember1
-        | Options.UnionMember2
-        | Options.UnionMember3
-        | Options.UseCache;
+        | Options.OpenAIModelParams
+        | Options.AnthropicModelParams
+        | Options.GoogleModelParams
+        | Options.WindowAIModelParams
+        | Options.JsCompletionParams;
 
       position?: string;
     }
 
     export namespace Options {
-      export interface UnionMember0 {
+      export interface OpenAIModelParams {
         frequency_penalty?: number;
 
-        function_call?: 'auto' | 'none' | UnionMember0.Name;
+        function_call?: 'auto' | 'none' | OpenAIModelParams.Name;
 
         max_tokens?: number;
 
@@ -747,20 +718,20 @@ export namespace PromptUpdateParams {
 
         presence_penalty?: number;
 
-        response_format?: UnionMember0.ResponseFormat | null;
+        response_format?: OpenAIModelParams.ResponseFormat | null;
 
         stop?: Array<string>;
 
         temperature?: number;
 
-        tool_choice?: 'auto' | 'none' | UnionMember0.UnionMember2;
+        tool_choice?: 'auto' | 'none' | OpenAIModelParams.UnionMember2;
 
         top_p?: number;
 
         use_cache?: boolean;
       }
 
-      export namespace UnionMember0 {
+      export namespace OpenAIModelParams {
         export interface Name {
           name: string;
         }
@@ -782,7 +753,7 @@ export namespace PromptUpdateParams {
         }
       }
 
-      export interface UnionMember1 {
+      export interface AnthropicModelParams {
         max_tokens: number;
 
         temperature: number;
@@ -801,7 +772,7 @@ export namespace PromptUpdateParams {
         use_cache?: boolean;
       }
 
-      export interface UnionMember2 {
+      export interface GoogleModelParams {
         maxOutputTokens?: number;
 
         temperature?: number;
@@ -813,7 +784,7 @@ export namespace PromptUpdateParams {
         use_cache?: boolean;
       }
 
-      export interface UnionMember3 {
+      export interface WindowAIModelParams {
         temperature?: number;
 
         topK?: number;
@@ -821,7 +792,7 @@ export namespace PromptUpdateParams {
         use_cache?: boolean;
       }
 
-      export interface UseCache {
+      export interface JsCompletionParams {
         use_cache?: boolean;
       }
     }
@@ -841,14 +812,7 @@ export namespace PromptUpdateParams {
     }
 
     export interface Chat {
-      messages: Array<
-        | Chat.UnionMember0
-        | Chat.UnionMember1
-        | Chat.UnionMember2
-        | Chat.UnionMember3
-        | Chat.UnionMember4
-        | Chat.UnionMember5
-      >;
+      messages: Array<Chat.System | Chat.User | Chat.Assistant | Chat.Tool | Chat.Function | Chat.Fallback>;
 
       type: 'chat';
 
@@ -856,7 +820,7 @@ export namespace PromptUpdateParams {
     }
 
     export namespace Chat {
-      export interface UnionMember0 {
+      export interface System {
         role: 'system';
 
         content?: string;
@@ -864,28 +828,28 @@ export namespace PromptUpdateParams {
         name?: string;
       }
 
-      export interface UnionMember1 {
+      export interface User {
         role: 'user';
 
-        content?: string | Array<UnionMember1.UnionMember0 | UnionMember1.UnionMember1>;
+        content?: string | Array<User.Text | User.ImageURL>;
 
         name?: string;
       }
 
-      export namespace UnionMember1 {
-        export interface UnionMember0 {
+      export namespace User {
+        export interface Text {
           type: 'text';
 
           text?: string;
         }
 
-        export interface UnionMember1 {
-          image_url: UnionMember1.ImageURL;
+        export interface ImageURL {
+          image_url: ImageURL.ImageURL;
 
           type: 'image_url';
         }
 
-        export namespace UnionMember1 {
+        export namespace ImageURL {
           export interface ImageURL {
             url: string;
 
@@ -894,19 +858,19 @@ export namespace PromptUpdateParams {
         }
       }
 
-      export interface UnionMember2 {
+      export interface Assistant {
         role: 'assistant';
 
         content?: string | null;
 
-        function_call?: UnionMember2.FunctionCall;
+        function_call?: Assistant.FunctionCall;
 
         name?: string;
 
-        tool_calls?: Array<UnionMember2.ToolCall>;
+        tool_calls?: Array<Assistant.ToolCall>;
       }
 
-      export namespace UnionMember2 {
+      export namespace Assistant {
         export interface FunctionCall {
           arguments: string;
 
@@ -930,7 +894,7 @@ export namespace PromptUpdateParams {
         }
       }
 
-      export interface UnionMember3 {
+      export interface Tool {
         role: 'tool';
 
         content?: string;
@@ -938,7 +902,7 @@ export namespace PromptUpdateParams {
         tool_call_id?: string;
       }
 
-      export interface UnionMember4 {
+      export interface Function {
         name: string;
 
         role: 'function';
@@ -946,14 +910,14 @@ export namespace PromptUpdateParams {
         content?: string;
       }
 
-      export interface UnionMember5 {
+      export interface Fallback {
         role: 'model';
 
         content?: string | null;
       }
     }
 
-    export interface NullVariant {}
+    export interface NullableVariant {}
   }
 }
 
@@ -991,39 +955,6 @@ export interface PromptListParams extends ListObjectsParams {
    * version identifier (e.g. '81cd05ee665fdfb3').
    */
   version?: string;
-}
-
-export interface PromptFeedbackParams {
-  /**
-   * A list of prompt feedback items
-   */
-  feedback: Array<PromptFeedbackParams.Feedback>;
-}
-
-export namespace PromptFeedbackParams {
-  export interface Feedback {
-    /**
-     * The id of the prompt event to log feedback for. This is the row `id` returned by
-     * `POST /v1/prompt/{prompt_id}/insert`
-     */
-    id: string;
-
-    /**
-     * An optional comment string to log about the prompt event
-     */
-    comment?: string | null;
-
-    /**
-     * A dictionary with additional data about the feedback. If you have a `user_id`,
-     * you can log it here and access it in the Braintrust UI.
-     */
-    metadata?: Record<string, unknown> | null;
-
-    /**
-     * The source of the feedback. Must be one of "external" (default), "app", or "api"
-     */
-    source?: 'app' | 'api' | 'external' | null;
-  }
 }
 
 export interface PromptReplaceParams {
@@ -1067,7 +998,7 @@ export namespace PromptReplaceParams {
 
     origin?: PromptData.Origin | null;
 
-    prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullVariant | null;
+    prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullableVariant | null;
   }
 
   export namespace PromptData {
@@ -1075,20 +1006,20 @@ export namespace PromptReplaceParams {
       model?: string;
 
       params?:
-        | Options.UnionMember0
-        | Options.UnionMember1
-        | Options.UnionMember2
-        | Options.UnionMember3
-        | Options.UseCache;
+        | Options.OpenAIModelParams
+        | Options.AnthropicModelParams
+        | Options.GoogleModelParams
+        | Options.WindowAIModelParams
+        | Options.JsCompletionParams;
 
       position?: string;
     }
 
     export namespace Options {
-      export interface UnionMember0 {
+      export interface OpenAIModelParams {
         frequency_penalty?: number;
 
-        function_call?: 'auto' | 'none' | UnionMember0.Name;
+        function_call?: 'auto' | 'none' | OpenAIModelParams.Name;
 
         max_tokens?: number;
 
@@ -1096,20 +1027,20 @@ export namespace PromptReplaceParams {
 
         presence_penalty?: number;
 
-        response_format?: UnionMember0.ResponseFormat | null;
+        response_format?: OpenAIModelParams.ResponseFormat | null;
 
         stop?: Array<string>;
 
         temperature?: number;
 
-        tool_choice?: 'auto' | 'none' | UnionMember0.UnionMember2;
+        tool_choice?: 'auto' | 'none' | OpenAIModelParams.UnionMember2;
 
         top_p?: number;
 
         use_cache?: boolean;
       }
 
-      export namespace UnionMember0 {
+      export namespace OpenAIModelParams {
         export interface Name {
           name: string;
         }
@@ -1131,7 +1062,7 @@ export namespace PromptReplaceParams {
         }
       }
 
-      export interface UnionMember1 {
+      export interface AnthropicModelParams {
         max_tokens: number;
 
         temperature: number;
@@ -1150,7 +1081,7 @@ export namespace PromptReplaceParams {
         use_cache?: boolean;
       }
 
-      export interface UnionMember2 {
+      export interface GoogleModelParams {
         maxOutputTokens?: number;
 
         temperature?: number;
@@ -1162,7 +1093,7 @@ export namespace PromptReplaceParams {
         use_cache?: boolean;
       }
 
-      export interface UnionMember3 {
+      export interface WindowAIModelParams {
         temperature?: number;
 
         topK?: number;
@@ -1170,7 +1101,7 @@ export namespace PromptReplaceParams {
         use_cache?: boolean;
       }
 
-      export interface UseCache {
+      export interface JsCompletionParams {
         use_cache?: boolean;
       }
     }
@@ -1190,14 +1121,7 @@ export namespace PromptReplaceParams {
     }
 
     export interface Chat {
-      messages: Array<
-        | Chat.UnionMember0
-        | Chat.UnionMember1
-        | Chat.UnionMember2
-        | Chat.UnionMember3
-        | Chat.UnionMember4
-        | Chat.UnionMember5
-      >;
+      messages: Array<Chat.System | Chat.User | Chat.Assistant | Chat.Tool | Chat.Function | Chat.Fallback>;
 
       type: 'chat';
 
@@ -1205,7 +1129,7 @@ export namespace PromptReplaceParams {
     }
 
     export namespace Chat {
-      export interface UnionMember0 {
+      export interface System {
         role: 'system';
 
         content?: string;
@@ -1213,28 +1137,28 @@ export namespace PromptReplaceParams {
         name?: string;
       }
 
-      export interface UnionMember1 {
+      export interface User {
         role: 'user';
 
-        content?: string | Array<UnionMember1.UnionMember0 | UnionMember1.UnionMember1>;
+        content?: string | Array<User.Text | User.ImageURL>;
 
         name?: string;
       }
 
-      export namespace UnionMember1 {
-        export interface UnionMember0 {
+      export namespace User {
+        export interface Text {
           type: 'text';
 
           text?: string;
         }
 
-        export interface UnionMember1 {
-          image_url: UnionMember1.ImageURL;
+        export interface ImageURL {
+          image_url: ImageURL.ImageURL;
 
           type: 'image_url';
         }
 
-        export namespace UnionMember1 {
+        export namespace ImageURL {
           export interface ImageURL {
             url: string;
 
@@ -1243,19 +1167,19 @@ export namespace PromptReplaceParams {
         }
       }
 
-      export interface UnionMember2 {
+      export interface Assistant {
         role: 'assistant';
 
         content?: string | null;
 
-        function_call?: UnionMember2.FunctionCall;
+        function_call?: Assistant.FunctionCall;
 
         name?: string;
 
-        tool_calls?: Array<UnionMember2.ToolCall>;
+        tool_calls?: Array<Assistant.ToolCall>;
       }
 
-      export namespace UnionMember2 {
+      export namespace Assistant {
         export interface FunctionCall {
           arguments: string;
 
@@ -1279,7 +1203,7 @@ export namespace PromptReplaceParams {
         }
       }
 
-      export interface UnionMember3 {
+      export interface Tool {
         role: 'tool';
 
         content?: string;
@@ -1287,7 +1211,7 @@ export namespace PromptReplaceParams {
         tool_call_id?: string;
       }
 
-      export interface UnionMember4 {
+      export interface Function {
         name: string;
 
         role: 'function';
@@ -1295,14 +1219,14 @@ export namespace PromptReplaceParams {
         content?: string;
       }
 
-      export interface UnionMember5 {
+      export interface Fallback {
         role: 'model';
 
         content?: string | null;
       }
     }
 
-    export interface NullVariant {}
+    export interface NullableVariant {}
   }
 }
 
@@ -1312,6 +1236,5 @@ export namespace Prompts {
   export import PromptCreateParams = PromptsAPI.PromptCreateParams;
   export import PromptUpdateParams = PromptsAPI.PromptUpdateParams;
   export import PromptListParams = PromptsAPI.PromptListParams;
-  export import PromptFeedbackParams = PromptsAPI.PromptFeedbackParams;
   export import PromptReplaceParams = PromptsAPI.PromptReplaceParams;
 }
