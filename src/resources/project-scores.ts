@@ -120,7 +120,7 @@ export interface ProjectScore {
     | Array<ProjectScore.UnionMember0>
     | Record<string, number>
     | Array<string>
-    | ProjectScore.UnionMember3
+    | ProjectScore.NullableVariant
     | null;
 
   config?: ProjectScore.Config | null;
@@ -158,7 +158,7 @@ export namespace ProjectScore {
     value: number;
   }
 
-  export interface UnionMember3 {}
+  export interface NullableVariant {}
 
   export interface Config {
     destination?: 'expected' | null;
@@ -190,7 +190,7 @@ export interface ProjectScoreCreateParams {
     | Array<ProjectScoreCreateParams.UnionMember0>
     | Record<string, number>
     | Array<string>
-    | ProjectScoreCreateParams.UnionMember3
+    | ProjectScoreCreateParams.NullableVariant
     | null;
 
   /**
@@ -215,7 +215,7 @@ export namespace ProjectScoreCreateParams {
     value: number;
   }
 
-  export interface UnionMember3 {}
+  export interface NullableVariant {}
 }
 
 export interface ProjectScoreUpdateParams {
@@ -226,7 +226,7 @@ export interface ProjectScoreUpdateParams {
     | Array<ProjectScoreUpdateParams.UnionMember0>
     | Record<string, number>
     | Array<string>
-    | ProjectScoreUpdateParams.UnionMember3
+    | ProjectScoreUpdateParams.NullableVariant
     | null;
 
   /**
@@ -261,7 +261,7 @@ export namespace ProjectScoreUpdateParams {
     value: number;
   }
 
-  export interface UnionMember3 {}
+  export interface NullableVariant {}
 }
 
 export interface ProjectScoreListParams extends ListObjectsParams {
@@ -310,7 +310,7 @@ export interface ProjectScoreReplaceParams {
     | Array<ProjectScoreReplaceParams.UnionMember0>
     | Record<string, number>
     | Array<string>
-    | ProjectScoreReplaceParams.UnionMember3
+    | ProjectScoreReplaceParams.NullableVariant
     | null;
 
   /**
@@ -335,7 +335,7 @@ export namespace ProjectScoreReplaceParams {
     value: number;
   }
 
-  export interface UnionMember3 {}
+  export interface NullableVariant {}
 }
 
 export namespace ProjectScores {

@@ -70,19 +70,22 @@ export interface User {
 
 export interface UserListParams extends ListObjectsParams {
   /**
-   * Email of the user to search for
+   * Email of the user to search for. You may pass the param multiple times to filter
+   * for more than one email
    */
-  email?: string;
+  email?: string | Array<string>;
 
   /**
-   * Family name of the user to search for
+   * Family name of the user to search for. You may pass the param multiple times to
+   * filter for more than one family name
    */
-  family_name?: string;
+  family_name?: string | Array<string>;
 
   /**
-   * Given name of the user to search for
+   * Given name of the user to search for. You may pass the param multiple times to
+   * filter for more than one given name
    */
-  given_name?: string;
+  given_name?: string | Array<string>;
 
   /**
    * Filter search results to a particular set of object IDs. To specify a list of

@@ -83,7 +83,7 @@ export class Braintrust extends Core.APIClient {
    * API Client for interfacing with the Braintrust API.
    *
    * @param {string | undefined} [opts.apiKey=process.env['BRAINTRUST_API_KEY'] ?? undefined]
-   * @param {string} [opts.baseURL=process.env['BRAINTRUST_BASE_URL'] ?? https://api.braintrustdata.com] - Override the default base URL for the API.
+   * @param {string} [opts.baseURL=process.env['BRAINTRUST_BASE_URL'] ?? https://api.braintrust.dev] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {number} [opts.httpAgent] - An HTTP agent used to manage HTTP(s) connections.
    * @param {Core.Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
@@ -105,7 +105,7 @@ export class Braintrust extends Core.APIClient {
     const options: ClientOptions = {
       apiKey,
       ...opts,
-      baseURL: baseURL || `https://api.braintrustdata.com`,
+      baseURL: baseURL || `https://api.braintrust.dev`,
     };
 
     super({
@@ -251,7 +251,6 @@ export namespace Braintrust {
   export import PromptCreateParams = API.PromptCreateParams;
   export import PromptUpdateParams = API.PromptUpdateParams;
   export import PromptListParams = API.PromptListParams;
-  export import PromptFeedbackParams = API.PromptFeedbackParams;
   export import PromptReplaceParams = API.PromptReplaceParams;
 
   export import Roles = API.Roles;
@@ -303,7 +302,6 @@ export namespace Braintrust {
   export import FunctionCreateParams = API.FunctionCreateParams;
   export import FunctionUpdateParams = API.FunctionUpdateParams;
   export import FunctionListParams = API.FunctionListParams;
-  export import FunctionFeedbackParams = API.FunctionFeedbackParams;
   export import FunctionReplaceParams = API.FunctionReplaceParams;
 
   export import Views = API.Views;

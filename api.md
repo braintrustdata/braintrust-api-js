@@ -96,7 +96,6 @@ Methods:
 - <code title="patch /v1/prompt/{prompt_id}">client.prompts.<a href="./src/resources/prompts.ts">update</a>(promptId, { ...params }) -> Prompt</code>
 - <code title="get /v1/prompt">client.prompts.<a href="./src/resources/prompts.ts">list</a>({ ...params }) -> PromptsListObjects</code>
 - <code title="delete /v1/prompt/{prompt_id}">client.prompts.<a href="./src/resources/prompts.ts">delete</a>(promptId) -> Prompt</code>
-- <code title="post /v1/prompt/{prompt_id}/feedback">client.prompts.<a href="./src/resources/prompts.ts">feedback</a>(promptId, { ...params }) -> void</code>
 - <code title="put /v1/prompt">client.prompts.<a href="./src/resources/prompts.ts">replace</a>({ ...params }) -> Prompt</code>
 
 # Roles
@@ -196,7 +195,6 @@ Methods:
 - <code title="patch /v1/function/{function_id}">client.functions.<a href="./src/resources/functions.ts">update</a>(functionId, { ...params }) -> Function</code>
 - <code title="get /v1/function">client.functions.<a href="./src/resources/functions.ts">list</a>({ ...params }) -> FunctionsListObjects</code>
 - <code title="delete /v1/function/{function_id}">client.functions.<a href="./src/resources/functions.ts">delete</a>(functionId) -> Function</code>
-- <code title="post /v1/function/{function_id}/feedback">client.functions.<a href="./src/resources/functions.ts">feedback</a>(functionId, { ...params }) -> void</code>
 - <code title="put /v1/function">client.functions.<a href="./src/resources/functions.ts">replace</a>({ ...params }) -> Function</code>
 
 # Views
@@ -218,14 +216,24 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/organizations.ts">Organization</a></code>
+- <code><a href="./src/resources/organizations/organizations.ts">Organization</a></code>
 
 Methods:
 
-- <code title="get /v1/organization/{organization_id}">client.organizations.<a href="./src/resources/organizations.ts">retrieve</a>(organizationId) -> Organization</code>
-- <code title="patch /v1/organization/{organization_id}">client.organizations.<a href="./src/resources/organizations.ts">update</a>(organizationId, { ...params }) -> Organization</code>
-- <code title="get /v1/organization">client.organizations.<a href="./src/resources/organizations.ts">list</a>({ ...params }) -> OrganizationsListObjects</code>
-- <code title="delete /v1/organization/{organization_id}">client.organizations.<a href="./src/resources/organizations.ts">delete</a>(organizationId) -> Organization</code>
+- <code title="get /v1/organization/{organization_id}">client.organizations.<a href="./src/resources/organizations/organizations.ts">retrieve</a>(organizationId) -> Organization</code>
+- <code title="patch /v1/organization/{organization_id}">client.organizations.<a href="./src/resources/organizations/organizations.ts">update</a>(organizationId, { ...params }) -> Organization</code>
+- <code title="get /v1/organization">client.organizations.<a href="./src/resources/organizations/organizations.ts">list</a>({ ...params }) -> OrganizationsListObjects</code>
+- <code title="delete /v1/organization/{organization_id}">client.organizations.<a href="./src/resources/organizations/organizations.ts">delete</a>(organizationId) -> Organization</code>
+
+## Members
+
+Types:
+
+- <code><a href="./src/resources/organizations/members.ts">MemberUpdateResponse</a></code>
+
+Methods:
+
+- <code title="patch /v1/organization/members">client.organizations.members.<a href="./src/resources/organizations/members.ts">update</a>({ ...params }) -> MemberUpdateResponse</code>
 
 # APIKeys
 
