@@ -153,7 +153,11 @@ export namespace Prompt {
 
     origin?: PromptData.Origin | null;
 
-    prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullableVariant | null;
+    prompt?:
+      | PromptData.PromptDataPrompt0
+      | PromptData.PromptDataPrompt1
+      | PromptData.PromptDataPrompt2
+      | null;
   }
 
   export namespace PromptData {
@@ -161,20 +165,20 @@ export namespace Prompt {
       model?: string;
 
       params?:
-        | Options.OpenAIModelParams
-        | Options.AnthropicModelParams
-        | Options.GoogleModelParams
-        | Options.WindowAIModelParams
+        | Options.PromptDataOptions0
+        | Options.PromptDataOptions1
+        | Options.PromptDataOptions2
+        | Options.PromptDataOptions3
         | Options.JsCompletionParams;
 
       position?: string;
     }
 
     export namespace Options {
-      export interface OpenAIModelParams {
+      export interface PromptDataOptions0 {
         frequency_penalty?: number;
 
-        function_call?: 'auto' | 'none' | OpenAIModelParams.Name;
+        function_call?: 'auto' | 'none' | PromptDataOptions0.Name;
 
         max_tokens?: number;
 
@@ -182,20 +186,20 @@ export namespace Prompt {
 
         presence_penalty?: number;
 
-        response_format?: OpenAIModelParams.ResponseFormat | null;
+        response_format?: PromptDataOptions0.ResponseFormat | null;
 
         stop?: Array<string>;
 
         temperature?: number;
 
-        tool_choice?: 'auto' | 'none' | OpenAIModelParams.UnionMember2;
+        tool_choice?: 'auto' | 'none' | PromptDataOptions0.PromptDataToolChoice2;
 
         top_p?: number;
 
         use_cache?: boolean;
       }
 
-      export namespace OpenAIModelParams {
+      export namespace PromptDataOptions0 {
         export interface Name {
           name: string;
         }
@@ -204,20 +208,20 @@ export namespace Prompt {
           type: 'json_object';
         }
 
-        export interface UnionMember2 {
-          function: UnionMember2.Function;
+        export interface PromptDataToolChoice2 {
+          function: PromptDataToolChoice2.Function;
 
           type: 'function';
         }
 
-        export namespace UnionMember2 {
+        export namespace PromptDataToolChoice2 {
           export interface Function {
             name: string;
           }
         }
       }
 
-      export interface AnthropicModelParams {
+      export interface PromptDataOptions1 {
         max_tokens: number;
 
         temperature: number;
@@ -236,7 +240,7 @@ export namespace Prompt {
         use_cache?: boolean;
       }
 
-      export interface GoogleModelParams {
+      export interface PromptDataOptions2 {
         maxOutputTokens?: number;
 
         temperature?: number;
@@ -248,7 +252,7 @@ export namespace Prompt {
         use_cache?: boolean;
       }
 
-      export interface WindowAIModelParams {
+      export interface PromptDataOptions3 {
         temperature?: number;
 
         topK?: number;
@@ -269,22 +273,29 @@ export namespace Prompt {
       prompt_version?: string;
     }
 
-    export interface Completion {
+    export interface PromptDataPrompt0 {
       content: string;
 
       type: 'completion';
     }
 
-    export interface Chat {
-      messages: Array<Chat.System | Chat.User | Chat.Assistant | Chat.Tool | Chat.Function | Chat.Fallback>;
+    export interface PromptDataPrompt1 {
+      messages: Array<
+        | PromptDataPrompt1.PromptDataPromptMessage0
+        | PromptDataPrompt1.PromptDataPromptMessage1
+        | PromptDataPrompt1.PromptDataPromptMessage2
+        | PromptDataPrompt1.PromptDataPromptMessage3
+        | PromptDataPrompt1.PromptDataPromptMessage4
+        | PromptDataPrompt1.PromptDataPromptMessage5
+      >;
 
       type: 'chat';
 
       tools?: string;
     }
 
-    export namespace Chat {
-      export interface System {
+    export namespace PromptDataPrompt1 {
+      export interface PromptDataPromptMessage0 {
         role: 'system';
 
         content?: string;
@@ -292,28 +303,33 @@ export namespace Prompt {
         name?: string;
       }
 
-      export interface User {
+      export interface PromptDataPromptMessage1 {
         role: 'user';
 
-        content?: string | Array<User.Text | User.ImageURL>;
+        content?:
+          | string
+          | Array<
+              | PromptDataPromptMessage1.PromptDataPromptMessageContent
+              | PromptDataPromptMessage1.PromptDataPromptMessageList
+            >;
 
         name?: string;
       }
 
-      export namespace User {
-        export interface Text {
+      export namespace PromptDataPromptMessage1 {
+        export interface PromptDataPromptMessageContent {
           type: 'text';
 
           text?: string;
         }
 
-        export interface ImageURL {
-          image_url: ImageURL.ImageURL;
+        export interface PromptDataPromptMessageList {
+          image_url: PromptDataPromptMessageList.ImageURL;
 
           type: 'image_url';
         }
 
-        export namespace ImageURL {
+        export namespace PromptDataPromptMessageList {
           export interface ImageURL {
             url: string;
 
@@ -322,19 +338,19 @@ export namespace Prompt {
         }
       }
 
-      export interface Assistant {
+      export interface PromptDataPromptMessage2 {
         role: 'assistant';
 
         content?: string | null;
 
-        function_call?: Assistant.FunctionCall;
+        function_call?: PromptDataPromptMessage2.FunctionCall;
 
         name?: string;
 
-        tool_calls?: Array<Assistant.ToolCall>;
+        tool_calls?: Array<PromptDataPromptMessage2.ToolCall>;
       }
 
-      export namespace Assistant {
+      export namespace PromptDataPromptMessage2 {
         export interface FunctionCall {
           arguments: string;
 
@@ -358,7 +374,7 @@ export namespace Prompt {
         }
       }
 
-      export interface Tool {
+      export interface PromptDataPromptMessage3 {
         role: 'tool';
 
         content?: string;
@@ -366,7 +382,7 @@ export namespace Prompt {
         tool_call_id?: string;
       }
 
-      export interface Function {
+      export interface PromptDataPromptMessage4 {
         name: string;
 
         role: 'function';
@@ -374,14 +390,14 @@ export namespace Prompt {
         content?: string;
       }
 
-      export interface Fallback {
+      export interface PromptDataPromptMessage5 {
         role: 'model';
 
         content?: string | null;
       }
     }
 
-    export interface NullableVariant {}
+    export interface PromptDataPrompt2 {}
   }
 }
 
@@ -426,7 +442,11 @@ export namespace PromptCreateParams {
 
     origin?: PromptData.Origin | null;
 
-    prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullableVariant | null;
+    prompt?:
+      | PromptData.PromptDataPrompt0
+      | PromptData.PromptDataPrompt1
+      | PromptData.PromptDataPrompt2
+      | null;
   }
 
   export namespace PromptData {
@@ -434,20 +454,20 @@ export namespace PromptCreateParams {
       model?: string;
 
       params?:
-        | Options.OpenAIModelParams
-        | Options.AnthropicModelParams
-        | Options.GoogleModelParams
-        | Options.WindowAIModelParams
+        | Options.PromptDataOptions0
+        | Options.PromptDataOptions1
+        | Options.PromptDataOptions2
+        | Options.PromptDataOptions3
         | Options.JsCompletionParams;
 
       position?: string;
     }
 
     export namespace Options {
-      export interface OpenAIModelParams {
+      export interface PromptDataOptions0 {
         frequency_penalty?: number;
 
-        function_call?: 'auto' | 'none' | OpenAIModelParams.Name;
+        function_call?: 'auto' | 'none' | PromptDataOptions0.Name;
 
         max_tokens?: number;
 
@@ -455,20 +475,20 @@ export namespace PromptCreateParams {
 
         presence_penalty?: number;
 
-        response_format?: OpenAIModelParams.ResponseFormat | null;
+        response_format?: PromptDataOptions0.ResponseFormat | null;
 
         stop?: Array<string>;
 
         temperature?: number;
 
-        tool_choice?: 'auto' | 'none' | OpenAIModelParams.UnionMember2;
+        tool_choice?: 'auto' | 'none' | PromptDataOptions0.PromptDataToolChoice2;
 
         top_p?: number;
 
         use_cache?: boolean;
       }
 
-      export namespace OpenAIModelParams {
+      export namespace PromptDataOptions0 {
         export interface Name {
           name: string;
         }
@@ -477,20 +497,20 @@ export namespace PromptCreateParams {
           type: 'json_object';
         }
 
-        export interface UnionMember2 {
-          function: UnionMember2.Function;
+        export interface PromptDataToolChoice2 {
+          function: PromptDataToolChoice2.Function;
 
           type: 'function';
         }
 
-        export namespace UnionMember2 {
+        export namespace PromptDataToolChoice2 {
           export interface Function {
             name: string;
           }
         }
       }
 
-      export interface AnthropicModelParams {
+      export interface PromptDataOptions1 {
         max_tokens: number;
 
         temperature: number;
@@ -509,7 +529,7 @@ export namespace PromptCreateParams {
         use_cache?: boolean;
       }
 
-      export interface GoogleModelParams {
+      export interface PromptDataOptions2 {
         maxOutputTokens?: number;
 
         temperature?: number;
@@ -521,7 +541,7 @@ export namespace PromptCreateParams {
         use_cache?: boolean;
       }
 
-      export interface WindowAIModelParams {
+      export interface PromptDataOptions3 {
         temperature?: number;
 
         topK?: number;
@@ -542,22 +562,29 @@ export namespace PromptCreateParams {
       prompt_version?: string;
     }
 
-    export interface Completion {
+    export interface PromptDataPrompt0 {
       content: string;
 
       type: 'completion';
     }
 
-    export interface Chat {
-      messages: Array<Chat.System | Chat.User | Chat.Assistant | Chat.Tool | Chat.Function | Chat.Fallback>;
+    export interface PromptDataPrompt1 {
+      messages: Array<
+        | PromptDataPrompt1.PromptDataPromptMessage0
+        | PromptDataPrompt1.PromptDataPromptMessage1
+        | PromptDataPrompt1.PromptDataPromptMessage2
+        | PromptDataPrompt1.PromptDataPromptMessage3
+        | PromptDataPrompt1.PromptDataPromptMessage4
+        | PromptDataPrompt1.PromptDataPromptMessage5
+      >;
 
       type: 'chat';
 
       tools?: string;
     }
 
-    export namespace Chat {
-      export interface System {
+    export namespace PromptDataPrompt1 {
+      export interface PromptDataPromptMessage0 {
         role: 'system';
 
         content?: string;
@@ -565,28 +592,33 @@ export namespace PromptCreateParams {
         name?: string;
       }
 
-      export interface User {
+      export interface PromptDataPromptMessage1 {
         role: 'user';
 
-        content?: string | Array<User.Text | User.ImageURL>;
+        content?:
+          | string
+          | Array<
+              | PromptDataPromptMessage1.PromptDataPromptMessageContent
+              | PromptDataPromptMessage1.PromptDataPromptMessageList
+            >;
 
         name?: string;
       }
 
-      export namespace User {
-        export interface Text {
+      export namespace PromptDataPromptMessage1 {
+        export interface PromptDataPromptMessageContent {
           type: 'text';
 
           text?: string;
         }
 
-        export interface ImageURL {
-          image_url: ImageURL.ImageURL;
+        export interface PromptDataPromptMessageList {
+          image_url: PromptDataPromptMessageList.ImageURL;
 
           type: 'image_url';
         }
 
-        export namespace ImageURL {
+        export namespace PromptDataPromptMessageList {
           export interface ImageURL {
             url: string;
 
@@ -595,19 +627,19 @@ export namespace PromptCreateParams {
         }
       }
 
-      export interface Assistant {
+      export interface PromptDataPromptMessage2 {
         role: 'assistant';
 
         content?: string | null;
 
-        function_call?: Assistant.FunctionCall;
+        function_call?: PromptDataPromptMessage2.FunctionCall;
 
         name?: string;
 
-        tool_calls?: Array<Assistant.ToolCall>;
+        tool_calls?: Array<PromptDataPromptMessage2.ToolCall>;
       }
 
-      export namespace Assistant {
+      export namespace PromptDataPromptMessage2 {
         export interface FunctionCall {
           arguments: string;
 
@@ -631,7 +663,7 @@ export namespace PromptCreateParams {
         }
       }
 
-      export interface Tool {
+      export interface PromptDataPromptMessage3 {
         role: 'tool';
 
         content?: string;
@@ -639,7 +671,7 @@ export namespace PromptCreateParams {
         tool_call_id?: string;
       }
 
-      export interface Function {
+      export interface PromptDataPromptMessage4 {
         name: string;
 
         role: 'function';
@@ -647,14 +679,14 @@ export namespace PromptCreateParams {
         content?: string;
       }
 
-      export interface Fallback {
+      export interface PromptDataPromptMessage5 {
         role: 'model';
 
         content?: string | null;
       }
     }
 
-    export interface NullableVariant {}
+    export interface PromptDataPrompt2 {}
   }
 }
 
@@ -689,7 +721,11 @@ export namespace PromptUpdateParams {
 
     origin?: PromptData.Origin | null;
 
-    prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullableVariant | null;
+    prompt?:
+      | PromptData.PromptDataPrompt0
+      | PromptData.PromptDataPrompt1
+      | PromptData.PromptDataPrompt2
+      | null;
   }
 
   export namespace PromptData {
@@ -697,20 +733,20 @@ export namespace PromptUpdateParams {
       model?: string;
 
       params?:
-        | Options.OpenAIModelParams
-        | Options.AnthropicModelParams
-        | Options.GoogleModelParams
-        | Options.WindowAIModelParams
+        | Options.PromptDataOptions0
+        | Options.PromptDataOptions1
+        | Options.PromptDataOptions2
+        | Options.PromptDataOptions3
         | Options.JsCompletionParams;
 
       position?: string;
     }
 
     export namespace Options {
-      export interface OpenAIModelParams {
+      export interface PromptDataOptions0 {
         frequency_penalty?: number;
 
-        function_call?: 'auto' | 'none' | OpenAIModelParams.Name;
+        function_call?: 'auto' | 'none' | PromptDataOptions0.Name;
 
         max_tokens?: number;
 
@@ -718,20 +754,20 @@ export namespace PromptUpdateParams {
 
         presence_penalty?: number;
 
-        response_format?: OpenAIModelParams.ResponseFormat | null;
+        response_format?: PromptDataOptions0.ResponseFormat | null;
 
         stop?: Array<string>;
 
         temperature?: number;
 
-        tool_choice?: 'auto' | 'none' | OpenAIModelParams.UnionMember2;
+        tool_choice?: 'auto' | 'none' | PromptDataOptions0.PromptDataToolChoice2;
 
         top_p?: number;
 
         use_cache?: boolean;
       }
 
-      export namespace OpenAIModelParams {
+      export namespace PromptDataOptions0 {
         export interface Name {
           name: string;
         }
@@ -740,20 +776,20 @@ export namespace PromptUpdateParams {
           type: 'json_object';
         }
 
-        export interface UnionMember2 {
-          function: UnionMember2.Function;
+        export interface PromptDataToolChoice2 {
+          function: PromptDataToolChoice2.Function;
 
           type: 'function';
         }
 
-        export namespace UnionMember2 {
+        export namespace PromptDataToolChoice2 {
           export interface Function {
             name: string;
           }
         }
       }
 
-      export interface AnthropicModelParams {
+      export interface PromptDataOptions1 {
         max_tokens: number;
 
         temperature: number;
@@ -772,7 +808,7 @@ export namespace PromptUpdateParams {
         use_cache?: boolean;
       }
 
-      export interface GoogleModelParams {
+      export interface PromptDataOptions2 {
         maxOutputTokens?: number;
 
         temperature?: number;
@@ -784,7 +820,7 @@ export namespace PromptUpdateParams {
         use_cache?: boolean;
       }
 
-      export interface WindowAIModelParams {
+      export interface PromptDataOptions3 {
         temperature?: number;
 
         topK?: number;
@@ -805,22 +841,29 @@ export namespace PromptUpdateParams {
       prompt_version?: string;
     }
 
-    export interface Completion {
+    export interface PromptDataPrompt0 {
       content: string;
 
       type: 'completion';
     }
 
-    export interface Chat {
-      messages: Array<Chat.System | Chat.User | Chat.Assistant | Chat.Tool | Chat.Function | Chat.Fallback>;
+    export interface PromptDataPrompt1 {
+      messages: Array<
+        | PromptDataPrompt1.PromptDataPromptMessage0
+        | PromptDataPrompt1.PromptDataPromptMessage1
+        | PromptDataPrompt1.PromptDataPromptMessage2
+        | PromptDataPrompt1.PromptDataPromptMessage3
+        | PromptDataPrompt1.PromptDataPromptMessage4
+        | PromptDataPrompt1.PromptDataPromptMessage5
+      >;
 
       type: 'chat';
 
       tools?: string;
     }
 
-    export namespace Chat {
-      export interface System {
+    export namespace PromptDataPrompt1 {
+      export interface PromptDataPromptMessage0 {
         role: 'system';
 
         content?: string;
@@ -828,28 +871,33 @@ export namespace PromptUpdateParams {
         name?: string;
       }
 
-      export interface User {
+      export interface PromptDataPromptMessage1 {
         role: 'user';
 
-        content?: string | Array<User.Text | User.ImageURL>;
+        content?:
+          | string
+          | Array<
+              | PromptDataPromptMessage1.PromptDataPromptMessageContent
+              | PromptDataPromptMessage1.PromptDataPromptMessageList
+            >;
 
         name?: string;
       }
 
-      export namespace User {
-        export interface Text {
+      export namespace PromptDataPromptMessage1 {
+        export interface PromptDataPromptMessageContent {
           type: 'text';
 
           text?: string;
         }
 
-        export interface ImageURL {
-          image_url: ImageURL.ImageURL;
+        export interface PromptDataPromptMessageList {
+          image_url: PromptDataPromptMessageList.ImageURL;
 
           type: 'image_url';
         }
 
-        export namespace ImageURL {
+        export namespace PromptDataPromptMessageList {
           export interface ImageURL {
             url: string;
 
@@ -858,19 +906,19 @@ export namespace PromptUpdateParams {
         }
       }
 
-      export interface Assistant {
+      export interface PromptDataPromptMessage2 {
         role: 'assistant';
 
         content?: string | null;
 
-        function_call?: Assistant.FunctionCall;
+        function_call?: PromptDataPromptMessage2.FunctionCall;
 
         name?: string;
 
-        tool_calls?: Array<Assistant.ToolCall>;
+        tool_calls?: Array<PromptDataPromptMessage2.ToolCall>;
       }
 
-      export namespace Assistant {
+      export namespace PromptDataPromptMessage2 {
         export interface FunctionCall {
           arguments: string;
 
@@ -894,7 +942,7 @@ export namespace PromptUpdateParams {
         }
       }
 
-      export interface Tool {
+      export interface PromptDataPromptMessage3 {
         role: 'tool';
 
         content?: string;
@@ -902,7 +950,7 @@ export namespace PromptUpdateParams {
         tool_call_id?: string;
       }
 
-      export interface Function {
+      export interface PromptDataPromptMessage4 {
         name: string;
 
         role: 'function';
@@ -910,14 +958,14 @@ export namespace PromptUpdateParams {
         content?: string;
       }
 
-      export interface Fallback {
+      export interface PromptDataPromptMessage5 {
         role: 'model';
 
         content?: string | null;
       }
     }
 
-    export interface NullableVariant {}
+    export interface PromptDataPrompt2 {}
   }
 }
 
@@ -998,7 +1046,11 @@ export namespace PromptReplaceParams {
 
     origin?: PromptData.Origin | null;
 
-    prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullableVariant | null;
+    prompt?:
+      | PromptData.PromptDataPrompt0
+      | PromptData.PromptDataPrompt1
+      | PromptData.PromptDataPrompt2
+      | null;
   }
 
   export namespace PromptData {
@@ -1006,20 +1058,20 @@ export namespace PromptReplaceParams {
       model?: string;
 
       params?:
-        | Options.OpenAIModelParams
-        | Options.AnthropicModelParams
-        | Options.GoogleModelParams
-        | Options.WindowAIModelParams
+        | Options.PromptDataOptions0
+        | Options.PromptDataOptions1
+        | Options.PromptDataOptions2
+        | Options.PromptDataOptions3
         | Options.JsCompletionParams;
 
       position?: string;
     }
 
     export namespace Options {
-      export interface OpenAIModelParams {
+      export interface PromptDataOptions0 {
         frequency_penalty?: number;
 
-        function_call?: 'auto' | 'none' | OpenAIModelParams.Name;
+        function_call?: 'auto' | 'none' | PromptDataOptions0.Name;
 
         max_tokens?: number;
 
@@ -1027,20 +1079,20 @@ export namespace PromptReplaceParams {
 
         presence_penalty?: number;
 
-        response_format?: OpenAIModelParams.ResponseFormat | null;
+        response_format?: PromptDataOptions0.ResponseFormat | null;
 
         stop?: Array<string>;
 
         temperature?: number;
 
-        tool_choice?: 'auto' | 'none' | OpenAIModelParams.UnionMember2;
+        tool_choice?: 'auto' | 'none' | PromptDataOptions0.PromptDataToolChoice2;
 
         top_p?: number;
 
         use_cache?: boolean;
       }
 
-      export namespace OpenAIModelParams {
+      export namespace PromptDataOptions0 {
         export interface Name {
           name: string;
         }
@@ -1049,20 +1101,20 @@ export namespace PromptReplaceParams {
           type: 'json_object';
         }
 
-        export interface UnionMember2 {
-          function: UnionMember2.Function;
+        export interface PromptDataToolChoice2 {
+          function: PromptDataToolChoice2.Function;
 
           type: 'function';
         }
 
-        export namespace UnionMember2 {
+        export namespace PromptDataToolChoice2 {
           export interface Function {
             name: string;
           }
         }
       }
 
-      export interface AnthropicModelParams {
+      export interface PromptDataOptions1 {
         max_tokens: number;
 
         temperature: number;
@@ -1081,7 +1133,7 @@ export namespace PromptReplaceParams {
         use_cache?: boolean;
       }
 
-      export interface GoogleModelParams {
+      export interface PromptDataOptions2 {
         maxOutputTokens?: number;
 
         temperature?: number;
@@ -1093,7 +1145,7 @@ export namespace PromptReplaceParams {
         use_cache?: boolean;
       }
 
-      export interface WindowAIModelParams {
+      export interface PromptDataOptions3 {
         temperature?: number;
 
         topK?: number;
@@ -1114,22 +1166,29 @@ export namespace PromptReplaceParams {
       prompt_version?: string;
     }
 
-    export interface Completion {
+    export interface PromptDataPrompt0 {
       content: string;
 
       type: 'completion';
     }
 
-    export interface Chat {
-      messages: Array<Chat.System | Chat.User | Chat.Assistant | Chat.Tool | Chat.Function | Chat.Fallback>;
+    export interface PromptDataPrompt1 {
+      messages: Array<
+        | PromptDataPrompt1.PromptDataPromptMessage0
+        | PromptDataPrompt1.PromptDataPromptMessage1
+        | PromptDataPrompt1.PromptDataPromptMessage2
+        | PromptDataPrompt1.PromptDataPromptMessage3
+        | PromptDataPrompt1.PromptDataPromptMessage4
+        | PromptDataPrompt1.PromptDataPromptMessage5
+      >;
 
       type: 'chat';
 
       tools?: string;
     }
 
-    export namespace Chat {
-      export interface System {
+    export namespace PromptDataPrompt1 {
+      export interface PromptDataPromptMessage0 {
         role: 'system';
 
         content?: string;
@@ -1137,28 +1196,33 @@ export namespace PromptReplaceParams {
         name?: string;
       }
 
-      export interface User {
+      export interface PromptDataPromptMessage1 {
         role: 'user';
 
-        content?: string | Array<User.Text | User.ImageURL>;
+        content?:
+          | string
+          | Array<
+              | PromptDataPromptMessage1.PromptDataPromptMessageContent
+              | PromptDataPromptMessage1.PromptDataPromptMessageList
+            >;
 
         name?: string;
       }
 
-      export namespace User {
-        export interface Text {
+      export namespace PromptDataPromptMessage1 {
+        export interface PromptDataPromptMessageContent {
           type: 'text';
 
           text?: string;
         }
 
-        export interface ImageURL {
-          image_url: ImageURL.ImageURL;
+        export interface PromptDataPromptMessageList {
+          image_url: PromptDataPromptMessageList.ImageURL;
 
           type: 'image_url';
         }
 
-        export namespace ImageURL {
+        export namespace PromptDataPromptMessageList {
           export interface ImageURL {
             url: string;
 
@@ -1167,19 +1231,19 @@ export namespace PromptReplaceParams {
         }
       }
 
-      export interface Assistant {
+      export interface PromptDataPromptMessage2 {
         role: 'assistant';
 
         content?: string | null;
 
-        function_call?: Assistant.FunctionCall;
+        function_call?: PromptDataPromptMessage2.FunctionCall;
 
         name?: string;
 
-        tool_calls?: Array<Assistant.ToolCall>;
+        tool_calls?: Array<PromptDataPromptMessage2.ToolCall>;
       }
 
-      export namespace Assistant {
+      export namespace PromptDataPromptMessage2 {
         export interface FunctionCall {
           arguments: string;
 
@@ -1203,7 +1267,7 @@ export namespace PromptReplaceParams {
         }
       }
 
-      export interface Tool {
+      export interface PromptDataPromptMessage3 {
         role: 'tool';
 
         content?: string;
@@ -1211,7 +1275,7 @@ export namespace PromptReplaceParams {
         tool_call_id?: string;
       }
 
-      export interface Function {
+      export interface PromptDataPromptMessage4 {
         name: string;
 
         role: 'function';
@@ -1219,14 +1283,14 @@ export namespace PromptReplaceParams {
         content?: string;
       }
 
-      export interface Fallback {
+      export interface PromptDataPromptMessage5 {
         role: 'model';
 
         content?: string | null;
       }
     }
 
-    export interface NullableVariant {}
+    export interface PromptDataPrompt2 {}
   }
 }
 
