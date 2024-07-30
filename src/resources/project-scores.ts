@@ -117,7 +117,7 @@ export interface ProjectScore {
    * For categorical-type project scores, the list of all categories
    */
   categories?:
-    | Array<ProjectScore.UnionMember0>
+    | Array<ProjectScore.Categorical>
     | Record<string, number>
     | Array<string>
     | ProjectScore.NullableVariant
@@ -146,7 +146,7 @@ export namespace ProjectScore {
   /**
    * For categorical-type project scores, defines a single category
    */
-  export interface UnionMember0 {
+  export interface Categorical {
     /**
      * Name of the category
      */
@@ -187,7 +187,7 @@ export interface ProjectScoreCreateParams {
    * For categorical-type project scores, the list of all categories
    */
   categories?:
-    | Array<ProjectScoreCreateParams.UnionMember0>
+    | Array<ProjectScoreCreateParams.Categorical>
     | Record<string, number>
     | Array<string>
     | ProjectScoreCreateParams.NullableVariant
@@ -203,7 +203,7 @@ export namespace ProjectScoreCreateParams {
   /**
    * For categorical-type project scores, defines a single category
    */
-  export interface UnionMember0 {
+  export interface Categorical {
     /**
      * Name of the category
      */
@@ -223,7 +223,7 @@ export interface ProjectScoreUpdateParams {
    * For categorical-type project scores, the list of all categories
    */
   categories?:
-    | Array<ProjectScoreUpdateParams.UnionMember0>
+    | Array<ProjectScoreUpdateParams.Categorical>
     | Record<string, number>
     | Array<string>
     | ProjectScoreUpdateParams.NullableVariant
@@ -249,7 +249,7 @@ export namespace ProjectScoreUpdateParams {
   /**
    * For categorical-type project scores, defines a single category
    */
-  export interface UnionMember0 {
+  export interface Categorical {
     /**
      * Name of the category
      */
@@ -307,7 +307,7 @@ export interface ProjectScoreReplaceParams {
    * For categorical-type project scores, the list of all categories
    */
   categories?:
-    | Array<ProjectScoreReplaceParams.UnionMember0>
+    | Array<ProjectScoreReplaceParams.Categorical>
     | Record<string, number>
     | Array<string>
     | ProjectScoreReplaceParams.NullableVariant
@@ -323,7 +323,7 @@ export namespace ProjectScoreReplaceParams {
   /**
    * For categorical-type project scores, defines a single category
    */
-  export interface UnionMember0 {
+  export interface Categorical {
     /**
      * Name of the category
      */
