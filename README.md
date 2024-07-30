@@ -22,7 +22,9 @@ The full API of this library can be found in [api.md](api.md).
 ```js
 import Braintrust from '@braintrust/api';
 
-const client = new Braintrust();
+const client = new Braintrust({
+  apiKey: process.env['BRAINTRUST_API_KEY'], // This is the default and can be omitted
+});
 
 async function main() {
   const project = await client.projects.create({ name: 'foobar' });
@@ -41,7 +43,9 @@ This library includes TypeScript definitions for all request params and response
 ```ts
 import Braintrust from '@braintrust/api';
 
-const client = new Braintrust();
+const client = new Braintrust({
+  apiKey: process.env['BRAINTRUST_API_KEY'], // This is the default and can be omitted
+});
 
 async function main() {
   const params: Braintrust.ProjectCreateParams = { name: 'foobar' };
