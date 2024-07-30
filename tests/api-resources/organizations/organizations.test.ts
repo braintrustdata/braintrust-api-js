@@ -54,7 +54,13 @@ describe('resource organizations', () => {
     await expect(
       client.organizations.update(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        { api_url: 'api_url', name: 'name', proxy_url: 'proxy_url', realtime_url: 'realtime_url' },
+        {
+          api_url: 'api_url',
+          is_universal_api: true,
+          name: 'name',
+          proxy_url: 'proxy_url',
+          realtime_url: 'realtime_url',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Braintrust.NotFoundError);

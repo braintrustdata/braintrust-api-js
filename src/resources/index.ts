@@ -48,7 +48,6 @@ export {
   FunctionCreateParams,
   FunctionUpdateParams,
   FunctionListParams,
-  FunctionFeedbackParams,
   FunctionReplaceParams,
   FunctionsListObjects,
   Functions,
@@ -68,7 +67,7 @@ export {
   OrganizationListParams,
   OrganizationsListObjects,
   Organizations,
-} from './organizations';
+} from './organizations/organizations';
 export {
   Project,
   ProjectCreateParams,
@@ -100,7 +99,6 @@ export {
   PromptCreateParams,
   PromptUpdateParams,
   PromptListParams,
-  PromptFeedbackParams,
   PromptReplaceParams,
   PromptsListObjects,
   Prompts,
