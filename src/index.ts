@@ -157,6 +157,7 @@ export class Braintrust extends Core.APIClient {
   }
 
   static Braintrust = this;
+  static DEFAULT_TIMEOUT = 60000; // 1 minute
 
   static BraintrustError = Errors.BraintrustError;
   static APIError = Errors.APIError;
