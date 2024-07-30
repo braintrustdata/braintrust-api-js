@@ -225,7 +225,7 @@ export namespace Function {
 
     origin?: PromptData.Origin | null;
 
-    prompt?: PromptData.Completion | PromptData.Chat | PromptData.UnionMember2 | null;
+    prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullVariant | null;
   }
 
   export namespace PromptData {
@@ -460,7 +460,7 @@ export namespace Function {
       }
     }
 
-    export interface UnionMember2 {}
+    export interface NullVariant {}
   }
 }
 
@@ -558,7 +558,7 @@ export namespace FunctionCreateParams {
 
     origin?: PromptData.Origin | null;
 
-    prompt?: PromptData.Completion | PromptData.Chat | PromptData.UnionMember2 | null;
+    prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullVariant | null;
   }
 
   export namespace PromptData {
@@ -793,7 +793,7 @@ export namespace FunctionCreateParams {
       }
     }
 
-    export interface UnionMember2 {}
+    export interface NullVariant {}
   }
 }
 
@@ -885,7 +885,7 @@ export namespace FunctionUpdateParams {
 
     origin?: PromptData.Origin | null;
 
-    prompt?: PromptData.Completion | PromptData.Chat | PromptData.UnionMember2 | null;
+    prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullVariant | null;
   }
 
   export namespace PromptData {
@@ -1120,7 +1120,7 @@ export namespace FunctionUpdateParams {
       }
     }
 
-    export interface UnionMember2 {}
+    export interface NullVariant {}
   }
 }
 
@@ -1287,7 +1287,7 @@ export namespace FunctionReplaceParams {
 
     origin?: PromptData.Origin | null;
 
-    prompt?: PromptData.Completion | PromptData.Chat | PromptData.UnionMember2 | null;
+    prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullVariant | null;
   }
 
   export namespace PromptData {
@@ -1522,7 +1522,7 @@ export namespace FunctionReplaceParams {
       }
     }
 
-    export interface UnionMember2 {}
+    export interface NullVariant {}
   }
 }
 
