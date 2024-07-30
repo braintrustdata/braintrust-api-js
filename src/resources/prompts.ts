@@ -168,7 +168,7 @@ export namespace Prompt {
 
     origin?: PromptData.Origin | null;
 
-    prompt?: PromptData.Completion | PromptData.Chat | PromptData.UnionMember2 | null;
+    prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullVariant | null;
   }
 
   export namespace PromptData {
@@ -403,7 +403,7 @@ export namespace Prompt {
       }
     }
 
-    export interface UnionMember2 {}
+    export interface NullVariant {}
   }
 }
 
@@ -448,7 +448,7 @@ export namespace PromptCreateParams {
 
     origin?: PromptData.Origin | null;
 
-    prompt?: PromptData.Completion | PromptData.Chat | PromptData.UnionMember2 | null;
+    prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullVariant | null;
   }
 
   export namespace PromptData {
@@ -683,7 +683,7 @@ export namespace PromptCreateParams {
       }
     }
 
-    export interface UnionMember2 {}
+    export interface NullVariant {}
   }
 }
 
@@ -718,7 +718,7 @@ export namespace PromptUpdateParams {
 
     origin?: PromptData.Origin | null;
 
-    prompt?: PromptData.Completion | PromptData.Chat | PromptData.UnionMember2 | null;
+    prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullVariant | null;
   }
 
   export namespace PromptData {
@@ -953,7 +953,7 @@ export namespace PromptUpdateParams {
       }
     }
 
-    export interface UnionMember2 {}
+    export interface NullVariant {}
   }
 }
 
@@ -1067,7 +1067,7 @@ export namespace PromptReplaceParams {
 
     origin?: PromptData.Origin | null;
 
-    prompt?: PromptData.Completion | PromptData.Chat | PromptData.UnionMember2 | null;
+    prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullVariant | null;
   }
 
   export namespace PromptData {
@@ -1302,7 +1302,7 @@ export namespace PromptReplaceParams {
       }
     }
 
-    export interface UnionMember2 {}
+    export interface NullVariant {}
   }
 }
 
