@@ -25,7 +25,7 @@ import Braintrust from '@braintrust/api';
 const client = new Braintrust();
 
 async function main() {
-  const project = await client.projects.create({ name: 'name' });
+  const project = await client.projects.create({ name: 'foobar' });
 
   console.log(project.id);
 }
@@ -44,7 +44,7 @@ import Braintrust from '@braintrust/api';
 const client = new Braintrust();
 
 async function main() {
-  const params: Braintrust.ProjectCreateParams = { name: 'name' };
+  const params: Braintrust.ProjectCreateParams = { name: 'foobar' };
   const project: Braintrust.Project = await client.projects.create(params);
 }
 
@@ -62,7 +62,7 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const project = await client.projects.create({ name: 'name' }).catch(async (err) => {
+  const project = await client.projects.create({ name: 'foobar' }).catch(async (err) => {
     if (err instanceof Braintrust.APIError) {
       console.log(err.status); // 400
       console.log(err.name); // BadRequestError
@@ -105,7 +105,7 @@ const client = new Braintrust({
 });
 
 // Or, configure per-request:
-await client.projects.create({ name: 'name' }, {
+await client.projects.create({ name: 'foobar' }, {
   maxRetries: 5,
 });
 ```
@@ -122,7 +122,7 @@ const client = new Braintrust({
 });
 
 // Override per-request:
-await client.projects.create({ name: 'name' }, {
+await client.projects.create({ name: 'foobar' }, {
   timeout: 5 * 1000,
 });
 ```
@@ -174,11 +174,11 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 ```ts
 const client = new Braintrust();
 
-const response = await client.projects.create({ name: 'name' }).asResponse();
+const response = await client.projects.create({ name: 'foobar' }).asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: project, response: raw } = await client.projects.create({ name: 'name' }).withResponse();
+const { data: project, response: raw } = await client.projects.create({ name: 'foobar' }).withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(project.id);
 ```
@@ -285,7 +285,7 @@ const client = new Braintrust({
 
 // Override per-request:
 await client.projects.create(
-  { name: 'name' },
+  { name: 'foobar' },
   {
     httpAgent: new http.Agent({ keepAlive: false }),
   },
