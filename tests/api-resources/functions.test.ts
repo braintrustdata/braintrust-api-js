@@ -186,29 +186,6 @@ describe('resource functions', () => {
     ).rejects.toThrow(Braintrust.NotFoundError);
   });
 
-  test('feedback: only required params', async () => {
-    const responsePromise = client.functions.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      feedback: [{ id: 'id' }, { id: 'id' }, { id: 'id' }],
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('feedback: required and optional params', async () => {
-    const response = await client.functions.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      feedback: [
-        { id: 'id', comment: 'comment', metadata: { foo: {} }, source: 'app' },
-        { id: 'id', comment: 'comment', metadata: { foo: {} }, source: 'app' },
-        { id: 'id', comment: 'comment', metadata: { foo: {} }, source: 'app' },
-      ],
-    });
-  });
-
   test('replace: only required params', async () => {
     const responsePromise = client.functions.replace({
       function_data: { type: 'prompt' },

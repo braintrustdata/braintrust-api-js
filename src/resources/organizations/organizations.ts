@@ -1,12 +1,15 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../resource';
-import { isRequestOptions } from '../core';
-import * as Core from '../core';
+import { APIResource } from '../../resource';
+import { isRequestOptions } from '../../core';
+import * as Core from '../../core';
 import * as OrganizationsAPI from './organizations';
-import { ListObjects, type ListObjectsParams } from '../pagination';
+import * as MembersAPI from './members';
+import { ListObjects, type ListObjectsParams } from '../../pagination';
 
 export class Organizations extends APIResource {
+  members: MembersAPI.Members = new MembersAPI.Members(this._client);
+
   /**
    * Get a organization object by its id
    */
@@ -86,6 +89,8 @@ export interface Organization {
    */
   created?: string | null;
 
+  is_universal_api?: boolean | null;
+
   proxy_url?: string | null;
 
   realtime_url?: string | null;
@@ -93,6 +98,8 @@ export interface Organization {
 
 export interface OrganizationUpdateParams {
   api_url?: string | null;
+
+  is_universal_api?: boolean | null;
 
   /**
    * Name of the organization
@@ -127,4 +134,7 @@ export namespace Organizations {
   export import OrganizationsListObjects = OrganizationsAPI.OrganizationsListObjects;
   export import OrganizationUpdateParams = OrganizationsAPI.OrganizationUpdateParams;
   export import OrganizationListParams = OrganizationsAPI.OrganizationListParams;
+  export import Members = MembersAPI.Members;
+  export import MemberUpdateResponse = MembersAPI.MemberUpdateResponse;
+  export import MemberUpdateParams = MembersAPI.MemberUpdateParams;
 }

@@ -72,21 +72,6 @@ export class Functions extends APIResource {
   }
 
   /**
-   * Log feedback for a set of function events
-   */
-  feedback(
-    functionId: string,
-    body: FunctionFeedbackParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<void> {
-    return this._client.post(`/v1/function/${functionId}/feedback`, {
-      body,
-      ...options,
-      headers: { Accept: '*/*', ...options?.headers },
-    });
-  }
-
-  /**
    * Create or replace function. If there is an existing function in the project with
    * the same slug as the one specified in the request, will replace the existing
    * function with the provided fields
@@ -115,7 +100,7 @@ export interface Function {
    */
   _xact_id: string;
 
-  function_data: Function.Type | Function.UnionMember1 | Function.UnionMember2;
+  function_data: Function.Prompt | Function.Code | Function.Global;
 
   /**
    * A literal 'p' which identifies the object as a project prompt
@@ -169,17 +154,17 @@ export interface Function {
 }
 
 export namespace Function {
-  export interface Type {
+  export interface Prompt {
     type: 'prompt';
   }
 
-  export interface UnionMember1 {
-    data: UnionMember1.Data;
+  export interface Code {
+    data: Code.Data;
 
     type: 'code';
   }
 
-  export namespace UnionMember1 {
+  export namespace Code {
     export interface Data {
       bundle_id: string;
 
@@ -211,7 +196,7 @@ export namespace Function {
     }
   }
 
-  export interface UnionMember2 {
+  export interface Global {
     name: string;
 
     type: 'global';
@@ -225,7 +210,7 @@ export namespace Function {
 
     origin?: PromptData.Origin | null;
 
-    prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullVariant | null;
+    prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullableVariant | null;
   }
 
   export namespace PromptData {
@@ -233,20 +218,20 @@ export namespace Function {
       model?: string;
 
       params?:
-        | Options.UnionMember0
-        | Options.UnionMember1
-        | Options.UnionMember2
-        | Options.UnionMember3
-        | Options.UseCache;
+        | Options.OpenAIModelParams
+        | Options.AnthropicModelParams
+        | Options.GoogleModelParams
+        | Options.WindowAIModelParams
+        | Options.JsCompletionParams;
 
       position?: string;
     }
 
     export namespace Options {
-      export interface UnionMember0 {
+      export interface OpenAIModelParams {
         frequency_penalty?: number;
 
-        function_call?: 'auto' | 'none' | UnionMember0.Name;
+        function_call?: 'auto' | 'none' | OpenAIModelParams.Name;
 
         max_tokens?: number;
 
@@ -254,20 +239,20 @@ export namespace Function {
 
         presence_penalty?: number;
 
-        response_format?: UnionMember0.ResponseFormat | null;
+        response_format?: OpenAIModelParams.ResponseFormat | null;
 
         stop?: Array<string>;
 
         temperature?: number;
 
-        tool_choice?: 'auto' | 'none' | UnionMember0.UnionMember2;
+        tool_choice?: 'auto' | 'none' | OpenAIModelParams.UnionMember2;
 
         top_p?: number;
 
         use_cache?: boolean;
       }
 
-      export namespace UnionMember0 {
+      export namespace OpenAIModelParams {
         export interface Name {
           name: string;
         }
@@ -289,7 +274,7 @@ export namespace Function {
         }
       }
 
-      export interface UnionMember1 {
+      export interface AnthropicModelParams {
         max_tokens: number;
 
         temperature: number;
@@ -308,7 +293,7 @@ export namespace Function {
         use_cache?: boolean;
       }
 
-      export interface UnionMember2 {
+      export interface GoogleModelParams {
         maxOutputTokens?: number;
 
         temperature?: number;
@@ -320,7 +305,7 @@ export namespace Function {
         use_cache?: boolean;
       }
 
-      export interface UnionMember3 {
+      export interface WindowAIModelParams {
         temperature?: number;
 
         topK?: number;
@@ -328,7 +313,7 @@ export namespace Function {
         use_cache?: boolean;
       }
 
-      export interface UseCache {
+      export interface JsCompletionParams {
         use_cache?: boolean;
       }
     }
@@ -348,14 +333,7 @@ export namespace Function {
     }
 
     export interface Chat {
-      messages: Array<
-        | Chat.UnionMember0
-        | Chat.UnionMember1
-        | Chat.UnionMember2
-        | Chat.UnionMember3
-        | Chat.UnionMember4
-        | Chat.UnionMember5
-      >;
+      messages: Array<Chat.System | Chat.User | Chat.Assistant | Chat.Tool | Chat.Function | Chat.Fallback>;
 
       type: 'chat';
 
@@ -363,7 +341,7 @@ export namespace Function {
     }
 
     export namespace Chat {
-      export interface UnionMember0 {
+      export interface System {
         role: 'system';
 
         content?: string;
@@ -371,28 +349,28 @@ export namespace Function {
         name?: string;
       }
 
-      export interface UnionMember1 {
+      export interface User {
         role: 'user';
 
-        content?: string | Array<UnionMember1.UnionMember0 | UnionMember1.UnionMember1>;
+        content?: string | Array<User.Text | User.ImageURL>;
 
         name?: string;
       }
 
-      export namespace UnionMember1 {
-        export interface UnionMember0 {
+      export namespace User {
+        export interface Text {
           type: 'text';
 
           text?: string;
         }
 
-        export interface UnionMember1 {
-          image_url: UnionMember1.ImageURL;
+        export interface ImageURL {
+          image_url: ImageURL.ImageURL;
 
           type: 'image_url';
         }
 
-        export namespace UnionMember1 {
+        export namespace ImageURL {
           export interface ImageURL {
             url: string;
 
@@ -401,19 +379,19 @@ export namespace Function {
         }
       }
 
-      export interface UnionMember2 {
+      export interface Assistant {
         role: 'assistant';
 
         content?: string | null;
 
-        function_call?: UnionMember2.FunctionCall;
+        function_call?: Assistant.FunctionCall;
 
         name?: string;
 
-        tool_calls?: Array<UnionMember2.ToolCall>;
+        tool_calls?: Array<Assistant.ToolCall>;
       }
 
-      export namespace UnionMember2 {
+      export namespace Assistant {
         export interface FunctionCall {
           arguments: string;
 
@@ -437,7 +415,7 @@ export namespace Function {
         }
       }
 
-      export interface UnionMember3 {
+      export interface Tool {
         role: 'tool';
 
         content?: string;
@@ -445,7 +423,7 @@ export namespace Function {
         tool_call_id?: string;
       }
 
-      export interface UnionMember4 {
+      export interface Function {
         name: string;
 
         role: 'function';
@@ -453,22 +431,19 @@ export namespace Function {
         content?: string;
       }
 
-      export interface UnionMember5 {
+      export interface Fallback {
         role: 'model';
 
         content?: string | null;
       }
     }
 
-    export interface NullVariant {}
+    export interface NullableVariant {}
   }
 }
 
 export interface FunctionCreateParams {
-  function_data:
-    | FunctionCreateParams.Type
-    | FunctionCreateParams.UnionMember1
-    | FunctionCreateParams.UnionMember2;
+  function_data: FunctionCreateParams.Prompt | FunctionCreateParams.Code | FunctionCreateParams.Global;
 
   /**
    * Name of the prompt
@@ -502,17 +477,17 @@ export interface FunctionCreateParams {
 }
 
 export namespace FunctionCreateParams {
-  export interface Type {
+  export interface Prompt {
     type: 'prompt';
   }
 
-  export interface UnionMember1 {
-    data: UnionMember1.Data;
+  export interface Code {
+    data: Code.Data;
 
     type: 'code';
   }
 
-  export namespace UnionMember1 {
+  export namespace Code {
     export interface Data {
       bundle_id: string;
 
@@ -544,7 +519,7 @@ export namespace FunctionCreateParams {
     }
   }
 
-  export interface UnionMember2 {
+  export interface Global {
     name: string;
 
     type: 'global';
@@ -558,7 +533,7 @@ export namespace FunctionCreateParams {
 
     origin?: PromptData.Origin | null;
 
-    prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullVariant | null;
+    prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullableVariant | null;
   }
 
   export namespace PromptData {
@@ -566,20 +541,20 @@ export namespace FunctionCreateParams {
       model?: string;
 
       params?:
-        | Options.UnionMember0
-        | Options.UnionMember1
-        | Options.UnionMember2
-        | Options.UnionMember3
-        | Options.UseCache;
+        | Options.OpenAIModelParams
+        | Options.AnthropicModelParams
+        | Options.GoogleModelParams
+        | Options.WindowAIModelParams
+        | Options.JsCompletionParams;
 
       position?: string;
     }
 
     export namespace Options {
-      export interface UnionMember0 {
+      export interface OpenAIModelParams {
         frequency_penalty?: number;
 
-        function_call?: 'auto' | 'none' | UnionMember0.Name;
+        function_call?: 'auto' | 'none' | OpenAIModelParams.Name;
 
         max_tokens?: number;
 
@@ -587,20 +562,20 @@ export namespace FunctionCreateParams {
 
         presence_penalty?: number;
 
-        response_format?: UnionMember0.ResponseFormat | null;
+        response_format?: OpenAIModelParams.ResponseFormat | null;
 
         stop?: Array<string>;
 
         temperature?: number;
 
-        tool_choice?: 'auto' | 'none' | UnionMember0.UnionMember2;
+        tool_choice?: 'auto' | 'none' | OpenAIModelParams.UnionMember2;
 
         top_p?: number;
 
         use_cache?: boolean;
       }
 
-      export namespace UnionMember0 {
+      export namespace OpenAIModelParams {
         export interface Name {
           name: string;
         }
@@ -622,7 +597,7 @@ export namespace FunctionCreateParams {
         }
       }
 
-      export interface UnionMember1 {
+      export interface AnthropicModelParams {
         max_tokens: number;
 
         temperature: number;
@@ -641,7 +616,7 @@ export namespace FunctionCreateParams {
         use_cache?: boolean;
       }
 
-      export interface UnionMember2 {
+      export interface GoogleModelParams {
         maxOutputTokens?: number;
 
         temperature?: number;
@@ -653,7 +628,7 @@ export namespace FunctionCreateParams {
         use_cache?: boolean;
       }
 
-      export interface UnionMember3 {
+      export interface WindowAIModelParams {
         temperature?: number;
 
         topK?: number;
@@ -661,7 +636,7 @@ export namespace FunctionCreateParams {
         use_cache?: boolean;
       }
 
-      export interface UseCache {
+      export interface JsCompletionParams {
         use_cache?: boolean;
       }
     }
@@ -681,14 +656,7 @@ export namespace FunctionCreateParams {
     }
 
     export interface Chat {
-      messages: Array<
-        | Chat.UnionMember0
-        | Chat.UnionMember1
-        | Chat.UnionMember2
-        | Chat.UnionMember3
-        | Chat.UnionMember4
-        | Chat.UnionMember5
-      >;
+      messages: Array<Chat.System | Chat.User | Chat.Assistant | Chat.Tool | Chat.Function | Chat.Fallback>;
 
       type: 'chat';
 
@@ -696,7 +664,7 @@ export namespace FunctionCreateParams {
     }
 
     export namespace Chat {
-      export interface UnionMember0 {
+      export interface System {
         role: 'system';
 
         content?: string;
@@ -704,28 +672,28 @@ export namespace FunctionCreateParams {
         name?: string;
       }
 
-      export interface UnionMember1 {
+      export interface User {
         role: 'user';
 
-        content?: string | Array<UnionMember1.UnionMember0 | UnionMember1.UnionMember1>;
+        content?: string | Array<User.Text | User.ImageURL>;
 
         name?: string;
       }
 
-      export namespace UnionMember1 {
-        export interface UnionMember0 {
+      export namespace User {
+        export interface Text {
           type: 'text';
 
           text?: string;
         }
 
-        export interface UnionMember1 {
-          image_url: UnionMember1.ImageURL;
+        export interface ImageURL {
+          image_url: ImageURL.ImageURL;
 
           type: 'image_url';
         }
 
-        export namespace UnionMember1 {
+        export namespace ImageURL {
           export interface ImageURL {
             url: string;
 
@@ -734,19 +702,19 @@ export namespace FunctionCreateParams {
         }
       }
 
-      export interface UnionMember2 {
+      export interface Assistant {
         role: 'assistant';
 
         content?: string | null;
 
-        function_call?: UnionMember2.FunctionCall;
+        function_call?: Assistant.FunctionCall;
 
         name?: string;
 
-        tool_calls?: Array<UnionMember2.ToolCall>;
+        tool_calls?: Array<Assistant.ToolCall>;
       }
 
-      export namespace UnionMember2 {
+      export namespace Assistant {
         export interface FunctionCall {
           arguments: string;
 
@@ -770,7 +738,7 @@ export namespace FunctionCreateParams {
         }
       }
 
-      export interface UnionMember3 {
+      export interface Tool {
         role: 'tool';
 
         content?: string;
@@ -778,7 +746,7 @@ export namespace FunctionCreateParams {
         tool_call_id?: string;
       }
 
-      export interface UnionMember4 {
+      export interface Function {
         name: string;
 
         role: 'function';
@@ -786,14 +754,14 @@ export namespace FunctionCreateParams {
         content?: string;
       }
 
-      export interface UnionMember5 {
+      export interface Fallback {
         role: 'model';
 
         content?: string | null;
       }
     }
 
-    export interface NullVariant {}
+    export interface NullableVariant {}
   }
 }
 
@@ -804,10 +772,10 @@ export interface FunctionUpdateParams {
   description?: string | null;
 
   function_data?:
-    | FunctionUpdateParams.Type
-    | FunctionUpdateParams.UnionMember1
-    | FunctionUpdateParams.UnionMember2
-    | FunctionUpdateParams.UnionMember3
+    | FunctionUpdateParams.Prompt
+    | FunctionUpdateParams.Code
+    | FunctionUpdateParams.Global
+    | FunctionUpdateParams.NullableVariant
     | null;
 
   /**
@@ -827,17 +795,17 @@ export interface FunctionUpdateParams {
 }
 
 export namespace FunctionUpdateParams {
-  export interface Type {
+  export interface Prompt {
     type: 'prompt';
   }
 
-  export interface UnionMember1 {
-    data: UnionMember1.Data;
+  export interface Code {
+    data: Code.Data;
 
     type: 'code';
   }
 
-  export namespace UnionMember1 {
+  export namespace Code {
     export interface Data {
       bundle_id: string;
 
@@ -869,13 +837,13 @@ export namespace FunctionUpdateParams {
     }
   }
 
-  export interface UnionMember2 {
+  export interface Global {
     name: string;
 
     type: 'global';
   }
 
-  export interface UnionMember3 {}
+  export interface NullableVariant {}
 
   /**
    * The prompt, model, and its parameters
@@ -885,7 +853,7 @@ export namespace FunctionUpdateParams {
 
     origin?: PromptData.Origin | null;
 
-    prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullVariant | null;
+    prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullableVariant | null;
   }
 
   export namespace PromptData {
@@ -893,20 +861,20 @@ export namespace FunctionUpdateParams {
       model?: string;
 
       params?:
-        | Options.UnionMember0
-        | Options.UnionMember1
-        | Options.UnionMember2
-        | Options.UnionMember3
-        | Options.UseCache;
+        | Options.OpenAIModelParams
+        | Options.AnthropicModelParams
+        | Options.GoogleModelParams
+        | Options.WindowAIModelParams
+        | Options.JsCompletionParams;
 
       position?: string;
     }
 
     export namespace Options {
-      export interface UnionMember0 {
+      export interface OpenAIModelParams {
         frequency_penalty?: number;
 
-        function_call?: 'auto' | 'none' | UnionMember0.Name;
+        function_call?: 'auto' | 'none' | OpenAIModelParams.Name;
 
         max_tokens?: number;
 
@@ -914,20 +882,20 @@ export namespace FunctionUpdateParams {
 
         presence_penalty?: number;
 
-        response_format?: UnionMember0.ResponseFormat | null;
+        response_format?: OpenAIModelParams.ResponseFormat | null;
 
         stop?: Array<string>;
 
         temperature?: number;
 
-        tool_choice?: 'auto' | 'none' | UnionMember0.UnionMember2;
+        tool_choice?: 'auto' | 'none' | OpenAIModelParams.UnionMember2;
 
         top_p?: number;
 
         use_cache?: boolean;
       }
 
-      export namespace UnionMember0 {
+      export namespace OpenAIModelParams {
         export interface Name {
           name: string;
         }
@@ -949,7 +917,7 @@ export namespace FunctionUpdateParams {
         }
       }
 
-      export interface UnionMember1 {
+      export interface AnthropicModelParams {
         max_tokens: number;
 
         temperature: number;
@@ -968,7 +936,7 @@ export namespace FunctionUpdateParams {
         use_cache?: boolean;
       }
 
-      export interface UnionMember2 {
+      export interface GoogleModelParams {
         maxOutputTokens?: number;
 
         temperature?: number;
@@ -980,7 +948,7 @@ export namespace FunctionUpdateParams {
         use_cache?: boolean;
       }
 
-      export interface UnionMember3 {
+      export interface WindowAIModelParams {
         temperature?: number;
 
         topK?: number;
@@ -988,7 +956,7 @@ export namespace FunctionUpdateParams {
         use_cache?: boolean;
       }
 
-      export interface UseCache {
+      export interface JsCompletionParams {
         use_cache?: boolean;
       }
     }
@@ -1008,14 +976,7 @@ export namespace FunctionUpdateParams {
     }
 
     export interface Chat {
-      messages: Array<
-        | Chat.UnionMember0
-        | Chat.UnionMember1
-        | Chat.UnionMember2
-        | Chat.UnionMember3
-        | Chat.UnionMember4
-        | Chat.UnionMember5
-      >;
+      messages: Array<Chat.System | Chat.User | Chat.Assistant | Chat.Tool | Chat.Function | Chat.Fallback>;
 
       type: 'chat';
 
@@ -1023,7 +984,7 @@ export namespace FunctionUpdateParams {
     }
 
     export namespace Chat {
-      export interface UnionMember0 {
+      export interface System {
         role: 'system';
 
         content?: string;
@@ -1031,28 +992,28 @@ export namespace FunctionUpdateParams {
         name?: string;
       }
 
-      export interface UnionMember1 {
+      export interface User {
         role: 'user';
 
-        content?: string | Array<UnionMember1.UnionMember0 | UnionMember1.UnionMember1>;
+        content?: string | Array<User.Text | User.ImageURL>;
 
         name?: string;
       }
 
-      export namespace UnionMember1 {
-        export interface UnionMember0 {
+      export namespace User {
+        export interface Text {
           type: 'text';
 
           text?: string;
         }
 
-        export interface UnionMember1 {
-          image_url: UnionMember1.ImageURL;
+        export interface ImageURL {
+          image_url: ImageURL.ImageURL;
 
           type: 'image_url';
         }
 
-        export namespace UnionMember1 {
+        export namespace ImageURL {
           export interface ImageURL {
             url: string;
 
@@ -1061,19 +1022,19 @@ export namespace FunctionUpdateParams {
         }
       }
 
-      export interface UnionMember2 {
+      export interface Assistant {
         role: 'assistant';
 
         content?: string | null;
 
-        function_call?: UnionMember2.FunctionCall;
+        function_call?: Assistant.FunctionCall;
 
         name?: string;
 
-        tool_calls?: Array<UnionMember2.ToolCall>;
+        tool_calls?: Array<Assistant.ToolCall>;
       }
 
-      export namespace UnionMember2 {
+      export namespace Assistant {
         export interface FunctionCall {
           arguments: string;
 
@@ -1097,7 +1058,7 @@ export namespace FunctionUpdateParams {
         }
       }
 
-      export interface UnionMember3 {
+      export interface Tool {
         role: 'tool';
 
         content?: string;
@@ -1105,7 +1066,7 @@ export namespace FunctionUpdateParams {
         tool_call_id?: string;
       }
 
-      export interface UnionMember4 {
+      export interface Function {
         name: string;
 
         role: 'function';
@@ -1113,14 +1074,14 @@ export namespace FunctionUpdateParams {
         content?: string;
       }
 
-      export interface UnionMember5 {
+      export interface Fallback {
         role: 'model';
 
         content?: string | null;
       }
     }
 
-    export interface NullVariant {}
+    export interface NullableVariant {}
   }
 }
 
@@ -1160,44 +1121,8 @@ export interface FunctionListParams extends ListObjectsParams {
   version?: string;
 }
 
-export interface FunctionFeedbackParams {
-  /**
-   * A list of function feedback items
-   */
-  feedback: Array<FunctionFeedbackParams.Feedback>;
-}
-
-export namespace FunctionFeedbackParams {
-  export interface Feedback {
-    /**
-     * The id of the function event to log feedback for. This is the row `id` returned
-     * by `POST /v1/function/{function_id}/insert`
-     */
-    id: string;
-
-    /**
-     * An optional comment string to log about the function event
-     */
-    comment?: string | null;
-
-    /**
-     * A dictionary with additional data about the feedback. If you have a `user_id`,
-     * you can log it here and access it in the Braintrust UI.
-     */
-    metadata?: Record<string, unknown> | null;
-
-    /**
-     * The source of the feedback. Must be one of "external" (default), "app", or "api"
-     */
-    source?: 'app' | 'api' | 'external' | null;
-  }
-}
-
 export interface FunctionReplaceParams {
-  function_data:
-    | FunctionReplaceParams.Type
-    | FunctionReplaceParams.UnionMember1
-    | FunctionReplaceParams.UnionMember2;
+  function_data: FunctionReplaceParams.Prompt | FunctionReplaceParams.Code | FunctionReplaceParams.Global;
 
   /**
    * Name of the prompt
@@ -1231,17 +1156,17 @@ export interface FunctionReplaceParams {
 }
 
 export namespace FunctionReplaceParams {
-  export interface Type {
+  export interface Prompt {
     type: 'prompt';
   }
 
-  export interface UnionMember1 {
-    data: UnionMember1.Data;
+  export interface Code {
+    data: Code.Data;
 
     type: 'code';
   }
 
-  export namespace UnionMember1 {
+  export namespace Code {
     export interface Data {
       bundle_id: string;
 
@@ -1273,7 +1198,7 @@ export namespace FunctionReplaceParams {
     }
   }
 
-  export interface UnionMember2 {
+  export interface Global {
     name: string;
 
     type: 'global';
@@ -1287,7 +1212,7 @@ export namespace FunctionReplaceParams {
 
     origin?: PromptData.Origin | null;
 
-    prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullVariant | null;
+    prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullableVariant | null;
   }
 
   export namespace PromptData {
@@ -1295,20 +1220,20 @@ export namespace FunctionReplaceParams {
       model?: string;
 
       params?:
-        | Options.UnionMember0
-        | Options.UnionMember1
-        | Options.UnionMember2
-        | Options.UnionMember3
-        | Options.UseCache;
+        | Options.OpenAIModelParams
+        | Options.AnthropicModelParams
+        | Options.GoogleModelParams
+        | Options.WindowAIModelParams
+        | Options.JsCompletionParams;
 
       position?: string;
     }
 
     export namespace Options {
-      export interface UnionMember0 {
+      export interface OpenAIModelParams {
         frequency_penalty?: number;
 
-        function_call?: 'auto' | 'none' | UnionMember0.Name;
+        function_call?: 'auto' | 'none' | OpenAIModelParams.Name;
 
         max_tokens?: number;
 
@@ -1316,20 +1241,20 @@ export namespace FunctionReplaceParams {
 
         presence_penalty?: number;
 
-        response_format?: UnionMember0.ResponseFormat | null;
+        response_format?: OpenAIModelParams.ResponseFormat | null;
 
         stop?: Array<string>;
 
         temperature?: number;
 
-        tool_choice?: 'auto' | 'none' | UnionMember0.UnionMember2;
+        tool_choice?: 'auto' | 'none' | OpenAIModelParams.UnionMember2;
 
         top_p?: number;
 
         use_cache?: boolean;
       }
 
-      export namespace UnionMember0 {
+      export namespace OpenAIModelParams {
         export interface Name {
           name: string;
         }
@@ -1351,7 +1276,7 @@ export namespace FunctionReplaceParams {
         }
       }
 
-      export interface UnionMember1 {
+      export interface AnthropicModelParams {
         max_tokens: number;
 
         temperature: number;
@@ -1370,7 +1295,7 @@ export namespace FunctionReplaceParams {
         use_cache?: boolean;
       }
 
-      export interface UnionMember2 {
+      export interface GoogleModelParams {
         maxOutputTokens?: number;
 
         temperature?: number;
@@ -1382,7 +1307,7 @@ export namespace FunctionReplaceParams {
         use_cache?: boolean;
       }
 
-      export interface UnionMember3 {
+      export interface WindowAIModelParams {
         temperature?: number;
 
         topK?: number;
@@ -1390,7 +1315,7 @@ export namespace FunctionReplaceParams {
         use_cache?: boolean;
       }
 
-      export interface UseCache {
+      export interface JsCompletionParams {
         use_cache?: boolean;
       }
     }
@@ -1410,14 +1335,7 @@ export namespace FunctionReplaceParams {
     }
 
     export interface Chat {
-      messages: Array<
-        | Chat.UnionMember0
-        | Chat.UnionMember1
-        | Chat.UnionMember2
-        | Chat.UnionMember3
-        | Chat.UnionMember4
-        | Chat.UnionMember5
-      >;
+      messages: Array<Chat.System | Chat.User | Chat.Assistant | Chat.Tool | Chat.Function | Chat.Fallback>;
 
       type: 'chat';
 
@@ -1425,7 +1343,7 @@ export namespace FunctionReplaceParams {
     }
 
     export namespace Chat {
-      export interface UnionMember0 {
+      export interface System {
         role: 'system';
 
         content?: string;
@@ -1433,28 +1351,28 @@ export namespace FunctionReplaceParams {
         name?: string;
       }
 
-      export interface UnionMember1 {
+      export interface User {
         role: 'user';
 
-        content?: string | Array<UnionMember1.UnionMember0 | UnionMember1.UnionMember1>;
+        content?: string | Array<User.Text | User.ImageURL>;
 
         name?: string;
       }
 
-      export namespace UnionMember1 {
-        export interface UnionMember0 {
+      export namespace User {
+        export interface Text {
           type: 'text';
 
           text?: string;
         }
 
-        export interface UnionMember1 {
-          image_url: UnionMember1.ImageURL;
+        export interface ImageURL {
+          image_url: ImageURL.ImageURL;
 
           type: 'image_url';
         }
 
-        export namespace UnionMember1 {
+        export namespace ImageURL {
           export interface ImageURL {
             url: string;
 
@@ -1463,19 +1381,19 @@ export namespace FunctionReplaceParams {
         }
       }
 
-      export interface UnionMember2 {
+      export interface Assistant {
         role: 'assistant';
 
         content?: string | null;
 
-        function_call?: UnionMember2.FunctionCall;
+        function_call?: Assistant.FunctionCall;
 
         name?: string;
 
-        tool_calls?: Array<UnionMember2.ToolCall>;
+        tool_calls?: Array<Assistant.ToolCall>;
       }
 
-      export namespace UnionMember2 {
+      export namespace Assistant {
         export interface FunctionCall {
           arguments: string;
 
@@ -1499,7 +1417,7 @@ export namespace FunctionReplaceParams {
         }
       }
 
-      export interface UnionMember3 {
+      export interface Tool {
         role: 'tool';
 
         content?: string;
@@ -1507,7 +1425,7 @@ export namespace FunctionReplaceParams {
         tool_call_id?: string;
       }
 
-      export interface UnionMember4 {
+      export interface Function {
         name: string;
 
         role: 'function';
@@ -1515,14 +1433,14 @@ export namespace FunctionReplaceParams {
         content?: string;
       }
 
-      export interface UnionMember5 {
+      export interface Fallback {
         role: 'model';
 
         content?: string | null;
       }
     }
 
-    export interface NullVariant {}
+    export interface NullableVariant {}
   }
 }
 
@@ -1532,6 +1450,5 @@ export namespace Functions {
   export import FunctionCreateParams = FunctionsAPI.FunctionCreateParams;
   export import FunctionUpdateParams = FunctionsAPI.FunctionUpdateParams;
   export import FunctionListParams = FunctionsAPI.FunctionListParams;
-  export import FunctionFeedbackParams = FunctionsAPI.FunctionFeedbackParams;
   export import FunctionReplaceParams = FunctionsAPI.FunctionReplaceParams;
 }
