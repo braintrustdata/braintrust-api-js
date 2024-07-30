@@ -78,7 +78,6 @@ export {
 } from './projects/projects';
 export {
   ProjectScore,
-  ProjectScoreCategory,
   ProjectScoreCreateParams,
   ProjectScoreUpdateParams,
   ProjectScoreListParams,
