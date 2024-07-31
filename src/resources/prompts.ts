@@ -136,7 +136,7 @@ export interface Prompt {
   /**
    * The prompt, model, and its parameters
    */
-  prompt_data?: Prompt.PromptData | null;
+  prompt_data?: PromptData | null;
 
   /**
    * A list of tags for the prompt
@@ -144,245 +144,243 @@ export interface Prompt {
   tags?: Array<string> | null;
 }
 
-export namespace Prompt {
-  /**
-   * The prompt, model, and its parameters
-   */
-  export interface PromptData {
-    options?: PromptData.Options | null;
+/**
+ * The prompt, model, and its parameters
+ */
+export interface PromptData {
+  options?: PromptData.Options | null;
 
-    origin?: PromptData.Origin | null;
+  origin?: PromptData.Origin | null;
 
-    prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullableVariant | null;
+  prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullableVariant | null;
+}
+
+export namespace PromptData {
+  export interface Options {
+    model?: string;
+
+    params?:
+      | Options.OpenAIModelParams
+      | Options.AnthropicModelParams
+      | Options.GoogleModelParams
+      | Options.WindowAIModelParams
+      | Options.JsCompletionParams;
+
+    position?: string;
   }
 
-  export namespace PromptData {
-    export interface Options {
-      model?: string;
+  export namespace Options {
+    export interface OpenAIModelParams {
+      frequency_penalty?: number;
 
-      params?:
-        | Options.OpenAIModelParams
-        | Options.AnthropicModelParams
-        | Options.GoogleModelParams
-        | Options.WindowAIModelParams
-        | Options.JsCompletionParams;
+      function_call?: 'auto' | 'none' | OpenAIModelParams.Function;
 
-      position?: string;
+      max_tokens?: number;
+
+      n?: number;
+
+      presence_penalty?: number;
+
+      response_format?: OpenAIModelParams.ResponseFormat | null;
+
+      stop?: Array<string>;
+
+      temperature?: number;
+
+      tool_choice?: 'auto' | 'none' | OpenAIModelParams.Function;
+
+      top_p?: number;
+
+      use_cache?: boolean;
     }
 
-    export namespace Options {
-      export interface OpenAIModelParams {
-        frequency_penalty?: number;
-
-        function_call?: 'auto' | 'none' | OpenAIModelParams.Function;
-
-        max_tokens?: number;
-
-        n?: number;
-
-        presence_penalty?: number;
-
-        response_format?: OpenAIModelParams.ResponseFormat | null;
-
-        stop?: Array<string>;
-
-        temperature?: number;
-
-        tool_choice?: 'auto' | 'none' | OpenAIModelParams.Function;
-
-        top_p?: number;
-
-        use_cache?: boolean;
+    export namespace OpenAIModelParams {
+      export interface Function {
+        name: string;
       }
 
-      export namespace OpenAIModelParams {
+      export interface ResponseFormat {
+        type: 'json_object';
+      }
+
+      export interface Function {
+        function: Function.Function;
+
+        type: 'function';
+      }
+
+      export namespace Function {
         export interface Function {
           name: string;
         }
-
-        export interface ResponseFormat {
-          type: 'json_object';
-        }
-
-        export interface Function {
-          function: Function.Function;
-
-          type: 'function';
-        }
-
-        export namespace Function {
-          export interface Function {
-            name: string;
-          }
-        }
-      }
-
-      export interface AnthropicModelParams {
-        max_tokens: number;
-
-        temperature: number;
-
-        /**
-         * This is a legacy parameter that should not be used.
-         */
-        max_tokens_to_sample?: number;
-
-        stop_sequences?: Array<string>;
-
-        top_k?: number;
-
-        top_p?: number;
-
-        use_cache?: boolean;
-      }
-
-      export interface GoogleModelParams {
-        maxOutputTokens?: number;
-
-        temperature?: number;
-
-        topK?: number;
-
-        topP?: number;
-
-        use_cache?: boolean;
-      }
-
-      export interface WindowAIModelParams {
-        temperature?: number;
-
-        topK?: number;
-
-        use_cache?: boolean;
-      }
-
-      export interface JsCompletionParams {
-        use_cache?: boolean;
       }
     }
 
-    export interface Origin {
-      project_id?: string;
+    export interface AnthropicModelParams {
+      max_tokens: number;
 
-      prompt_id?: string;
+      temperature: number;
 
-      prompt_version?: string;
+      /**
+       * This is a legacy parameter that should not be used.
+       */
+      max_tokens_to_sample?: number;
+
+      stop_sequences?: Array<string>;
+
+      top_k?: number;
+
+      top_p?: number;
+
+      use_cache?: boolean;
     }
 
-    export interface Completion {
-      content: string;
+    export interface GoogleModelParams {
+      maxOutputTokens?: number;
 
-      type: 'completion';
+      temperature?: number;
+
+      topK?: number;
+
+      topP?: number;
+
+      use_cache?: boolean;
     }
 
-    export interface Chat {
-      messages: Array<Chat.System | Chat.User | Chat.Assistant | Chat.Tool | Chat.Function | Chat.Fallback>;
+    export interface WindowAIModelParams {
+      temperature?: number;
 
-      type: 'chat';
+      topK?: number;
 
-      tools?: string;
+      use_cache?: boolean;
     }
 
-    export namespace Chat {
-      export interface System {
-        role: 'system';
+    export interface JsCompletionParams {
+      use_cache?: boolean;
+    }
+  }
 
-        content?: string;
+  export interface Origin {
+    project_id?: string;
 
-        name?: string;
+    prompt_id?: string;
+
+    prompt_version?: string;
+  }
+
+  export interface Completion {
+    content: string;
+
+    type: 'completion';
+  }
+
+  export interface Chat {
+    messages: Array<Chat.System | Chat.User | Chat.Assistant | Chat.Tool | Chat.Function | Chat.Fallback>;
+
+    type: 'chat';
+
+    tools?: string;
+  }
+
+  export namespace Chat {
+    export interface System {
+      role: 'system';
+
+      content?: string;
+
+      name?: string;
+    }
+
+    export interface User {
+      role: 'user';
+
+      content?: string | Array<User.Text | User.ImageURL>;
+
+      name?: string;
+    }
+
+    export namespace User {
+      export interface Text {
+        type: 'text';
+
+        text?: string;
       }
 
-      export interface User {
-        role: 'user';
+      export interface ImageURL {
+        image_url: ImageURL.ImageURL;
 
-        content?: string | Array<User.Text | User.ImageURL>;
-
-        name?: string;
+        type: 'image_url';
       }
 
-      export namespace User {
-        export interface Text {
-          type: 'text';
-
-          text?: string;
-        }
-
+      export namespace ImageURL {
         export interface ImageURL {
-          image_url: ImageURL.ImageURL;
+          url: string;
 
-          type: 'image_url';
-        }
-
-        export namespace ImageURL {
-          export interface ImageURL {
-            url: string;
-
-            detail?: 'auto' | 'low' | 'high';
-          }
+          detail?: 'auto' | 'low' | 'high';
         }
       }
+    }
 
-      export interface Assistant {
-        role: 'assistant';
+    export interface Assistant {
+      role: 'assistant';
 
-        content?: string | null;
+      content?: string | null;
 
-        function_call?: Assistant.FunctionCall;
+      function_call?: Assistant.FunctionCall;
 
-        name?: string;
+      name?: string;
 
-        tool_calls?: Array<Assistant.ToolCall>;
+      tool_calls?: Array<Assistant.ToolCall>;
+    }
+
+    export namespace Assistant {
+      export interface FunctionCall {
+        arguments: string;
+
+        name: string;
       }
 
-      export namespace Assistant {
-        export interface FunctionCall {
+      export interface ToolCall {
+        id: string;
+
+        function: ToolCall.Function;
+
+        type: 'function';
+      }
+
+      export namespace ToolCall {
+        export interface Function {
           arguments: string;
 
           name: string;
         }
-
-        export interface ToolCall {
-          id: string;
-
-          function: ToolCall.Function;
-
-          type: 'function';
-        }
-
-        export namespace ToolCall {
-          export interface Function {
-            arguments: string;
-
-            name: string;
-          }
-        }
-      }
-
-      export interface Tool {
-        role: 'tool';
-
-        content?: string;
-
-        tool_call_id?: string;
-      }
-
-      export interface Function {
-        name: string;
-
-        role: 'function';
-
-        content?: string;
-      }
-
-      export interface Fallback {
-        role: 'model';
-
-        content?: string | null;
       }
     }
 
-    export interface NullableVariant {}
+    export interface Tool {
+      role: 'tool';
+
+      content?: string;
+
+      tool_call_id?: string;
+    }
+
+    export interface Function {
+      name: string;
+
+      role: 'function';
+
+      content?: string;
+    }
+
+    export interface Fallback {
+      role: 'model';
+
+      content?: string | null;
+    }
   }
+
+  export interface NullableVariant {}
 }
 
 export interface PromptCreateParams {
@@ -409,253 +407,12 @@ export interface PromptCreateParams {
   /**
    * The prompt, model, and its parameters
    */
-  prompt_data?: PromptCreateParams.PromptData | null;
+  prompt_data?: PromptData | null;
 
   /**
    * A list of tags for the prompt
    */
   tags?: Array<string> | null;
-}
-
-export namespace PromptCreateParams {
-  /**
-   * The prompt, model, and its parameters
-   */
-  export interface PromptData {
-    options?: PromptData.Options | null;
-
-    origin?: PromptData.Origin | null;
-
-    prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullableVariant | null;
-  }
-
-  export namespace PromptData {
-    export interface Options {
-      model?: string;
-
-      params?:
-        | Options.OpenAIModelParams
-        | Options.AnthropicModelParams
-        | Options.GoogleModelParams
-        | Options.WindowAIModelParams
-        | Options.JsCompletionParams;
-
-      position?: string;
-    }
-
-    export namespace Options {
-      export interface OpenAIModelParams {
-        frequency_penalty?: number;
-
-        function_call?: 'auto' | 'none' | OpenAIModelParams.Function;
-
-        max_tokens?: number;
-
-        n?: number;
-
-        presence_penalty?: number;
-
-        response_format?: OpenAIModelParams.ResponseFormat | null;
-
-        stop?: Array<string>;
-
-        temperature?: number;
-
-        tool_choice?: 'auto' | 'none' | OpenAIModelParams.Function;
-
-        top_p?: number;
-
-        use_cache?: boolean;
-      }
-
-      export namespace OpenAIModelParams {
-        export interface Function {
-          name: string;
-        }
-
-        export interface ResponseFormat {
-          type: 'json_object';
-        }
-
-        export interface Function {
-          function: Function.Function;
-
-          type: 'function';
-        }
-
-        export namespace Function {
-          export interface Function {
-            name: string;
-          }
-        }
-      }
-
-      export interface AnthropicModelParams {
-        max_tokens: number;
-
-        temperature: number;
-
-        /**
-         * This is a legacy parameter that should not be used.
-         */
-        max_tokens_to_sample?: number;
-
-        stop_sequences?: Array<string>;
-
-        top_k?: number;
-
-        top_p?: number;
-
-        use_cache?: boolean;
-      }
-
-      export interface GoogleModelParams {
-        maxOutputTokens?: number;
-
-        temperature?: number;
-
-        topK?: number;
-
-        topP?: number;
-
-        use_cache?: boolean;
-      }
-
-      export interface WindowAIModelParams {
-        temperature?: number;
-
-        topK?: number;
-
-        use_cache?: boolean;
-      }
-
-      export interface JsCompletionParams {
-        use_cache?: boolean;
-      }
-    }
-
-    export interface Origin {
-      project_id?: string;
-
-      prompt_id?: string;
-
-      prompt_version?: string;
-    }
-
-    export interface Completion {
-      content: string;
-
-      type: 'completion';
-    }
-
-    export interface Chat {
-      messages: Array<Chat.System | Chat.User | Chat.Assistant | Chat.Tool | Chat.Function | Chat.Fallback>;
-
-      type: 'chat';
-
-      tools?: string;
-    }
-
-    export namespace Chat {
-      export interface System {
-        role: 'system';
-
-        content?: string;
-
-        name?: string;
-      }
-
-      export interface User {
-        role: 'user';
-
-        content?: string | Array<User.Text | User.ImageURL>;
-
-        name?: string;
-      }
-
-      export namespace User {
-        export interface Text {
-          type: 'text';
-
-          text?: string;
-        }
-
-        export interface ImageURL {
-          image_url: ImageURL.ImageURL;
-
-          type: 'image_url';
-        }
-
-        export namespace ImageURL {
-          export interface ImageURL {
-            url: string;
-
-            detail?: 'auto' | 'low' | 'high';
-          }
-        }
-      }
-
-      export interface Assistant {
-        role: 'assistant';
-
-        content?: string | null;
-
-        function_call?: Assistant.FunctionCall;
-
-        name?: string;
-
-        tool_calls?: Array<Assistant.ToolCall>;
-      }
-
-      export namespace Assistant {
-        export interface FunctionCall {
-          arguments: string;
-
-          name: string;
-        }
-
-        export interface ToolCall {
-          id: string;
-
-          function: ToolCall.Function;
-
-          type: 'function';
-        }
-
-        export namespace ToolCall {
-          export interface Function {
-            arguments: string;
-
-            name: string;
-          }
-        }
-      }
-
-      export interface Tool {
-        role: 'tool';
-
-        content?: string;
-
-        tool_call_id?: string;
-      }
-
-      export interface Function {
-        name: string;
-
-        role: 'function';
-
-        content?: string;
-      }
-
-      export interface Fallback {
-        role: 'model';
-
-        content?: string | null;
-      }
-    }
-
-    export interface NullableVariant {}
-  }
 }
 
 export interface PromptUpdateParams {
@@ -672,253 +429,12 @@ export interface PromptUpdateParams {
   /**
    * The prompt, model, and its parameters
    */
-  prompt_data?: PromptUpdateParams.PromptData | null;
+  prompt_data?: PromptData | null;
 
   /**
    * A list of tags for the prompt
    */
   tags?: Array<string> | null;
-}
-
-export namespace PromptUpdateParams {
-  /**
-   * The prompt, model, and its parameters
-   */
-  export interface PromptData {
-    options?: PromptData.Options | null;
-
-    origin?: PromptData.Origin | null;
-
-    prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullableVariant | null;
-  }
-
-  export namespace PromptData {
-    export interface Options {
-      model?: string;
-
-      params?:
-        | Options.OpenAIModelParams
-        | Options.AnthropicModelParams
-        | Options.GoogleModelParams
-        | Options.WindowAIModelParams
-        | Options.JsCompletionParams;
-
-      position?: string;
-    }
-
-    export namespace Options {
-      export interface OpenAIModelParams {
-        frequency_penalty?: number;
-
-        function_call?: 'auto' | 'none' | OpenAIModelParams.Function;
-
-        max_tokens?: number;
-
-        n?: number;
-
-        presence_penalty?: number;
-
-        response_format?: OpenAIModelParams.ResponseFormat | null;
-
-        stop?: Array<string>;
-
-        temperature?: number;
-
-        tool_choice?: 'auto' | 'none' | OpenAIModelParams.Function;
-
-        top_p?: number;
-
-        use_cache?: boolean;
-      }
-
-      export namespace OpenAIModelParams {
-        export interface Function {
-          name: string;
-        }
-
-        export interface ResponseFormat {
-          type: 'json_object';
-        }
-
-        export interface Function {
-          function: Function.Function;
-
-          type: 'function';
-        }
-
-        export namespace Function {
-          export interface Function {
-            name: string;
-          }
-        }
-      }
-
-      export interface AnthropicModelParams {
-        max_tokens: number;
-
-        temperature: number;
-
-        /**
-         * This is a legacy parameter that should not be used.
-         */
-        max_tokens_to_sample?: number;
-
-        stop_sequences?: Array<string>;
-
-        top_k?: number;
-
-        top_p?: number;
-
-        use_cache?: boolean;
-      }
-
-      export interface GoogleModelParams {
-        maxOutputTokens?: number;
-
-        temperature?: number;
-
-        topK?: number;
-
-        topP?: number;
-
-        use_cache?: boolean;
-      }
-
-      export interface WindowAIModelParams {
-        temperature?: number;
-
-        topK?: number;
-
-        use_cache?: boolean;
-      }
-
-      export interface JsCompletionParams {
-        use_cache?: boolean;
-      }
-    }
-
-    export interface Origin {
-      project_id?: string;
-
-      prompt_id?: string;
-
-      prompt_version?: string;
-    }
-
-    export interface Completion {
-      content: string;
-
-      type: 'completion';
-    }
-
-    export interface Chat {
-      messages: Array<Chat.System | Chat.User | Chat.Assistant | Chat.Tool | Chat.Function | Chat.Fallback>;
-
-      type: 'chat';
-
-      tools?: string;
-    }
-
-    export namespace Chat {
-      export interface System {
-        role: 'system';
-
-        content?: string;
-
-        name?: string;
-      }
-
-      export interface User {
-        role: 'user';
-
-        content?: string | Array<User.Text | User.ImageURL>;
-
-        name?: string;
-      }
-
-      export namespace User {
-        export interface Text {
-          type: 'text';
-
-          text?: string;
-        }
-
-        export interface ImageURL {
-          image_url: ImageURL.ImageURL;
-
-          type: 'image_url';
-        }
-
-        export namespace ImageURL {
-          export interface ImageURL {
-            url: string;
-
-            detail?: 'auto' | 'low' | 'high';
-          }
-        }
-      }
-
-      export interface Assistant {
-        role: 'assistant';
-
-        content?: string | null;
-
-        function_call?: Assistant.FunctionCall;
-
-        name?: string;
-
-        tool_calls?: Array<Assistant.ToolCall>;
-      }
-
-      export namespace Assistant {
-        export interface FunctionCall {
-          arguments: string;
-
-          name: string;
-        }
-
-        export interface ToolCall {
-          id: string;
-
-          function: ToolCall.Function;
-
-          type: 'function';
-        }
-
-        export namespace ToolCall {
-          export interface Function {
-            arguments: string;
-
-            name: string;
-          }
-        }
-      }
-
-      export interface Tool {
-        role: 'tool';
-
-        content?: string;
-
-        tool_call_id?: string;
-      }
-
-      export interface Function {
-        name: string;
-
-        role: 'function';
-
-        content?: string;
-      }
-
-      export interface Fallback {
-        role: 'model';
-
-        content?: string | null;
-      }
-    }
-
-    export interface NullableVariant {}
-  }
 }
 
 export interface PromptListParams extends ListObjectsParams {
@@ -981,7 +497,7 @@ export interface PromptReplaceParams {
   /**
    * The prompt, model, and its parameters
    */
-  prompt_data?: PromptReplaceParams.PromptData | null;
+  prompt_data?: PromptData | null;
 
   /**
    * A list of tags for the prompt
@@ -989,249 +505,9 @@ export interface PromptReplaceParams {
   tags?: Array<string> | null;
 }
 
-export namespace PromptReplaceParams {
-  /**
-   * The prompt, model, and its parameters
-   */
-  export interface PromptData {
-    options?: PromptData.Options | null;
-
-    origin?: PromptData.Origin | null;
-
-    prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullableVariant | null;
-  }
-
-  export namespace PromptData {
-    export interface Options {
-      model?: string;
-
-      params?:
-        | Options.OpenAIModelParams
-        | Options.AnthropicModelParams
-        | Options.GoogleModelParams
-        | Options.WindowAIModelParams
-        | Options.JsCompletionParams;
-
-      position?: string;
-    }
-
-    export namespace Options {
-      export interface OpenAIModelParams {
-        frequency_penalty?: number;
-
-        function_call?: 'auto' | 'none' | OpenAIModelParams.Function;
-
-        max_tokens?: number;
-
-        n?: number;
-
-        presence_penalty?: number;
-
-        response_format?: OpenAIModelParams.ResponseFormat | null;
-
-        stop?: Array<string>;
-
-        temperature?: number;
-
-        tool_choice?: 'auto' | 'none' | OpenAIModelParams.Function;
-
-        top_p?: number;
-
-        use_cache?: boolean;
-      }
-
-      export namespace OpenAIModelParams {
-        export interface Function {
-          name: string;
-        }
-
-        export interface ResponseFormat {
-          type: 'json_object';
-        }
-
-        export interface Function {
-          function: Function.Function;
-
-          type: 'function';
-        }
-
-        export namespace Function {
-          export interface Function {
-            name: string;
-          }
-        }
-      }
-
-      export interface AnthropicModelParams {
-        max_tokens: number;
-
-        temperature: number;
-
-        /**
-         * This is a legacy parameter that should not be used.
-         */
-        max_tokens_to_sample?: number;
-
-        stop_sequences?: Array<string>;
-
-        top_k?: number;
-
-        top_p?: number;
-
-        use_cache?: boolean;
-      }
-
-      export interface GoogleModelParams {
-        maxOutputTokens?: number;
-
-        temperature?: number;
-
-        topK?: number;
-
-        topP?: number;
-
-        use_cache?: boolean;
-      }
-
-      export interface WindowAIModelParams {
-        temperature?: number;
-
-        topK?: number;
-
-        use_cache?: boolean;
-      }
-
-      export interface JsCompletionParams {
-        use_cache?: boolean;
-      }
-    }
-
-    export interface Origin {
-      project_id?: string;
-
-      prompt_id?: string;
-
-      prompt_version?: string;
-    }
-
-    export interface Completion {
-      content: string;
-
-      type: 'completion';
-    }
-
-    export interface Chat {
-      messages: Array<Chat.System | Chat.User | Chat.Assistant | Chat.Tool | Chat.Function | Chat.Fallback>;
-
-      type: 'chat';
-
-      tools?: string;
-    }
-
-    export namespace Chat {
-      export interface System {
-        role: 'system';
-
-        content?: string;
-
-        name?: string;
-      }
-
-      export interface User {
-        role: 'user';
-
-        content?: string | Array<User.Text | User.ImageURL>;
-
-        name?: string;
-      }
-
-      export namespace User {
-        export interface Text {
-          type: 'text';
-
-          text?: string;
-        }
-
-        export interface ImageURL {
-          image_url: ImageURL.ImageURL;
-
-          type: 'image_url';
-        }
-
-        export namespace ImageURL {
-          export interface ImageURL {
-            url: string;
-
-            detail?: 'auto' | 'low' | 'high';
-          }
-        }
-      }
-
-      export interface Assistant {
-        role: 'assistant';
-
-        content?: string | null;
-
-        function_call?: Assistant.FunctionCall;
-
-        name?: string;
-
-        tool_calls?: Array<Assistant.ToolCall>;
-      }
-
-      export namespace Assistant {
-        export interface FunctionCall {
-          arguments: string;
-
-          name: string;
-        }
-
-        export interface ToolCall {
-          id: string;
-
-          function: ToolCall.Function;
-
-          type: 'function';
-        }
-
-        export namespace ToolCall {
-          export interface Function {
-            arguments: string;
-
-            name: string;
-          }
-        }
-      }
-
-      export interface Tool {
-        role: 'tool';
-
-        content?: string;
-
-        tool_call_id?: string;
-      }
-
-      export interface Function {
-        name: string;
-
-        role: 'function';
-
-        content?: string;
-      }
-
-      export interface Fallback {
-        role: 'model';
-
-        content?: string | null;
-      }
-    }
-
-    export interface NullableVariant {}
-  }
-}
-
 export namespace Prompts {
   export import Prompt = PromptsAPI.Prompt;
+  export import PromptData = PromptsAPI.PromptData;
   export import PromptsListObjects = PromptsAPI.PromptsListObjects;
   export import PromptCreateParams = PromptsAPI.PromptCreateParams;
   export import PromptUpdateParams = PromptsAPI.PromptUpdateParams;
