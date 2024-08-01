@@ -96,7 +96,6 @@ export {
 } from './project-tags';
 export {
   Prompt,
-  PromptData,
   PromptCreateParams,
   PromptUpdateParams,
   PromptListParams,

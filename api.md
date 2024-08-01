@@ -88,7 +88,6 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/prompts.ts">Prompt</a></code>
-- <code><a href="./src/resources/prompts.ts">PromptData</a></code>
 
 Methods:
 

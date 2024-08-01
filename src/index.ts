@@ -247,7 +247,6 @@ export namespace Braintrust {
 
   export import Prompts = API.Prompts;
   export import Prompt = API.Prompt;
-  export import PromptData = API.PromptData;
   export import PromptsListObjects = API.PromptsListObjects;
   export import PromptCreateParams = API.PromptCreateParams;
   export import PromptUpdateParams = API.PromptUpdateParams;
