@@ -121,7 +121,7 @@ export interface View {
   /**
    * Options for the view in the app
    */
-  options?: View.Options | null;
+  options?: ViewOptions | null;
 
   /**
    * Identifies the user who created the view
@@ -131,39 +131,35 @@ export interface View {
   /**
    * The view definition
    */
-  view_data?: View.ViewData | null;
+  view_data?: ViewData | null;
 }
 
-export namespace View {
-  /**
-   * Options for the view in the app
-   */
-  export interface Options {
-    columnOrder?: Array<string> | null;
+/**
+ * The view definition
+ */
+export interface ViewData {
+  search?: ViewDataSearch | null;
+}
 
-    columnSizing?: Record<string, number> | null;
+export interface ViewDataSearch {
+  filter?: Array<unknown> | null;
 
-    columnVisibility?: Record<string, boolean> | null;
-  }
+  match?: Array<unknown> | null;
 
-  /**
-   * The view definition
-   */
-  export interface ViewData {
-    search?: ViewData.Search | null;
-  }
+  sort?: Array<unknown> | null;
 
-  export namespace ViewData {
-    export interface Search {
-      filter?: Array<unknown> | null;
+  tag?: Array<unknown> | null;
+}
 
-      match?: Array<unknown> | null;
+/**
+ * Options for the view in the app
+ */
+export interface ViewOptions {
+  columnOrder?: Array<string> | null;
 
-      sort?: Array<unknown> | null;
+  columnSizing?: Record<string, number> | null;
 
-      tag?: Array<unknown> | null;
-    }
-  }
+  columnVisibility?: Record<string, boolean> | null;
 }
 
 export interface ViewCreateParams {
@@ -216,7 +212,7 @@ export interface ViewCreateParams {
   /**
    * Options for the view in the app
    */
-  options?: ViewCreateParams.Options | null;
+  options?: ViewOptions | null;
 
   /**
    * Identifies the user who created the view
@@ -226,39 +222,7 @@ export interface ViewCreateParams {
   /**
    * The view definition
    */
-  view_data?: ViewCreateParams.ViewData | null;
-}
-
-export namespace ViewCreateParams {
-  /**
-   * Options for the view in the app
-   */
-  export interface Options {
-    columnOrder?: Array<string> | null;
-
-    columnSizing?: Record<string, number> | null;
-
-    columnVisibility?: Record<string, boolean> | null;
-  }
-
-  /**
-   * The view definition
-   */
-  export interface ViewData {
-    search?: ViewData.Search | null;
-  }
-
-  export namespace ViewData {
-    export interface Search {
-      filter?: Array<unknown> | null;
-
-      match?: Array<unknown> | null;
-
-      sort?: Array<unknown> | null;
-
-      tag?: Array<unknown> | null;
-    }
-  }
+  view_data?: ViewData | null;
 }
 
 export interface ViewRetrieveParams {
@@ -316,7 +280,7 @@ export interface ViewUpdateParams {
   /**
    * Options for the view in the app
    */
-  options?: ViewUpdateParams.Options | null;
+  options?: ViewOptions | null;
 
   /**
    * Identifies the user who created the view
@@ -326,7 +290,7 @@ export interface ViewUpdateParams {
   /**
    * The view definition
    */
-  view_data?: ViewUpdateParams.ViewData | null;
+  view_data?: ViewData | null;
 
   /**
    * Type of table that the view corresponds to.
@@ -341,38 +305,6 @@ export interface ViewUpdateParams {
     | 'experiment'
     | 'dataset'
     | null;
-}
-
-export namespace ViewUpdateParams {
-  /**
-   * Options for the view in the app
-   */
-  export interface Options {
-    columnOrder?: Array<string> | null;
-
-    columnSizing?: Record<string, number> | null;
-
-    columnVisibility?: Record<string, boolean> | null;
-  }
-
-  /**
-   * The view definition
-   */
-  export interface ViewData {
-    search?: ViewData.Search | null;
-  }
-
-  export namespace ViewData {
-    export interface Search {
-      filter?: Array<unknown> | null;
-
-      match?: Array<unknown> | null;
-
-      sort?: Array<unknown> | null;
-
-      tag?: Array<unknown> | null;
-    }
-  }
 }
 
 export interface ViewListParams extends ListObjectsParams {
@@ -503,7 +435,7 @@ export interface ViewReplaceParams {
   /**
    * Options for the view in the app
    */
-  options?: ViewReplaceParams.Options | null;
+  options?: ViewOptions | null;
 
   /**
    * Identifies the user who created the view
@@ -513,43 +445,14 @@ export interface ViewReplaceParams {
   /**
    * The view definition
    */
-  view_data?: ViewReplaceParams.ViewData | null;
-}
-
-export namespace ViewReplaceParams {
-  /**
-   * Options for the view in the app
-   */
-  export interface Options {
-    columnOrder?: Array<string> | null;
-
-    columnSizing?: Record<string, number> | null;
-
-    columnVisibility?: Record<string, boolean> | null;
-  }
-
-  /**
-   * The view definition
-   */
-  export interface ViewData {
-    search?: ViewData.Search | null;
-  }
-
-  export namespace ViewData {
-    export interface Search {
-      filter?: Array<unknown> | null;
-
-      match?: Array<unknown> | null;
-
-      sort?: Array<unknown> | null;
-
-      tag?: Array<unknown> | null;
-    }
-  }
+  view_data?: ViewData | null;
 }
 
 export namespace Views {
   export import View = ViewsAPI.View;
+  export import ViewData = ViewsAPI.ViewData;
+  export import ViewDataSearch = ViewsAPI.ViewDataSearch;
+  export import ViewOptions = ViewsAPI.ViewOptions;
   export import ViewsListObjects = ViewsAPI.ViewsListObjects;
   export import ViewCreateParams = ViewsAPI.ViewCreateParams;
   export import ViewRetrieveParams = ViewsAPI.ViewRetrieveParams;

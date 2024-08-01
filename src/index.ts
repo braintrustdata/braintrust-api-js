@@ -215,6 +215,7 @@ export namespace Braintrust {
 
   export import Experiments = API.Experiments;
   export import Experiment = API.Experiment;
+  export import RepoInfo = API.RepoInfo;
   export import ExperimentFetchResponse = API.ExperimentFetchResponse;
   export import ExperimentFetchPostResponse = API.ExperimentFetchPostResponse;
   export import ExperimentInsertResponse = API.ExperimentInsertResponse;
@@ -306,6 +307,9 @@ export namespace Braintrust {
 
   export import Views = API.Views;
   export import View = API.View;
+  export import ViewData = API.ViewData;
+  export import ViewDataSearch = API.ViewDataSearch;
+  export import ViewOptions = API.ViewOptions;
   export import ViewsListObjects = API.ViewsListObjects;
   export import ViewCreateParams = API.ViewCreateParams;
   export import ViewRetrieveParams = API.ViewRetrieveParams;
@@ -326,6 +330,8 @@ export namespace Braintrust {
   export import APIKeysListObjects = API.APIKeysListObjects;
   export import APIKeyCreateParams = API.APIKeyCreateParams;
   export import APIKeyListParams = API.APIKeyListParams;
+
+  export import PromptData = API.PromptData;
 }
 
 export default Braintrust;
