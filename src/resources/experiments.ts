@@ -238,7 +238,7 @@ export interface Experiment {
   /**
    * Metadata about the state of the repo when the experiment was created
    */
-  repo_info?: Experiment.RepoInfo | null;
+  repo_info?: RepoInfo | null;
 
   /**
    * Identifies the user who created the experiment
@@ -246,57 +246,55 @@ export interface Experiment {
   user_id?: string | null;
 }
 
-export namespace Experiment {
+/**
+ * Metadata about the state of the repo when the experiment was created
+ */
+export interface RepoInfo {
   /**
-   * Metadata about the state of the repo when the experiment was created
+   * Email of the author of the most recent commit
    */
-  export interface RepoInfo {
-    /**
-     * Email of the author of the most recent commit
-     */
-    author_email?: string | null;
+  author_email?: string | null;
 
-    /**
-     * Name of the author of the most recent commit
-     */
-    author_name?: string | null;
+  /**
+   * Name of the author of the most recent commit
+   */
+  author_name?: string | null;
 
-    /**
-     * Name of the branch the most recent commit belongs to
-     */
-    branch?: string | null;
+  /**
+   * Name of the branch the most recent commit belongs to
+   */
+  branch?: string | null;
 
-    /**
-     * SHA of most recent commit
-     */
-    commit?: string | null;
+  /**
+   * SHA of most recent commit
+   */
+  commit?: string | null;
 
-    /**
-     * Most recent commit message
-     */
-    commit_message?: string | null;
+  /**
+   * Most recent commit message
+   */
+  commit_message?: string | null;
 
-    /**
-     * Time of the most recent commit
-     */
-    commit_time?: string | null;
+  /**
+   * Time of the most recent commit
+   */
+  commit_time?: string | null;
 
-    /**
-     * Whether or not the repo had uncommitted changes when snapshotted
-     */
-    dirty?: boolean | null;
+  /**
+   * Whether or not the repo had uncommitted changes when snapshotted
+   */
+  dirty?: boolean | null;
 
-    /**
-     * If the repo was dirty when run, this includes the diff between the current state
-     * of the repo and the most recent commit.
-     */
-    git_diff?: string | null;
+  /**
+   * If the repo was dirty when run, this includes the diff between the current state
+   * of the repo and the most recent commit.
+   */
+  git_diff?: string | null;
 
-    /**
-     * Name of the tag on the most recent commit
-     */
-    tag?: string | null;
-  }
+  /**
+   * Name of the tag on the most recent commit
+   */
+  tag?: string | null;
 }
 
 export interface ExperimentFetchResponse {
@@ -925,60 +923,7 @@ export interface ExperimentCreateParams {
   /**
    * Metadata about the state of the repo when the experiment was created
    */
-  repo_info?: ExperimentCreateParams.RepoInfo | null;
-}
-
-export namespace ExperimentCreateParams {
-  /**
-   * Metadata about the state of the repo when the experiment was created
-   */
-  export interface RepoInfo {
-    /**
-     * Email of the author of the most recent commit
-     */
-    author_email?: string | null;
-
-    /**
-     * Name of the author of the most recent commit
-     */
-    author_name?: string | null;
-
-    /**
-     * Name of the branch the most recent commit belongs to
-     */
-    branch?: string | null;
-
-    /**
-     * SHA of most recent commit
-     */
-    commit?: string | null;
-
-    /**
-     * Most recent commit message
-     */
-    commit_message?: string | null;
-
-    /**
-     * Time of the most recent commit
-     */
-    commit_time?: string | null;
-
-    /**
-     * Whether or not the repo had uncommitted changes when snapshotted
-     */
-    dirty?: boolean | null;
-
-    /**
-     * If the repo was dirty when run, this includes the diff between the current state
-     * of the repo and the most recent commit.
-     */
-    git_diff?: string | null;
-
-    /**
-     * Name of the tag on the most recent commit
-     */
-    tag?: string | null;
-  }
+  repo_info?: RepoInfo | null;
 }
 
 export interface ExperimentUpdateParams {
@@ -1023,60 +968,7 @@ export interface ExperimentUpdateParams {
   /**
    * Metadata about the state of the repo when the experiment was created
    */
-  repo_info?: ExperimentUpdateParams.RepoInfo | null;
-}
-
-export namespace ExperimentUpdateParams {
-  /**
-   * Metadata about the state of the repo when the experiment was created
-   */
-  export interface RepoInfo {
-    /**
-     * Email of the author of the most recent commit
-     */
-    author_email?: string | null;
-
-    /**
-     * Name of the author of the most recent commit
-     */
-    author_name?: string | null;
-
-    /**
-     * Name of the branch the most recent commit belongs to
-     */
-    branch?: string | null;
-
-    /**
-     * SHA of most recent commit
-     */
-    commit?: string | null;
-
-    /**
-     * Most recent commit message
-     */
-    commit_message?: string | null;
-
-    /**
-     * Time of the most recent commit
-     */
-    commit_time?: string | null;
-
-    /**
-     * Whether or not the repo had uncommitted changes when snapshotted
-     */
-    dirty?: boolean | null;
-
-    /**
-     * If the repo was dirty when run, this includes the diff between the current state
-     * of the repo and the most recent commit.
-     */
-    git_diff?: string | null;
-
-    /**
-     * Name of the tag on the most recent commit
-     */
-    tag?: string | null;
-  }
+  repo_info?: RepoInfo | null;
 }
 
 export interface ExperimentListParams extends ListObjectsParams {
@@ -1757,6 +1649,7 @@ export interface ExperimentSummarizeParams {
 
 export namespace Experiments {
   export import Experiment = ExperimentsAPI.Experiment;
+  export import RepoInfo = ExperimentsAPI.RepoInfo;
   export import ExperimentFetchResponse = ExperimentsAPI.ExperimentFetchResponse;
   export import ExperimentFetchPostResponse = ExperimentsAPI.ExperimentFetchPostResponse;
   export import ExperimentInsertResponse = ExperimentsAPI.ExperimentInsertResponse;

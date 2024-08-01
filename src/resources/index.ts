@@ -1,5 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+export * from './shared';
 export { ACL, ACLCreateParams, ACLListParams, ACLsListObjects, ACLs } from './acls';
 export {
   APIKey,
@@ -28,6 +29,7 @@ export {
 } from './datasets';
 export {
   Experiment,
+  RepoInfo,
   ExperimentFetchResponse,
   ExperimentFetchPostResponse,
   ExperimentInsertResponse,
@@ -116,6 +118,9 @@ export { TopLevelHelloWorldResponse, TopLevel } from './top-level';
 export { User, UserListParams, UsersListObjects, Users } from './users';
 export {
   View,
+  ViewData,
+  ViewDataSearch,
+  ViewOptions,
   ViewCreateParams,
   ViewRetrieveParams,
   ViewUpdateParams,

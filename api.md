@@ -1,3 +1,9 @@
+# Shared
+
+Types:
+
+- <code><a href="./src/resources/shared.ts">PromptData</a></code>
+
 # TopLevel
 
 Types:
@@ -42,6 +48,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/experiments.ts">Experiment</a></code>
+- <code><a href="./src/resources/experiments.ts">RepoInfo</a></code>
 - <code><a href="./src/resources/experiments.ts">ExperimentFetchResponse</a></code>
 - <code><a href="./src/resources/experiments.ts">ExperimentFetchPostResponse</a></code>
 - <code><a href="./src/resources/experiments.ts">ExperimentInsertResponse</a></code>
@@ -202,6 +209,9 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/views.ts">View</a></code>
+- <code><a href="./src/resources/views.ts">ViewData</a></code>
+- <code><a href="./src/resources/views.ts">ViewDataSearch</a></code>
+- <code><a href="./src/resources/views.ts">ViewOptions</a></code>
 
 Methods:
 
