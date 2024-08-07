@@ -164,6 +164,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/project-scores.ts">ProjectScore</a></code>
+- <code><a href="./src/resources/project-scores.ts">ProjectScoreCategory</a></code>
 
 Methods:
 
