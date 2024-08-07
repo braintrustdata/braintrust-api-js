@@ -283,6 +283,7 @@ export namespace Braintrust {
 
   export import ProjectScores = API.ProjectScores;
   export import ProjectScore = API.ProjectScore;
+  export import ProjectScoreCategory = API.ProjectScoreCategory;
   export import ProjectScoresListObjects = API.ProjectScoresListObjects;
   export import ProjectScoreCreateParams = API.ProjectScoreCreateParams;
   export import ProjectScoreUpdateParams = API.ProjectScoreUpdateParams;

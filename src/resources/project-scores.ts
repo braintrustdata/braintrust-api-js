@@ -117,7 +117,7 @@ export interface ProjectScore {
    * For categorical-type project scores, the list of all categories
    */
   categories?:
-    | Array<ProjectScore.Categorical>
+    | Array<ProjectScoreCategory>
     | Record<string, number>
     | Array<string>
     | ProjectScore.NullableVariant
@@ -143,21 +143,6 @@ export interface ProjectScore {
 }
 
 export namespace ProjectScore {
-  /**
-   * For categorical-type project scores, defines a single category
-   */
-  export interface Categorical {
-    /**
-     * Name of the category
-     */
-    name: string;
-
-    /**
-     * Numerical value of the category. Must be between 0 and 1, inclusive
-     */
-    value: number;
-  }
-
   export interface NullableVariant {}
 
   export interface Config {
@@ -165,6 +150,21 @@ export namespace ProjectScore {
 
     multi_select?: boolean | null;
   }
+}
+
+/**
+ * For categorical-type project scores, defines a single category
+ */
+export interface ProjectScoreCategory {
+  /**
+   * Name of the category
+   */
+  name: string;
+
+  /**
+   * Numerical value of the category. Must be between 0 and 1, inclusive
+   */
+  value: number;
 }
 
 export interface ProjectScoreCreateParams {
@@ -187,7 +187,7 @@ export interface ProjectScoreCreateParams {
    * For categorical-type project scores, the list of all categories
    */
   categories?:
-    | Array<ProjectScoreCreateParams.Categorical>
+    | Array<ProjectScoreCategory>
     | Record<string, number>
     | Array<string>
     | ProjectScoreCreateParams.NullableVariant
@@ -200,21 +200,6 @@ export interface ProjectScoreCreateParams {
 }
 
 export namespace ProjectScoreCreateParams {
-  /**
-   * For categorical-type project scores, defines a single category
-   */
-  export interface Categorical {
-    /**
-     * Name of the category
-     */
-    name: string;
-
-    /**
-     * Numerical value of the category. Must be between 0 and 1, inclusive
-     */
-    value: number;
-  }
-
   export interface NullableVariant {}
 }
 
@@ -223,7 +208,7 @@ export interface ProjectScoreUpdateParams {
    * For categorical-type project scores, the list of all categories
    */
   categories?:
-    | Array<ProjectScoreUpdateParams.Categorical>
+    | Array<ProjectScoreCategory>
     | Record<string, number>
     | Array<string>
     | ProjectScoreUpdateParams.NullableVariant
@@ -246,21 +231,6 @@ export interface ProjectScoreUpdateParams {
 }
 
 export namespace ProjectScoreUpdateParams {
-  /**
-   * For categorical-type project scores, defines a single category
-   */
-  export interface Categorical {
-    /**
-     * Name of the category
-     */
-    name: string;
-
-    /**
-     * Numerical value of the category. Must be between 0 and 1, inclusive
-     */
-    value: number;
-  }
-
   export interface NullableVariant {}
 }
 
@@ -307,7 +277,7 @@ export interface ProjectScoreReplaceParams {
    * For categorical-type project scores, the list of all categories
    */
   categories?:
-    | Array<ProjectScoreReplaceParams.Categorical>
+    | Array<ProjectScoreCategory>
     | Record<string, number>
     | Array<string>
     | ProjectScoreReplaceParams.NullableVariant
@@ -320,26 +290,12 @@ export interface ProjectScoreReplaceParams {
 }
 
 export namespace ProjectScoreReplaceParams {
-  /**
-   * For categorical-type project scores, defines a single category
-   */
-  export interface Categorical {
-    /**
-     * Name of the category
-     */
-    name: string;
-
-    /**
-     * Numerical value of the category. Must be between 0 and 1, inclusive
-     */
-    value: number;
-  }
-
   export interface NullableVariant {}
 }
 
 export namespace ProjectScores {
   export import ProjectScore = ProjectScoresAPI.ProjectScore;
+  export import ProjectScoreCategory = ProjectScoresAPI.ProjectScoreCategory;
   export import ProjectScoresListObjects = ProjectScoresAPI.ProjectScoresListObjects;
   export import ProjectScoreCreateParams = ProjectScoresAPI.ProjectScoreCreateParams;
   export import ProjectScoreUpdateParams = ProjectScoresAPI.ProjectScoreUpdateParams;
