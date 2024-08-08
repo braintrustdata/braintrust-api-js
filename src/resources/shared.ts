@@ -1,5 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+import * as Core from '../core'
+
 /**
  * The prompt, model, and its parameters
  */
@@ -15,12 +17,7 @@ export namespace PromptData {
   export interface Options {
     model?: string;
 
-    params?:
-      | Options.OpenAIModelParams
-      | Options.AnthropicModelParams
-      | Options.GoogleModelParams
-      | Options.WindowAIModelParams
-      | Options.JsCompletionParams;
+    params?: Options.OpenAIModelParams | Options.AnthropicModelParams | Options.GoogleModelParams | Options.WindowAIModelParams | Options.JsCompletionParams;
 
     position?: string;
   }
@@ -236,5 +233,6 @@ export namespace PromptData {
     }
   }
 
-  export interface NullableVariant {}
+  export interface NullableVariant {
+  }
 }
