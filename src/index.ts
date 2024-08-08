@@ -2,7 +2,8 @@
 
 import * as Errors from './error';
 import * as Uploads from './uploads';
-import { type Agent } from './_shims/index';
+import { isRequestOptions } from './core';
+import { type Agent, type RequestInit } from './_shims/index';
 import * as qs from 'qs';
 import * as Core from './core';
 import * as Pagination from './pagination';
@@ -72,7 +73,7 @@ export interface ClientOptions {
 }
 
 /**
- * API Client for interfacing with the Braintrust API.
+ * API Client for interfacing with the Braintrust API. 
  */
 export class Braintrust extends Core.APIClient {
   apiKey: string;
@@ -98,7 +99,7 @@ export class Braintrust extends Core.APIClient {
   }: ClientOptions = {}) {
     if (apiKey === undefined) {
       throw new Errors.BraintrustError(
-        "The BRAINTRUST_API_KEY environment variable is missing or empty; either provide it, or instantiate the Braintrust client with an apiKey option, like new Braintrust({ apiKey: 'My API Key' }).",
+        'The BRAINTRUST_API_KEY environment variable is missing or empty; either provide it, or instantiate the Braintrust client with an apiKey option, like new Braintrust({ apiKey: \'My API Key\' }).'
       );
     }
 
@@ -138,7 +139,7 @@ export class Braintrust extends Core.APIClient {
   apiKeys: API.APIKeys = new API.APIKeys(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
-    return this._options.defaultQuery;
+    return this._options.defaultQuery
   }
 
   protected override defaultHeaders(opts: Core.FinalRequestOptions): Core.Headers {
@@ -153,11 +154,11 @@ export class Braintrust extends Core.APIClient {
   }
 
   protected override stringifyQuery(query: Record<string, unknown>): string {
-    return qs.stringify(query, { arrayFormat: 'comma' });
+    return qs.stringify(query, { arrayFormat: 'comma' })
   }
 
   static Braintrust = this;
-  static DEFAULT_TIMEOUT = 60000; // 1 minute
+  static DEFAULT_TIMEOUT = 60000 // 1 minute
 
   static BraintrustError = Errors.BraintrustError;
   static APIError = Errors.APIError;
@@ -177,21 +178,7 @@ export class Braintrust extends Core.APIClient {
   static fileFromPath = Uploads.fileFromPath;
 }
 
-export const {
-  BraintrustError,
-  APIError,
-  APIConnectionError,
-  APIConnectionTimeoutError,
-  APIUserAbortError,
-  NotFoundError,
-  ConflictError,
-  RateLimitError,
-  BadRequestError,
-  AuthenticationError,
-  InternalServerError,
-  PermissionDeniedError,
-  UnprocessableEntityError,
-} = Errors;
+export const { BraintrustError, APIError, APIConnectionError, APIConnectionTimeoutError, APIUserAbortError, NotFoundError, ConflictError, RateLimitError, BadRequestError, AuthenticationError, InternalServerError, PermissionDeniedError, UnprocessableEntityError } = Errors
 
 export import toFile = Uploads.toFile;
 export import fileFromPath = Uploads.fileFromPath;

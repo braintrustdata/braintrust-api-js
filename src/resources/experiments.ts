@@ -2,6 +2,7 @@
 
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
+import { APIPromise } from '../core';
 import * as Core from '../core';
 import * as ExperimentsAPI from './experiments';
 import { ListObjects, type ListObjectsParams } from '../pagination';
@@ -28,17 +29,9 @@ export class Experiments extends APIResource {
    * payload. Any object-type fields will be deep-merged with existing content.
    * Currently we do not support removing fields or setting them to null.
    */
-  update(
-    experimentId: string,
-    body?: ExperimentUpdateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Experiment>;
-  update(experimentId: string, options?: Core.RequestOptions): Core.APIPromise<Experiment>;
-  update(
-    experimentId: string,
-    body: ExperimentUpdateParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Experiment> {
+  update(experimentId: string, body?: ExperimentUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Experiment>
+  update(experimentId: string, options?: Core.RequestOptions): Core.APIPromise<Experiment>
+  update(experimentId: string, body: ExperimentUpdateParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<Experiment> {
     if (isRequestOptions(body)) {
       return this.update(experimentId, {}, body);
     }
@@ -49,15 +42,9 @@ export class Experiments extends APIResource {
    * List out all experiments. The experiments are sorted by creation date, with the
    * most recently-created experiments coming first
    */
-  list(
-    query?: ExperimentListParams,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<ExperimentsListObjects, Experiment>;
-  list(options?: Core.RequestOptions): Core.PagePromise<ExperimentsListObjects, Experiment>;
-  list(
-    query: ExperimentListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<ExperimentsListObjects, Experiment> {
+  list(query?: ExperimentListParams, options?: Core.RequestOptions): Core.PagePromise<ExperimentsListObjects, Experiment>
+  list(options?: Core.RequestOptions): Core.PagePromise<ExperimentsListObjects, Experiment>
+  list(query: ExperimentListParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.PagePromise<ExperimentsListObjects, Experiment> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -74,33 +61,17 @@ export class Experiments extends APIResource {
   /**
    * Log feedback for a set of experiment events
    */
-  feedback(
-    experimentId: string,
-    body: ExperimentFeedbackParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<void> {
-    return this._client.post(`/v1/experiment/${experimentId}/feedback`, {
-      body,
-      ...options,
-      headers: { Accept: '*/*', ...options?.headers },
-    });
+  feedback(experimentId: string, body: ExperimentFeedbackParams, options?: Core.RequestOptions): Core.APIPromise<void> {
+    return this._client.post(`/v1/experiment/${experimentId}/feedback`, { body, ...options, headers: { Accept: '*/*', ...options?.headers } });
   }
 
   /**
    * Fetch the events in an experiment. Equivalent to the POST form of the same path,
    * but with the parameters in the URL query rather than in the request body
    */
-  fetch(
-    experimentId: string,
-    query?: ExperimentFetchParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ExperimentFetchResponse>;
-  fetch(experimentId: string, options?: Core.RequestOptions): Core.APIPromise<ExperimentFetchResponse>;
-  fetch(
-    experimentId: string,
-    query: ExperimentFetchParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ExperimentFetchResponse> {
+  fetch(experimentId: string, query?: ExperimentFetchParams, options?: Core.RequestOptions): Core.APIPromise<ExperimentFetchResponse>
+  fetch(experimentId: string, options?: Core.RequestOptions): Core.APIPromise<ExperimentFetchResponse>
+  fetch(experimentId: string, query: ExperimentFetchParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<ExperimentFetchResponse> {
     if (isRequestOptions(query)) {
       return this.fetch(experimentId, {}, query);
     }
@@ -111,20 +82,9 @@ export class Experiments extends APIResource {
    * Fetch the events in an experiment. Equivalent to the GET form of the same path,
    * but with the parameters in the request body rather than in the URL query
    */
-  fetchPost(
-    experimentId: string,
-    body?: ExperimentFetchPostParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ExperimentFetchPostResponse>;
-  fetchPost(
-    experimentId: string,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ExperimentFetchPostResponse>;
-  fetchPost(
-    experimentId: string,
-    body: ExperimentFetchPostParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ExperimentFetchPostResponse> {
+  fetchPost(experimentId: string, body?: ExperimentFetchPostParams, options?: Core.RequestOptions): Core.APIPromise<ExperimentFetchPostResponse>
+  fetchPost(experimentId: string, options?: Core.RequestOptions): Core.APIPromise<ExperimentFetchPostResponse>
+  fetchPost(experimentId: string, body: ExperimentFetchPostParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<ExperimentFetchPostResponse> {
     if (isRequestOptions(body)) {
       return this.fetchPost(experimentId, {}, body);
     }
@@ -134,31 +94,16 @@ export class Experiments extends APIResource {
   /**
    * Insert a set of events into the experiment
    */
-  insert(
-    experimentId: string,
-    body: ExperimentInsertParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ExperimentInsertResponse> {
+  insert(experimentId: string, body: ExperimentInsertParams, options?: Core.RequestOptions): Core.APIPromise<ExperimentInsertResponse> {
     return this._client.post(`/v1/experiment/${experimentId}/insert`, { body, ...options });
   }
 
   /**
    * Summarize experiment
    */
-  summarize(
-    experimentId: string,
-    query?: ExperimentSummarizeParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ExperimentSummarizeResponse>;
-  summarize(
-    experimentId: string,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ExperimentSummarizeResponse>;
-  summarize(
-    experimentId: string,
-    query: ExperimentSummarizeParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ExperimentSummarizeResponse> {
+  summarize(experimentId: string, query?: ExperimentSummarizeParams, options?: Core.RequestOptions): Core.APIPromise<ExperimentSummarizeResponse>
+  summarize(experimentId: string, options?: Core.RequestOptions): Core.APIPromise<ExperimentSummarizeResponse>
+  summarize(experimentId: string, query: ExperimentSummarizeParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<ExperimentSummarizeResponse> {
     if (isRequestOptions(query)) {
       return this.summarize(experimentId, {}, query);
     }
@@ -169,7 +114,8 @@ export class Experiments extends APIResource {
 /**
  * Pagination for endpoints which list data objects
  */
-export class ExperimentsListObjects extends ListObjects<Experiment> {}
+export class ExperimentsListObjects extends ListObjects<Experiment> {
+}
 
 export interface Experiment {
   /**
@@ -467,7 +413,7 @@ export namespace ExperimentFetchResponse {
        * Line of code where the experiment event was created
        */
       caller_lineno?: number | null;
-      [k: string]: unknown;
+    [k: string]: unknown
     }
 
     /**
@@ -504,7 +450,7 @@ export namespace ExperimentFetchResponse {
        * The total number of tokens in the input and output of the experiment event.
        */
       tokens?: number | null;
-      [k: string]: unknown;
+    [k: string]: unknown
     }
 
     /**
@@ -520,7 +466,7 @@ export namespace ExperimentFetchResponse {
        * Type of the span, for display purposes only
        */
       type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
-      [k: string]: unknown;
+    [k: string]: unknown
     }
   }
 }
@@ -695,7 +641,7 @@ export namespace ExperimentFetchPostResponse {
        * Line of code where the experiment event was created
        */
       caller_lineno?: number | null;
-      [k: string]: unknown;
+    [k: string]: unknown
     }
 
     /**
@@ -732,7 +678,7 @@ export namespace ExperimentFetchPostResponse {
        * The total number of tokens in the input and output of the experiment event.
        */
       tokens?: number | null;
-      [k: string]: unknown;
+    [k: string]: unknown
     }
 
     /**
@@ -748,7 +694,7 @@ export namespace ExperimentFetchPostResponse {
        * Type of the span, for display purposes only
        */
       type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
-      [k: string]: unknown;
+    [k: string]: unknown
     }
   }
 }
@@ -1203,9 +1149,7 @@ export interface ExperimentInsertParams {
   /**
    * A list of experiment events to insert
    */
-  events: Array<
-    ExperimentInsertParams.InsertExperimentEventReplace | ExperimentInsertParams.InsertExperimentEventMerge
-  >;
+  events: Array<ExperimentInsertParams.InsertExperimentEventReplace | ExperimentInsertParams.InsertExperimentEventMerge>;
 }
 
 export namespace ExperimentInsertParams {
@@ -1362,7 +1306,7 @@ export namespace ExperimentInsertParams {
        * Line of code where the experiment event was created
        */
       caller_lineno?: number | null;
-      [k: string]: unknown;
+    [k: string]: unknown
     }
 
     /**
@@ -1399,7 +1343,7 @@ export namespace ExperimentInsertParams {
        * The total number of tokens in the input and output of the experiment event.
        */
       tokens?: number | null;
-      [k: string]: unknown;
+    [k: string]: unknown
     }
 
     /**
@@ -1415,7 +1359,7 @@ export namespace ExperimentInsertParams {
        * Type of the span, for display purposes only
        */
       type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
-      [k: string]: unknown;
+    [k: string]: unknown
     }
   }
 
@@ -1573,7 +1517,7 @@ export namespace ExperimentInsertParams {
        * Line of code where the experiment event was created
        */
       caller_lineno?: number | null;
-      [k: string]: unknown;
+    [k: string]: unknown
     }
 
     /**
@@ -1610,7 +1554,7 @@ export namespace ExperimentInsertParams {
        * The total number of tokens in the input and output of the experiment event.
        */
       tokens?: number | null;
-      [k: string]: unknown;
+    [k: string]: unknown
     }
 
     /**
@@ -1626,7 +1570,7 @@ export namespace ExperimentInsertParams {
        * Type of the span, for display purposes only
        */
       type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
-      [k: string]: unknown;
+    [k: string]: unknown
     }
   }
 }
