@@ -4,7 +4,9 @@ import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
 import * as ProjectTagsAPI from './project-tags';
-import { ListObjects, type ListObjectsParams } from '../pagination';
+import * as Shared from './shared';
+import { ProjectTagsListObjects } from './shared';
+import { type ListObjectsParams } from '../pagination';
 
 export class ProjectTags extends APIResource {
   /**
@@ -12,14 +14,17 @@ export class ProjectTags extends APIResource {
    * with the same name as the one specified in the request, will return the existing
    * project_tag unmodified
    */
-  create(body: ProjectTagCreateParams, options?: Core.RequestOptions): Core.APIPromise<ProjectTag> {
+  create(body: ProjectTagCreateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.ProjectTag> {
     return this._client.post('/v1/project_tag', { body, ...options });
   }
 
   /**
    * Get a project_tag object by its id
    */
-  retrieve(projectTagId: string, options?: Core.RequestOptions): Core.APIPromise<ProjectTag> {
+  retrieve(
+    projectTagId: Shared.ProjectTagID,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.ProjectTag> {
     return this._client.get(`/v1/project_tag/${projectTagId}`, options);
   }
 
@@ -29,16 +34,19 @@ export class ProjectTags extends APIResource {
    * Currently we do not support removing fields or setting them to null.
    */
   update(
-    projectTagId: string,
+    projectTagId: Shared.ProjectTagID,
     body?: ProjectTagUpdateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<ProjectTag>;
-  update(projectTagId: string, options?: Core.RequestOptions): Core.APIPromise<ProjectTag>;
+  ): Core.APIPromise<Shared.ProjectTag>;
   update(
-    projectTagId: string,
+    projectTagId: Shared.ProjectTagID,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.ProjectTag>;
+  update(
+    projectTagId: Shared.ProjectTagID,
     body: ProjectTagUpdateParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<ProjectTag> {
+  ): Core.APIPromise<Shared.ProjectTag> {
     if (isRequestOptions(body)) {
       return this.update(projectTagId, {}, body);
     }
@@ -52,12 +60,12 @@ export class ProjectTags extends APIResource {
   list(
     query?: ProjectTagListParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<ProjectTagsListObjects, ProjectTag>;
-  list(options?: Core.RequestOptions): Core.PagePromise<ProjectTagsListObjects, ProjectTag>;
+  ): Core.PagePromise<ProjectTagsListObjects, Shared.ProjectTag>;
+  list(options?: Core.RequestOptions): Core.PagePromise<ProjectTagsListObjects, Shared.ProjectTag>;
   list(
     query: ProjectTagListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<ProjectTagsListObjects, ProjectTag> {
+  ): Core.PagePromise<ProjectTagsListObjects, Shared.ProjectTag> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -67,7 +75,10 @@ export class ProjectTags extends APIResource {
   /**
    * Delete a project_tag object by its id
    */
-  delete(projectTagId: string, options?: Core.RequestOptions): Core.APIPromise<ProjectTag> {
+  delete(
+    projectTagId: Shared.ProjectTagID,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.ProjectTag> {
     return this._client.delete(`/v1/project_tag/${projectTagId}`, options);
   }
 
@@ -76,52 +87,9 @@ export class ProjectTags extends APIResource {
    * project with the same name as the one specified in the request, will replace the
    * existing project_tag with the provided fields
    */
-  replace(body: ProjectTagReplaceParams, options?: Core.RequestOptions): Core.APIPromise<ProjectTag> {
+  replace(body: ProjectTagReplaceParams, options?: Core.RequestOptions): Core.APIPromise<Shared.ProjectTag> {
     return this._client.put('/v1/project_tag', { body, ...options });
   }
-}
-
-/**
- * Pagination for endpoints which list data objects
- */
-export class ProjectTagsListObjects extends ListObjects<ProjectTag> {}
-
-/**
- * A project tag is a user-configured tag for tracking and filtering your
- * experiments, logs, and other data
- */
-export interface ProjectTag {
-  /**
-   * Unique identifier for the project tag
-   */
-  id: string;
-
-  /**
-   * Name of the project tag
-   */
-  name: string;
-
-  /**
-   * Unique identifier for the project that the project tag belongs under
-   */
-  project_id: string;
-
-  user_id: string;
-
-  /**
-   * Color of the tag for the UI
-   */
-  color?: string | null;
-
-  /**
-   * Date of project tag creation
-   */
-  created?: string | null;
-
-  /**
-   * Textual description of the project tag
-   */
-  description?: string | null;
 }
 
 export interface ProjectTagCreateParams {
@@ -168,22 +136,27 @@ export interface ProjectTagListParams extends ListObjectsParams {
    * Filter search results to a particular set of object IDs. To specify a list of
    * IDs, include the query param multiple times
    */
-  ids?: string | Array<string>;
+  ids?: Shared.IDs;
 
   /**
    * Filter search results to within a particular organization
    */
-  org_name?: string;
+  org_name?: Shared.OrgName;
+
+  /**
+   * Project id
+   */
+  project_id?: Shared.ProjectIDQuery;
 
   /**
    * Name of the project to search for
    */
-  project_name?: string;
+  project_name?: Shared.ProjectName;
 
   /**
    * Name of the project_tag to search for
    */
-  project_tag_name?: string;
+  project_tag_name?: Shared.ProjectTagName;
 }
 
 export interface ProjectTagReplaceParams {
@@ -209,10 +182,10 @@ export interface ProjectTagReplaceParams {
 }
 
 export namespace ProjectTags {
-  export import ProjectTag = ProjectTagsAPI.ProjectTag;
-  export import ProjectTagsListObjects = ProjectTagsAPI.ProjectTagsListObjects;
   export import ProjectTagCreateParams = ProjectTagsAPI.ProjectTagCreateParams;
   export import ProjectTagUpdateParams = ProjectTagsAPI.ProjectTagUpdateParams;
   export import ProjectTagListParams = ProjectTagsAPI.ProjectTagListParams;
   export import ProjectTagReplaceParams = ProjectTagsAPI.ProjectTagReplaceParams;
 }
+
+export { ProjectTagsListObjects };
