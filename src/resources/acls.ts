@@ -1,8 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../resource';
-import { isRequestOptions } from '../core';
-import { APIPromise } from '../core';
 import * as Core from '../core';
 import * as ACLsAPI from './acls';
 import { ListObjects, type ListObjectsParams } from '../pagination';
@@ -42,8 +40,7 @@ export class ACLs extends APIResource {
 /**
  * Pagination for endpoints which list data objects
  */
-export class ACLsListObjects extends ListObjects<ACL> {
-}
+export class ACLsListObjects extends ListObjects<ACL> {}
 
 /**
  * An ACL grants a certain permission or role to a certain user or group on an
@@ -76,7 +73,19 @@ export interface ACL {
   /**
    * The object type that the ACL applies to
    */
-  object_type: 'organization' | 'project' | 'experiment' | 'dataset' | 'prompt' | 'prompt_session' | 'group' | 'role' | 'org_member' | 'project_log' | 'org_project' | null;
+  object_type:
+    | 'organization'
+    | 'project'
+    | 'experiment'
+    | 'dataset'
+    | 'prompt'
+    | 'prompt_session'
+    | 'group'
+    | 'role'
+    | 'org_member'
+    | 'project_log'
+    | 'org_project'
+    | null;
 
   /**
    * Date of acl creation
@@ -93,13 +102,34 @@ export interface ACL {
    * Permission the ACL grants. Exactly one of `permission` and `role_id` will be
    * provided
    */
-  permission?: 'create' | 'read' | 'update' | 'delete' | 'create_acls' | 'read_acls' | 'update_acls' | 'delete_acls' | null;
+  permission?:
+    | 'create'
+    | 'read'
+    | 'update'
+    | 'delete'
+    | 'create_acls'
+    | 'read_acls'
+    | 'update_acls'
+    | 'delete_acls'
+    | null;
 
   /**
    * When setting a permission directly, optionally restricts the permission grant to
    * just the specified object type. Cannot be set alongside a `role_id`.
    */
-  restrict_object_type?: 'organization' | 'project' | 'experiment' | 'dataset' | 'prompt' | 'prompt_session' | 'group' | 'role' | 'org_member' | 'project_log' | 'org_project' | null;
+  restrict_object_type?:
+    | 'organization'
+    | 'project'
+    | 'experiment'
+    | 'dataset'
+    | 'prompt'
+    | 'prompt_session'
+    | 'group'
+    | 'role'
+    | 'org_member'
+    | 'project_log'
+    | 'org_project'
+    | null;
 
   /**
    * Id of the role the ACL grants. Exactly one of `permission` and `role_id` will be
@@ -123,7 +153,19 @@ export interface ACLCreateParams {
   /**
    * The object type that the ACL applies to
    */
-  object_type: 'organization' | 'project' | 'experiment' | 'dataset' | 'prompt' | 'prompt_session' | 'group' | 'role' | 'org_member' | 'project_log' | 'org_project' | null;
+  object_type:
+    | 'organization'
+    | 'project'
+    | 'experiment'
+    | 'dataset'
+    | 'prompt'
+    | 'prompt_session'
+    | 'group'
+    | 'role'
+    | 'org_member'
+    | 'project_log'
+    | 'org_project'
+    | null;
 
   /**
    * Id of the group the ACL applies to. Exactly one of `user_id` and `group_id` will
@@ -135,13 +177,34 @@ export interface ACLCreateParams {
    * Permission the ACL grants. Exactly one of `permission` and `role_id` will be
    * provided
    */
-  permission?: 'create' | 'read' | 'update' | 'delete' | 'create_acls' | 'read_acls' | 'update_acls' | 'delete_acls' | null;
+  permission?:
+    | 'create'
+    | 'read'
+    | 'update'
+    | 'delete'
+    | 'create_acls'
+    | 'read_acls'
+    | 'update_acls'
+    | 'delete_acls'
+    | null;
 
   /**
    * When setting a permission directly, optionally restricts the permission grant to
    * just the specified object type. Cannot be set alongside a `role_id`.
    */
-  restrict_object_type?: 'organization' | 'project' | 'experiment' | 'dataset' | 'prompt' | 'prompt_session' | 'group' | 'role' | 'org_member' | 'project_log' | 'org_project' | null;
+  restrict_object_type?:
+    | 'organization'
+    | 'project'
+    | 'experiment'
+    | 'dataset'
+    | 'prompt'
+    | 'prompt_session'
+    | 'group'
+    | 'role'
+    | 'org_member'
+    | 'project_log'
+    | 'org_project'
+    | null;
 
   /**
    * Id of the role the ACL grants. Exactly one of `permission` and `role_id` will be
@@ -165,7 +228,19 @@ export interface ACLListParams extends ListObjectsParams {
   /**
    * The object type that the ACL applies to
    */
-  object_type: 'organization' | 'project' | 'experiment' | 'dataset' | 'prompt' | 'prompt_session' | 'group' | 'role' | 'org_member' | 'project_log' | 'org_project' | null;
+  object_type:
+    | 'organization'
+    | 'project'
+    | 'experiment'
+    | 'dataset'
+    | 'prompt'
+    | 'prompt_session'
+    | 'group'
+    | 'role'
+    | 'org_member'
+    | 'project_log'
+    | 'org_project'
+    | null;
 
   /**
    * Filter search results to a particular set of object IDs. To specify a list of

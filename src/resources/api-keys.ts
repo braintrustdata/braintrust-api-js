@@ -2,7 +2,6 @@
 
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
-import { APIPromise } from '../core';
 import * as Core from '../core';
 import * as APIKeysAPI from './api-keys';
 import { ListObjects, type ListObjectsParams } from '../pagination';
@@ -27,9 +26,12 @@ export class APIKeys extends APIResource {
    * List out all api_keys. The api_keys are sorted by creation date, with the most
    * recently-created api_keys coming first
    */
-  list(query?: APIKeyListParams, options?: Core.RequestOptions): Core.PagePromise<APIKeysListObjects, APIKey>
-  list(options?: Core.RequestOptions): Core.PagePromise<APIKeysListObjects, APIKey>
-  list(query: APIKeyListParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.PagePromise<APIKeysListObjects, APIKey> {
+  list(query?: APIKeyListParams, options?: Core.RequestOptions): Core.PagePromise<APIKeysListObjects, APIKey>;
+  list(options?: Core.RequestOptions): Core.PagePromise<APIKeysListObjects, APIKey>;
+  list(
+    query: APIKeyListParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<APIKeysListObjects, APIKey> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -47,8 +49,7 @@ export class APIKeys extends APIResource {
 /**
  * Pagination for endpoints which list data objects
  */
-export class APIKeysListObjects extends ListObjects<APIKey> {
-}
+export class APIKeysListObjects extends ListObjects<APIKey> {}
 
 export interface APIKey {
   /**
