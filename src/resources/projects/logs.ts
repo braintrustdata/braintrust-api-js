@@ -2,7 +2,6 @@
 
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
-import { APIPromise } from '../../core';
 import * as Core from '../../core';
 import * as LogsAPI from './logs';
 
@@ -11,16 +10,28 @@ export class Logs extends APIResource {
    * Log feedback for a set of project logs events
    */
   feedback(projectId: string, body: LogFeedbackParams, options?: Core.RequestOptions): Core.APIPromise<void> {
-    return this._client.post(`/v1/project_logs/${projectId}/feedback`, { body, ...options, headers: { Accept: '*/*', ...options?.headers } });
+    return this._client.post(`/v1/project_logs/${projectId}/feedback`, {
+      body,
+      ...options,
+      headers: { Accept: '*/*', ...options?.headers },
+    });
   }
 
   /**
    * Fetch the events in a project logs. Equivalent to the POST form of the same
    * path, but with the parameters in the URL query rather than in the request body
    */
-  fetch(projectId: string, query?: LogFetchParams, options?: Core.RequestOptions): Core.APIPromise<LogFetchResponse>
-  fetch(projectId: string, options?: Core.RequestOptions): Core.APIPromise<LogFetchResponse>
-  fetch(projectId: string, query: LogFetchParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<LogFetchResponse> {
+  fetch(
+    projectId: string,
+    query?: LogFetchParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<LogFetchResponse>;
+  fetch(projectId: string, options?: Core.RequestOptions): Core.APIPromise<LogFetchResponse>;
+  fetch(
+    projectId: string,
+    query: LogFetchParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<LogFetchResponse> {
     if (isRequestOptions(query)) {
       return this.fetch(projectId, {}, query);
     }
@@ -31,9 +42,17 @@ export class Logs extends APIResource {
    * Fetch the events in a project logs. Equivalent to the GET form of the same path,
    * but with the parameters in the request body rather than in the URL query
    */
-  fetchPost(projectId: string, body?: LogFetchPostParams, options?: Core.RequestOptions): Core.APIPromise<LogFetchPostResponse>
-  fetchPost(projectId: string, options?: Core.RequestOptions): Core.APIPromise<LogFetchPostResponse>
-  fetchPost(projectId: string, body: LogFetchPostParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<LogFetchPostResponse> {
+  fetchPost(
+    projectId: string,
+    body?: LogFetchPostParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<LogFetchPostResponse>;
+  fetchPost(projectId: string, options?: Core.RequestOptions): Core.APIPromise<LogFetchPostResponse>;
+  fetchPost(
+    projectId: string,
+    body: LogFetchPostParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<LogFetchPostResponse> {
     if (isRequestOptions(body)) {
       return this.fetchPost(projectId, {}, body);
     }
@@ -43,7 +62,11 @@ export class Logs extends APIResource {
   /**
    * Insert a set of events into the project logs
    */
-  insert(projectId: string, body: LogInsertParams, options?: Core.RequestOptions): Core.APIPromise<LogInsertResponse> {
+  insert(
+    projectId: string,
+    body: LogInsertParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<LogInsertResponse> {
     return this._client.post(`/v1/project_logs/${projectId}/insert`, { body, ...options });
   }
 }
@@ -213,7 +236,7 @@ export namespace LogFetchResponse {
        * Line of code where the project logs event was created
        */
       caller_lineno?: number | null;
-    [k: string]: unknown
+      [k: string]: unknown;
     }
 
     /**
@@ -250,7 +273,7 @@ export namespace LogFetchResponse {
        * The total number of tokens in the input and output of the project logs event.
        */
       tokens?: number | null;
-    [k: string]: unknown
+      [k: string]: unknown;
     }
 
     /**
@@ -266,7 +289,7 @@ export namespace LogFetchResponse {
        * Type of the span, for display purposes only
        */
       type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
-    [k: string]: unknown
+      [k: string]: unknown;
     }
   }
 }
@@ -436,7 +459,7 @@ export namespace LogFetchPostResponse {
        * Line of code where the project logs event was created
        */
       caller_lineno?: number | null;
-    [k: string]: unknown
+      [k: string]: unknown;
     }
 
     /**
@@ -473,7 +496,7 @@ export namespace LogFetchPostResponse {
        * The total number of tokens in the input and output of the project logs event.
        */
       tokens?: number | null;
-    [k: string]: unknown
+      [k: string]: unknown;
     }
 
     /**
@@ -489,7 +512,7 @@ export namespace LogFetchPostResponse {
        * Type of the span, for display purposes only
        */
       type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
-    [k: string]: unknown
+      [k: string]: unknown;
     }
   }
 }
@@ -858,7 +881,7 @@ export namespace LogInsertParams {
        * Line of code where the project logs event was created
        */
       caller_lineno?: number | null;
-    [k: string]: unknown
+      [k: string]: unknown;
     }
 
     /**
@@ -895,7 +918,7 @@ export namespace LogInsertParams {
        * The total number of tokens in the input and output of the project logs event.
        */
       tokens?: number | null;
-    [k: string]: unknown
+      [k: string]: unknown;
     }
 
     /**
@@ -911,7 +934,7 @@ export namespace LogInsertParams {
        * Type of the span, for display purposes only
        */
       type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
-    [k: string]: unknown
+      [k: string]: unknown;
     }
   }
 
@@ -1059,7 +1082,7 @@ export namespace LogInsertParams {
        * Line of code where the project logs event was created
        */
       caller_lineno?: number | null;
-    [k: string]: unknown
+      [k: string]: unknown;
     }
 
     /**
@@ -1096,7 +1119,7 @@ export namespace LogInsertParams {
        * The total number of tokens in the input and output of the project logs event.
        */
       tokens?: number | null;
-    [k: string]: unknown
+      [k: string]: unknown;
     }
 
     /**
@@ -1112,7 +1135,7 @@ export namespace LogInsertParams {
        * Type of the span, for display purposes only
        */
       type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
-    [k: string]: unknown
+      [k: string]: unknown;
     }
   }
 }

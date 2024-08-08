@@ -2,7 +2,6 @@
 
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
-import { APIPromise } from '../core';
 import * as Core from '../core';
 import * as ProjectTagsAPI from './project-tags';
 import { ListObjects, type ListObjectsParams } from '../pagination';
@@ -29,9 +28,17 @@ export class ProjectTags extends APIResource {
    * payload. Any object-type fields will be deep-merged with existing content.
    * Currently we do not support removing fields or setting them to null.
    */
-  update(projectTagId: string, body?: ProjectTagUpdateParams, options?: Core.RequestOptions): Core.APIPromise<ProjectTag>
-  update(projectTagId: string, options?: Core.RequestOptions): Core.APIPromise<ProjectTag>
-  update(projectTagId: string, body: ProjectTagUpdateParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<ProjectTag> {
+  update(
+    projectTagId: string,
+    body?: ProjectTagUpdateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<ProjectTag>;
+  update(projectTagId: string, options?: Core.RequestOptions): Core.APIPromise<ProjectTag>;
+  update(
+    projectTagId: string,
+    body: ProjectTagUpdateParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<ProjectTag> {
     if (isRequestOptions(body)) {
       return this.update(projectTagId, {}, body);
     }
@@ -42,9 +49,15 @@ export class ProjectTags extends APIResource {
    * List out all project_tags. The project_tags are sorted by creation date, with
    * the most recently-created project_tags coming first
    */
-  list(query?: ProjectTagListParams, options?: Core.RequestOptions): Core.PagePromise<ProjectTagsListObjects, ProjectTag>
-  list(options?: Core.RequestOptions): Core.PagePromise<ProjectTagsListObjects, ProjectTag>
-  list(query: ProjectTagListParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.PagePromise<ProjectTagsListObjects, ProjectTag> {
+  list(
+    query?: ProjectTagListParams,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<ProjectTagsListObjects, ProjectTag>;
+  list(options?: Core.RequestOptions): Core.PagePromise<ProjectTagsListObjects, ProjectTag>;
+  list(
+    query: ProjectTagListParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<ProjectTagsListObjects, ProjectTag> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -71,8 +84,7 @@ export class ProjectTags extends APIResource {
 /**
  * Pagination for endpoints which list data objects
  */
-export class ProjectTagsListObjects extends ListObjects<ProjectTag> {
-}
+export class ProjectTagsListObjects extends ListObjects<ProjectTag> {}
 
 /**
  * A project tag is a user-configured tag for tracking and filtering your
