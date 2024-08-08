@@ -1,8 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../resource';
-import { isRequestOptions } from '../core';
-import { APIPromise } from '../core';
 import * as Core from '../core';
 import * as TopLevelAPI from './top-level';
 
@@ -16,7 +14,7 @@ export class TopLevel extends APIResource {
   }
 }
 
-export type TopLevelHelloWorldResponse = string
+export type TopLevelHelloWorldResponse = string;
 
 export namespace TopLevel {
   export import TopLevelHelloWorldResponse = TopLevelAPI.TopLevelHelloWorldResponse;

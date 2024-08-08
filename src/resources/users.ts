@@ -2,7 +2,6 @@
 
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
-import { APIPromise } from '../core';
 import * as Core from '../core';
 import * as UsersAPI from './users';
 import { ListObjects, type ListObjectsParams } from '../pagination';
@@ -19,9 +18,12 @@ export class Users extends APIResource {
    * List out all users. The users are sorted by creation date, with the most
    * recently-created users coming first
    */
-  list(query?: UserListParams, options?: Core.RequestOptions): Core.PagePromise<UsersListObjects, User>
-  list(options?: Core.RequestOptions): Core.PagePromise<UsersListObjects, User>
-  list(query: UserListParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.PagePromise<UsersListObjects, User> {
+  list(query?: UserListParams, options?: Core.RequestOptions): Core.PagePromise<UsersListObjects, User>;
+  list(options?: Core.RequestOptions): Core.PagePromise<UsersListObjects, User>;
+  list(
+    query: UserListParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<UsersListObjects, User> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -32,8 +34,7 @@ export class Users extends APIResource {
 /**
  * Pagination for endpoints which list data objects
  */
-export class UsersListObjects extends ListObjects<User> {
-}
+export class UsersListObjects extends ListObjects<User> {}
 
 export interface User {
   /**

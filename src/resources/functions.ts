@@ -2,7 +2,6 @@
 
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
-import { APIPromise } from '../core';
 import * as Core from '../core';
 import * as FunctionsAPI from './functions';
 import * as Shared from './shared';
@@ -30,9 +29,17 @@ export class Functions extends APIResource {
    * Any object-type fields will be deep-merged with existing content. Currently we
    * do not support removing fields or setting them to null.
    */
-  update(functionId: string, body?: FunctionUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Function>
-  update(functionId: string, options?: Core.RequestOptions): Core.APIPromise<Function>
-  update(functionId: string, body: FunctionUpdateParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<Function> {
+  update(
+    functionId: string,
+    body?: FunctionUpdateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Function>;
+  update(functionId: string, options?: Core.RequestOptions): Core.APIPromise<Function>;
+  update(
+    functionId: string,
+    body: FunctionUpdateParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Function> {
     if (isRequestOptions(body)) {
       return this.update(functionId, {}, body);
     }
@@ -43,9 +50,15 @@ export class Functions extends APIResource {
    * List out all functions. The functions are sorted by creation date, with the most
    * recently-created functions coming first
    */
-  list(query?: FunctionListParams, options?: Core.RequestOptions): Core.PagePromise<FunctionsListObjects, Function>
-  list(options?: Core.RequestOptions): Core.PagePromise<FunctionsListObjects, Function>
-  list(query: FunctionListParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.PagePromise<FunctionsListObjects, Function> {
+  list(
+    query?: FunctionListParams,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<FunctionsListObjects, Function>;
+  list(options?: Core.RequestOptions): Core.PagePromise<FunctionsListObjects, Function>;
+  list(
+    query: FunctionListParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<FunctionsListObjects, Function> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -72,8 +85,7 @@ export class Functions extends APIResource {
 /**
  * Pagination for endpoints which list data objects
  */
-export class FunctionsListObjects extends ListObjects<Function> {
-}
+export class FunctionsListObjects extends ListObjects<Function> {}
 
 export interface Function {
   /**
@@ -282,7 +294,12 @@ export interface FunctionUpdateParams {
    */
   description?: string | null;
 
-  function_data?: FunctionUpdateParams.Prompt | FunctionUpdateParams.Code | FunctionUpdateParams.Global | FunctionUpdateParams.NullableVariant | null;
+  function_data?:
+    | FunctionUpdateParams.Prompt
+    | FunctionUpdateParams.Code
+    | FunctionUpdateParams.Global
+    | FunctionUpdateParams.NullableVariant
+    | null;
 
   /**
    * Name of the prompt
@@ -349,8 +366,7 @@ export namespace FunctionUpdateParams {
     type: 'global';
   }
 
-  export interface NullableVariant {
-  }
+  export interface NullableVariant {}
 }
 
 export interface FunctionListParams extends ListObjectsParams {

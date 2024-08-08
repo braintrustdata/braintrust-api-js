@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { AbstractPage, Response, APIClient, FinalRequestOptions, coerceInteger, coerceFloat, coerceBoolean, ensurePresent, PageInfo } from './core';
-import * as Core from './core';
+import { AbstractPage, Response, APIClient, FinalRequestOptions, PageInfo } from './core';
 
 export interface ListObjectsResponse<Item> {
   objects: Array<Item>;
@@ -18,10 +17,18 @@ export interface ListObjectsParams {
 /**
  * Pagination for endpoints which list data objects
  */
-export class ListObjects<Item extends { id: string }> extends AbstractPage<Item> implements ListObjectsResponse<Item> {
+export class ListObjects<Item extends { id: string }>
+  extends AbstractPage<Item>
+  implements ListObjectsResponse<Item>
+{
   objects: Array<Item>;
 
-  constructor(client: APIClient, response: Response, body: ListObjectsResponse<Item>, options: FinalRequestOptions) {
+  constructor(
+    client: APIClient,
+    response: Response,
+    body: ListObjectsResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
     super(client, response, body, options);
 
     this.objects = body.objects || [];
@@ -47,7 +54,9 @@ export class ListObjects<Item extends { id: string }> extends AbstractPage<Item>
       return null;
     }
 
-    const isForwards = !(typeof this.options.query === 'object' && 'ending_before' in (this.options.query || {}));
+    const isForwards = !(
+      typeof this.options.query === 'object' && 'ending_before' in (this.options.query || {})
+    );
     if (isForwards) {
       const id = objects[objects.length - 1]?.id;
       if (!id) {
@@ -57,7 +66,7 @@ export class ListObjects<Item extends { id: string }> extends AbstractPage<Item>
       return { params: { starting_after: id } };
     }
 
-    const id = objects[0]?.id
+    const id = objects[0]?.id;
     if (!id) {
       return null;
     }
