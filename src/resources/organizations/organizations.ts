@@ -2,7 +2,9 @@
 
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
+import { APIPromise } from '../../core';
 import * as Core from '../../core';
+import { Members } from './members';
 import * as OrganizationsAPI from './organizations';
 import * as MembersAPI from './members';
 import { ListObjects, type ListObjectsParams } from '../../pagination';
@@ -22,17 +24,9 @@ export class Organizations extends APIResource {
    * payload. Any object-type fields will be deep-merged with existing content.
    * Currently we do not support removing fields or setting them to null.
    */
-  update(
-    organizationId: string,
-    body?: OrganizationUpdateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Organization>;
-  update(organizationId: string, options?: Core.RequestOptions): Core.APIPromise<Organization>;
-  update(
-    organizationId: string,
-    body: OrganizationUpdateParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Organization> {
+  update(organizationId: string, body?: OrganizationUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Organization>
+  update(organizationId: string, options?: Core.RequestOptions): Core.APIPromise<Organization>
+  update(organizationId: string, body: OrganizationUpdateParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<Organization> {
     if (isRequestOptions(body)) {
       return this.update(organizationId, {}, body);
     }
@@ -43,15 +37,9 @@ export class Organizations extends APIResource {
    * List out all organizations. The organizations are sorted by creation date, with
    * the most recently-created organizations coming first
    */
-  list(
-    query?: OrganizationListParams,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<OrganizationsListObjects, Organization>;
-  list(options?: Core.RequestOptions): Core.PagePromise<OrganizationsListObjects, Organization>;
-  list(
-    query: OrganizationListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<OrganizationsListObjects, Organization> {
+  list(query?: OrganizationListParams, options?: Core.RequestOptions): Core.PagePromise<OrganizationsListObjects, Organization>
+  list(options?: Core.RequestOptions): Core.PagePromise<OrganizationsListObjects, Organization>
+  list(query: OrganizationListParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.PagePromise<OrganizationsListObjects, Organization> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -69,7 +57,8 @@ export class Organizations extends APIResource {
 /**
  * Pagination for endpoints which list data objects
  */
-export class OrganizationsListObjects extends ListObjects<Organization> {}
+export class OrganizationsListObjects extends ListObjects<Organization> {
+}
 
 export interface Organization {
   /**

@@ -2,6 +2,7 @@
 
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
+import { APIPromise } from '../core';
 import * as Core from '../core';
 import * as PromptsAPI from './prompts';
 import * as Shared from './shared';
@@ -29,13 +30,9 @@ export class Prompts extends APIResource {
    * Any object-type fields will be deep-merged with existing content. Currently we
    * do not support removing fields or setting them to null.
    */
-  update(promptId: string, body?: PromptUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Prompt>;
-  update(promptId: string, options?: Core.RequestOptions): Core.APIPromise<Prompt>;
-  update(
-    promptId: string,
-    body: PromptUpdateParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Prompt> {
+  update(promptId: string, body?: PromptUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Prompt>
+  update(promptId: string, options?: Core.RequestOptions): Core.APIPromise<Prompt>
+  update(promptId: string, body: PromptUpdateParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<Prompt> {
     if (isRequestOptions(body)) {
       return this.update(promptId, {}, body);
     }
@@ -46,12 +43,9 @@ export class Prompts extends APIResource {
    * List out all prompts. The prompts are sorted by creation date, with the most
    * recently-created prompts coming first
    */
-  list(query?: PromptListParams, options?: Core.RequestOptions): Core.PagePromise<PromptsListObjects, Prompt>;
-  list(options?: Core.RequestOptions): Core.PagePromise<PromptsListObjects, Prompt>;
-  list(
-    query: PromptListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<PromptsListObjects, Prompt> {
+  list(query?: PromptListParams, options?: Core.RequestOptions): Core.PagePromise<PromptsListObjects, Prompt>
+  list(options?: Core.RequestOptions): Core.PagePromise<PromptsListObjects, Prompt>
+  list(query: PromptListParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.PagePromise<PromptsListObjects, Prompt> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -78,7 +72,8 @@ export class Prompts extends APIResource {
 /**
  * Pagination for endpoints which list data objects
  */
-export class PromptsListObjects extends ListObjects<Prompt> {}
+export class PromptsListObjects extends ListObjects<Prompt> {
+}
 
 export interface Prompt {
   /**

@@ -2,6 +2,7 @@
 
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
+import { APIPromise } from '../core';
 import * as Core from '../core';
 import * as RolesAPI from './roles';
 import { ListObjects, type ListObjectsParams } from '../pagination';
@@ -27,13 +28,9 @@ export class Roles extends APIResource {
    * object-type fields will be deep-merged with existing content. Currently we do
    * not support removing fields or setting them to null.
    */
-  update(roleId: string, body?: RoleUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Role>;
-  update(roleId: string, options?: Core.RequestOptions): Core.APIPromise<Role>;
-  update(
-    roleId: string,
-    body: RoleUpdateParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Role> {
+  update(roleId: string, body?: RoleUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Role>
+  update(roleId: string, options?: Core.RequestOptions): Core.APIPromise<Role>
+  update(roleId: string, body: RoleUpdateParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<Role> {
     if (isRequestOptions(body)) {
       return this.update(roleId, {}, body);
     }
@@ -44,12 +41,9 @@ export class Roles extends APIResource {
    * List out all roles. The roles are sorted by creation date, with the most
    * recently-created roles coming first
    */
-  list(query?: RoleListParams, options?: Core.RequestOptions): Core.PagePromise<RolesListObjects, Role>;
-  list(options?: Core.RequestOptions): Core.PagePromise<RolesListObjects, Role>;
-  list(
-    query: RoleListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<RolesListObjects, Role> {
+  list(query?: RoleListParams, options?: Core.RequestOptions): Core.PagePromise<RolesListObjects, Role>
+  list(options?: Core.RequestOptions): Core.PagePromise<RolesListObjects, Role>
+  list(query: RoleListParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.PagePromise<RolesListObjects, Role> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -76,7 +70,8 @@ export class Roles extends APIResource {
 /**
  * Pagination for endpoints which list data objects
  */
-export class RolesListObjects extends ListObjects<Role> {}
+export class RolesListObjects extends ListObjects<Role> {
+}
 
 /**
  * A role is a collection of permissions which can be granted as part of an ACL
@@ -147,33 +142,12 @@ export namespace Role {
      * Permissions can be assigned to to objects on an individual basis, or grouped
      * into roles
      */
-    permission:
-      | 'create'
-      | 'read'
-      | 'update'
-      | 'delete'
-      | 'create_acls'
-      | 'read_acls'
-      | 'update_acls'
-      | 'delete_acls'
-      | null;
+    permission: 'create' | 'read' | 'update' | 'delete' | 'create_acls' | 'read_acls' | 'update_acls' | 'delete_acls' | null;
 
     /**
      * The object type that the ACL applies to
      */
-    restrict_object_type?:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'group'
-      | 'role'
-      | 'org_member'
-      | 'project_log'
-      | 'org_project'
-      | null;
+    restrict_object_type?: 'organization' | 'project' | 'experiment' | 'dataset' | 'prompt' | 'prompt_session' | 'group' | 'role' | 'org_member' | 'project_log' | 'org_project' | null;
   }
 }
 
@@ -217,33 +191,12 @@ export namespace RoleCreateParams {
      * Permissions can be assigned to to objects on an individual basis, or grouped
      * into roles
      */
-    permission:
-      | 'create'
-      | 'read'
-      | 'update'
-      | 'delete'
-      | 'create_acls'
-      | 'read_acls'
-      | 'update_acls'
-      | 'delete_acls'
-      | null;
+    permission: 'create' | 'read' | 'update' | 'delete' | 'create_acls' | 'read_acls' | 'update_acls' | 'delete_acls' | null;
 
     /**
      * The object type that the ACL applies to
      */
-    restrict_object_type?:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'group'
-      | 'role'
-      | 'org_member'
-      | 'project_log'
-      | 'org_project'
-      | null;
+    restrict_object_type?: 'organization' | 'project' | 'experiment' | 'dataset' | 'prompt' | 'prompt_session' | 'group' | 'role' | 'org_member' | 'project_log' | 'org_project' | null;
   }
 }
 
@@ -287,33 +240,12 @@ export namespace RoleUpdateParams {
      * Permissions can be assigned to to objects on an individual basis, or grouped
      * into roles
      */
-    permission:
-      | 'create'
-      | 'read'
-      | 'update'
-      | 'delete'
-      | 'create_acls'
-      | 'read_acls'
-      | 'update_acls'
-      | 'delete_acls'
-      | null;
+    permission: 'create' | 'read' | 'update' | 'delete' | 'create_acls' | 'read_acls' | 'update_acls' | 'delete_acls' | null;
 
     /**
      * The object type that the ACL applies to
      */
-    restrict_object_type?:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'group'
-      | 'role'
-      | 'org_member'
-      | 'project_log'
-      | 'org_project'
-      | null;
+    restrict_object_type?: 'organization' | 'project' | 'experiment' | 'dataset' | 'prompt' | 'prompt_session' | 'group' | 'role' | 'org_member' | 'project_log' | 'org_project' | null;
   }
 
   export interface RemoveMemberPermission {
@@ -323,33 +255,12 @@ export namespace RoleUpdateParams {
      * Permissions can be assigned to to objects on an individual basis, or grouped
      * into roles
      */
-    permission:
-      | 'create'
-      | 'read'
-      | 'update'
-      | 'delete'
-      | 'create_acls'
-      | 'read_acls'
-      | 'update_acls'
-      | 'delete_acls'
-      | null;
+    permission: 'create' | 'read' | 'update' | 'delete' | 'create_acls' | 'read_acls' | 'update_acls' | 'delete_acls' | null;
 
     /**
      * The object type that the ACL applies to
      */
-    restrict_object_type?:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'group'
-      | 'role'
-      | 'org_member'
-      | 'project_log'
-      | 'org_project'
-      | null;
+    restrict_object_type?: 'organization' | 'project' | 'experiment' | 'dataset' | 'prompt' | 'prompt_session' | 'group' | 'role' | 'org_member' | 'project_log' | 'org_project' | null;
   }
 }
 
@@ -411,33 +322,12 @@ export namespace RoleReplaceParams {
      * Permissions can be assigned to to objects on an individual basis, or grouped
      * into roles
      */
-    permission:
-      | 'create'
-      | 'read'
-      | 'update'
-      | 'delete'
-      | 'create_acls'
-      | 'read_acls'
-      | 'update_acls'
-      | 'delete_acls'
-      | null;
+    permission: 'create' | 'read' | 'update' | 'delete' | 'create_acls' | 'read_acls' | 'update_acls' | 'delete_acls' | null;
 
     /**
      * The object type that the ACL applies to
      */
-    restrict_object_type?:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'group'
-      | 'role'
-      | 'org_member'
-      | 'project_log'
-      | 'org_project'
-      | null;
+    restrict_object_type?: 'organization' | 'project' | 'experiment' | 'dataset' | 'prompt' | 'prompt_session' | 'group' | 'role' | 'org_member' | 'project_log' | 'org_project' | null;
   }
 }
 

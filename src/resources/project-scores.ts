@@ -2,6 +2,7 @@
 
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
+import { APIPromise } from '../core';
 import * as Core from '../core';
 import * as ProjectScoresAPI from './project-scores';
 import { ListObjects, type ListObjectsParams } from '../pagination';
@@ -28,17 +29,9 @@ export class ProjectScores extends APIResource {
    * payload. Any object-type fields will be deep-merged with existing content.
    * Currently we do not support removing fields or setting them to null.
    */
-  update(
-    projectScoreId: string,
-    body?: ProjectScoreUpdateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ProjectScore>;
-  update(projectScoreId: string, options?: Core.RequestOptions): Core.APIPromise<ProjectScore>;
-  update(
-    projectScoreId: string,
-    body: ProjectScoreUpdateParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ProjectScore> {
+  update(projectScoreId: string, body?: ProjectScoreUpdateParams, options?: Core.RequestOptions): Core.APIPromise<ProjectScore>
+  update(projectScoreId: string, options?: Core.RequestOptions): Core.APIPromise<ProjectScore>
+  update(projectScoreId: string, body: ProjectScoreUpdateParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<ProjectScore> {
     if (isRequestOptions(body)) {
       return this.update(projectScoreId, {}, body);
     }
@@ -49,15 +42,9 @@ export class ProjectScores extends APIResource {
    * List out all project_scores. The project_scores are sorted by creation date,
    * with the most recently-created project_scores coming first
    */
-  list(
-    query?: ProjectScoreListParams,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<ProjectScoresListObjects, ProjectScore>;
-  list(options?: Core.RequestOptions): Core.PagePromise<ProjectScoresListObjects, ProjectScore>;
-  list(
-    query: ProjectScoreListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<ProjectScoresListObjects, ProjectScore> {
+  list(query?: ProjectScoreListParams, options?: Core.RequestOptions): Core.PagePromise<ProjectScoresListObjects, ProjectScore>
+  list(options?: Core.RequestOptions): Core.PagePromise<ProjectScoresListObjects, ProjectScore>
+  list(query: ProjectScoreListParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.PagePromise<ProjectScoresListObjects, ProjectScore> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -84,7 +71,8 @@ export class ProjectScores extends APIResource {
 /**
  * Pagination for endpoints which list data objects
  */
-export class ProjectScoresListObjects extends ListObjects<ProjectScore> {}
+export class ProjectScoresListObjects extends ListObjects<ProjectScore> {
+}
 
 /**
  * A project score is a user-configured score, which can be manually-labeled
@@ -116,12 +104,7 @@ export interface ProjectScore {
   /**
    * For categorical-type project scores, the list of all categories
    */
-  categories?:
-    | Array<ProjectScoreCategory>
-    | Record<string, number>
-    | Array<string>
-    | ProjectScore.NullableVariant
-    | null;
+  categories?: Array<ProjectScoreCategory> | Record<string, number> | Array<string> | ProjectScore.NullableVariant | null;
 
   config?: ProjectScore.Config | null;
 
@@ -143,7 +126,8 @@ export interface ProjectScore {
 }
 
 export namespace ProjectScore {
-  export interface NullableVariant {}
+  export interface NullableVariant {
+  }
 
   export interface Config {
     destination?: 'expected' | null;
@@ -186,12 +170,7 @@ export interface ProjectScoreCreateParams {
   /**
    * For categorical-type project scores, the list of all categories
    */
-  categories?:
-    | Array<ProjectScoreCategory>
-    | Record<string, number>
-    | Array<string>
-    | ProjectScoreCreateParams.NullableVariant
-    | null;
+  categories?: Array<ProjectScoreCategory> | Record<string, number> | Array<string> | ProjectScoreCreateParams.NullableVariant | null;
 
   /**
    * Textual description of the project score
@@ -200,19 +179,15 @@ export interface ProjectScoreCreateParams {
 }
 
 export namespace ProjectScoreCreateParams {
-  export interface NullableVariant {}
+  export interface NullableVariant {
+  }
 }
 
 export interface ProjectScoreUpdateParams {
   /**
    * For categorical-type project scores, the list of all categories
    */
-  categories?:
-    | Array<ProjectScoreCategory>
-    | Record<string, number>
-    | Array<string>
-    | ProjectScoreUpdateParams.NullableVariant
-    | null;
+  categories?: Array<ProjectScoreCategory> | Record<string, number> | Array<string> | ProjectScoreUpdateParams.NullableVariant | null;
 
   /**
    * Textual description of the project score
@@ -231,7 +206,8 @@ export interface ProjectScoreUpdateParams {
 }
 
 export namespace ProjectScoreUpdateParams {
-  export interface NullableVariant {}
+  export interface NullableVariant {
+  }
 }
 
 export interface ProjectScoreListParams extends ListObjectsParams {
@@ -276,12 +252,7 @@ export interface ProjectScoreReplaceParams {
   /**
    * For categorical-type project scores, the list of all categories
    */
-  categories?:
-    | Array<ProjectScoreCategory>
-    | Record<string, number>
-    | Array<string>
-    | ProjectScoreReplaceParams.NullableVariant
-    | null;
+  categories?: Array<ProjectScoreCategory> | Record<string, number> | Array<string> | ProjectScoreReplaceParams.NullableVariant | null;
 
   /**
    * Textual description of the project score
@@ -290,7 +261,8 @@ export interface ProjectScoreReplaceParams {
 }
 
 export namespace ProjectScoreReplaceParams {
-  export interface NullableVariant {}
+  export interface NullableVariant {
+  }
 }
 
 export namespace ProjectScores {
