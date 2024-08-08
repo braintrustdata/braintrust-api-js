@@ -154,6 +154,7 @@ describe('resource prompts', () => {
           ids: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           limit: 0,
           org_name: 'org_name',
+          project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           project_name: 'project_name',
           prompt_name: 'prompt_name',
           slug: 'slug',

@@ -118,7 +118,6 @@ describe('resource views', () => {
       ending_before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       ids: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       limit: 0,
-      project_name: 'project_name',
       starting_after: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       view_name: 'view_name',
       view_type: 'projects',

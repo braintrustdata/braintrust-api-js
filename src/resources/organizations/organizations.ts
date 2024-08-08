@@ -4,8 +4,10 @@ import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
 import * as OrganizationsAPI from './organizations';
+import * as Shared from '../shared';
+import { OrganizationsListObjects } from '../shared';
 import * as MembersAPI from './members';
-import { ListObjects, type ListObjectsParams } from '../../pagination';
+import { type ListObjectsParams } from '../../pagination';
 
 export class Organizations extends APIResource {
   members: MembersAPI.Members = new MembersAPI.Members(this._client);
@@ -13,7 +15,10 @@ export class Organizations extends APIResource {
   /**
    * Get a organization object by its id
    */
-  retrieve(organizationId: string, options?: Core.RequestOptions): Core.APIPromise<Organization> {
+  retrieve(
+    organizationId: Shared.OrganizationID,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.Organization> {
     return this._client.get(`/v1/organization/${organizationId}`, options);
   }
 
@@ -23,16 +28,19 @@ export class Organizations extends APIResource {
    * Currently we do not support removing fields or setting them to null.
    */
   update(
-    organizationId: string,
+    organizationId: Shared.OrganizationID,
     body?: OrganizationUpdateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Organization>;
-  update(organizationId: string, options?: Core.RequestOptions): Core.APIPromise<Organization>;
+  ): Core.APIPromise<Shared.Organization>;
   update(
-    organizationId: string,
+    organizationId: Shared.OrganizationID,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.Organization>;
+  update(
+    organizationId: Shared.OrganizationID,
     body: OrganizationUpdateParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Organization> {
+  ): Core.APIPromise<Shared.Organization> {
     if (isRequestOptions(body)) {
       return this.update(organizationId, {}, body);
     }
@@ -46,12 +54,12 @@ export class Organizations extends APIResource {
   list(
     query?: OrganizationListParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<OrganizationsListObjects, Organization>;
-  list(options?: Core.RequestOptions): Core.PagePromise<OrganizationsListObjects, Organization>;
+  ): Core.PagePromise<OrganizationsListObjects, Shared.Organization>;
+  list(options?: Core.RequestOptions): Core.PagePromise<OrganizationsListObjects, Shared.Organization>;
   list(
     query: OrganizationListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<OrganizationsListObjects, Organization> {
+  ): Core.PagePromise<OrganizationsListObjects, Shared.Organization> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -61,39 +69,12 @@ export class Organizations extends APIResource {
   /**
    * Delete a organization object by its id
    */
-  delete(organizationId: string, options?: Core.RequestOptions): Core.APIPromise<Organization> {
+  delete(
+    organizationId: Shared.OrganizationID,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.Organization> {
     return this._client.delete(`/v1/organization/${organizationId}`, options);
   }
-}
-
-/**
- * Pagination for endpoints which list data objects
- */
-export class OrganizationsListObjects extends ListObjects<Organization> {}
-
-export interface Organization {
-  /**
-   * Unique identifier for the organization
-   */
-  id: string;
-
-  /**
-   * Name of the organization
-   */
-  name: string;
-
-  api_url?: string | null;
-
-  /**
-   * Date of organization creation
-   */
-  created?: string | null;
-
-  is_universal_api?: boolean | null;
-
-  proxy_url?: string | null;
-
-  realtime_url?: string | null;
 }
 
 export interface OrganizationUpdateParams {
@@ -116,25 +97,25 @@ export interface OrganizationListParams extends ListObjectsParams {
    * Filter search results to a particular set of object IDs. To specify a list of
    * IDs, include the query param multiple times
    */
-  ids?: string | Array<string>;
+  ids?: Shared.IDs;
 
   /**
    * Filter search results to within a particular organization
    */
-  org_name?: string;
+  org_name?: Shared.OrgName;
 
   /**
    * Name of the organization to search for
    */
-  organization_name?: string;
+  organization_name?: Shared.OrganizationName;
 }
 
 export namespace Organizations {
-  export import Organization = OrganizationsAPI.Organization;
-  export import OrganizationsListObjects = OrganizationsAPI.OrganizationsListObjects;
   export import OrganizationUpdateParams = OrganizationsAPI.OrganizationUpdateParams;
   export import OrganizationListParams = OrganizationsAPI.OrganizationListParams;
   export import Members = MembersAPI.Members;
   export import MemberUpdateResponse = MembersAPI.MemberUpdateResponse;
   export import MemberUpdateParams = MembersAPI.MemberUpdateParams;
 }
+
+export { OrganizationsListObjects };
