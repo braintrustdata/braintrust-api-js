@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
+import { APIPromise } from '../../core';
 import * as Core from '../../core';
 import * as MembersAPI from './members';
 
@@ -9,12 +10,9 @@ export class Members extends APIResource {
   /**
    * Modify organization membership
    */
-  update(body?: MemberUpdateParams, options?: Core.RequestOptions): Core.APIPromise<MemberUpdateResponse>;
-  update(options?: Core.RequestOptions): Core.APIPromise<MemberUpdateResponse>;
-  update(
-    body: MemberUpdateParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<MemberUpdateResponse> {
+  update(body?: MemberUpdateParams, options?: Core.RequestOptions): Core.APIPromise<MemberUpdateResponse>
+  update(options?: Core.RequestOptions): Core.APIPromise<MemberUpdateResponse>
+  update(body: MemberUpdateParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<MemberUpdateResponse> {
     if (isRequestOptions(body)) {
       return this.update({}, body);
     }

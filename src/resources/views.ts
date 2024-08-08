@@ -1,6 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../resource';
+import { isRequestOptions } from '../core';
+import { APIPromise } from '../core';
 import * as Core from '../core';
 import * as ViewsAPI from './views';
 import { ListObjects, type ListObjectsParams } from '../pagination';
@@ -59,7 +61,8 @@ export class Views extends APIResource {
 /**
  * Pagination for endpoints which list data objects
  */
-export class ViewsListObjects extends ListObjects<View> {}
+export class ViewsListObjects extends ListObjects<View> {
+}
 
 export interface View {
   /**
@@ -80,33 +83,12 @@ export interface View {
   /**
    * The object type that the ACL applies to
    */
-  object_type:
-    | 'organization'
-    | 'project'
-    | 'experiment'
-    | 'dataset'
-    | 'prompt'
-    | 'prompt_session'
-    | 'group'
-    | 'role'
-    | 'org_member'
-    | 'project_log'
-    | 'org_project'
-    | null;
+  object_type: 'organization' | 'project' | 'experiment' | 'dataset' | 'prompt' | 'prompt_session' | 'group' | 'role' | 'org_member' | 'project_log' | 'org_project' | null;
 
   /**
    * Type of table that the view corresponds to.
    */
-  view_type:
-    | 'projects'
-    | 'logs'
-    | 'experiments'
-    | 'datasets'
-    | 'prompts'
-    | 'playgrounds'
-    | 'experiment'
-    | 'dataset'
-    | null;
+  view_type: 'projects' | 'logs' | 'experiments' | 'datasets' | 'prompts' | 'playgrounds' | 'experiment' | 'dataset' | null;
 
   /**
    * Date of view creation
@@ -176,33 +158,12 @@ export interface ViewCreateParams {
   /**
    * The object type that the ACL applies to
    */
-  object_type:
-    | 'organization'
-    | 'project'
-    | 'experiment'
-    | 'dataset'
-    | 'prompt'
-    | 'prompt_session'
-    | 'group'
-    | 'role'
-    | 'org_member'
-    | 'project_log'
-    | 'org_project'
-    | null;
+  object_type: 'organization' | 'project' | 'experiment' | 'dataset' | 'prompt' | 'prompt_session' | 'group' | 'role' | 'org_member' | 'project_log' | 'org_project' | null;
 
   /**
    * Type of table that the view corresponds to.
    */
-  view_type:
-    | 'projects'
-    | 'logs'
-    | 'experiments'
-    | 'datasets'
-    | 'prompts'
-    | 'playgrounds'
-    | 'experiment'
-    | 'dataset'
-    | null;
+  view_type: 'projects' | 'logs' | 'experiments' | 'datasets' | 'prompts' | 'playgrounds' | 'experiment' | 'dataset' | null;
 
   /**
    * Date of role deletion, or null if the role is still active
@@ -234,19 +195,7 @@ export interface ViewRetrieveParams {
   /**
    * The object type that the ACL applies to
    */
-  object_type:
-    | 'organization'
-    | 'project'
-    | 'experiment'
-    | 'dataset'
-    | 'prompt'
-    | 'prompt_session'
-    | 'group'
-    | 'role'
-    | 'org_member'
-    | 'project_log'
-    | 'org_project'
-    | null;
+  object_type: 'organization' | 'project' | 'experiment' | 'dataset' | 'prompt' | 'prompt_session' | 'group' | 'role' | 'org_member' | 'project_log' | 'org_project' | null;
 }
 
 export interface ViewUpdateParams {
@@ -258,19 +207,7 @@ export interface ViewUpdateParams {
   /**
    * The object type that the ACL applies to
    */
-  object_type:
-    | 'organization'
-    | 'project'
-    | 'experiment'
-    | 'dataset'
-    | 'prompt'
-    | 'prompt_session'
-    | 'group'
-    | 'role'
-    | 'org_member'
-    | 'project_log'
-    | 'org_project'
-    | null;
+  object_type: 'organization' | 'project' | 'experiment' | 'dataset' | 'prompt' | 'prompt_session' | 'group' | 'role' | 'org_member' | 'project_log' | 'org_project' | null;
 
   /**
    * Name of the view
@@ -295,16 +232,7 @@ export interface ViewUpdateParams {
   /**
    * Type of table that the view corresponds to.
    */
-  view_type?:
-    | 'projects'
-    | 'logs'
-    | 'experiments'
-    | 'datasets'
-    | 'prompts'
-    | 'playgrounds'
-    | 'experiment'
-    | 'dataset'
-    | null;
+  view_type?: 'projects' | 'logs' | 'experiments' | 'datasets' | 'prompts' | 'playgrounds' | 'experiment' | 'dataset' | null;
 }
 
 export interface ViewListParams extends ListObjectsParams {
@@ -316,19 +244,7 @@ export interface ViewListParams extends ListObjectsParams {
   /**
    * The object type that the ACL applies to
    */
-  object_type:
-    | 'organization'
-    | 'project'
-    | 'experiment'
-    | 'dataset'
-    | 'prompt'
-    | 'prompt_session'
-    | 'group'
-    | 'role'
-    | 'org_member'
-    | 'project_log'
-    | 'org_project'
-    | null;
+  object_type: 'organization' | 'project' | 'experiment' | 'dataset' | 'prompt' | 'prompt_session' | 'group' | 'role' | 'org_member' | 'project_log' | 'org_project' | null;
 
   /**
    * Filter search results to a particular set of object IDs. To specify a list of
@@ -349,16 +265,7 @@ export interface ViewListParams extends ListObjectsParams {
   /**
    * Type of table that the view corresponds to.
    */
-  view_type?:
-    | 'projects'
-    | 'logs'
-    | 'experiments'
-    | 'datasets'
-    | 'prompts'
-    | 'playgrounds'
-    | 'experiment'
-    | 'dataset'
-    | null;
+  view_type?: 'projects' | 'logs' | 'experiments' | 'datasets' | 'prompts' | 'playgrounds' | 'experiment' | 'dataset' | null;
 }
 
 export interface ViewDeleteParams {
@@ -370,19 +277,7 @@ export interface ViewDeleteParams {
   /**
    * The object type that the ACL applies to
    */
-  object_type:
-    | 'organization'
-    | 'project'
-    | 'experiment'
-    | 'dataset'
-    | 'prompt'
-    | 'prompt_session'
-    | 'group'
-    | 'role'
-    | 'org_member'
-    | 'project_log'
-    | 'org_project'
-    | null;
+  object_type: 'organization' | 'project' | 'experiment' | 'dataset' | 'prompt' | 'prompt_session' | 'group' | 'role' | 'org_member' | 'project_log' | 'org_project' | null;
 }
 
 export interface ViewReplaceParams {
@@ -399,33 +294,12 @@ export interface ViewReplaceParams {
   /**
    * The object type that the ACL applies to
    */
-  object_type:
-    | 'organization'
-    | 'project'
-    | 'experiment'
-    | 'dataset'
-    | 'prompt'
-    | 'prompt_session'
-    | 'group'
-    | 'role'
-    | 'org_member'
-    | 'project_log'
-    | 'org_project'
-    | null;
+  object_type: 'organization' | 'project' | 'experiment' | 'dataset' | 'prompt' | 'prompt_session' | 'group' | 'role' | 'org_member' | 'project_log' | 'org_project' | null;
 
   /**
    * Type of table that the view corresponds to.
    */
-  view_type:
-    | 'projects'
-    | 'logs'
-    | 'experiments'
-    | 'datasets'
-    | 'prompts'
-    | 'playgrounds'
-    | 'experiment'
-    | 'dataset'
-    | null;
+  view_type: 'projects' | 'logs' | 'experiments' | 'datasets' | 'prompts' | 'playgrounds' | 'experiment' | 'dataset' | null;
 
   /**
    * Date of role deletion, or null if the role is still active

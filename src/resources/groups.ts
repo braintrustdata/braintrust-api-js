@@ -2,6 +2,7 @@
 
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
+import { APIPromise } from '../core';
 import * as Core from '../core';
 import * as GroupsAPI from './groups';
 import { ListObjects, type ListObjectsParams } from '../pagination';
@@ -27,13 +28,9 @@ export class Groups extends APIResource {
    * Any object-type fields will be deep-merged with existing content. Currently we
    * do not support removing fields or setting them to null.
    */
-  update(groupId: string, body?: GroupUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Group>;
-  update(groupId: string, options?: Core.RequestOptions): Core.APIPromise<Group>;
-  update(
-    groupId: string,
-    body: GroupUpdateParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Group> {
+  update(groupId: string, body?: GroupUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Group>
+  update(groupId: string, options?: Core.RequestOptions): Core.APIPromise<Group>
+  update(groupId: string, body: GroupUpdateParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<Group> {
     if (isRequestOptions(body)) {
       return this.update(groupId, {}, body);
     }
@@ -44,12 +41,9 @@ export class Groups extends APIResource {
    * List out all groups. The groups are sorted by creation date, with the most
    * recently-created groups coming first
    */
-  list(query?: GroupListParams, options?: Core.RequestOptions): Core.PagePromise<GroupsListObjects, Group>;
-  list(options?: Core.RequestOptions): Core.PagePromise<GroupsListObjects, Group>;
-  list(
-    query: GroupListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<GroupsListObjects, Group> {
+  list(query?: GroupListParams, options?: Core.RequestOptions): Core.PagePromise<GroupsListObjects, Group>
+  list(options?: Core.RequestOptions): Core.PagePromise<GroupsListObjects, Group>
+  list(query: GroupListParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.PagePromise<GroupsListObjects, Group> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -76,7 +70,8 @@ export class Groups extends APIResource {
 /**
  * Pagination for endpoints which list data objects
  */
-export class GroupsListObjects extends ListObjects<Group> {}
+export class GroupsListObjects extends ListObjects<Group> {
+}
 
 /**
  * A group is a collection of users which can be assigned an ACL

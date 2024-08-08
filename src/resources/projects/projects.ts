@@ -2,7 +2,9 @@
 
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
+import { APIPromise } from '../../core';
 import * as Core from '../../core';
+import { Logs } from './logs';
 import * as ProjectsAPI from './projects';
 import * as LogsAPI from './logs';
 import { ListObjects, type ListObjectsParams } from '../../pagination';
@@ -30,17 +32,9 @@ export class Projects extends APIResource {
    * Any object-type fields will be deep-merged with existing content. Currently we
    * do not support removing fields or setting them to null.
    */
-  update(
-    projectId: string,
-    body?: ProjectUpdateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Project>;
-  update(projectId: string, options?: Core.RequestOptions): Core.APIPromise<Project>;
-  update(
-    projectId: string,
-    body: ProjectUpdateParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Project> {
+  update(projectId: string, body?: ProjectUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Project>
+  update(projectId: string, options?: Core.RequestOptions): Core.APIPromise<Project>
+  update(projectId: string, body: ProjectUpdateParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<Project> {
     if (isRequestOptions(body)) {
       return this.update(projectId, {}, body);
     }
@@ -51,15 +45,9 @@ export class Projects extends APIResource {
    * List out all projects. The projects are sorted by creation date, with the most
    * recently-created projects coming first
    */
-  list(
-    query?: ProjectListParams,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<ProjectsListObjects, Project>;
-  list(options?: Core.RequestOptions): Core.PagePromise<ProjectsListObjects, Project>;
-  list(
-    query: ProjectListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<ProjectsListObjects, Project> {
+  list(query?: ProjectListParams, options?: Core.RequestOptions): Core.PagePromise<ProjectsListObjects, Project>
+  list(options?: Core.RequestOptions): Core.PagePromise<ProjectsListObjects, Project>
+  list(query: ProjectListParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.PagePromise<ProjectsListObjects, Project> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -77,7 +65,8 @@ export class Projects extends APIResource {
 /**
  * Pagination for endpoints which list data objects
  */
-export class ProjectsListObjects extends ListObjects<Project> {}
+export class ProjectsListObjects extends ListObjects<Project> {
+}
 
 export interface Project {
   /**
