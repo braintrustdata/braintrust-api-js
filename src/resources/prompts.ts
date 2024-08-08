@@ -5,7 +5,8 @@ import { isRequestOptions } from '../core';
 import * as Core from '../core';
 import * as PromptsAPI from './prompts';
 import * as Shared from './shared';
-import { ListObjects, type ListObjectsParams } from '../pagination';
+import { PromptsListObjects } from './shared';
+import { type ListObjectsParams } from '../pagination';
 
 export class Prompts extends APIResource {
   /**
@@ -13,14 +14,14 @@ export class Prompts extends APIResource {
    * slug as the one specified in the request, will return the existing prompt
    * unmodified
    */
-  create(body: PromptCreateParams, options?: Core.RequestOptions): Core.APIPromise<Prompt> {
+  create(body: PromptCreateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.Prompt> {
     return this._client.post('/v1/prompt', { body, ...options });
   }
 
   /**
    * Get a prompt object by its id
    */
-  retrieve(promptId: string, options?: Core.RequestOptions): Core.APIPromise<Prompt> {
+  retrieve(promptId: Shared.PromptID, options?: Core.RequestOptions): Core.APIPromise<Shared.Prompt> {
     return this._client.get(`/v1/prompt/${promptId}`, options);
   }
 
@@ -29,13 +30,17 @@ export class Prompts extends APIResource {
    * Any object-type fields will be deep-merged with existing content. Currently we
    * do not support removing fields or setting them to null.
    */
-  update(promptId: string, body?: PromptUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Prompt>;
-  update(promptId: string, options?: Core.RequestOptions): Core.APIPromise<Prompt>;
   update(
-    promptId: string,
+    promptId: Shared.PromptID,
+    body?: PromptUpdateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.Prompt>;
+  update(promptId: Shared.PromptID, options?: Core.RequestOptions): Core.APIPromise<Shared.Prompt>;
+  update(
+    promptId: Shared.PromptID,
     body: PromptUpdateParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Prompt> {
+  ): Core.APIPromise<Shared.Prompt> {
     if (isRequestOptions(body)) {
       return this.update(promptId, {}, body);
     }
@@ -46,12 +51,15 @@ export class Prompts extends APIResource {
    * List out all prompts. The prompts are sorted by creation date, with the most
    * recently-created prompts coming first
    */
-  list(query?: PromptListParams, options?: Core.RequestOptions): Core.PagePromise<PromptsListObjects, Prompt>;
-  list(options?: Core.RequestOptions): Core.PagePromise<PromptsListObjects, Prompt>;
+  list(
+    query?: PromptListParams,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<PromptsListObjects, Shared.Prompt>;
+  list(options?: Core.RequestOptions): Core.PagePromise<PromptsListObjects, Shared.Prompt>;
   list(
     query: PromptListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<PromptsListObjects, Prompt> {
+  ): Core.PagePromise<PromptsListObjects, Shared.Prompt> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -61,7 +69,7 @@ export class Prompts extends APIResource {
   /**
    * Delete a prompt object by its id
    */
-  delete(promptId: string, options?: Core.RequestOptions): Core.APIPromise<Prompt> {
+  delete(promptId: Shared.PromptID, options?: Core.RequestOptions): Core.APIPromise<Shared.Prompt> {
     return this._client.delete(`/v1/prompt/${promptId}`, options);
   }
 
@@ -70,79 +78,9 @@ export class Prompts extends APIResource {
    * same slug as the one specified in the request, will replace the existing prompt
    * with the provided fields
    */
-  replace(body: PromptReplaceParams, options?: Core.RequestOptions): Core.APIPromise<Prompt> {
+  replace(body: PromptReplaceParams, options?: Core.RequestOptions): Core.APIPromise<Shared.Prompt> {
     return this._client.put('/v1/prompt', { body, ...options });
   }
-}
-
-/**
- * Pagination for endpoints which list data objects
- */
-export class PromptsListObjects extends ListObjects<Prompt> {}
-
-export interface Prompt {
-  /**
-   * Unique identifier for the prompt
-   */
-  id: string;
-
-  /**
-   * The transaction id of an event is unique to the network operation that processed
-   * the event insertion. Transaction ids are monotonically increasing over time and
-   * can be used to retrieve a versioned snapshot of the prompt (see the `version`
-   * parameter)
-   */
-  _xact_id: string;
-
-  /**
-   * A literal 'p' which identifies the object as a project prompt
-   */
-  log_id: 'p';
-
-  /**
-   * Name of the prompt
-   */
-  name: string;
-
-  /**
-   * Unique identifier for the organization
-   */
-  org_id: string;
-
-  /**
-   * Unique identifier for the project that the prompt belongs under
-   */
-  project_id: string;
-
-  /**
-   * Unique identifier for the prompt
-   */
-  slug: string;
-
-  /**
-   * Date of prompt creation
-   */
-  created?: string | null;
-
-  /**
-   * Textual description of the prompt
-   */
-  description?: string | null;
-
-  /**
-   * User-controlled metadata about the prompt
-   */
-  metadata?: Record<string, unknown> | null;
-
-  /**
-   * The prompt, model, and its parameters
-   */
-  prompt_data?: Shared.PromptData | null;
-
-  /**
-   * A list of tags for the prompt
-   */
-  tags?: Array<string> | null;
 }
 
 export interface PromptCreateParams {
@@ -204,27 +142,32 @@ export interface PromptListParams extends ListObjectsParams {
    * Filter search results to a particular set of object IDs. To specify a list of
    * IDs, include the query param multiple times
    */
-  ids?: string | Array<string>;
+  ids?: Shared.IDs;
 
   /**
    * Filter search results to within a particular organization
    */
-  org_name?: string;
+  org_name?: Shared.OrgName;
+
+  /**
+   * Project id
+   */
+  project_id?: Shared.ProjectIDQuery;
 
   /**
    * Name of the project to search for
    */
-  project_name?: string;
+  project_name?: Shared.ProjectName;
 
   /**
    * Name of the prompt to search for
    */
-  prompt_name?: string;
+  prompt_name?: Shared.PromptName;
 
   /**
    * Retrieve prompt with a specific slug
    */
-  slug?: string;
+  slug?: Shared.Slug;
 
   /**
    * Retrieve prompt at a specific version.
@@ -232,7 +175,7 @@ export interface PromptListParams extends ListObjectsParams {
    * The version id can either be a transaction id (e.g. '1000192656880881099') or a
    * version identifier (e.g. '81cd05ee665fdfb3').
    */
-  version?: string;
+  version?: Shared.PromptVersion;
 }
 
 export interface PromptReplaceParams {
@@ -268,10 +211,10 @@ export interface PromptReplaceParams {
 }
 
 export namespace Prompts {
-  export import Prompt = PromptsAPI.Prompt;
-  export import PromptsListObjects = PromptsAPI.PromptsListObjects;
   export import PromptCreateParams = PromptsAPI.PromptCreateParams;
   export import PromptUpdateParams = PromptsAPI.PromptUpdateParams;
   export import PromptListParams = PromptsAPI.PromptListParams;
   export import PromptReplaceParams = PromptsAPI.PromptReplaceParams;
 }
+
+export { PromptsListObjects };

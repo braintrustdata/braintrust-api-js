@@ -4,21 +4,23 @@ import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
 import * as RolesAPI from './roles';
-import { ListObjects, type ListObjectsParams } from '../pagination';
+import * as Shared from './shared';
+import { RolesListObjects } from './shared';
+import { type ListObjectsParams } from '../pagination';
 
 export class Roles extends APIResource {
   /**
    * Create a new role. If there is an existing role with the same name as the one
    * specified in the request, will return the existing role unmodified
    */
-  create(body: RoleCreateParams, options?: Core.RequestOptions): Core.APIPromise<Role> {
+  create(body: RoleCreateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.Role> {
     return this._client.post('/v1/role', { body, ...options });
   }
 
   /**
    * Get a role object by its id
    */
-  retrieve(roleId: string, options?: Core.RequestOptions): Core.APIPromise<Role> {
+  retrieve(roleId: Shared.RoleID, options?: Core.RequestOptions): Core.APIPromise<Shared.Role> {
     return this._client.get(`/v1/role/${roleId}`, options);
   }
 
@@ -27,13 +29,17 @@ export class Roles extends APIResource {
    * object-type fields will be deep-merged with existing content. Currently we do
    * not support removing fields or setting them to null.
    */
-  update(roleId: string, body?: RoleUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Role>;
-  update(roleId: string, options?: Core.RequestOptions): Core.APIPromise<Role>;
   update(
-    roleId: string,
+    roleId: Shared.RoleID,
+    body?: RoleUpdateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.Role>;
+  update(roleId: Shared.RoleID, options?: Core.RequestOptions): Core.APIPromise<Shared.Role>;
+  update(
+    roleId: Shared.RoleID,
     body: RoleUpdateParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Role> {
+  ): Core.APIPromise<Shared.Role> {
     if (isRequestOptions(body)) {
       return this.update(roleId, {}, body);
     }
@@ -44,12 +50,15 @@ export class Roles extends APIResource {
    * List out all roles. The roles are sorted by creation date, with the most
    * recently-created roles coming first
    */
-  list(query?: RoleListParams, options?: Core.RequestOptions): Core.PagePromise<RolesListObjects, Role>;
-  list(options?: Core.RequestOptions): Core.PagePromise<RolesListObjects, Role>;
+  list(
+    query?: RoleListParams,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<RolesListObjects, Shared.Role>;
+  list(options?: Core.RequestOptions): Core.PagePromise<RolesListObjects, Shared.Role>;
   list(
     query: RoleListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<RolesListObjects, Role> {
+  ): Core.PagePromise<RolesListObjects, Shared.Role> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -59,7 +68,7 @@ export class Roles extends APIResource {
   /**
    * Delete a role object by its id
    */
-  delete(roleId: string, options?: Core.RequestOptions): Core.APIPromise<Role> {
+  delete(roleId: Shared.RoleID, options?: Core.RequestOptions): Core.APIPromise<Shared.Role> {
     return this._client.delete(`/v1/role/${roleId}`, options);
   }
 
@@ -68,112 +77,8 @@ export class Roles extends APIResource {
    * one specified in the request, will replace the existing role with the provided
    * fields
    */
-  replace(body: RoleReplaceParams, options?: Core.RequestOptions): Core.APIPromise<Role> {
+  replace(body: RoleReplaceParams, options?: Core.RequestOptions): Core.APIPromise<Shared.Role> {
     return this._client.put('/v1/role', { body, ...options });
-  }
-}
-
-/**
- * Pagination for endpoints which list data objects
- */
-export class RolesListObjects extends ListObjects<Role> {}
-
-/**
- * A role is a collection of permissions which can be granted as part of an ACL
- *
- * Roles can consist of individual permissions, as well as a set of roles they
- * inherit from
- */
-export interface Role {
-  /**
-   * Unique identifier for the role
-   */
-  id: string;
-
-  /**
-   * Name of the role
-   */
-  name: string;
-
-  /**
-   * Date of role creation
-   */
-  created?: string | null;
-
-  /**
-   * Date of role deletion, or null if the role is still active
-   */
-  deleted_at?: string | null;
-
-  /**
-   * Textual description of the role
-   */
-  description?: string | null;
-
-  /**
-   * (permission, restrict_object_type) tuples which belong to this role
-   */
-  member_permissions?: Array<Role.MemberPermission> | null;
-
-  /**
-   * Ids of the roles this role inherits from
-   *
-   * An inheriting role has all the permissions contained in its member roles, as
-   * well as all of their inherited permissions
-   */
-  member_roles?: Array<string> | null;
-
-  /**
-   * Unique id for the organization that the role belongs under
-   *
-   * A null org_id indicates a system role, which may be assigned to anybody and
-   * inherited by any other role, but cannot be edited.
-   *
-   * It is forbidden to change the org after creating a role
-   */
-  org_id?: string | null;
-
-  /**
-   * Identifies the user who created the role
-   */
-  user_id?: string | null;
-}
-
-export namespace Role {
-  export interface MemberPermission {
-    /**
-     * Each permission permits a certain type of operation on an object in the system
-     *
-     * Permissions can be assigned to to objects on an individual basis, or grouped
-     * into roles
-     */
-    permission:
-      | 'create'
-      | 'read'
-      | 'update'
-      | 'delete'
-      | 'create_acls'
-      | 'read_acls'
-      | 'update_acls'
-      | 'delete_acls'
-      | null;
-
-    /**
-     * The object type that the ACL applies to
-     */
-    restrict_object_type?:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'group'
-      | 'role'
-      | 'org_member'
-      | 'project_log'
-      | 'org_project'
-      | null;
   }
 }
 
@@ -358,17 +263,17 @@ export interface RoleListParams extends ListObjectsParams {
    * Filter search results to a particular set of object IDs. To specify a list of
    * IDs, include the query param multiple times
    */
-  ids?: string | Array<string>;
+  ids?: Shared.IDs;
 
   /**
    * Filter search results to within a particular organization
    */
-  org_name?: string;
+  org_name?: Shared.OrgName;
 
   /**
    * Name of the role to search for
    */
-  role_name?: string;
+  role_name?: Shared.RoleName;
 }
 
 export interface RoleReplaceParams {
@@ -442,10 +347,10 @@ export namespace RoleReplaceParams {
 }
 
 export namespace Roles {
-  export import Role = RolesAPI.Role;
-  export import RolesListObjects = RolesAPI.RolesListObjects;
   export import RoleCreateParams = RolesAPI.RoleCreateParams;
   export import RoleUpdateParams = RolesAPI.RoleUpdateParams;
   export import RoleListParams = RolesAPI.RoleListParams;
   export import RoleReplaceParams = RolesAPI.RoleReplaceParams;
 }
+
+export { RolesListObjects };

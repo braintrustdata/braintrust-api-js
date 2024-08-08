@@ -2,7 +2,135 @@
 
 Types:
 
+- <code><a href="./src/resources/shared.ts">ACL</a></code>
+- <code><a href="./src/resources/shared.ts">ACLID</a></code>
+- <code><a href="./src/resources/shared.ts">ACLObjectID</a></code>
+- <code><a href="./src/resources/shared.ts">ACLObjectType</a></code>
+- <code><a href="./src/resources/shared.ts">APIKey</a></code>
+- <code><a href="./src/resources/shared.ts">APIKeyID</a></code>
+- <code><a href="./src/resources/shared.ts">APIKeyName</a></code>
+- <code><a href="./src/resources/shared.ts">AppLimitParam</a></code>
+- <code><a href="./src/resources/shared.ts">ComparisonExperimentID</a></code>
+- <code><a href="./src/resources/shared.ts">CreateACL</a></code>
+- <code><a href="./src/resources/shared.ts">CreateAPIKeyOutput</a></code>
+- <code><a href="./src/resources/shared.ts">CreateDataset</a></code>
+- <code><a href="./src/resources/shared.ts">CreateExperiment</a></code>
+- <code><a href="./src/resources/shared.ts">CreateFunction</a></code>
+- <code><a href="./src/resources/shared.ts">CreateGroup</a></code>
+- <code><a href="./src/resources/shared.ts">CreateProject</a></code>
+- <code><a href="./src/resources/shared.ts">CreateProjectScore</a></code>
+- <code><a href="./src/resources/shared.ts">CreateProjectTag</a></code>
+- <code><a href="./src/resources/shared.ts">CreatePrompt</a></code>
+- <code><a href="./src/resources/shared.ts">CreateRole</a></code>
+- <code><a href="./src/resources/shared.ts">CreateView</a></code>
+- <code><a href="./src/resources/shared.ts">CrossObjectInsertRequest</a></code>
+- <code><a href="./src/resources/shared.ts">CrossObjectInsertResponse</a></code>
+- <code><a href="./src/resources/shared.ts">DataSummary</a></code>
+- <code><a href="./src/resources/shared.ts">Dataset</a></code>
+- <code><a href="./src/resources/shared.ts">DatasetEvent</a></code>
+- <code><a href="./src/resources/shared.ts">DatasetID</a></code>
+- <code><a href="./src/resources/shared.ts">DatasetName</a></code>
+- <code><a href="./src/resources/shared.ts">DeleteView</a></code>
+- <code><a href="./src/resources/shared.ts">EndingBefore</a></code>
+- <code><a href="./src/resources/shared.ts">Experiment</a></code>
+- <code><a href="./src/resources/shared.ts">ExperimentEvent</a></code>
+- <code><a href="./src/resources/shared.ts">ExperimentID</a></code>
+- <code><a href="./src/resources/shared.ts">ExperimentName</a></code>
+- <code><a href="./src/resources/shared.ts">FeedbackDatasetEventRequest</a></code>
+- <code><a href="./src/resources/shared.ts">FeedbackDatasetItem</a></code>
+- <code><a href="./src/resources/shared.ts">FeedbackExperimentEventRequest</a></code>
+- <code><a href="./src/resources/shared.ts">FeedbackExperimentItem</a></code>
+- <code><a href="./src/resources/shared.ts">FeedbackProjectLogsEventRequest</a></code>
+- <code><a href="./src/resources/shared.ts">FeedbackProjectLogsItem</a></code>
+- <code><a href="./src/resources/shared.ts">FetchDatasetEventsResponse</a></code>
+- <code><a href="./src/resources/shared.ts">FetchEventsFilters</a></code>
+- <code><a href="./src/resources/shared.ts">FetchEventsRequest</a></code>
+- <code><a href="./src/resources/shared.ts">FetchExperimentEventsResponse</a></code>
+- <code><a href="./src/resources/shared.ts">FetchLimitParam</a></code>
+- <code><a href="./src/resources/shared.ts">FetchProjectLogsEventsResponse</a></code>
+- <code><a href="./src/resources/shared.ts">Function</a></code>
+- <code><a href="./src/resources/shared.ts">FunctionID</a></code>
+- <code><a href="./src/resources/shared.ts">FunctionName</a></code>
+- <code><a href="./src/resources/shared.ts">Group</a></code>
+- <code><a href="./src/resources/shared.ts">GroupID</a></code>
+- <code><a href="./src/resources/shared.ts">GroupName</a></code>
+- <code><a href="./src/resources/shared.ts">IDs</a></code>
+- <code><a href="./src/resources/shared.ts">InsertDatasetEvent</a></code>
+- <code><a href="./src/resources/shared.ts">InsertDatasetEventMerge</a></code>
+- <code><a href="./src/resources/shared.ts">InsertDatasetEventReplace</a></code>
+- <code><a href="./src/resources/shared.ts">InsertDatasetEventRequest</a></code>
+- <code><a href="./src/resources/shared.ts">InsertEventsResponse</a></code>
+- <code><a href="./src/resources/shared.ts">InsertExperimentEvent</a></code>
+- <code><a href="./src/resources/shared.ts">InsertExperimentEventMerge</a></code>
+- <code><a href="./src/resources/shared.ts">InsertExperimentEventReplace</a></code>
+- <code><a href="./src/resources/shared.ts">InsertExperimentEventRequest</a></code>
+- <code><a href="./src/resources/shared.ts">InsertProjectLogsEvent</a></code>
+- <code><a href="./src/resources/shared.ts">InsertProjectLogsEventMerge</a></code>
+- <code><a href="./src/resources/shared.ts">InsertProjectLogsEventReplace</a></code>
+- <code><a href="./src/resources/shared.ts">InsertProjectLogsEventRequest</a></code>
+- <code><a href="./src/resources/shared.ts">MaxRootSpanID</a></code>
+- <code><a href="./src/resources/shared.ts">MaxXactID</a></code>
+- <code><a href="./src/resources/shared.ts">MetricSummary</a></code>
+- <code><a href="./src/resources/shared.ts">OrgName</a></code>
+- <code><a href="./src/resources/shared.ts">Organization</a></code>
+- <code><a href="./src/resources/shared.ts">OrganizationID</a></code>
+- <code><a href="./src/resources/shared.ts">OrganizationName</a></code>
+- <code><a href="./src/resources/shared.ts">PatchDataset</a></code>
+- <code><a href="./src/resources/shared.ts">PatchExperiment</a></code>
+- <code><a href="./src/resources/shared.ts">PatchFunction</a></code>
+- <code><a href="./src/resources/shared.ts">PatchGroup</a></code>
+- <code><a href="./src/resources/shared.ts">PatchOrganization</a></code>
+- <code><a href="./src/resources/shared.ts">PatchOrganizationMembers</a></code>
+- <code><a href="./src/resources/shared.ts">PatchProject</a></code>
+- <code><a href="./src/resources/shared.ts">PatchProjectScore</a></code>
+- <code><a href="./src/resources/shared.ts">PatchProjectTag</a></code>
+- <code><a href="./src/resources/shared.ts">PatchPrompt</a></code>
+- <code><a href="./src/resources/shared.ts">PatchRole</a></code>
+- <code><a href="./src/resources/shared.ts">PatchView</a></code>
+- <code><a href="./src/resources/shared.ts">PathLookupFilter</a></code>
+- <code><a href="./src/resources/shared.ts">Project</a></code>
+- <code><a href="./src/resources/shared.ts">ProjectID</a></code>
+- <code><a href="./src/resources/shared.ts">ProjectIDQuery</a></code>
+- <code><a href="./src/resources/shared.ts">ProjectLogsEvent</a></code>
+- <code><a href="./src/resources/shared.ts">ProjectName</a></code>
+- <code><a href="./src/resources/shared.ts">ProjectScore</a></code>
+- <code><a href="./src/resources/shared.ts">ProjectScoreCategory</a></code>
+- <code><a href="./src/resources/shared.ts">ProjectScoreID</a></code>
+- <code><a href="./src/resources/shared.ts">ProjectScoreName</a></code>
+- <code><a href="./src/resources/shared.ts">ProjectTag</a></code>
+- <code><a href="./src/resources/shared.ts">ProjectTagID</a></code>
+- <code><a href="./src/resources/shared.ts">ProjectTagName</a></code>
+- <code><a href="./src/resources/shared.ts">Prompt</a></code>
 - <code><a href="./src/resources/shared.ts">PromptData</a></code>
+- <code><a href="./src/resources/shared.ts">PromptID</a></code>
+- <code><a href="./src/resources/shared.ts">PromptName</a></code>
+- <code><a href="./src/resources/shared.ts">PromptSessionID</a></code>
+- <code><a href="./src/resources/shared.ts">PromptSessionName</a></code>
+- <code><a href="./src/resources/shared.ts">PromptVersion</a></code>
+- <code><a href="./src/resources/shared.ts">RepoInfo</a></code>
+- <code><a href="./src/resources/shared.ts">Role</a></code>
+- <code><a href="./src/resources/shared.ts">RoleID</a></code>
+- <code><a href="./src/resources/shared.ts">RoleName</a></code>
+- <code><a href="./src/resources/shared.ts">ScoreSummary</a></code>
+- <code><a href="./src/resources/shared.ts">Slug</a></code>
+- <code><a href="./src/resources/shared.ts">StartingAfter</a></code>
+- <code><a href="./src/resources/shared.ts">SummarizeData</a></code>
+- <code><a href="./src/resources/shared.ts">SummarizeDatasetResponse</a></code>
+- <code><a href="./src/resources/shared.ts">SummarizeExperimentResponse</a></code>
+- <code><a href="./src/resources/shared.ts">SummarizeScores</a></code>
+- <code><a href="./src/resources/shared.ts">User</a></code>
+- <code><a href="./src/resources/shared.ts">UserEmail</a></code>
+- <code><a href="./src/resources/shared.ts">UserFamilyName</a></code>
+- <code><a href="./src/resources/shared.ts">UserGivenName</a></code>
+- <code><a href="./src/resources/shared.ts">UserID</a></code>
+- <code><a href="./src/resources/shared.ts">Version</a></code>
+- <code><a href="./src/resources/shared.ts">View</a></code>
+- <code><a href="./src/resources/shared.ts">ViewData</a></code>
+- <code><a href="./src/resources/shared.ts">ViewDataSearch</a></code>
+- <code><a href="./src/resources/shared.ts">ViewID</a></code>
+- <code><a href="./src/resources/shared.ts">ViewName</a></code>
+- <code><a href="./src/resources/shared.ts">ViewOptions</a></code>
+- <code><a href="./src/resources/shared.ts">ViewType</a></code>
 
 # TopLevel
 
@@ -16,10 +144,6 @@ Methods:
 
 # Projects
 
-Types:
-
-- <code><a href="./src/resources/projects/projects.ts">Project</a></code>
-
 Methods:
 
 - <code title="post /v1/project">client.projects.<a href="./src/resources/projects/projects.ts">create</a>({ ...params }) -> Project</code>
@@ -30,29 +154,14 @@ Methods:
 
 ## Logs
 
-Types:
-
-- <code><a href="./src/resources/projects/logs.ts">LogFetchResponse</a></code>
-- <code><a href="./src/resources/projects/logs.ts">LogFetchPostResponse</a></code>
-- <code><a href="./src/resources/projects/logs.ts">LogInsertResponse</a></code>
-
 Methods:
 
 - <code title="post /v1/project_logs/{project_id}/feedback">client.projects.logs.<a href="./src/resources/projects/logs.ts">feedback</a>(projectId, { ...params }) -> void</code>
-- <code title="get /v1/project_logs/{project_id}/fetch">client.projects.logs.<a href="./src/resources/projects/logs.ts">fetch</a>(projectId, { ...params }) -> LogFetchResponse</code>
-- <code title="post /v1/project_logs/{project_id}/fetch">client.projects.logs.<a href="./src/resources/projects/logs.ts">fetchPost</a>(projectId, { ...params }) -> LogFetchPostResponse</code>
-- <code title="post /v1/project_logs/{project_id}/insert">client.projects.logs.<a href="./src/resources/projects/logs.ts">insert</a>(projectId, { ...params }) -> LogInsertResponse</code>
+- <code title="get /v1/project_logs/{project_id}/fetch">client.projects.logs.<a href="./src/resources/projects/logs.ts">fetch</a>(projectId, { ...params }) -> FetchProjectLogsEventsResponse</code>
+- <code title="post /v1/project_logs/{project_id}/fetch">client.projects.logs.<a href="./src/resources/projects/logs.ts">fetchPost</a>(projectId, { ...params }) -> FetchProjectLogsEventsResponse</code>
+- <code title="post /v1/project_logs/{project_id}/insert">client.projects.logs.<a href="./src/resources/projects/logs.ts">insert</a>(projectId, { ...params }) -> InsertEventsResponse</code>
 
 # Experiments
-
-Types:
-
-- <code><a href="./src/resources/experiments.ts">Experiment</a></code>
-- <code><a href="./src/resources/experiments.ts">RepoInfo</a></code>
-- <code><a href="./src/resources/experiments.ts">ExperimentFetchResponse</a></code>
-- <code><a href="./src/resources/experiments.ts">ExperimentFetchPostResponse</a></code>
-- <code><a href="./src/resources/experiments.ts">ExperimentInsertResponse</a></code>
-- <code><a href="./src/resources/experiments.ts">ExperimentSummarizeResponse</a></code>
 
 Methods:
 
@@ -62,20 +171,12 @@ Methods:
 - <code title="get /v1/experiment">client.experiments.<a href="./src/resources/experiments.ts">list</a>({ ...params }) -> ExperimentsListObjects</code>
 - <code title="delete /v1/experiment/{experiment_id}">client.experiments.<a href="./src/resources/experiments.ts">delete</a>(experimentId) -> Experiment</code>
 - <code title="post /v1/experiment/{experiment_id}/feedback">client.experiments.<a href="./src/resources/experiments.ts">feedback</a>(experimentId, { ...params }) -> void</code>
-- <code title="get /v1/experiment/{experiment_id}/fetch">client.experiments.<a href="./src/resources/experiments.ts">fetch</a>(experimentId, { ...params }) -> ExperimentFetchResponse</code>
-- <code title="post /v1/experiment/{experiment_id}/fetch">client.experiments.<a href="./src/resources/experiments.ts">fetchPost</a>(experimentId, { ...params }) -> ExperimentFetchPostResponse</code>
-- <code title="post /v1/experiment/{experiment_id}/insert">client.experiments.<a href="./src/resources/experiments.ts">insert</a>(experimentId, { ...params }) -> ExperimentInsertResponse</code>
-- <code title="get /v1/experiment/{experiment_id}/summarize">client.experiments.<a href="./src/resources/experiments.ts">summarize</a>(experimentId, { ...params }) -> ExperimentSummarizeResponse</code>
+- <code title="get /v1/experiment/{experiment_id}/fetch">client.experiments.<a href="./src/resources/experiments.ts">fetch</a>(experimentId, { ...params }) -> FetchExperimentEventsResponse</code>
+- <code title="post /v1/experiment/{experiment_id}/fetch">client.experiments.<a href="./src/resources/experiments.ts">fetchPost</a>(experimentId, { ...params }) -> FetchExperimentEventsResponse</code>
+- <code title="post /v1/experiment/{experiment_id}/insert">client.experiments.<a href="./src/resources/experiments.ts">insert</a>(experimentId, { ...params }) -> InsertEventsResponse</code>
+- <code title="get /v1/experiment/{experiment_id}/summarize">client.experiments.<a href="./src/resources/experiments.ts">summarize</a>(experimentId, { ...params }) -> SummarizeExperimentResponse</code>
 
 # Datasets
-
-Types:
-
-- <code><a href="./src/resources/datasets.ts">Dataset</a></code>
-- <code><a href="./src/resources/datasets.ts">DatasetFetchResponse</a></code>
-- <code><a href="./src/resources/datasets.ts">DatasetFetchPostResponse</a></code>
-- <code><a href="./src/resources/datasets.ts">DatasetInsertResponse</a></code>
-- <code><a href="./src/resources/datasets.ts">DatasetSummarizeResponse</a></code>
 
 Methods:
 
@@ -85,16 +186,12 @@ Methods:
 - <code title="get /v1/dataset">client.datasets.<a href="./src/resources/datasets.ts">list</a>({ ...params }) -> DatasetsListObjects</code>
 - <code title="delete /v1/dataset/{dataset_id}">client.datasets.<a href="./src/resources/datasets.ts">delete</a>(datasetId) -> Dataset</code>
 - <code title="post /v1/dataset/{dataset_id}/feedback">client.datasets.<a href="./src/resources/datasets.ts">feedback</a>(datasetId, { ...params }) -> void</code>
-- <code title="get /v1/dataset/{dataset_id}/fetch">client.datasets.<a href="./src/resources/datasets.ts">fetch</a>(datasetId, { ...params }) -> DatasetFetchResponse</code>
-- <code title="post /v1/dataset/{dataset_id}/fetch">client.datasets.<a href="./src/resources/datasets.ts">fetchPost</a>(datasetId, { ...params }) -> DatasetFetchPostResponse</code>
-- <code title="post /v1/dataset/{dataset_id}/insert">client.datasets.<a href="./src/resources/datasets.ts">insert</a>(datasetId, { ...params }) -> DatasetInsertResponse</code>
-- <code title="get /v1/dataset/{dataset_id}/summarize">client.datasets.<a href="./src/resources/datasets.ts">summarize</a>(datasetId, { ...params }) -> DatasetSummarizeResponse</code>
+- <code title="get /v1/dataset/{dataset_id}/fetch">client.datasets.<a href="./src/resources/datasets.ts">fetch</a>(datasetId, { ...params }) -> FetchDatasetEventsResponse</code>
+- <code title="post /v1/dataset/{dataset_id}/fetch">client.datasets.<a href="./src/resources/datasets.ts">fetchPost</a>(datasetId, { ...params }) -> FetchDatasetEventsResponse</code>
+- <code title="post /v1/dataset/{dataset_id}/insert">client.datasets.<a href="./src/resources/datasets.ts">insert</a>(datasetId, { ...params }) -> InsertEventsResponse</code>
+- <code title="get /v1/dataset/{dataset_id}/summarize">client.datasets.<a href="./src/resources/datasets.ts">summarize</a>(datasetId, { ...params }) -> SummarizeDatasetResponse</code>
 
 # Prompts
-
-Types:
-
-- <code><a href="./src/resources/prompts.ts">Prompt</a></code>
 
 Methods:
 
@@ -107,10 +204,6 @@ Methods:
 
 # Roles
 
-Types:
-
-- <code><a href="./src/resources/roles.ts">Role</a></code>
-
 Methods:
 
 - <code title="post /v1/role">client.roles.<a href="./src/resources/roles.ts">create</a>({ ...params }) -> Role</code>
@@ -121,10 +214,6 @@ Methods:
 - <code title="put /v1/role">client.roles.<a href="./src/resources/roles.ts">replace</a>({ ...params }) -> Role</code>
 
 # Groups
-
-Types:
-
-- <code><a href="./src/resources/groups.ts">Group</a></code>
 
 Methods:
 
@@ -137,10 +226,6 @@ Methods:
 
 # ACLs
 
-Types:
-
-- <code><a href="./src/resources/acls.ts">ACL</a></code>
-
 Methods:
 
 - <code title="post /v1/acl">client.acls.<a href="./src/resources/acls.ts">create</a>({ ...params }) -> ACL</code>
@@ -150,21 +235,12 @@ Methods:
 
 # Users
 
-Types:
-
-- <code><a href="./src/resources/users.ts">User</a></code>
-
 Methods:
 
 - <code title="get /v1/user/{user_id}">client.users.<a href="./src/resources/users.ts">retrieve</a>(userId) -> User</code>
 - <code title="get /v1/user">client.users.<a href="./src/resources/users.ts">list</a>({ ...params }) -> UsersListObjects</code>
 
 # ProjectScores
-
-Types:
-
-- <code><a href="./src/resources/project-scores.ts">ProjectScore</a></code>
-- <code><a href="./src/resources/project-scores.ts">ProjectScoreCategory</a></code>
 
 Methods:
 
@@ -177,10 +253,6 @@ Methods:
 
 # ProjectTags
 
-Types:
-
-- <code><a href="./src/resources/project-tags.ts">ProjectTag</a></code>
-
 Methods:
 
 - <code title="post /v1/project_tag">client.projectTags.<a href="./src/resources/project-tags.ts">create</a>({ ...params }) -> ProjectTag</code>
@@ -191,10 +263,6 @@ Methods:
 - <code title="put /v1/project_tag">client.projectTags.<a href="./src/resources/project-tags.ts">replace</a>({ ...params }) -> ProjectTag</code>
 
 # Functions
-
-Types:
-
-- <code><a href="./src/resources/functions.ts">Function</a></code>
 
 Methods:
 
@@ -207,13 +275,6 @@ Methods:
 
 # Views
 
-Types:
-
-- <code><a href="./src/resources/views.ts">View</a></code>
-- <code><a href="./src/resources/views.ts">ViewData</a></code>
-- <code><a href="./src/resources/views.ts">ViewDataSearch</a></code>
-- <code><a href="./src/resources/views.ts">ViewOptions</a></code>
-
 Methods:
 
 - <code title="post /v1/view">client.views.<a href="./src/resources/views.ts">create</a>({ ...params }) -> View</code>
@@ -224,10 +285,6 @@ Methods:
 - <code title="put /v1/view">client.views.<a href="./src/resources/views.ts">replace</a>({ ...params }) -> View</code>
 
 # Organizations
-
-Types:
-
-- <code><a href="./src/resources/organizations/organizations.ts">Organization</a></code>
 
 Methods:
 
@@ -248,14 +305,9 @@ Methods:
 
 # APIKeys
 
-Types:
-
-- <code><a href="./src/resources/api-keys.ts">APIKey</a></code>
-- <code><a href="./src/resources/api-keys.ts">APIKeyCreateResponse</a></code>
-
 Methods:
 
-- <code title="post /v1/api_key">client.apiKeys.<a href="./src/resources/api-keys.ts">create</a>({ ...params }) -> APIKeyCreateResponse</code>
+- <code title="post /v1/api_key">client.apiKeys.<a href="./src/resources/api-keys.ts">create</a>({ ...params }) -> CreateAPIKeyOutput</code>
 - <code title="get /v1/api_key/{api_key_id}">client.apiKeys.<a href="./src/resources/api-keys.ts">retrieve</a>(apiKeyId) -> APIKey</code>
 - <code title="get /v1/api_key">client.apiKeys.<a href="./src/resources/api-keys.ts">list</a>({ ...params }) -> APIKeysListObjects</code>
 - <code title="delete /v1/api_key/{api_key_id}">client.apiKeys.<a href="./src/resources/api-keys.ts">delete</a>(apiKeyId) -> APIKey</code>
