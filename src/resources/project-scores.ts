@@ -24,10 +24,7 @@ export class ProjectScores extends APIResource {
   /**
    * Get a project_score object by its id
    */
-  retrieve(
-    projectScoreId: Shared.ProjectScoreID,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ProjectScore> {
+  retrieve(projectScoreId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.ProjectScore> {
     return this._client.get(`/v1/project_score/${projectScoreId}`, options);
   }
 
@@ -37,16 +34,13 @@ export class ProjectScores extends APIResource {
    * Currently we do not support removing fields or setting them to null.
    */
   update(
-    projectScoreId: Shared.ProjectScoreID,
+    projectScoreId: string,
     body?: ProjectScoreUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.ProjectScore>;
+  update(projectScoreId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.ProjectScore>;
   update(
-    projectScoreId: Shared.ProjectScoreID,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ProjectScore>;
-  update(
-    projectScoreId: Shared.ProjectScoreID,
+    projectScoreId: string,
     body: ProjectScoreUpdateParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.ProjectScore> {
@@ -78,10 +72,7 @@ export class ProjectScores extends APIResource {
   /**
    * Delete a project_score object by its id
    */
-  delete(
-    projectScoreId: Shared.ProjectScoreID,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ProjectScore> {
+  delete(projectScoreId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.ProjectScore> {
     return this._client.delete(`/v1/project_score/${projectScoreId}`, options);
   }
 
@@ -170,27 +161,27 @@ export interface ProjectScoreListParams extends ListObjectsParams {
    * Filter search results to a particular set of object IDs. To specify a list of
    * IDs, include the query param multiple times
    */
-  ids?: Shared.IDs;
+  ids?: string | Array<string>;
 
   /**
    * Filter search results to within a particular organization
    */
-  org_name?: Shared.OrgName;
+  org_name?: string;
 
   /**
    * Project id
    */
-  project_id?: Shared.ProjectIDQuery;
+  project_id?: string;
 
   /**
    * Name of the project to search for
    */
-  project_name?: Shared.ProjectName;
+  project_name?: string;
 
   /**
    * Name of the project_score to search for
    */
-  project_score_name?: Shared.ProjectScoreName;
+  project_score_name?: string;
 }
 
 export interface ProjectScoreReplaceParams {

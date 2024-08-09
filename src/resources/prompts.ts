@@ -21,7 +21,7 @@ export class Prompts extends APIResource {
   /**
    * Get a prompt object by its id
    */
-  retrieve(promptId: Shared.PromptID, options?: Core.RequestOptions): Core.APIPromise<Shared.Prompt> {
+  retrieve(promptId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Prompt> {
     return this._client.get(`/v1/prompt/${promptId}`, options);
   }
 
@@ -31,13 +31,13 @@ export class Prompts extends APIResource {
    * do not support removing fields or setting them to null.
    */
   update(
-    promptId: Shared.PromptID,
+    promptId: string,
     body?: PromptUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.Prompt>;
-  update(promptId: Shared.PromptID, options?: Core.RequestOptions): Core.APIPromise<Shared.Prompt>;
+  update(promptId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Prompt>;
   update(
-    promptId: Shared.PromptID,
+    promptId: string,
     body: PromptUpdateParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.Prompt> {
@@ -69,7 +69,7 @@ export class Prompts extends APIResource {
   /**
    * Delete a prompt object by its id
    */
-  delete(promptId: Shared.PromptID, options?: Core.RequestOptions): Core.APIPromise<Shared.Prompt> {
+  delete(promptId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Prompt> {
     return this._client.delete(`/v1/prompt/${promptId}`, options);
   }
 
@@ -142,32 +142,32 @@ export interface PromptListParams extends ListObjectsParams {
    * Filter search results to a particular set of object IDs. To specify a list of
    * IDs, include the query param multiple times
    */
-  ids?: Shared.IDs;
+  ids?: string | Array<string>;
 
   /**
    * Filter search results to within a particular organization
    */
-  org_name?: Shared.OrgName;
+  org_name?: string;
 
   /**
    * Project id
    */
-  project_id?: Shared.ProjectIDQuery;
+  project_id?: string;
 
   /**
    * Name of the project to search for
    */
-  project_name?: Shared.ProjectName;
+  project_name?: string;
 
   /**
    * Name of the prompt to search for
    */
-  prompt_name?: Shared.PromptName;
+  prompt_name?: string;
 
   /**
    * Retrieve prompt with a specific slug
    */
-  slug?: Shared.Slug;
+  slug?: string;
 
   /**
    * Retrieve prompt at a specific version.
@@ -175,7 +175,7 @@ export interface PromptListParams extends ListObjectsParams {
    * The version id can either be a transaction id (e.g. '1000192656880881099') or a
    * version identifier (e.g. '81cd05ee665fdfb3').
    */
-  version?: Shared.PromptVersion;
+  version?: string;
 }
 
 export interface PromptReplaceParams {

@@ -21,10 +21,7 @@ export class ProjectTags extends APIResource {
   /**
    * Get a project_tag object by its id
    */
-  retrieve(
-    projectTagId: Shared.ProjectTagID,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ProjectTag> {
+  retrieve(projectTagId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.ProjectTag> {
     return this._client.get(`/v1/project_tag/${projectTagId}`, options);
   }
 
@@ -34,16 +31,13 @@ export class ProjectTags extends APIResource {
    * Currently we do not support removing fields or setting them to null.
    */
   update(
-    projectTagId: Shared.ProjectTagID,
+    projectTagId: string,
     body?: ProjectTagUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.ProjectTag>;
+  update(projectTagId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.ProjectTag>;
   update(
-    projectTagId: Shared.ProjectTagID,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ProjectTag>;
-  update(
-    projectTagId: Shared.ProjectTagID,
+    projectTagId: string,
     body: ProjectTagUpdateParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.ProjectTag> {
@@ -75,10 +69,7 @@ export class ProjectTags extends APIResource {
   /**
    * Delete a project_tag object by its id
    */
-  delete(
-    projectTagId: Shared.ProjectTagID,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.ProjectTag> {
+  delete(projectTagId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.ProjectTag> {
     return this._client.delete(`/v1/project_tag/${projectTagId}`, options);
   }
 
@@ -136,27 +127,27 @@ export interface ProjectTagListParams extends ListObjectsParams {
    * Filter search results to a particular set of object IDs. To specify a list of
    * IDs, include the query param multiple times
    */
-  ids?: Shared.IDs;
+  ids?: string | Array<string>;
 
   /**
    * Filter search results to within a particular organization
    */
-  org_name?: Shared.OrgName;
+  org_name?: string;
 
   /**
    * Project id
    */
-  project_id?: Shared.ProjectIDQuery;
+  project_id?: string;
 
   /**
    * Name of the project to search for
    */
-  project_name?: Shared.ProjectName;
+  project_name?: string;
 
   /**
    * Name of the project_tag to search for
    */
-  project_tag_name?: Shared.ProjectTagName;
+  project_tag_name?: string;
 }
 
 export interface ProjectTagReplaceParams {

@@ -23,7 +23,7 @@ export class APIKeys extends APIResource {
   /**
    * Get an api_key object by its id
    */
-  retrieve(apiKeyId: Shared.APIKeyID, options?: Core.RequestOptions): Core.APIPromise<Shared.APIKey> {
+  retrieve(apiKeyId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.APIKey> {
     return this._client.get(`/v1/api_key/${apiKeyId}`, options);
   }
 
@@ -49,7 +49,7 @@ export class APIKeys extends APIResource {
   /**
    * Delete an api_key object by its id
    */
-  delete(apiKeyId: Shared.APIKeyID, options?: Core.RequestOptions): Core.APIPromise<Shared.APIKey> {
+  delete(apiKeyId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.APIKey> {
     return this._client.delete(`/v1/api_key/${apiKeyId}`, options);
   }
 }
@@ -72,18 +72,18 @@ export interface APIKeyListParams extends ListObjectsParams {
   /**
    * Name of the api_key to search for
    */
-  api_key_name?: Shared.APIKeyName;
+  api_key_name?: string;
 
   /**
    * Filter search results to a particular set of object IDs. To specify a list of
    * IDs, include the query param multiple times
    */
-  ids?: Shared.IDs;
+  ids?: string | Array<string>;
 
   /**
    * Filter search results to within a particular organization
    */
-  org_name?: Shared.OrgName;
+  org_name?: string;
 }
 
 export namespace APIKeys {

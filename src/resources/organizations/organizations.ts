@@ -15,10 +15,7 @@ export class Organizations extends APIResource {
   /**
    * Get a organization object by its id
    */
-  retrieve(
-    organizationId: Shared.OrganizationID,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.Organization> {
+  retrieve(organizationId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Organization> {
     return this._client.get(`/v1/organization/${organizationId}`, options);
   }
 
@@ -28,16 +25,13 @@ export class Organizations extends APIResource {
    * Currently we do not support removing fields or setting them to null.
    */
   update(
-    organizationId: Shared.OrganizationID,
+    organizationId: string,
     body?: OrganizationUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.Organization>;
+  update(organizationId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Organization>;
   update(
-    organizationId: Shared.OrganizationID,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.Organization>;
-  update(
-    organizationId: Shared.OrganizationID,
+    organizationId: string,
     body: OrganizationUpdateParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.Organization> {
@@ -69,10 +63,7 @@ export class Organizations extends APIResource {
   /**
    * Delete a organization object by its id
    */
-  delete(
-    organizationId: Shared.OrganizationID,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.Organization> {
+  delete(organizationId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Organization> {
     return this._client.delete(`/v1/organization/${organizationId}`, options);
   }
 }
@@ -97,17 +88,17 @@ export interface OrganizationListParams extends ListObjectsParams {
    * Filter search results to a particular set of object IDs. To specify a list of
    * IDs, include the query param multiple times
    */
-  ids?: Shared.IDs;
+  ids?: string | Array<string>;
 
   /**
    * Filter search results to within a particular organization
    */
-  org_name?: Shared.OrgName;
+  org_name?: string;
 
   /**
    * Name of the organization to search for
    */
-  organization_name?: Shared.OrganizationName;
+  organization_name?: string;
 }
 
 export namespace Organizations {

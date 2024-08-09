@@ -21,10 +21,7 @@ export class Experiments extends APIResource {
   /**
    * Get an experiment object by its id
    */
-  retrieve(
-    experimentId: Shared.ExperimentID,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.Experiment> {
+  retrieve(experimentId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Experiment> {
     return this._client.get(`/v1/experiment/${experimentId}`, options);
   }
 
@@ -34,16 +31,13 @@ export class Experiments extends APIResource {
    * Currently we do not support removing fields or setting them to null.
    */
   update(
-    experimentId: Shared.ExperimentID,
+    experimentId: string,
     body?: ExperimentUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.Experiment>;
+  update(experimentId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Experiment>;
   update(
-    experimentId: Shared.ExperimentID,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.Experiment>;
-  update(
-    experimentId: Shared.ExperimentID,
+    experimentId: string,
     body: ExperimentUpdateParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.Experiment> {
@@ -75,10 +69,7 @@ export class Experiments extends APIResource {
   /**
    * Delete an experiment object by its id
    */
-  delete(
-    experimentId: Shared.ExperimentID,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.Experiment> {
+  delete(experimentId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Experiment> {
     return this._client.delete(`/v1/experiment/${experimentId}`, options);
   }
 
@@ -86,7 +77,7 @@ export class Experiments extends APIResource {
    * Log feedback for a set of experiment events
    */
   feedback(
-    experimentId: Shared.ExperimentID,
+    experimentId: string,
     body: ExperimentFeedbackParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<void> {
@@ -102,16 +93,16 @@ export class Experiments extends APIResource {
    * but with the parameters in the URL query rather than in the request body
    */
   fetch(
-    experimentId: Shared.ExperimentID,
+    experimentId: string,
     query?: ExperimentFetchParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.FetchExperimentEventsResponse>;
   fetch(
-    experimentId: Shared.ExperimentID,
+    experimentId: string,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.FetchExperimentEventsResponse>;
   fetch(
-    experimentId: Shared.ExperimentID,
+    experimentId: string,
     query: ExperimentFetchParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.FetchExperimentEventsResponse> {
@@ -126,16 +117,16 @@ export class Experiments extends APIResource {
    * but with the parameters in the request body rather than in the URL query
    */
   fetchPost(
-    experimentId: Shared.ExperimentID,
+    experimentId: string,
     body?: ExperimentFetchPostParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.FetchExperimentEventsResponse>;
   fetchPost(
-    experimentId: Shared.ExperimentID,
+    experimentId: string,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.FetchExperimentEventsResponse>;
   fetchPost(
-    experimentId: Shared.ExperimentID,
+    experimentId: string,
     body: ExperimentFetchPostParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.FetchExperimentEventsResponse> {
@@ -149,7 +140,7 @@ export class Experiments extends APIResource {
    * Insert a set of events into the experiment
    */
   insert(
-    experimentId: Shared.ExperimentID,
+    experimentId: string,
     body: ExperimentInsertParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.InsertEventsResponse> {
@@ -160,16 +151,16 @@ export class Experiments extends APIResource {
    * Summarize experiment
    */
   summarize(
-    experimentId: Shared.ExperimentID,
+    experimentId: string,
     query?: ExperimentSummarizeParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.SummarizeExperimentResponse>;
   summarize(
-    experimentId: Shared.ExperimentID,
+    experimentId: string,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.SummarizeExperimentResponse>;
   summarize(
-    experimentId: Shared.ExperimentID,
+    experimentId: string,
     query: ExperimentSummarizeParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.SummarizeExperimentResponse> {
@@ -287,28 +278,28 @@ export interface ExperimentListParams extends ListObjectsParams {
   /**
    * Name of the experiment to search for
    */
-  experiment_name?: Shared.ExperimentName;
+  experiment_name?: string;
 
   /**
    * Filter search results to a particular set of object IDs. To specify a list of
    * IDs, include the query param multiple times
    */
-  ids?: Shared.IDs;
+  ids?: string | Array<string>;
 
   /**
    * Filter search results to within a particular organization
    */
-  org_name?: Shared.OrgName;
+  org_name?: string;
 
   /**
    * Project id
    */
-  project_id?: Shared.ProjectIDQuery;
+  project_id?: string;
 
   /**
    * Name of the project to search for
    */
-  project_name?: Shared.ProjectName;
+  project_name?: string;
 }
 
 export interface ExperimentFeedbackParams {
@@ -335,7 +326,7 @@ export interface ExperimentFetchParams {
    * end up with more individual rows than the specified limit if you are fetching
    * events containing traces.
    */
-  limit?: Shared.FetchLimitParam;
+  limit?: number;
 
   /**
    * DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
@@ -349,7 +340,7 @@ export interface ExperimentFetchParams {
    * value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
    * for an overview of paginating fetch queries.
    */
-  max_root_span_id?: Shared.MaxRootSpanID;
+  max_root_span_id?: string;
 
   /**
    * DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
@@ -363,7 +354,7 @@ export interface ExperimentFetchParams {
    * value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
    * for an overview of paginating fetch queries.
    */
-  max_xact_id?: Shared.MaxXactID;
+  max_xact_id?: string;
 
   /**
    * Retrieve a snapshot of events from a past time
@@ -372,7 +363,7 @@ export interface ExperimentFetchParams {
    * can use the `max_xact_id` returned by a past fetch as the version to reproduce
    * that exact fetch.
    */
-  version?: Shared.Version;
+  version?: string;
 }
 
 export interface ExperimentFetchPostParams {
@@ -389,7 +380,7 @@ export interface ExperimentFetchPostParams {
    * A list of filters on the events to fetch. Currently, only path-lookup type
    * filters are supported, but we may add more in the future
    */
-  filters?: Shared.FetchEventsFilters | null;
+  filters?: Array<Shared.PathLookupFilter> | null;
 
   /**
    * limit the number of traces fetched
@@ -451,7 +442,7 @@ export interface ExperimentInsertParams {
   /**
    * A list of experiment events to insert
    */
-  events: Array<Shared.InsertExperimentEvent>;
+  events: Array<Shared.InsertExperimentEventReplace | Shared.InsertExperimentEventMerge>;
 }
 
 export interface ExperimentSummarizeParams {
@@ -461,13 +452,13 @@ export interface ExperimentSummarizeParams {
    * and then to the most recent experiment run in the same project. Must pass
    * `summarize_scores=true` for this id to be used
    */
-  comparison_experiment_id?: Shared.ComparisonExperimentID;
+  comparison_experiment_id?: string;
 
   /**
    * Whether to summarize the scores and metrics. If false (or omitted), only the
    * metadata will be returned.
    */
-  summarize_scores?: Shared.SummarizeScores;
+  summarize_scores?: boolean;
 }
 
 export namespace Experiments {
