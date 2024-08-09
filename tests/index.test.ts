@@ -151,13 +151,13 @@ describe('instantiate client', () => {
     test('empty env variable', () => {
       process.env['BRAINTRUST_BASE_URL'] = ''; // empty
       const client = new Braintrust({ apiKey: 'My API Key' });
-      expect(client.baseURL).toEqual('https://api.braintrustdata.com');
+      expect(client.baseURL).toEqual('https://api.braintrust.dev');
     });
 
     test('blank env variable', () => {
       process.env['BRAINTRUST_BASE_URL'] = '  '; // blank
       const client = new Braintrust({ apiKey: 'My API Key' });
-      expect(client.baseURL).toEqual('https://api.braintrustdata.com');
+      expect(client.baseURL).toEqual('https://api.braintrust.dev');
     });
   });
 

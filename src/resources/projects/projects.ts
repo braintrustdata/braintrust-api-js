@@ -4,8 +4,10 @@ import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
 import * as ProjectsAPI from './projects';
+import * as Shared from '../shared';
+import { ProjectsListObjects } from '../shared';
 import * as LogsAPI from './logs';
-import { ListObjects, type ListObjectsParams } from '../../pagination';
+import { type ListObjectsParams } from '../../pagination';
 
 export class Projects extends APIResource {
   logs: LogsAPI.Logs = new LogsAPI.Logs(this._client);
@@ -14,14 +16,14 @@ export class Projects extends APIResource {
    * Create a new project. If there is an existing project with the same name as the
    * one specified in the request, will return the existing project unmodified
    */
-  create(body: ProjectCreateParams, options?: Core.RequestOptions): Core.APIPromise<Project> {
+  create(body: ProjectCreateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.Project> {
     return this._client.post('/v1/project', { body, ...options });
   }
 
   /**
    * Get a project object by its id
    */
-  retrieve(projectId: string, options?: Core.RequestOptions): Core.APIPromise<Project> {
+  retrieve(projectId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Project> {
     return this._client.get(`/v1/project/${projectId}`, options);
   }
 
@@ -34,13 +36,13 @@ export class Projects extends APIResource {
     projectId: string,
     body?: ProjectUpdateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Project>;
-  update(projectId: string, options?: Core.RequestOptions): Core.APIPromise<Project>;
+  ): Core.APIPromise<Shared.Project>;
+  update(projectId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Project>;
   update(
     projectId: string,
     body: ProjectUpdateParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Project> {
+  ): Core.APIPromise<Shared.Project> {
     if (isRequestOptions(body)) {
       return this.update(projectId, {}, body);
     }
@@ -54,12 +56,12 @@ export class Projects extends APIResource {
   list(
     query?: ProjectListParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<ProjectsListObjects, Project>;
-  list(options?: Core.RequestOptions): Core.PagePromise<ProjectsListObjects, Project>;
+  ): Core.PagePromise<ProjectsListObjects, Shared.Project>;
+  list(options?: Core.RequestOptions): Core.PagePromise<ProjectsListObjects, Shared.Project>;
   list(
     query: ProjectListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<ProjectsListObjects, Project> {
+  ): Core.PagePromise<ProjectsListObjects, Shared.Project> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -69,56 +71,8 @@ export class Projects extends APIResource {
   /**
    * Delete a project object by its id
    */
-  delete(projectId: string, options?: Core.RequestOptions): Core.APIPromise<Project> {
+  delete(projectId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Project> {
     return this._client.delete(`/v1/project/${projectId}`, options);
-  }
-}
-
-/**
- * Pagination for endpoints which list data objects
- */
-export class ProjectsListObjects extends ListObjects<Project> {}
-
-export interface Project {
-  /**
-   * Unique identifier for the project
-   */
-  id: string;
-
-  /**
-   * Name of the project
-   */
-  name: string;
-
-  /**
-   * Unique id for the organization that the project belongs under
-   */
-  org_id: string;
-
-  /**
-   * Date of project creation
-   */
-  created?: string | null;
-
-  /**
-   * Date of project deletion, or null if the project is still active
-   */
-  deleted_at?: string | null;
-
-  settings?: Project.Settings | null;
-
-  /**
-   * Identifies the user who created the project
-   */
-  user_id?: string | null;
-}
-
-export namespace Project {
-  export interface Settings {
-    /**
-     * The key used to join two experiments (defaults to `input`).
-     */
-    comparison_key?: string | null;
   }
 }
 
@@ -181,17 +135,14 @@ export interface ProjectListParams extends ListObjectsParams {
 }
 
 export namespace Projects {
-  export import Project = ProjectsAPI.Project;
-  export import ProjectsListObjects = ProjectsAPI.ProjectsListObjects;
   export import ProjectCreateParams = ProjectsAPI.ProjectCreateParams;
   export import ProjectUpdateParams = ProjectsAPI.ProjectUpdateParams;
   export import ProjectListParams = ProjectsAPI.ProjectListParams;
   export import Logs = LogsAPI.Logs;
-  export import LogFetchResponse = LogsAPI.LogFetchResponse;
-  export import LogFetchPostResponse = LogsAPI.LogFetchPostResponse;
-  export import LogInsertResponse = LogsAPI.LogInsertResponse;
   export import LogFeedbackParams = LogsAPI.LogFeedbackParams;
   export import LogFetchParams = LogsAPI.LogFetchParams;
   export import LogFetchPostParams = LogsAPI.LogFetchPostParams;
   export import LogInsertParams = LogsAPI.LogInsertParams;
 }
+
+export { ProjectsListObjects };

@@ -4,21 +4,26 @@ import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
 import * as APIKeysAPI from './api-keys';
-import { ListObjects, type ListObjectsParams } from '../pagination';
+import * as Shared from './shared';
+import { APIKeysListObjects } from './shared';
+import { type ListObjectsParams } from '../pagination';
 
 export class APIKeys extends APIResource {
   /**
    * Create a new api_key. It is possible to have multiple API keys with the same
    * name. There is no de-duplication
    */
-  create(body: APIKeyCreateParams, options?: Core.RequestOptions): Core.APIPromise<APIKeyCreateResponse> {
+  create(
+    body: APIKeyCreateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.CreateAPIKeyOutput> {
     return this._client.post('/v1/api_key', { body, ...options });
   }
 
   /**
    * Get an api_key object by its id
    */
-  retrieve(apiKeyId: string, options?: Core.RequestOptions): Core.APIPromise<APIKey> {
+  retrieve(apiKeyId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.APIKey> {
     return this._client.get(`/v1/api_key/${apiKeyId}`, options);
   }
 
@@ -26,12 +31,15 @@ export class APIKeys extends APIResource {
    * List out all api_keys. The api_keys are sorted by creation date, with the most
    * recently-created api_keys coming first
    */
-  list(query?: APIKeyListParams, options?: Core.RequestOptions): Core.PagePromise<APIKeysListObjects, APIKey>;
-  list(options?: Core.RequestOptions): Core.PagePromise<APIKeysListObjects, APIKey>;
+  list(
+    query?: APIKeyListParams,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<APIKeysListObjects, Shared.APIKey>;
+  list(options?: Core.RequestOptions): Core.PagePromise<APIKeysListObjects, Shared.APIKey>;
   list(
     query: APIKeyListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<APIKeysListObjects, APIKey> {
+  ): Core.PagePromise<APIKeysListObjects, Shared.APIKey> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -41,77 +49,9 @@ export class APIKeys extends APIResource {
   /**
    * Delete an api_key object by its id
    */
-  delete(apiKeyId: string, options?: Core.RequestOptions): Core.APIPromise<APIKey> {
+  delete(apiKeyId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.APIKey> {
     return this._client.delete(`/v1/api_key/${apiKeyId}`, options);
   }
-}
-
-/**
- * Pagination for endpoints which list data objects
- */
-export class APIKeysListObjects extends ListObjects<APIKey> {}
-
-export interface APIKey {
-  /**
-   * Unique identifier for the api key
-   */
-  id: string;
-
-  /**
-   * Name of the api key
-   */
-  name: string;
-
-  preview_name: string;
-
-  /**
-   * Date of api key creation
-   */
-  created?: string | null;
-
-  /**
-   * Unique identifier for the organization
-   */
-  org_id?: string | null;
-
-  /**
-   * Unique identifier for the user
-   */
-  user_id?: string | null;
-}
-
-export interface APIKeyCreateResponse {
-  /**
-   * Unique identifier for the api key
-   */
-  id: string;
-
-  /**
-   * The raw API key. It will only be exposed this one time
-   */
-  key: string;
-
-  /**
-   * Name of the api key
-   */
-  name: string;
-
-  preview_name: string;
-
-  /**
-   * Date of api key creation
-   */
-  created?: string | null;
-
-  /**
-   * Unique identifier for the organization
-   */
-  org_id?: string | null;
-
-  /**
-   * Unique identifier for the user
-   */
-  user_id?: string | null;
 }
 
 export interface APIKeyCreateParams {
@@ -147,9 +87,8 @@ export interface APIKeyListParams extends ListObjectsParams {
 }
 
 export namespace APIKeys {
-  export import APIKey = APIKeysAPI.APIKey;
-  export import APIKeyCreateResponse = APIKeysAPI.APIKeyCreateResponse;
-  export import APIKeysListObjects = APIKeysAPI.APIKeysListObjects;
   export import APIKeyCreateParams = APIKeysAPI.APIKeyCreateParams;
   export import APIKeyListParams = APIKeysAPI.APIKeyListParams;
 }
+
+export { APIKeysListObjects };

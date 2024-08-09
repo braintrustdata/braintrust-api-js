@@ -12,7 +12,7 @@ export interface ClientOptions {
   /**
    * Defaults to process.env['BRAINTRUST_API_KEY'].
    */
-  apiKey?: string | undefined;
+  apiKey?: string | null | undefined;
 
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
@@ -75,15 +75,15 @@ export interface ClientOptions {
  * API Client for interfacing with the Braintrust API.
  */
 export class Braintrust extends Core.APIClient {
-  apiKey: string;
+  apiKey: string | null;
 
   private _options: ClientOptions;
 
   /**
    * API Client for interfacing with the Braintrust API.
    *
-   * @param {string | undefined} [opts.apiKey=process.env['BRAINTRUST_API_KEY'] ?? undefined]
-   * @param {string} [opts.baseURL=process.env['BRAINTRUST_BASE_URL'] ?? https://api.braintrustdata.com] - Override the default base URL for the API.
+   * @param {string | null | undefined} [opts.apiKey=process.env['BRAINTRUST_API_KEY'] ?? null]
+   * @param {string} [opts.baseURL=process.env['BRAINTRUST_BASE_URL'] ?? https://api.braintrust.dev] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {number} [opts.httpAgent] - An HTTP agent used to manage HTTP(s) connections.
    * @param {Core.Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
@@ -93,19 +93,13 @@ export class Braintrust extends Core.APIClient {
    */
   constructor({
     baseURL = Core.readEnv('BRAINTRUST_BASE_URL'),
-    apiKey = Core.readEnv('BRAINTRUST_API_KEY'),
+    apiKey = Core.readEnv('BRAINTRUST_API_KEY') ?? null,
     ...opts
   }: ClientOptions = {}) {
-    if (apiKey === undefined) {
-      throw new Errors.BraintrustError(
-        "The BRAINTRUST_API_KEY environment variable is missing or empty; either provide it, or instantiate the Braintrust client with an apiKey option, like new Braintrust({ apiKey: 'My API Key' }).",
-      );
-    }
-
     const options: ClientOptions = {
       apiKey,
       ...opts,
-      baseURL: baseURL || `https://api.braintrustdata.com`,
+      baseURL: baseURL || `https://api.braintrust.dev`,
     };
 
     super({
@@ -149,6 +143,9 @@ export class Braintrust extends Core.APIClient {
   }
 
   protected override authHeaders(opts: Core.FinalRequestOptions): Core.Headers {
+    if (this.apiKey == null) {
+      return {};
+    }
     return { Authorization: `Bearer ${this.apiKey}` };
   }
 
@@ -157,6 +154,7 @@ export class Braintrust extends Core.APIClient {
   }
 
   static Braintrust = this;
+  static DEFAULT_TIMEOUT = 60000; // 1 minute
 
   static BraintrustError = Errors.BraintrustError;
   static APIError = Errors.APIError;
@@ -206,19 +204,11 @@ export namespace Braintrust {
   export import TopLevelHelloWorldResponse = API.TopLevelHelloWorldResponse;
 
   export import Projects = API.Projects;
-  export import Project = API.Project;
-  export import ProjectsListObjects = API.ProjectsListObjects;
   export import ProjectCreateParams = API.ProjectCreateParams;
   export import ProjectUpdateParams = API.ProjectUpdateParams;
   export import ProjectListParams = API.ProjectListParams;
 
   export import Experiments = API.Experiments;
-  export import Experiment = API.Experiment;
-  export import ExperimentFetchResponse = API.ExperimentFetchResponse;
-  export import ExperimentFetchPostResponse = API.ExperimentFetchPostResponse;
-  export import ExperimentInsertResponse = API.ExperimentInsertResponse;
-  export import ExperimentSummarizeResponse = API.ExperimentSummarizeResponse;
-  export import ExperimentsListObjects = API.ExperimentsListObjects;
   export import ExperimentCreateParams = API.ExperimentCreateParams;
   export import ExperimentUpdateParams = API.ExperimentUpdateParams;
   export import ExperimentListParams = API.ExperimentListParams;
@@ -229,12 +219,6 @@ export namespace Braintrust {
   export import ExperimentSummarizeParams = API.ExperimentSummarizeParams;
 
   export import Datasets = API.Datasets;
-  export import Dataset = API.Dataset;
-  export import DatasetFetchResponse = API.DatasetFetchResponse;
-  export import DatasetFetchPostResponse = API.DatasetFetchPostResponse;
-  export import DatasetInsertResponse = API.DatasetInsertResponse;
-  export import DatasetSummarizeResponse = API.DatasetSummarizeResponse;
-  export import DatasetsListObjects = API.DatasetsListObjects;
   export import DatasetCreateParams = API.DatasetCreateParams;
   export import DatasetUpdateParams = API.DatasetUpdateParams;
   export import DatasetListParams = API.DatasetListParams;
@@ -245,69 +229,49 @@ export namespace Braintrust {
   export import DatasetSummarizeParams = API.DatasetSummarizeParams;
 
   export import Prompts = API.Prompts;
-  export import Prompt = API.Prompt;
-  export import PromptsListObjects = API.PromptsListObjects;
   export import PromptCreateParams = API.PromptCreateParams;
   export import PromptUpdateParams = API.PromptUpdateParams;
   export import PromptListParams = API.PromptListParams;
-  export import PromptFeedbackParams = API.PromptFeedbackParams;
   export import PromptReplaceParams = API.PromptReplaceParams;
 
   export import Roles = API.Roles;
-  export import Role = API.Role;
-  export import RolesListObjects = API.RolesListObjects;
   export import RoleCreateParams = API.RoleCreateParams;
   export import RoleUpdateParams = API.RoleUpdateParams;
   export import RoleListParams = API.RoleListParams;
   export import RoleReplaceParams = API.RoleReplaceParams;
 
   export import Groups = API.Groups;
-  export import Group = API.Group;
-  export import GroupsListObjects = API.GroupsListObjects;
   export import GroupCreateParams = API.GroupCreateParams;
   export import GroupUpdateParams = API.GroupUpdateParams;
   export import GroupListParams = API.GroupListParams;
   export import GroupReplaceParams = API.GroupReplaceParams;
 
   export import ACLs = API.ACLs;
-  export import ACL = API.ACL;
-  export import ACLsListObjects = API.ACLsListObjects;
   export import ACLCreateParams = API.ACLCreateParams;
   export import ACLListParams = API.ACLListParams;
 
   export import Users = API.Users;
-  export import User = API.User;
-  export import UsersListObjects = API.UsersListObjects;
   export import UserListParams = API.UserListParams;
 
   export import ProjectScores = API.ProjectScores;
-  export import ProjectScore = API.ProjectScore;
-  export import ProjectScoresListObjects = API.ProjectScoresListObjects;
   export import ProjectScoreCreateParams = API.ProjectScoreCreateParams;
   export import ProjectScoreUpdateParams = API.ProjectScoreUpdateParams;
   export import ProjectScoreListParams = API.ProjectScoreListParams;
   export import ProjectScoreReplaceParams = API.ProjectScoreReplaceParams;
 
   export import ProjectTags = API.ProjectTags;
-  export import ProjectTag = API.ProjectTag;
-  export import ProjectTagsListObjects = API.ProjectTagsListObjects;
   export import ProjectTagCreateParams = API.ProjectTagCreateParams;
   export import ProjectTagUpdateParams = API.ProjectTagUpdateParams;
   export import ProjectTagListParams = API.ProjectTagListParams;
   export import ProjectTagReplaceParams = API.ProjectTagReplaceParams;
 
   export import Functions = API.Functions;
-  export import Function = API.Function;
-  export import FunctionsListObjects = API.FunctionsListObjects;
   export import FunctionCreateParams = API.FunctionCreateParams;
   export import FunctionUpdateParams = API.FunctionUpdateParams;
   export import FunctionListParams = API.FunctionListParams;
-  export import FunctionFeedbackParams = API.FunctionFeedbackParams;
   export import FunctionReplaceParams = API.FunctionReplaceParams;
 
   export import Views = API.Views;
-  export import View = API.View;
-  export import ViewsListObjects = API.ViewsListObjects;
   export import ViewCreateParams = API.ViewCreateParams;
   export import ViewRetrieveParams = API.ViewRetrieveParams;
   export import ViewUpdateParams = API.ViewUpdateParams;
@@ -316,17 +280,89 @@ export namespace Braintrust {
   export import ViewReplaceParams = API.ViewReplaceParams;
 
   export import Organizations = API.Organizations;
-  export import Organization = API.Organization;
-  export import OrganizationsListObjects = API.OrganizationsListObjects;
   export import OrganizationUpdateParams = API.OrganizationUpdateParams;
   export import OrganizationListParams = API.OrganizationListParams;
 
   export import APIKeys = API.APIKeys;
-  export import APIKey = API.APIKey;
-  export import APIKeyCreateResponse = API.APIKeyCreateResponse;
-  export import APIKeysListObjects = API.APIKeysListObjects;
   export import APIKeyCreateParams = API.APIKeyCreateParams;
   export import APIKeyListParams = API.APIKeyListParams;
+
+  export import ACL = API.ACL;
+  export import APIKey = API.APIKey;
+  export import CreateACL = API.CreateACL;
+  export import CreateAPIKeyOutput = API.CreateAPIKeyOutput;
+  export import CreateDataset = API.CreateDataset;
+  export import CreateExperiment = API.CreateExperiment;
+  export import CreateFunction = API.CreateFunction;
+  export import CreateGroup = API.CreateGroup;
+  export import CreateProject = API.CreateProject;
+  export import CreateProjectScore = API.CreateProjectScore;
+  export import CreateProjectTag = API.CreateProjectTag;
+  export import CreatePrompt = API.CreatePrompt;
+  export import CreateRole = API.CreateRole;
+  export import CreateView = API.CreateView;
+  export import CrossObjectInsertRequest = API.CrossObjectInsertRequest;
+  export import CrossObjectInsertResponse = API.CrossObjectInsertResponse;
+  export import DataSummary = API.DataSummary;
+  export import Dataset = API.Dataset;
+  export import DatasetEvent = API.DatasetEvent;
+  export import DeleteView = API.DeleteView;
+  export import Experiment = API.Experiment;
+  export import ExperimentEvent = API.ExperimentEvent;
+  export import FeedbackDatasetEventRequest = API.FeedbackDatasetEventRequest;
+  export import FeedbackDatasetItem = API.FeedbackDatasetItem;
+  export import FeedbackExperimentEventRequest = API.FeedbackExperimentEventRequest;
+  export import FeedbackExperimentItem = API.FeedbackExperimentItem;
+  export import FeedbackProjectLogsEventRequest = API.FeedbackProjectLogsEventRequest;
+  export import FeedbackProjectLogsItem = API.FeedbackProjectLogsItem;
+  export import FetchDatasetEventsResponse = API.FetchDatasetEventsResponse;
+  export import FetchEventsRequest = API.FetchEventsRequest;
+  export import FetchExperimentEventsResponse = API.FetchExperimentEventsResponse;
+  export import FetchProjectLogsEventsResponse = API.FetchProjectLogsEventsResponse;
+  export import Function = API.Function;
+  export import Group = API.Group;
+  export import InsertDatasetEventMerge = API.InsertDatasetEventMerge;
+  export import InsertDatasetEventReplace = API.InsertDatasetEventReplace;
+  export import InsertDatasetEventRequest = API.InsertDatasetEventRequest;
+  export import InsertEventsResponse = API.InsertEventsResponse;
+  export import InsertExperimentEventMerge = API.InsertExperimentEventMerge;
+  export import InsertExperimentEventReplace = API.InsertExperimentEventReplace;
+  export import InsertExperimentEventRequest = API.InsertExperimentEventRequest;
+  export import InsertProjectLogsEventMerge = API.InsertProjectLogsEventMerge;
+  export import InsertProjectLogsEventReplace = API.InsertProjectLogsEventReplace;
+  export import InsertProjectLogsEventRequest = API.InsertProjectLogsEventRequest;
+  export import MetricSummary = API.MetricSummary;
+  export import Organization = API.Organization;
+  export import PatchDataset = API.PatchDataset;
+  export import PatchExperiment = API.PatchExperiment;
+  export import PatchFunction = API.PatchFunction;
+  export import PatchGroup = API.PatchGroup;
+  export import PatchOrganization = API.PatchOrganization;
+  export import PatchOrganizationMembers = API.PatchOrganizationMembers;
+  export import PatchProject = API.PatchProject;
+  export import PatchProjectScore = API.PatchProjectScore;
+  export import PatchProjectTag = API.PatchProjectTag;
+  export import PatchPrompt = API.PatchPrompt;
+  export import PatchRole = API.PatchRole;
+  export import PatchView = API.PatchView;
+  export import PathLookupFilter = API.PathLookupFilter;
+  export import Project = API.Project;
+  export import ProjectLogsEvent = API.ProjectLogsEvent;
+  export import ProjectScore = API.ProjectScore;
+  export import ProjectScoreCategory = API.ProjectScoreCategory;
+  export import ProjectTag = API.ProjectTag;
+  export import Prompt = API.Prompt;
+  export import PromptData = API.PromptData;
+  export import RepoInfo = API.RepoInfo;
+  export import Role = API.Role;
+  export import ScoreSummary = API.ScoreSummary;
+  export import SummarizeDatasetResponse = API.SummarizeDatasetResponse;
+  export import SummarizeExperimentResponse = API.SummarizeExperimentResponse;
+  export import User = API.User;
+  export import View = API.View;
+  export import ViewData = API.ViewData;
+  export import ViewDataSearch = API.ViewDataSearch;
+  export import ViewOptions = API.ViewOptions;
 }
 
 export default Braintrust;

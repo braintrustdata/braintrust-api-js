@@ -22,10 +22,12 @@ The full API of this library can be found in [api.md](api.md).
 ```js
 import Braintrust from '@braintrust/api';
 
-const client = new Braintrust();
+const client = new Braintrust({
+  apiKey: process.env['BRAINTRUST_API_KEY'], // This is the default and can be omitted
+});
 
 async function main() {
-  const project = await braintrust.projects.create({ name: 'name' });
+  const project = await client.projects.create({ name: 'foobar' });
 
   console.log(project.id);
 }
@@ -41,11 +43,13 @@ This library includes TypeScript definitions for all request params and response
 ```ts
 import Braintrust from '@braintrust/api';
 
-const client = new Braintrust();
+const client = new Braintrust({
+  apiKey: process.env['BRAINTRUST_API_KEY'], // This is the default and can be omitted
+});
 
 async function main() {
-  const params: Braintrust.ProjectCreateParams = { name: 'name' };
-  const project: Braintrust.Project = await braintrust.projects.create(params);
+  const params: Braintrust.ProjectCreateParams = { name: 'foobar' };
+  const project: Braintrust.Project = await client.projects.create(params);
 }
 
 main();
@@ -62,7 +66,7 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const project = await braintrust.projects.create({ name: 'name' }).catch(async (err) => {
+  const project = await client.projects.create({ name: 'foobar' }).catch(async (err) => {
     if (err instanceof Braintrust.APIError) {
       console.log(err.status); // 400
       console.log(err.name); // BadRequestError
@@ -105,7 +109,7 @@ const client = new Braintrust({
 });
 
 // Or, configure per-request:
-await braintrust.projects.create({ name: 'name' }, {
+await client.projects.create({ name: 'foobar' }, {
   maxRetries: 5,
 });
 ```
@@ -122,7 +126,7 @@ const client = new Braintrust({
 });
 
 // Override per-request:
-await braintrust.projects.create({ name: 'name' }, {
+await client.projects.create({ name: 'foobar' }, {
   timeout: 5 * 1000,
 });
 ```
@@ -140,7 +144,7 @@ You can use `for await … of` syntax to iterate through items across all pages:
 async function fetchAllProjects(params) {
   const allProjects = [];
   // Automatically fetches more pages as needed.
-  for await (const project of braintrust.projects.list()) {
+  for await (const project of client.projects.list()) {
     allProjects.push(project);
   }
   return allProjects;
@@ -150,7 +154,7 @@ async function fetchAllProjects(params) {
 Alternatively, you can make request a single page at a time:
 
 ```ts
-let page = await braintrust.projects.list();
+let page = await client.projects.list();
 for (const project of page.objects) {
   console.log(project);
 }
@@ -174,11 +178,11 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 ```ts
 const client = new Braintrust();
 
-const response = await braintrust.projects.create({ name: 'name' }).asResponse();
+const response = await client.projects.create({ name: 'foobar' }).asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: project, response: raw } = await braintrust.projects.create({ name: 'name' }).withResponse();
+const { data: project, response: raw } = await client.projects.create({ name: 'foobar' }).withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(project.id);
 ```
@@ -284,8 +288,8 @@ const client = new Braintrust({
 });
 
 // Override per-request:
-await braintrust.projects.create(
-  { name: 'name' },
+await client.projects.create(
+  { name: 'foobar' },
   {
     httpAgent: new http.Agent({ keepAlive: false }),
   },
