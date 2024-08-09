@@ -20,7 +20,7 @@ export class Views extends APIResource {
    * Get a view object by its id
    */
   retrieve(
-    viewId: Shared.ViewID,
+    viewId: string,
     query: ViewRetrieveParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.View> {
@@ -33,7 +33,7 @@ export class Views extends APIResource {
    * not support removing fields or setting them to null.
    */
   update(
-    viewId: Shared.ViewID,
+    viewId: string,
     body: ViewUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.View> {
@@ -55,7 +55,7 @@ export class Views extends APIResource {
    * Delete a view object by its id
    */
   delete(
-    viewId: Shared.ViewID,
+    viewId: string,
     body: ViewDeleteParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.View> {
@@ -139,12 +139,24 @@ export interface ViewRetrieveParams {
   /**
    * The id of the object the ACL applies to
    */
-  object_id: Shared.ACLObjectID;
+  object_id: string;
 
   /**
    * The object type that the ACL applies to
    */
-  object_type: Shared.ACLObjectType | null;
+  object_type:
+    | 'organization'
+    | 'project'
+    | 'experiment'
+    | 'dataset'
+    | 'prompt'
+    | 'prompt_session'
+    | 'group'
+    | 'role'
+    | 'org_member'
+    | 'project_log'
+    | 'org_project'
+    | null;
 }
 
 export interface ViewUpdateParams {
@@ -209,28 +221,49 @@ export interface ViewListParams extends ListObjectsParams {
   /**
    * The id of the object the ACL applies to
    */
-  object_id: Shared.ACLObjectID;
+  object_id: string;
 
   /**
    * The object type that the ACL applies to
    */
-  object_type: Shared.ACLObjectType | null;
+  object_type:
+    | 'organization'
+    | 'project'
+    | 'experiment'
+    | 'dataset'
+    | 'prompt'
+    | 'prompt_session'
+    | 'group'
+    | 'role'
+    | 'org_member'
+    | 'project_log'
+    | 'org_project'
+    | null;
 
   /**
    * Filter search results to a particular set of object IDs. To specify a list of
    * IDs, include the query param multiple times
    */
-  ids?: Shared.IDs;
+  ids?: string | Array<string>;
 
   /**
    * Name of the view to search for
    */
-  view_name?: Shared.ViewName;
+  view_name?: string;
 
   /**
    * Type of table that the view corresponds to.
    */
-  view_type?: Shared.ViewType | null;
+  view_type?:
+    | 'projects'
+    | 'logs'
+    | 'experiments'
+    | 'datasets'
+    | 'prompts'
+    | 'playgrounds'
+    | 'experiment'
+    | 'dataset'
+    | null;
 }
 
 export interface ViewDeleteParams {

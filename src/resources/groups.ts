@@ -20,7 +20,7 @@ export class Groups extends APIResource {
   /**
    * Get a group object by its id
    */
-  retrieve(groupId: Shared.GroupID, options?: Core.RequestOptions): Core.APIPromise<Shared.Group> {
+  retrieve(groupId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Group> {
     return this._client.get(`/v1/group/${groupId}`, options);
   }
 
@@ -30,13 +30,13 @@ export class Groups extends APIResource {
    * do not support removing fields or setting them to null.
    */
   update(
-    groupId: Shared.GroupID,
+    groupId: string,
     body?: GroupUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.Group>;
-  update(groupId: Shared.GroupID, options?: Core.RequestOptions): Core.APIPromise<Shared.Group>;
+  update(groupId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Group>;
   update(
-    groupId: Shared.GroupID,
+    groupId: string,
     body: GroupUpdateParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.Group> {
@@ -68,7 +68,7 @@ export class Groups extends APIResource {
   /**
    * Delete a group object by its id
    */
-  delete(groupId: Shared.GroupID, options?: Core.RequestOptions): Core.APIPromise<Shared.Group> {
+  delete(groupId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Group> {
     return this._client.delete(`/v1/group/${groupId}`, options);
   }
 
@@ -150,18 +150,18 @@ export interface GroupListParams extends ListObjectsParams {
   /**
    * Name of the group to search for
    */
-  group_name?: Shared.GroupName;
+  group_name?: string;
 
   /**
    * Filter search results to a particular set of object IDs. To specify a list of
    * IDs, include the query param multiple times
    */
-  ids?: Shared.IDs;
+  ids?: string | Array<string>;
 
   /**
    * Filter search results to within a particular organization
    */
-  org_name?: Shared.OrgName;
+  org_name?: string;
 }
 
 export interface GroupReplaceParams {

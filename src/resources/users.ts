@@ -12,7 +12,7 @@ export class Users extends APIResource {
   /**
    * Get a user object by its id
    */
-  retrieve(userId: Shared.UserID, options?: Core.RequestOptions): Core.APIPromise<Shared.User> {
+  retrieve(userId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.User> {
     return this._client.get(`/v1/user/${userId}`, options);
   }
 
@@ -41,30 +41,30 @@ export interface UserListParams extends ListObjectsParams {
    * Email of the user to search for. You may pass the param multiple times to filter
    * for more than one email
    */
-  email?: Shared.UserEmail;
+  email?: string | Array<string>;
 
   /**
    * Family name of the user to search for. You may pass the param multiple times to
    * filter for more than one family name
    */
-  family_name?: Shared.UserFamilyName;
+  family_name?: string | Array<string>;
 
   /**
    * Given name of the user to search for. You may pass the param multiple times to
    * filter for more than one given name
    */
-  given_name?: Shared.UserGivenName;
+  given_name?: string | Array<string>;
 
   /**
    * Filter search results to a particular set of object IDs. To specify a list of
    * IDs, include the query param multiple times
    */
-  ids?: Shared.IDs;
+  ids?: string | Array<string>;
 
   /**
    * Filter search results to within a particular organization
    */
-  org_name?: Shared.OrgName;
+  org_name?: string;
 }
 
 export namespace Users {

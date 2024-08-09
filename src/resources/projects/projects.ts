@@ -23,7 +23,7 @@ export class Projects extends APIResource {
   /**
    * Get a project object by its id
    */
-  retrieve(projectId: Shared.ProjectID, options?: Core.RequestOptions): Core.APIPromise<Shared.Project> {
+  retrieve(projectId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Project> {
     return this._client.get(`/v1/project/${projectId}`, options);
   }
 
@@ -33,13 +33,13 @@ export class Projects extends APIResource {
    * do not support removing fields or setting them to null.
    */
   update(
-    projectId: Shared.ProjectID,
+    projectId: string,
     body?: ProjectUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.Project>;
-  update(projectId: Shared.ProjectID, options?: Core.RequestOptions): Core.APIPromise<Shared.Project>;
+  update(projectId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Project>;
   update(
-    projectId: Shared.ProjectID,
+    projectId: string,
     body: ProjectUpdateParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.Project> {
@@ -71,7 +71,7 @@ export class Projects extends APIResource {
   /**
    * Delete a project object by its id
    */
-  delete(projectId: Shared.ProjectID, options?: Core.RequestOptions): Core.APIPromise<Shared.Project> {
+  delete(projectId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Project> {
     return this._client.delete(`/v1/project/${projectId}`, options);
   }
 }
@@ -121,17 +121,17 @@ export interface ProjectListParams extends ListObjectsParams {
    * Filter search results to a particular set of object IDs. To specify a list of
    * IDs, include the query param multiple times
    */
-  ids?: Shared.IDs;
+  ids?: string | Array<string>;
 
   /**
    * Filter search results to within a particular organization
    */
-  org_name?: Shared.OrgName;
+  org_name?: string;
 
   /**
    * Name of the project to search for
    */
-  project_name?: Shared.ProjectName;
+  project_name?: string;
 }
 
 export namespace Projects {

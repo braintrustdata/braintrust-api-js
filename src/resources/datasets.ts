@@ -21,7 +21,7 @@ export class Datasets extends APIResource {
   /**
    * Get a dataset object by its id
    */
-  retrieve(datasetId: Shared.DatasetID, options?: Core.RequestOptions): Core.APIPromise<Shared.Dataset> {
+  retrieve(datasetId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Dataset> {
     return this._client.get(`/v1/dataset/${datasetId}`, options);
   }
 
@@ -31,13 +31,13 @@ export class Datasets extends APIResource {
    * do not support removing fields or setting them to null.
    */
   update(
-    datasetId: Shared.DatasetID,
+    datasetId: string,
     body?: DatasetUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.Dataset>;
-  update(datasetId: Shared.DatasetID, options?: Core.RequestOptions): Core.APIPromise<Shared.Dataset>;
+  update(datasetId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Dataset>;
   update(
-    datasetId: Shared.DatasetID,
+    datasetId: string,
     body: DatasetUpdateParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.Dataset> {
@@ -69,7 +69,7 @@ export class Datasets extends APIResource {
   /**
    * Delete a dataset object by its id
    */
-  delete(datasetId: Shared.DatasetID, options?: Core.RequestOptions): Core.APIPromise<Shared.Dataset> {
+  delete(datasetId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Dataset> {
     return this._client.delete(`/v1/dataset/${datasetId}`, options);
   }
 
@@ -77,7 +77,7 @@ export class Datasets extends APIResource {
    * Log feedback for a set of dataset events
    */
   feedback(
-    datasetId: Shared.DatasetID,
+    datasetId: string,
     body: DatasetFeedbackParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<void> {
@@ -93,16 +93,13 @@ export class Datasets extends APIResource {
    * with the parameters in the URL query rather than in the request body
    */
   fetch(
-    datasetId: Shared.DatasetID,
+    datasetId: string,
     query?: DatasetFetchParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.FetchDatasetEventsResponse>;
+  fetch(datasetId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.FetchDatasetEventsResponse>;
   fetch(
-    datasetId: Shared.DatasetID,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.FetchDatasetEventsResponse>;
-  fetch(
-    datasetId: Shared.DatasetID,
+    datasetId: string,
     query: DatasetFetchParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.FetchDatasetEventsResponse> {
@@ -117,16 +114,16 @@ export class Datasets extends APIResource {
    * with the parameters in the request body rather than in the URL query
    */
   fetchPost(
-    datasetId: Shared.DatasetID,
+    datasetId: string,
     body?: DatasetFetchPostParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.FetchDatasetEventsResponse>;
   fetchPost(
-    datasetId: Shared.DatasetID,
+    datasetId: string,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.FetchDatasetEventsResponse>;
   fetchPost(
-    datasetId: Shared.DatasetID,
+    datasetId: string,
     body: DatasetFetchPostParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.FetchDatasetEventsResponse> {
@@ -140,7 +137,7 @@ export class Datasets extends APIResource {
    * Insert a set of events into the dataset
    */
   insert(
-    datasetId: Shared.DatasetID,
+    datasetId: string,
     body: DatasetInsertParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.InsertEventsResponse> {
@@ -151,16 +148,16 @@ export class Datasets extends APIResource {
    * Summarize dataset
    */
   summarize(
-    datasetId: Shared.DatasetID,
+    datasetId: string,
     query?: DatasetSummarizeParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.SummarizeDatasetResponse>;
   summarize(
-    datasetId: Shared.DatasetID,
+    datasetId: string,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.SummarizeDatasetResponse>;
   summarize(
-    datasetId: Shared.DatasetID,
+    datasetId: string,
     query: DatasetSummarizeParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.SummarizeDatasetResponse> {
@@ -209,28 +206,28 @@ export interface DatasetListParams extends ListObjectsParams {
   /**
    * Name of the dataset to search for
    */
-  dataset_name?: Shared.DatasetName;
+  dataset_name?: string;
 
   /**
    * Filter search results to a particular set of object IDs. To specify a list of
    * IDs, include the query param multiple times
    */
-  ids?: Shared.IDs;
+  ids?: string | Array<string>;
 
   /**
    * Filter search results to within a particular organization
    */
-  org_name?: Shared.OrgName;
+  org_name?: string;
 
   /**
    * Project id
    */
-  project_id?: Shared.ProjectIDQuery;
+  project_id?: string;
 
   /**
    * Name of the project to search for
    */
-  project_name?: Shared.ProjectName;
+  project_name?: string;
 }
 
 export interface DatasetFeedbackParams {
@@ -257,7 +254,7 @@ export interface DatasetFetchParams {
    * end up with more individual rows than the specified limit if you are fetching
    * events containing traces.
    */
-  limit?: Shared.FetchLimitParam;
+  limit?: number;
 
   /**
    * DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
@@ -271,7 +268,7 @@ export interface DatasetFetchParams {
    * value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
    * for an overview of paginating fetch queries.
    */
-  max_root_span_id?: Shared.MaxRootSpanID;
+  max_root_span_id?: string;
 
   /**
    * DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
@@ -285,7 +282,7 @@ export interface DatasetFetchParams {
    * value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
    * for an overview of paginating fetch queries.
    */
-  max_xact_id?: Shared.MaxXactID;
+  max_xact_id?: string;
 
   /**
    * Retrieve a snapshot of events from a past time
@@ -294,7 +291,7 @@ export interface DatasetFetchParams {
    * can use the `max_xact_id` returned by a past fetch as the version to reproduce
    * that exact fetch.
    */
-  version?: Shared.Version;
+  version?: string;
 }
 
 export interface DatasetFetchPostParams {
@@ -311,7 +308,7 @@ export interface DatasetFetchPostParams {
    * A list of filters on the events to fetch. Currently, only path-lookup type
    * filters are supported, but we may add more in the future
    */
-  filters?: Shared.FetchEventsFilters | null;
+  filters?: Array<Shared.PathLookupFilter> | null;
 
   /**
    * limit the number of traces fetched
@@ -373,7 +370,7 @@ export interface DatasetInsertParams {
   /**
    * A list of dataset events to insert
    */
-  events: Array<Shared.InsertDatasetEvent>;
+  events: Array<Shared.InsertDatasetEventReplace | Shared.InsertDatasetEventMerge>;
 }
 
 export interface DatasetSummarizeParams {
@@ -381,7 +378,7 @@ export interface DatasetSummarizeParams {
    * Whether to summarize the data. If false (or omitted), only the metadata will be
    * returned.
    */
-  summarize_data?: Shared.SummarizeData;
+  summarize_data?: boolean;
 }
 
 export namespace Datasets {

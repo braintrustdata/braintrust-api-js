@@ -20,7 +20,7 @@ export class Roles extends APIResource {
   /**
    * Get a role object by its id
    */
-  retrieve(roleId: Shared.RoleID, options?: Core.RequestOptions): Core.APIPromise<Shared.Role> {
+  retrieve(roleId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Role> {
     return this._client.get(`/v1/role/${roleId}`, options);
   }
 
@@ -30,13 +30,13 @@ export class Roles extends APIResource {
    * not support removing fields or setting them to null.
    */
   update(
-    roleId: Shared.RoleID,
+    roleId: string,
     body?: RoleUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.Role>;
-  update(roleId: Shared.RoleID, options?: Core.RequestOptions): Core.APIPromise<Shared.Role>;
+  update(roleId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Role>;
   update(
-    roleId: Shared.RoleID,
+    roleId: string,
     body: RoleUpdateParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.Role> {
@@ -68,7 +68,7 @@ export class Roles extends APIResource {
   /**
    * Delete a role object by its id
    */
-  delete(roleId: Shared.RoleID, options?: Core.RequestOptions): Core.APIPromise<Shared.Role> {
+  delete(roleId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Role> {
     return this._client.delete(`/v1/role/${roleId}`, options);
   }
 
@@ -263,17 +263,17 @@ export interface RoleListParams extends ListObjectsParams {
    * Filter search results to a particular set of object IDs. To specify a list of
    * IDs, include the query param multiple times
    */
-  ids?: Shared.IDs;
+  ids?: string | Array<string>;
 
   /**
    * Filter search results to within a particular organization
    */
-  org_name?: Shared.OrgName;
+  org_name?: string;
 
   /**
    * Name of the role to search for
    */
-  role_name?: Shared.RoleName;
+  role_name?: string;
 }
 
 export interface RoleReplaceParams {
