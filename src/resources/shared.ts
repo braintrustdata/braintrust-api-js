@@ -105,33 +105,6 @@ export interface ACL {
   user_id?: string | null;
 }
 
-/**
- * Acl id
- */
-export type ACLID = string;
-
-/**
- * The id of the object the ACL applies to
- */
-export type ACLObjectID = string;
-
-/**
- * The object type that the ACL applies to
- */
-export type ACLObjectType =
-  | 'organization'
-  | 'project'
-  | 'experiment'
-  | 'dataset'
-  | 'prompt'
-  | 'prompt_session'
-  | 'group'
-  | 'role'
-  | 'org_member'
-  | 'project_log'
-  | 'org_project'
-  | null;
-
 export interface APIKey {
   /**
    * Unique identifier for the api key
@@ -160,29 +133,6 @@ export interface APIKey {
    */
   user_id?: string | null;
 }
-
-/**
- * ApiKey id
- */
-export type APIKeyID = string;
-
-/**
- * Name of the api_key to search for
- */
-export type APIKeyName = string;
-
-/**
- * Limit the number of objects to return
- */
-export type AppLimitParam = number;
-
-/**
- * The experiment to compare against, if summarizing scores and metrics. If
- * omitted, will fall back to the `base_exp_id` stored in the experiment metadata,
- * and then to the most recent experiment run in the same project. Must pass
- * `summarize_scores=true` for this id to be used
- */
-export type ComparisonExperimentID = string;
 
 /**
  * An ACL grants a certain permission or role to a certain user or group on an
@@ -755,7 +705,7 @@ export namespace CrossObjectInsertRequest {
     /**
      * A list of dataset events to insert
      */
-    events?: Array<Shared.InsertDatasetEvent> | null;
+    events?: Array<Shared.InsertDatasetEventReplace | Shared.InsertDatasetEventMerge> | null;
 
     /**
      * A list of dataset feedback items
@@ -767,7 +717,7 @@ export namespace CrossObjectInsertRequest {
     /**
      * A list of experiment events to insert
      */
-    events?: Array<Shared.InsertExperimentEvent> | null;
+    events?: Array<Shared.InsertExperimentEventReplace | Shared.InsertExperimentEventMerge> | null;
 
     /**
      * A list of experiment feedback items
@@ -779,7 +729,7 @@ export namespace CrossObjectInsertRequest {
     /**
      * A list of project logs events to insert
      */
-    events?: Array<Shared.InsertProjectLogsEvent> | null;
+    events?: Array<Shared.InsertProjectLogsEventReplace | Shared.InsertProjectLogsEventMerge> | null;
 
     /**
      * A list of project logs feedback items
@@ -927,16 +877,6 @@ export interface DatasetEvent {
   tags?: Array<string> | null;
 }
 
-/**
- * Dataset id
- */
-export type DatasetID = string;
-
-/**
- * Name of the dataset to search for
- */
-export type DatasetName = string;
-
 export interface DeleteView {
   /**
    * The id of the object the view applies to
@@ -960,15 +900,6 @@ export interface DeleteView {
     | 'org_project'
     | null;
 }
-
-/**
- * Pagination cursor id.
- *
- * For example, if the initial item in the last page you fetched had an id of
- * `foo`, pass `ending_before=foo` to fetch the previous page. Note: you may only
- * pass one of `starting_after` and `ending_before`
- */
-export type EndingBefore = string;
 
 export interface Experiment {
   /**
@@ -1261,16 +1192,6 @@ export namespace ExperimentEvent {
   }
 }
 
-/**
- * Experiment id
- */
-export type ExperimentID = string;
-
-/**
- * Name of the experiment to search for
- */
-export type ExperimentName = string;
-
 export interface FeedbackDatasetEventRequest {
   /**
    * A list of dataset feedback items
@@ -1403,12 +1324,6 @@ export interface FetchDatasetEventsResponse {
   cursor?: string | null;
 }
 
-/**
- * A list of filters on the events to fetch. Currently, only path-lookup type
- * filters are supported, but we may add more in the future
- */
-export type FetchEventsFilters = Array<PathLookupFilter>;
-
 export interface FetchEventsRequest {
   /**
    * An opaque string to be used as a cursor for the next page of results, in order
@@ -1423,7 +1338,7 @@ export interface FetchEventsRequest {
    * A list of filters on the events to fetch. Currently, only path-lookup type
    * filters are supported, but we may add more in the future
    */
-  filters?: FetchEventsFilters | null;
+  filters?: Array<PathLookupFilter> | null;
 
   /**
    * limit the number of traces fetched
@@ -1495,24 +1410,6 @@ export interface FetchExperimentEventsResponse {
    */
   cursor?: string | null;
 }
-
-/**
- * limit the number of traces fetched
- *
- * Fetch queries may be paginated if the total result size is expected to be large
- * (e.g. project_logs which accumulate over a long time). Note that fetch queries
- * only support pagination in descending time order (from latest to earliest
- * `_xact_id`. Furthermore, later pages may return rows which showed up in earlier
- * pages, except with an earlier `_xact_id`. This happens because pagination occurs
- * over the whole version history of the event log. You will most likely want to
- * exclude any such duplicate, outdated rows (by `id`) from your combined result
- * set.
- *
- * The `limit` parameter controls the number of full traces to return. So you may
- * end up with more individual rows than the specified limit if you are fetching
- * events containing traces.
- */
-export type FetchLimitParam = number;
 
 export interface FetchProjectLogsEventsResponse {
   /**
@@ -1647,16 +1544,6 @@ export namespace Function {
 }
 
 /**
- * Function id
- */
-export type FunctionID = string;
-
-/**
- * Name of the function to search for
- */
-export type FunctionName = string;
-
-/**
  * A group is a collection of users which can be assigned an ACL
  *
  * Groups can consist of individual users, as well as a set of groups they inherit
@@ -1713,27 +1600,6 @@ export interface Group {
    */
   user_id?: string | null;
 }
-
-/**
- * Group id
- */
-export type GroupID = string;
-
-/**
- * Name of the group to search for
- */
-export type GroupName = string;
-
-/**
- * Filter search results to a particular set of object IDs. To specify a list of
- * IDs, include the query param multiple times
- */
-export type IDs = string | Array<string>;
-
-/**
- * A dataset event
- */
-export type InsertDatasetEvent = InsertDatasetEventReplace | InsertDatasetEventMerge;
 
 export interface InsertDatasetEventMerge {
   /**
@@ -1892,7 +1758,7 @@ export interface InsertDatasetEventRequest {
   /**
    * A list of dataset events to insert
    */
-  events: Array<InsertDatasetEvent>;
+  events: Array<InsertDatasetEventReplace | InsertDatasetEventMerge>;
 }
 
 export interface InsertEventsResponse {
@@ -1902,11 +1768,6 @@ export interface InsertEventsResponse {
    */
   row_ids: Array<string>;
 }
-
-/**
- * An experiment event
- */
-export type InsertExperimentEvent = InsertExperimentEventReplace | InsertExperimentEventMerge;
 
 export interface InsertExperimentEventMerge {
   /**
@@ -2343,13 +2204,8 @@ export interface InsertExperimentEventRequest {
   /**
    * A list of experiment events to insert
    */
-  events: Array<InsertExperimentEvent>;
+  events: Array<InsertExperimentEventReplace | InsertExperimentEventMerge>;
 }
-
-/**
- * A project logs event
- */
-export type InsertProjectLogsEvent = InsertProjectLogsEventReplace | InsertProjectLogsEventMerge;
 
 export interface InsertProjectLogsEventMerge {
   /**
@@ -2766,36 +2622,8 @@ export interface InsertProjectLogsEventRequest {
   /**
    * A list of project logs events to insert
    */
-  events: Array<InsertProjectLogsEvent>;
+  events: Array<InsertProjectLogsEventReplace | InsertProjectLogsEventMerge>;
 }
-
-/**
- * DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
- * favor of the explicit 'cursor' returned by object fetch requests. Please prefer
- * the 'cursor' argument going forwards.
- *
- * Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
- *
- * Since a paginated fetch query returns results in order from latest to earliest,
- * the cursor for the next page can be found as the row with the minimum (earliest)
- * value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
- * for an overview of paginating fetch queries.
- */
-export type MaxRootSpanID = string;
-
-/**
- * DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
- * favor of the explicit 'cursor' returned by object fetch requests. Please prefer
- * the 'cursor' argument going forwards.
- *
- * Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
- *
- * Since a paginated fetch query returns results in order from latest to earliest,
- * the cursor for the next page can be found as the row with the minimum (earliest)
- * value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
- * for an overview of paginating fetch queries.
- */
-export type MaxXactID = string;
 
 /**
  * Summary of a metric's performance
@@ -2832,11 +2660,6 @@ export interface MetricSummary {
   diff?: number;
 }
 
-/**
- * Filter search results to within a particular organization
- */
-export type OrgName = string;
-
 export interface Organization {
   /**
    * Unique identifier for the organization
@@ -2861,16 +2684,6 @@ export interface Organization {
 
   realtime_url?: string | null;
 }
-
-/**
- * Organization id
- */
-export type OrganizationID = string;
-
-/**
- * Name of the organization to search for
- */
-export type OrganizationName = string;
 
 export interface PatchDataset {
   /**
@@ -3471,16 +3284,6 @@ export namespace Project {
   }
 }
 
-/**
- * Project id
- */
-export type ProjectID = string;
-
-/**
- * Project id
- */
-export type ProjectIDQuery = string;
-
 export interface ProjectLogsEvent {
   /**
    * A unique identifier for the project logs event. If you don't provide one,
@@ -3693,11 +3496,6 @@ export namespace ProjectLogsEvent {
 }
 
 /**
- * Name of the project to search for
- */
-export type ProjectName = string;
-
-/**
  * A project score is a user-configured score, which can be manually-labeled
  * through the UI
  */
@@ -3779,16 +3577,6 @@ export interface ProjectScoreCategory {
 }
 
 /**
- * ProjectScore id
- */
-export type ProjectScoreID = string;
-
-/**
- * Name of the project_score to search for
- */
-export type ProjectScoreName = string;
-
-/**
  * A project tag is a user-configured tag for tracking and filtering your
  * experiments, logs, and other data
  */
@@ -3825,16 +3613,6 @@ export interface ProjectTag {
    */
   description?: string | null;
 }
-
-/**
- * ProjectTag id
- */
-export type ProjectTagID = string;
-
-/**
- * Name of the project_tag to search for
- */
-export type ProjectTagName = string;
 
 export interface Prompt {
   /**
@@ -4141,34 +3919,6 @@ export namespace PromptData {
 }
 
 /**
- * Prompt id
- */
-export type PromptID = string;
-
-/**
- * Name of the prompt to search for
- */
-export type PromptName = string;
-
-/**
- * PromptSession id
- */
-export type PromptSessionID = string;
-
-/**
- * Name of the prompt_session to search for
- */
-export type PromptSessionName = string;
-
-/**
- * Retrieve prompt at a specific version.
- *
- * The version id can either be a transaction id (e.g. '1000192656880881099') or a
- * version identifier (e.g. '81cd05ee665fdfb3').
- */
-export type PromptVersion = string;
-
-/**
  * Metadata about the state of the repo when the experiment was created
  */
 export interface RepoInfo {
@@ -4319,16 +4069,6 @@ export namespace Role {
 }
 
 /**
- * Role id
- */
-export type RoleID = string;
-
-/**
- * Name of the role to search for
- */
-export type RoleName = string;
-
-/**
  * Summary of a score's performance
  */
 export interface ScoreSummary {
@@ -4357,26 +4097,6 @@ export interface ScoreSummary {
    */
   diff?: number;
 }
-
-/**
- * Retrieve prompt with a specific slug
- */
-export type Slug = string;
-
-/**
- * Pagination cursor id.
- *
- * For example, if the final item in the last page you fetched had an id of `foo`,
- * pass `starting_after=foo` to fetch the next page. Note: you may only pass one of
- * `starting_after` and `ending_before`
- */
-export type StartingAfter = string;
-
-/**
- * Whether to summarize the data. If false (or omitted), only the metadata will be
- * returned.
- */
-export type SummarizeData = boolean;
 
 /**
  * Summary of a dataset
@@ -4448,12 +4168,6 @@ export interface SummarizeExperimentResponse {
   scores?: Record<string, ScoreSummary> | null;
 }
 
-/**
- * Whether to summarize the scores and metrics. If false (or omitted), only the
- * metadata will be returned.
- */
-export type SummarizeScores = boolean;
-
 export interface User {
   /**
    * Unique identifier for the user
@@ -4485,38 +4199,6 @@ export interface User {
    */
   given_name?: string | null;
 }
-
-/**
- * Email of the user to search for. You may pass the param multiple times to filter
- * for more than one email
- */
-export type UserEmail = string | Array<string>;
-
-/**
- * Family name of the user to search for. You may pass the param multiple times to
- * filter for more than one family name
- */
-export type UserFamilyName = string | Array<string>;
-
-/**
- * Given name of the user to search for. You may pass the param multiple times to
- * filter for more than one given name
- */
-export type UserGivenName = string | Array<string>;
-
-/**
- * User id
- */
-export type UserID = string;
-
-/**
- * Retrieve a snapshot of events from a past time
- *
- * The version id is essentially a filter on the latest event transaction id. You
- * can use the `max_xact_id` returned by a past fetch as the version to reproduce
- * that exact fetch.
- */
-export type Version = string;
 
 export interface View {
   /**
@@ -4609,16 +4291,6 @@ export interface ViewDataSearch {
 }
 
 /**
- * View id
- */
-export type ViewID = string;
-
-/**
- * Name of the view to search for
- */
-export type ViewName = string;
-
-/**
  * Options for the view in the app
  */
 export interface ViewOptions {
@@ -4628,20 +4300,6 @@ export interface ViewOptions {
 
   columnVisibility?: Record<string, boolean> | null;
 }
-
-/**
- * Type of table that the view corresponds to.
- */
-export type ViewType =
-  | 'projects'
-  | 'logs'
-  | 'experiments'
-  | 'datasets'
-  | 'prompts'
-  | 'playgrounds'
-  | 'experiment'
-  | 'dataset'
-  | null;
 
 /**
  * Pagination for endpoints which list data objects

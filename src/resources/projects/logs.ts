@@ -10,11 +10,7 @@ export class Logs extends APIResource {
   /**
    * Log feedback for a set of project logs events
    */
-  feedback(
-    projectId: Shared.ProjectID,
-    body: LogFeedbackParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<void> {
+  feedback(projectId: string, body: LogFeedbackParams, options?: Core.RequestOptions): Core.APIPromise<void> {
     return this._client.post(`/v1/project_logs/${projectId}/feedback`, {
       body,
       ...options,
@@ -27,16 +23,16 @@ export class Logs extends APIResource {
    * path, but with the parameters in the URL query rather than in the request body
    */
   fetch(
-    projectId: Shared.ProjectID,
+    projectId: string,
     query?: LogFetchParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.FetchProjectLogsEventsResponse>;
   fetch(
-    projectId: Shared.ProjectID,
+    projectId: string,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.FetchProjectLogsEventsResponse>;
   fetch(
-    projectId: Shared.ProjectID,
+    projectId: string,
     query: LogFetchParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.FetchProjectLogsEventsResponse> {
@@ -51,16 +47,16 @@ export class Logs extends APIResource {
    * but with the parameters in the request body rather than in the URL query
    */
   fetchPost(
-    projectId: Shared.ProjectID,
+    projectId: string,
     body?: LogFetchPostParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.FetchProjectLogsEventsResponse>;
   fetchPost(
-    projectId: Shared.ProjectID,
+    projectId: string,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.FetchProjectLogsEventsResponse>;
   fetchPost(
-    projectId: Shared.ProjectID,
+    projectId: string,
     body: LogFetchPostParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.FetchProjectLogsEventsResponse> {
@@ -74,7 +70,7 @@ export class Logs extends APIResource {
    * Insert a set of events into the project logs
    */
   insert(
-    projectId: Shared.ProjectID,
+    projectId: string,
     body: LogInsertParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.InsertEventsResponse> {
@@ -106,7 +102,7 @@ export interface LogFetchParams {
    * end up with more individual rows than the specified limit if you are fetching
    * events containing traces.
    */
-  limit?: Shared.FetchLimitParam;
+  limit?: number;
 
   /**
    * DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
@@ -120,7 +116,7 @@ export interface LogFetchParams {
    * value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
    * for an overview of paginating fetch queries.
    */
-  max_root_span_id?: Shared.MaxRootSpanID;
+  max_root_span_id?: string;
 
   /**
    * DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
@@ -134,7 +130,7 @@ export interface LogFetchParams {
    * value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
    * for an overview of paginating fetch queries.
    */
-  max_xact_id?: Shared.MaxXactID;
+  max_xact_id?: string;
 
   /**
    * Retrieve a snapshot of events from a past time
@@ -143,7 +139,7 @@ export interface LogFetchParams {
    * can use the `max_xact_id` returned by a past fetch as the version to reproduce
    * that exact fetch.
    */
-  version?: Shared.Version;
+  version?: string;
 }
 
 export interface LogFetchPostParams {
@@ -160,7 +156,7 @@ export interface LogFetchPostParams {
    * A list of filters on the events to fetch. Currently, only path-lookup type
    * filters are supported, but we may add more in the future
    */
-  filters?: Shared.FetchEventsFilters | null;
+  filters?: Array<Shared.PathLookupFilter> | null;
 
   /**
    * limit the number of traces fetched
@@ -222,7 +218,7 @@ export interface LogInsertParams {
   /**
    * A list of project logs events to insert
    */
-  events: Array<Shared.InsertProjectLogsEvent>;
+  events: Array<Shared.InsertProjectLogsEventReplace | Shared.InsertProjectLogsEventMerge>;
 }
 
 export namespace Logs {

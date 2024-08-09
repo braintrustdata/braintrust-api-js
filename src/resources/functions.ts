@@ -21,7 +21,7 @@ export class Functions extends APIResource {
   /**
    * Get a function object by its id
    */
-  retrieve(functionId: Shared.FunctionID, options?: Core.RequestOptions): Core.APIPromise<Shared.Function> {
+  retrieve(functionId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Function> {
     return this._client.get(`/v1/function/${functionId}`, options);
   }
 
@@ -31,13 +31,13 @@ export class Functions extends APIResource {
    * do not support removing fields or setting them to null.
    */
   update(
-    functionId: Shared.FunctionID,
+    functionId: string,
     body?: FunctionUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.Function>;
-  update(functionId: Shared.FunctionID, options?: Core.RequestOptions): Core.APIPromise<Shared.Function>;
+  update(functionId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Function>;
   update(
-    functionId: Shared.FunctionID,
+    functionId: string,
     body: FunctionUpdateParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.APIPromise<Shared.Function> {
@@ -69,7 +69,7 @@ export class Functions extends APIResource {
   /**
    * Delete a function object by its id
    */
-  delete(functionId: Shared.FunctionID, options?: Core.RequestOptions): Core.APIPromise<Shared.Function> {
+  delete(functionId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Function> {
     return this._client.delete(`/v1/function/${functionId}`, options);
   }
 
@@ -252,33 +252,33 @@ export interface FunctionListParams extends ListObjectsParams {
   /**
    * Name of the function to search for
    */
-  function_name?: Shared.FunctionName;
+  function_name?: string;
 
   /**
    * Filter search results to a particular set of object IDs. To specify a list of
    * IDs, include the query param multiple times
    */
-  ids?: Shared.IDs;
+  ids?: string | Array<string>;
 
   /**
    * Filter search results to within a particular organization
    */
-  org_name?: Shared.OrgName;
+  org_name?: string;
 
   /**
    * Project id
    */
-  project_id?: Shared.ProjectIDQuery;
+  project_id?: string;
 
   /**
    * Name of the project to search for
    */
-  project_name?: Shared.ProjectName;
+  project_name?: string;
 
   /**
    * Retrieve prompt with a specific slug
    */
-  slug?: Shared.Slug;
+  slug?: string;
 
   /**
    * Retrieve prompt at a specific version.
@@ -286,7 +286,7 @@ export interface FunctionListParams extends ListObjectsParams {
    * The version id can either be a transaction id (e.g. '1000192656880881099') or a
    * version identifier (e.g. '81cd05ee665fdfb3').
    */
-  version?: Shared.PromptVersion;
+  version?: string;
 }
 
 export interface FunctionReplaceParams {
