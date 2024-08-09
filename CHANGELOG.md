@@ -1,5 +1,54 @@
 # Changelog
 
+## 0.3.0 (2024-08-09)
+
+Full Changelog: [v0.2.0...v0.3.0](https://github.com/braintrustdata/braintrust-api-js/compare/v0.2.0...v0.3.0)
+
+### Features
+
+* add model ProjectScoreCategory ([#41](https://github.com/braintrustdata/braintrust-api-js/issues/41)) ([e7d90f1](https://github.com/braintrustdata/braintrust-api-js/commit/e7d90f11b9b43fd720e183a76360c926ce17f794))
+* **api:** manual updates ([#42](https://github.com/braintrustdata/braintrust-api-js/issues/42)) ([e29065d](https://github.com/braintrustdata/braintrust-api-js/commit/e29065d349585ab30d015ba3a35cdfc8603e209a))
+* **api:** manual updates ([#46](https://github.com/braintrustdata/braintrust-api-js/issues/46)) ([35b3754](https://github.com/braintrustdata/braintrust-api-js/commit/35b37541580be60f308a09d25a7ebe8f7e97d360))
+* **api:** manual updates ([#47](https://github.com/braintrustdata/braintrust-api-js/issues/47)) ([8877485](https://github.com/braintrustdata/braintrust-api-js/commit/88774851303d9576079c19d7cefaaf888516ac36))
+* **api:** update via SDK Studio ([#18](https://github.com/braintrustdata/braintrust-api-js/issues/18)) ([d6e9d8c](https://github.com/braintrustdata/braintrust-api-js/commit/d6e9d8c2f02fe24d71c2ebc3cf1b10e9b9835d51))
+* **api:** update via SDK Studio ([#22](https://github.com/braintrustdata/braintrust-api-js/issues/22)) ([5fa9746](https://github.com/braintrustdata/braintrust-api-js/commit/5fa974630cecb0a158b5e9d31aeefe9bfc570bc9))
+* **api:** update via SDK Studio ([#23](https://github.com/braintrustdata/braintrust-api-js/issues/23)) ([d3e158c](https://github.com/braintrustdata/braintrust-api-js/commit/d3e158c121fee28ad59da641b31dadc73e875733))
+* **api:** update via SDK Studio ([#24](https://github.com/braintrustdata/braintrust-api-js/issues/24)) ([294a500](https://github.com/braintrustdata/braintrust-api-js/commit/294a500315413d08ef7609e0363b266c885cbb90))
+* **api:** update via SDK Studio ([#25](https://github.com/braintrustdata/braintrust-api-js/issues/25)) ([acbd4d8](https://github.com/braintrustdata/braintrust-api-js/commit/acbd4d81ebfe4f0d367f631909cb6d62bd66415a))
+* **api:** update via SDK Studio ([#26](https://github.com/braintrustdata/braintrust-api-js/issues/26)) ([4c07ad5](https://github.com/braintrustdata/braintrust-api-js/commit/4c07ad54831a885854471be5c1e63069ee2f4ccc))
+* **api:** update via SDK Studio ([#27](https://github.com/braintrustdata/braintrust-api-js/issues/27)) ([8da85ad](https://github.com/braintrustdata/braintrust-api-js/commit/8da85ad6ed293841c676b7a9845588f6ac17eaee))
+* **api:** update via SDK Studio ([#28](https://github.com/braintrustdata/braintrust-api-js/issues/28)) ([305b6ba](https://github.com/braintrustdata/braintrust-api-js/commit/305b6bac40626f8eb0508316d314e4acb683e2b0))
+* **api:** update via SDK Studio ([#29](https://github.com/braintrustdata/braintrust-api-js/issues/29)) ([83423f9](https://github.com/braintrustdata/braintrust-api-js/commit/83423f9a31a7c7b11ce1470fc98f189551f0832e))
+* **api:** update via SDK Studio ([#30](https://github.com/braintrustdata/braintrust-api-js/issues/30)) ([da24bce](https://github.com/braintrustdata/braintrust-api-js/commit/da24bcecff82611da956cdc8fbb7168eb15fcb8b))
+* **api:** update via SDK Studio ([#31](https://github.com/braintrustdata/braintrust-api-js/issues/31)) ([d294539](https://github.com/braintrustdata/braintrust-api-js/commit/d294539b047a2b4824f5ae7fdecd529c9505f934))
+* **api:** update via SDK Studio ([#32](https://github.com/braintrustdata/braintrust-api-js/issues/32)) ([d30cc27](https://github.com/braintrustdata/braintrust-api-js/commit/d30cc27ea74dde83d97f91acb6f74d5aa2211b27))
+* **api:** update via SDK Studio ([#33](https://github.com/braintrustdata/braintrust-api-js/issues/33)) ([cc4ec08](https://github.com/braintrustdata/braintrust-api-js/commit/cc4ec087d81287a830228f5918be1a118d619a86))
+* **api:** update via SDK Studio ([#34](https://github.com/braintrustdata/braintrust-api-js/issues/34)) ([6f5440a](https://github.com/braintrustdata/braintrust-api-js/commit/6f5440a6d6f62969a9dc65003bf9d20bf241712b))
+* **api:** update via SDK Studio ([#35](https://github.com/braintrustdata/braintrust-api-js/issues/35)) ([9be28e9](https://github.com/braintrustdata/braintrust-api-js/commit/9be28e92a84fc6bade86f628ba84c84929196793))
+* **api:** update via SDK Studio ([#36](https://github.com/braintrustdata/braintrust-api-js/issues/36)) ([1ce960d](https://github.com/braintrustdata/braintrust-api-js/commit/1ce960d8c76ce059d724ea29280ffdd353b4d172))
+* **api:** update via SDK Studio ([#37](https://github.com/braintrustdata/braintrust-api-js/issues/37)) ([d9ffa2a](https://github.com/braintrustdata/braintrust-api-js/commit/d9ffa2ad7b0f592439e6f75b9308046497b3ea4b))
+* **api:** update via SDK Studio ([#39](https://github.com/braintrustdata/braintrust-api-js/issues/39)) ([6ab9dfe](https://github.com/braintrustdata/braintrust-api-js/commit/6ab9dfec88c3f62059f6799e76676cfde24ac2ea))
+* **api:** update via SDK Studio ([#40](https://github.com/braintrustdata/braintrust-api-js/issues/40)) ([d78b045](https://github.com/braintrustdata/braintrust-api-js/commit/d78b045e1fcacca64f488af83951fc74d00eaad5))
+
+
+### Bug Fixes
+
+* **compat:** remove ReadableStream polyfill redundant since node v16 ([#15](https://github.com/braintrustdata/braintrust-api-js/issues/15)) ([94392c7](https://github.com/braintrustdata/braintrust-api-js/commit/94392c78666c8585cbaa70a23b5786b09c1b60e4))
+
+
+### Chores
+
+* **ci:** bump prism mock server version ([#49](https://github.com/braintrustdata/braintrust-api-js/issues/49)) ([1d33ca1](https://github.com/braintrustdata/braintrust-api-js/commit/1d33ca1adf7ca8780091e1a9b220a30f9f07e3e0))
+* **ci:** correctly tag pre-release npm packages ([#38](https://github.com/braintrustdata/braintrust-api-js/issues/38)) ([c53ece4](https://github.com/braintrustdata/braintrust-api-js/commit/c53ece496e172065aa87fb197aef8348431def11))
+* **ci:** minor changes ([#48](https://github.com/braintrustdata/braintrust-api-js/issues/48)) ([8eb4357](https://github.com/braintrustdata/braintrust-api-js/commit/8eb4357348470e37f03660c8ae37e906a9e94099))
+* **docs:** fix incorrect client var names ([#17](https://github.com/braintrustdata/braintrust-api-js/issues/17)) ([f66b837](https://github.com/braintrustdata/braintrust-api-js/commit/f66b837370bf3e61c59220752d166594ef69ecdd))
+* force eslint to use non flat config ([#45](https://github.com/braintrustdata/braintrust-api-js/issues/45)) ([af8fcb8](https://github.com/braintrustdata/braintrust-api-js/commit/af8fcb8230871d1768f377e9e778e46ddd74b71a))
+* **internal:** add constant for default timeout ([#21](https://github.com/braintrustdata/braintrust-api-js/issues/21)) ([3adac4e](https://github.com/braintrustdata/braintrust-api-js/commit/3adac4efca9fd88a35f75ca7ae20d914e7f942a7))
+* **internal:** codegen related update ([#19](https://github.com/braintrustdata/braintrust-api-js/issues/19)) ([19bee0d](https://github.com/braintrustdata/braintrust-api-js/commit/19bee0d0895712d555b9625c0fe9ebba977cc5c3))
+* **internal:** codegen related update ([#20](https://github.com/braintrustdata/braintrust-api-js/issues/20)) ([97ff8a6](https://github.com/braintrustdata/braintrust-api-js/commit/97ff8a62cfdca133d7b973fc7f7ef09071b26f01))
+* **internal:** codegen related update ([#43](https://github.com/braintrustdata/braintrust-api-js/issues/43)) ([0e5482c](https://github.com/braintrustdata/braintrust-api-js/commit/0e5482cb87597b853d8f43219233cd6b3b1f2d59))
+* update SDK settings ([#44](https://github.com/braintrustdata/braintrust-api-js/issues/44)) ([4310916](https://github.com/braintrustdata/braintrust-api-js/commit/4310916cd70c072fa2cdd25c4043de897a0a216b))
+
 ## 0.2.0 (2024-07-23)
 
 Full Changelog: [v0.1.1...v0.2.0](https://github.com/braintrustdata/braintrust-api-js/compare/v0.1.1...v0.2.0)
