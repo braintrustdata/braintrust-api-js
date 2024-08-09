@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.0 (2024-08-09)
+
+Full Changelog: [v0.3.0...v0.4.0](https://github.com/braintrustdata/braintrust-api-js/compare/v0.3.0...v0.4.0)
+
+### Features
+
+* **api:** update via SDK Studio ([#51](https://github.com/braintrustdata/braintrust-api-js/issues/51)) ([efa5aaf](https://github.com/braintrustdata/braintrust-api-js/commit/efa5aaf6ff3c1cbc88163e8ceb37a600453a42a0))
+
 ## 0.3.0 (2024-08-09)
 
 Full Changelog: [v0.2.0...v0.3.0](https://github.com/braintrustdata/braintrust-api-js/compare/v0.2.0...v0.3.0)
