@@ -19,7 +19,7 @@ export class ACLs extends APIResource {
   /**
    * Get an acl object by its id
    */
-  retrieve(aclId: Shared.ACLID, options?: Core.RequestOptions): Core.APIPromise<Shared.ACL> {
+  retrieve(aclId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.ACL> {
     return this._client.get(`/v1/acl/${aclId}`, options);
   }
 
@@ -34,7 +34,7 @@ export class ACLs extends APIResource {
   /**
    * Delete an acl object by its id
    */
-  delete(aclId: Shared.ACLID, options?: Core.RequestOptions): Core.APIPromise<Shared.ACL> {
+  delete(aclId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.ACL> {
     return this._client.delete(`/v1/acl/${aclId}`, options);
   }
 }
@@ -118,18 +118,30 @@ export interface ACLListParams extends ListObjectsParams {
   /**
    * The id of the object the ACL applies to
    */
-  object_id: Shared.ACLObjectID;
+  object_id: string;
 
   /**
    * The object type that the ACL applies to
    */
-  object_type: Shared.ACLObjectType | null;
+  object_type:
+    | 'organization'
+    | 'project'
+    | 'experiment'
+    | 'dataset'
+    | 'prompt'
+    | 'prompt_session'
+    | 'group'
+    | 'role'
+    | 'org_member'
+    | 'project_log'
+    | 'org_project'
+    | null;
 
   /**
    * Filter search results to a particular set of object IDs. To specify a list of
    * IDs, include the query param multiple times
    */
-  ids?: Shared.IDs;
+  ids?: string | Array<string>;
 }
 
 export namespace ACLs {
