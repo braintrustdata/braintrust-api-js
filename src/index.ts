@@ -2,7 +2,8 @@
 
 import * as Errors from './error';
 import * as Uploads from './uploads';
-import { type Agent } from './_shims/index';
+import { isRequestOptions } from './core';
+import { type Agent, type RequestInit } from './_shims/index';
 import * as qs from 'qs';
 import * as Core from './core';
 import * as Pagination from './pagination';
@@ -72,7 +73,7 @@ export interface ClientOptions {
 }
 
 /**
- * API Client for interfacing with the Braintrust API.
+ * API Client for interfacing with the Braintrust API. 
  */
 export class Braintrust extends Core.APIClient {
   apiKey: string | null;
@@ -96,6 +97,7 @@ export class Braintrust extends Core.APIClient {
     apiKey = Core.readEnv('BRAINTRUST_API_KEY') ?? null,
     ...opts
   }: ClientOptions = {}) {
+
     const options: ClientOptions = {
       apiKey,
       ...opts,
@@ -116,23 +118,24 @@ export class Braintrust extends Core.APIClient {
   }
 
   topLevel: API.TopLevel = new API.TopLevel(this);
-  projects: API.Projects = new API.Projects(this);
-  experiments: API.Experiments = new API.Experiments(this);
-  datasets: API.Datasets = new API.Datasets(this);
-  prompts: API.Prompts = new API.Prompts(this);
-  roles: API.Roles = new API.Roles(this);
-  groups: API.Groups = new API.Groups(this);
-  acls: API.ACLs = new API.ACLs(this);
-  users: API.Users = new API.Users(this);
-  projectScores: API.ProjectScores = new API.ProjectScores(this);
-  projectTags: API.ProjectTags = new API.ProjectTags(this);
-  functions: API.Functions = new API.Functions(this);
-  views: API.Views = new API.Views(this);
-  organizations: API.Organizations = new API.Organizations(this);
-  apiKeys: API.APIKeys = new API.APIKeys(this);
+  project: API.Project = new API.Project(this);
+  experiment: API.Experiment = new API.Experiment(this);
+  dataset: API.Dataset = new API.Dataset(this);
+  prompt: API.Prompt = new API.Prompt(this);
+  role: API.Role = new API.Role(this);
+  group: API.Group = new API.Group(this);
+  acl: API.ACL = new API.ACL(this);
+  user: API.User = new API.User(this);
+  projectScore: API.ProjectScore = new API.ProjectScore(this);
+  projectTag: API.ProjectTag = new API.ProjectTag(this);
+  function: API.Function = new API.Function(this);
+  view: API.View = new API.View(this);
+  organization: API.Organization = new API.Organization(this);
+  apiKeyResource: API.APIKeyResource = new API.APIKeyResource(this);
+  orgSecret: API.OrgSecret = new API.OrgSecret(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
-    return this._options.defaultQuery;
+    return this._options.defaultQuery
   }
 
   protected override defaultHeaders(opts: Core.FinalRequestOptions): Core.Headers {
@@ -150,11 +153,11 @@ export class Braintrust extends Core.APIClient {
   }
 
   protected override stringifyQuery(query: Record<string, unknown>): string {
-    return qs.stringify(query, { arrayFormat: 'comma' });
+    return qs.stringify(query, { arrayFormat: 'comma' })
   }
 
   static Braintrust = this;
-  static DEFAULT_TIMEOUT = 60000; // 1 minute
+  static DEFAULT_TIMEOUT = 60000 // 1 minute
 
   static BraintrustError = Errors.BraintrustError;
   static APIError = Errors.APIError;
@@ -174,21 +177,7 @@ export class Braintrust extends Core.APIClient {
   static fileFromPath = Uploads.fileFromPath;
 }
 
-export const {
-  BraintrustError,
-  APIError,
-  APIConnectionError,
-  APIConnectionTimeoutError,
-  APIUserAbortError,
-  NotFoundError,
-  ConflictError,
-  RateLimitError,
-  BadRequestError,
-  AuthenticationError,
-  InternalServerError,
-  PermissionDeniedError,
-  UnprocessableEntityError,
-} = Errors;
+export const { BraintrustError, APIError, APIConnectionError, APIConnectionTimeoutError, APIUserAbortError, NotFoundError, ConflictError, RateLimitError, BadRequestError, AuthenticationError, InternalServerError, PermissionDeniedError, UnprocessableEntityError } = Errors
 
 export import toFile = Uploads.toFile;
 export import fileFromPath = Uploads.fileFromPath;
@@ -203,12 +192,12 @@ export namespace Braintrust {
   export import TopLevel = API.TopLevel;
   export import TopLevelHelloWorldResponse = API.TopLevelHelloWorldResponse;
 
-  export import Projects = API.Projects;
+  export import Project = API.Project;
   export import ProjectCreateParams = API.ProjectCreateParams;
   export import ProjectUpdateParams = API.ProjectUpdateParams;
   export import ProjectListParams = API.ProjectListParams;
 
-  export import Experiments = API.Experiments;
+  export import Experiment = API.Experiment;
   export import ExperimentCreateParams = API.ExperimentCreateParams;
   export import ExperimentUpdateParams = API.ExperimentUpdateParams;
   export import ExperimentListParams = API.ExperimentListParams;
@@ -218,7 +207,7 @@ export namespace Braintrust {
   export import ExperimentInsertParams = API.ExperimentInsertParams;
   export import ExperimentSummarizeParams = API.ExperimentSummarizeParams;
 
-  export import Datasets = API.Datasets;
+  export import Dataset = API.Dataset;
   export import DatasetCreateParams = API.DatasetCreateParams;
   export import DatasetUpdateParams = API.DatasetUpdateParams;
   export import DatasetListParams = API.DatasetListParams;
@@ -228,50 +217,50 @@ export namespace Braintrust {
   export import DatasetInsertParams = API.DatasetInsertParams;
   export import DatasetSummarizeParams = API.DatasetSummarizeParams;
 
-  export import Prompts = API.Prompts;
+  export import Prompt = API.Prompt;
   export import PromptCreateParams = API.PromptCreateParams;
   export import PromptUpdateParams = API.PromptUpdateParams;
   export import PromptListParams = API.PromptListParams;
   export import PromptReplaceParams = API.PromptReplaceParams;
 
-  export import Roles = API.Roles;
+  export import Role = API.Role;
   export import RoleCreateParams = API.RoleCreateParams;
   export import RoleUpdateParams = API.RoleUpdateParams;
   export import RoleListParams = API.RoleListParams;
   export import RoleReplaceParams = API.RoleReplaceParams;
 
-  export import Groups = API.Groups;
+  export import Group = API.Group;
   export import GroupCreateParams = API.GroupCreateParams;
   export import GroupUpdateParams = API.GroupUpdateParams;
   export import GroupListParams = API.GroupListParams;
   export import GroupReplaceParams = API.GroupReplaceParams;
 
-  export import ACLs = API.ACLs;
+  export import ACL = API.ACL;
   export import ACLCreateParams = API.ACLCreateParams;
   export import ACLListParams = API.ACLListParams;
 
-  export import Users = API.Users;
+  export import User = API.User;
   export import UserListParams = API.UserListParams;
 
-  export import ProjectScores = API.ProjectScores;
+  export import ProjectScore = API.ProjectScore;
   export import ProjectScoreCreateParams = API.ProjectScoreCreateParams;
   export import ProjectScoreUpdateParams = API.ProjectScoreUpdateParams;
   export import ProjectScoreListParams = API.ProjectScoreListParams;
   export import ProjectScoreReplaceParams = API.ProjectScoreReplaceParams;
 
-  export import ProjectTags = API.ProjectTags;
+  export import ProjectTag = API.ProjectTag;
   export import ProjectTagCreateParams = API.ProjectTagCreateParams;
   export import ProjectTagUpdateParams = API.ProjectTagUpdateParams;
   export import ProjectTagListParams = API.ProjectTagListParams;
   export import ProjectTagReplaceParams = API.ProjectTagReplaceParams;
 
-  export import Functions = API.Functions;
+  export import Function = API.Function;
   export import FunctionCreateParams = API.FunctionCreateParams;
   export import FunctionUpdateParams = API.FunctionUpdateParams;
   export import FunctionListParams = API.FunctionListParams;
   export import FunctionReplaceParams = API.FunctionReplaceParams;
 
-  export import Views = API.Views;
+  export import View = API.View;
   export import ViewCreateParams = API.ViewCreateParams;
   export import ViewRetrieveParams = API.ViewRetrieveParams;
   export import ViewUpdateParams = API.ViewUpdateParams;
@@ -279,13 +268,19 @@ export namespace Braintrust {
   export import ViewDeleteParams = API.ViewDeleteParams;
   export import ViewReplaceParams = API.ViewReplaceParams;
 
-  export import Organizations = API.Organizations;
+  export import Organization = API.Organization;
   export import OrganizationUpdateParams = API.OrganizationUpdateParams;
   export import OrganizationListParams = API.OrganizationListParams;
 
-  export import APIKeys = API.APIKeys;
-  export import APIKeyCreateParams = API.APIKeyCreateParams;
-  export import APIKeyListParams = API.APIKeyListParams;
+  export import APIKeyResource = API.APIKeyResource;
+  export import APIKeyResourceCreateParams = API.APIKeyResourceCreateParams;
+  export import APIKeyResourceListParams = API.APIKeyResourceListParams;
+
+  export import OrgSecret = API.OrgSecret;
+  export import OrgSecretCreateParams = API.OrgSecretCreateParams;
+  export import OrgSecretUpdateParams = API.OrgSecretUpdateParams;
+  export import OrgSecretListParams = API.OrgSecretListParams;
+  export import OrgSecretReplaceParams = API.OrgSecretReplaceParams;
 
   export import ACL = API.ACL;
   export import APIKey = API.APIKey;
@@ -299,6 +294,7 @@ export namespace Braintrust {
   export import FeedbackDatasetItem = API.FeedbackDatasetItem;
   export import FeedbackExperimentItem = API.FeedbackExperimentItem;
   export import FeedbackProjectLogsItem = API.FeedbackProjectLogsItem;
+  export import FeedbackResponseSchema = API.FeedbackResponseSchema;
   export import FetchDatasetEventsResponse = API.FetchDatasetEventsResponse;
   export import FetchExperimentEventsResponse = API.FetchExperimentEventsResponse;
   export import FetchProjectLogsEventsResponse = API.FetchProjectLogsEventsResponse;
@@ -312,6 +308,7 @@ export namespace Braintrust {
   export import InsertProjectLogsEventMerge = API.InsertProjectLogsEventMerge;
   export import InsertProjectLogsEventReplace = API.InsertProjectLogsEventReplace;
   export import MetricSummary = API.MetricSummary;
+  export import OrgSecret = API.OrgSecret;
   export import Organization = API.Organization;
   export import PathLookupFilter = API.PathLookupFilter;
   export import Project = API.Project;
