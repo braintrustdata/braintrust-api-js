@@ -59,7 +59,7 @@ describe('resource dataset', () => {
 
   test('update: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.dataset.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { description: 'description', metadata: { foo: {} }, name: 'name' }, { path: '/_stainless_unknown_path' }))
+    await expect(client.dataset.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { description: 'description', metadata: { foo: 'bar' }, name: 'name' }, { path: '/_stainless_unknown_path' }))
       .rejects
       .toThrow(Braintrust.NotFoundError);
   });
@@ -119,7 +119,7 @@ describe('resource dataset', () => {
   });
 
   test('feedback: required and optional params', async () => {
-    const response = await client.dataset.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { feedback: [{ id: 'id', comment: 'comment', metadata: { foo: {} }, source: 'app' }, { id: 'id', comment: 'comment', metadata: { foo: {} }, source: 'app' }, { id: 'id', comment: 'comment', metadata: { foo: {} }, source: 'app' }] });
+    const response = await client.dataset.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { feedback: [{ id: 'id', comment: 'comment', metadata: { foo: 'bar' }, source: 'app' }, { id: 'id', comment: 'comment', metadata: { foo: 'bar' }, source: 'app' }, { id: 'id', comment: 'comment', metadata: { foo: 'bar' }, source: 'app' }] });
   });
 
   test('fetch', async () => {
@@ -167,7 +167,7 @@ describe('resource dataset', () => {
 
   test('fetchPost: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.dataset.fetchPost('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { cursor: 'cursor', filters: [{ type: 'path_lookup', path: ['string', 'string', 'string'], value: {} }, { type: 'path_lookup', path: ['string', 'string', 'string'], value: {} }, { type: 'path_lookup', path: ['string', 'string', 'string'], value: {} }], limit: 0, max_root_span_id: 'max_root_span_id', max_xact_id: 'max_xact_id', version: 'version' }, { path: '/_stainless_unknown_path' }))
+    await expect(client.dataset.fetchPost('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { cursor: 'cursor', filters: [{ path: ['string', 'string', 'string'], type: 'path_lookup', value: {} }, { path: ['string', 'string', 'string'], type: 'path_lookup', value: {} }, { path: ['string', 'string', 'string'], type: 'path_lookup', value: {} }], limit: 0, max_root_span_id: 'max_root_span_id', max_xact_id: 'max_xact_id', version: 'version' }, { path: '/_stainless_unknown_path' }))
       .rejects
       .toThrow(Braintrust.NotFoundError);
   });
@@ -184,7 +184,7 @@ describe('resource dataset', () => {
   });
 
   test('insert: required and optional params', async () => {
-    const response = await client.dataset.insert('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { events: [{ input: {}, expected: {}, metadata: { foo: {} }, tags: ['string', 'string', 'string'], id: 'id', created: '2019-12-27T18:11:19.117Z', _object_delete: true, _is_merge: true, _parent_id: '_parent_id' }, { input: {}, expected: {}, metadata: { foo: {} }, tags: ['string', 'string', 'string'], id: 'id', created: '2019-12-27T18:11:19.117Z', _object_delete: true, _is_merge: true, _parent_id: '_parent_id' }, { input: {}, expected: {}, metadata: { foo: {} }, tags: ['string', 'string', 'string'], id: 'id', created: '2019-12-27T18:11:19.117Z', _object_delete: true, _is_merge: true, _parent_id: '_parent_id' }] });
+    const response = await client.dataset.insert('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { events: [{ id: 'id', _is_merge: true, _object_delete: true, _parent_id: '_parent_id', created: '2019-12-27T18:11:19.117Z', expected: {}, input: {}, metadata: { foo: 'bar' }, tags: ['string', 'string', 'string'] }, { id: 'id', _is_merge: true, _object_delete: true, _parent_id: '_parent_id', created: '2019-12-27T18:11:19.117Z', expected: {}, input: {}, metadata: { foo: 'bar' }, tags: ['string', 'string', 'string'] }, { id: 'id', _is_merge: true, _object_delete: true, _parent_id: '_parent_id', created: '2019-12-27T18:11:19.117Z', expected: {}, input: {}, metadata: { foo: 'bar' }, tags: ['string', 'string', 'string'] }] });
   });
 
   test('summarize', async () => {

@@ -18,7 +18,7 @@ describe('resource view', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await client.view.create({ name: 'name', object_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', object_type: 'organization', view_type: 'projects', deleted_at: '2019-12-27T18:11:19.117Z', options: { columnVisibility: { foo: true }, columnOrder: ['string', 'string', 'string'], columnSizing: { foo: 0 } }, user_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', view_data: { search: { filter: [{}, {}, {}], tag: [{}, {}, {}], match: [{}, {}, {}], sort: [{}, {}, {}] } } });
+    const response = await client.view.create({ name: 'name', object_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', object_type: 'organization', view_type: 'projects', deleted_at: '2019-12-27T18:11:19.117Z', options: { columnOrder: ['string', 'string', 'string'], columnSizing: { foo: 0 }, columnVisibility: { foo: true } }, user_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', view_data: { search: { filter: [{}, {}, {}], match: [{}, {}, {}], sort: [{}, {}, {}], tag: [{}, {}, {}] } } });
   });
 
   test('retrieve: only required params', async () => {
@@ -48,7 +48,7 @@ describe('resource view', () => {
   });
 
   test('update: required and optional params', async () => {
-    const response = await client.view.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { object_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', object_type: 'organization', name: 'name', options: { columnVisibility: { foo: true }, columnOrder: ['string', 'string', 'string'], columnSizing: { foo: 0 } }, user_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', view_data: { search: { filter: [{}, {}, {}], tag: [{}, {}, {}], match: [{}, {}, {}], sort: [{}, {}, {}] } }, view_type: 'projects' });
+    const response = await client.view.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { object_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', object_type: 'organization', name: 'name', options: { columnOrder: ['string', 'string', 'string'], columnSizing: { foo: 0 }, columnVisibility: { foo: true } }, user_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', view_data: { search: { filter: [{}, {}, {}], match: [{}, {}, {}], sort: [{}, {}, {}], tag: [{}, {}, {}] } }, view_type: 'projects' });
   });
 
   test('list: only required params', async () => {
@@ -93,6 +93,6 @@ describe('resource view', () => {
   });
 
   test('replace: required and optional params', async () => {
-    const response = await client.view.replace({ name: 'name', object_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', object_type: 'organization', view_type: 'projects', deleted_at: '2019-12-27T18:11:19.117Z', options: { columnVisibility: { foo: true }, columnOrder: ['string', 'string', 'string'], columnSizing: { foo: 0 } }, user_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', view_data: { search: { filter: [{}, {}, {}], tag: [{}, {}, {}], match: [{}, {}, {}], sort: [{}, {}, {}] } } });
+    const response = await client.view.replace({ name: 'name', object_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', object_type: 'organization', view_type: 'projects', deleted_at: '2019-12-27T18:11:19.117Z', options: { columnOrder: ['string', 'string', 'string'], columnSizing: { foo: 0 }, columnVisibility: { foo: true } }, user_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', view_data: { search: { filter: [{}, {}, {}], match: [{}, {}, {}], sort: [{}, {}, {}], tag: [{}, {}, {}] } } });
   });
 });
