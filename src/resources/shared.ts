@@ -1,5 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+import * as Core from '../core'
+import * as Shared from './shared';
 import { ListObjects } from '../pagination';
 
 /**
@@ -33,19 +35,7 @@ export interface ACL {
   /**
    * The object type that the ACL applies to
    */
-  object_type:
-    | 'organization'
-    | 'project'
-    | 'experiment'
-    | 'dataset'
-    | 'prompt'
-    | 'prompt_session'
-    | 'group'
-    | 'role'
-    | 'org_member'
-    | 'project_log'
-    | 'org_project'
-    | null;
+  object_type: 'organization' | 'project' | 'experiment' | 'dataset' | 'prompt' | 'prompt_session' | 'group' | 'role' | 'org_member' | 'project_log' | 'org_project' | null;
 
   /**
    * Date of acl creation
@@ -62,34 +52,13 @@ export interface ACL {
    * Permission the ACL grants. Exactly one of `permission` and `role_id` will be
    * provided
    */
-  permission?:
-    | 'create'
-    | 'read'
-    | 'update'
-    | 'delete'
-    | 'create_acls'
-    | 'read_acls'
-    | 'update_acls'
-    | 'delete_acls'
-    | null;
+  permission?: 'create' | 'read' | 'update' | 'delete' | 'create_acls' | 'read_acls' | 'update_acls' | 'delete_acls' | null;
 
   /**
    * When setting a permission directly, optionally restricts the permission grant to
    * just the specified object type. Cannot be set alongside a `role_id`.
    */
-  restrict_object_type?:
-    | 'organization'
-    | 'project'
-    | 'experiment'
-    | 'dataset'
-    | 'prompt'
-    | 'prompt_session'
-    | 'group'
-    | 'role'
-    | 'org_member'
-    | 'project_log'
-    | 'org_project'
-    | null;
+  restrict_object_type?: 'organization' | 'project' | 'experiment' | 'dataset' | 'prompt' | 'prompt_session' | 'group' | 'role' | 'org_member' | 'project_log' | 'org_project' | null;
 
   /**
    * Id of the role the ACL grants. Exactly one of `permission` and `role_id` will be
@@ -540,7 +509,7 @@ export namespace ExperimentEvent {
      * Line of code where the experiment event was created
      */
     caller_lineno?: number | null;
-    [k: string]: unknown;
+  [k: string]: unknown
   }
 
   /**
@@ -577,7 +546,7 @@ export namespace ExperimentEvent {
      * The total number of tokens in the input and output of the experiment event.
      */
     tokens?: number | null;
-    [k: string]: unknown;
+  [k: string]: unknown
   }
 
   /**
@@ -593,7 +562,7 @@ export namespace ExperimentEvent {
      * Type of the span, for display purposes only
      */
     type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
-    [k: string]: unknown;
+  [k: string]: unknown
   }
 }
 
@@ -693,6 +662,10 @@ export interface FeedbackProjectLogsItem {
   source?: 'app' | 'api' | 'external' | null;
 }
 
+export interface FeedbackResponseSchema {
+  status: 'success';
+}
+
 export interface FetchDatasetEventsResponse {
   /**
    * A list of fetched events
@@ -789,10 +762,14 @@ export interface Function {
    */
   description?: string | null;
 
+  function_type?: 'task' | 'llm' | 'scorer' | null;
+
   /**
    * User-controlled metadata about the prompt
    */
   metadata?: Record<string, unknown> | null;
+
+  origin?: Function.Origin | null;
 
   /**
    * The prompt, model, and its parameters
@@ -811,37 +788,66 @@ export namespace Function {
   }
 
   export interface Code {
-    data: Code.Data;
+    data: Code.Bundle | Code.Inline;
 
     type: 'code';
   }
 
   export namespace Code {
-    export interface Data {
+    export interface Bundle {
       bundle_id: string;
 
-      location: Data.Location;
+      location: Bundle.Location;
 
-      runtime_context: Data.RuntimeContext;
+      runtime_context: Bundle.RuntimeContext;
+
+      type: 'bundle';
+
+      /**
+       * A preview of the code
+       */
+      preview?: string | null;
     }
 
-    export namespace Data {
+    export namespace Bundle {
       export interface Location {
         eval_name: string;
 
-        position: 'task' | Location.Score;
+        position: Location.Type | Location.Scorer;
 
         type: 'experiment';
       }
 
       export namespace Location {
-        export interface Score {
-          score: number;
+        export interface Type {
+          type: 'task';
+        }
+
+        export interface Scorer {
+          index: number;
+
+          type: 'scorer';
         }
       }
 
       export interface RuntimeContext {
-        runtime: 'node';
+        runtime: 'node' | 'python';
+
+        version: string;
+      }
+    }
+
+    export interface Inline {
+      code: string;
+
+      runtime_context: Inline.RuntimeContext;
+
+      type: 'inline';
+    }
+
+    export namespace Inline {
+      export interface RuntimeContext {
+        runtime: 'node' | 'python';
 
         version: string;
       }
@@ -852,6 +858,24 @@ export namespace Function {
     name: string;
 
     type: 'global';
+  }
+
+  export interface Origin {
+    /**
+     * Id of the object the function is originating from
+     */
+    object_id: string;
+
+    /**
+     * The object type that the ACL applies to
+     */
+    object_type: 'organization' | 'project' | 'experiment' | 'dataset' | 'prompt' | 'prompt_session' | 'group' | 'role' | 'org_member' | 'project_log' | 'org_project' | null;
+
+    /**
+     * The function exists for internal purposes and should not be displayed in the
+     * list of functions.
+     */
+    internal?: boolean | null;
   }
 }
 
@@ -1233,7 +1257,7 @@ export namespace InsertExperimentEventMerge {
      * Line of code where the experiment event was created
      */
     caller_lineno?: number | null;
-    [k: string]: unknown;
+  [k: string]: unknown
   }
 
   /**
@@ -1270,7 +1294,7 @@ export namespace InsertExperimentEventMerge {
      * The total number of tokens in the input and output of the experiment event.
      */
     tokens?: number | null;
-    [k: string]: unknown;
+  [k: string]: unknown
   }
 
   /**
@@ -1286,7 +1310,7 @@ export namespace InsertExperimentEventMerge {
      * Type of the span, for display purposes only
      */
     type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
-    [k: string]: unknown;
+  [k: string]: unknown
   }
 }
 
@@ -1448,7 +1472,7 @@ export namespace InsertExperimentEventReplace {
      * Line of code where the experiment event was created
      */
     caller_lineno?: number | null;
-    [k: string]: unknown;
+  [k: string]: unknown
   }
 
   /**
@@ -1485,7 +1509,7 @@ export namespace InsertExperimentEventReplace {
      * The total number of tokens in the input and output of the experiment event.
      */
     tokens?: number | null;
-    [k: string]: unknown;
+  [k: string]: unknown
   }
 
   /**
@@ -1501,7 +1525,7 @@ export namespace InsertExperimentEventReplace {
      * Type of the span, for display purposes only
      */
     type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
-    [k: string]: unknown;
+  [k: string]: unknown
   }
 }
 
@@ -1654,7 +1678,7 @@ export namespace InsertProjectLogsEventMerge {
      * Line of code where the project logs event was created
      */
     caller_lineno?: number | null;
-    [k: string]: unknown;
+  [k: string]: unknown
   }
 
   /**
@@ -1691,7 +1715,7 @@ export namespace InsertProjectLogsEventMerge {
      * The total number of tokens in the input and output of the project logs event.
      */
     tokens?: number | null;
-    [k: string]: unknown;
+  [k: string]: unknown
   }
 
   /**
@@ -1707,7 +1731,7 @@ export namespace InsertProjectLogsEventMerge {
      * Type of the span, for display purposes only
      */
     type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
-    [k: string]: unknown;
+  [k: string]: unknown
   }
 }
 
@@ -1859,7 +1883,7 @@ export namespace InsertProjectLogsEventReplace {
      * Line of code where the project logs event was created
      */
     caller_lineno?: number | null;
-    [k: string]: unknown;
+  [k: string]: unknown
   }
 
   /**
@@ -1896,7 +1920,7 @@ export namespace InsertProjectLogsEventReplace {
      * The total number of tokens in the input and output of the project logs event.
      */
     tokens?: number | null;
-    [k: string]: unknown;
+  [k: string]: unknown
   }
 
   /**
@@ -1912,7 +1936,7 @@ export namespace InsertProjectLogsEventReplace {
      * Type of the span, for display purposes only
      */
     type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
-    [k: string]: unknown;
+  [k: string]: unknown
   }
 }
 
@@ -1949,6 +1973,34 @@ export interface MetricSummary {
    * Difference in metric between the current and comparison experiment
    */
   diff?: number;
+}
+
+export interface OrgSecret {
+  /**
+   * Unique identifier for the org secret
+   */
+  id: string;
+
+  /**
+   * Name of the org secret
+   */
+  name: string;
+
+  /**
+   * Unique identifier for the organization
+   */
+  org_id: string;
+
+  /**
+   * Date of org secret creation
+   */
+  created?: string | null;
+
+  metadata?: Record<string, unknown> | null;
+
+  preview_secret?: string | null;
+
+  type?: string | null;
 }
 
 export interface Organization {
@@ -2202,7 +2254,7 @@ export namespace ProjectLogsEvent {
      * Line of code where the project logs event was created
      */
     caller_lineno?: number | null;
-    [k: string]: unknown;
+  [k: string]: unknown
   }
 
   /**
@@ -2239,7 +2291,7 @@ export namespace ProjectLogsEvent {
      * The total number of tokens in the input and output of the project logs event.
      */
     tokens?: number | null;
-    [k: string]: unknown;
+  [k: string]: unknown
   }
 
   /**
@@ -2255,7 +2307,7 @@ export namespace ProjectLogsEvent {
      * Type of the span, for display purposes only
      */
     type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
-    [k: string]: unknown;
+  [k: string]: unknown
   }
 }
 
@@ -2282,19 +2334,14 @@ export interface ProjectScore {
   /**
    * The type of the configured score
    */
-  score_type: 'slider' | 'categorical' | 'weighted' | 'minimum' | null;
+  score_type: 'slider' | 'categorical' | 'weighted' | 'minimum' | 'online' | null;
 
   user_id: string;
 
   /**
    * For categorical-type project scores, the list of all categories
    */
-  categories?:
-    | Array<ProjectScoreCategory>
-    | Record<string, number>
-    | Array<string>
-    | ProjectScore.NullableVariant
-    | null;
+  categories?: Array<ProjectScoreCategory> | Record<string, number> | Array<string> | ProjectScore.NullableVariant | null;
 
   config?: ProjectScore.Config | null;
 
@@ -2316,12 +2363,53 @@ export interface ProjectScore {
 }
 
 export namespace ProjectScore {
-  export interface NullableVariant {}
+  export interface NullableVariant {
+  }
 
   export interface Config {
     destination?: 'expected' | null;
 
     multi_select?: boolean | null;
+
+    online?: Config.Online | null;
+  }
+
+  export namespace Config {
+    export interface Online {
+      /**
+       * The sampling rate for online scoring
+       */
+      sampling_rate: number;
+
+      /**
+       * The list of scorers to use for online scoring
+       */
+      scorers: Array<Online.Function | Online.Global>;
+
+      /**
+       * Whether to trigger online scoring on the root span of each trace
+       */
+      apply_to_root_span?: boolean | null;
+
+      /**
+       * Trigger online scoring on any spans with a name in this list
+       */
+      apply_to_span_names?: Array<string> | null;
+    }
+
+    export namespace Online {
+      export interface Function {
+        id: string;
+
+        type: 'function';
+      }
+
+      export interface Global {
+        name: string;
+
+        type: 'global';
+      }
+    }
   }
 }
 
@@ -2427,6 +2515,8 @@ export interface Prompt {
    */
   description?: string | null;
 
+  function_type?: 'task' | 'llm' | 'scorer' | null;
+
   /**
    * User-controlled metadata about the prompt
    */
@@ -2451,6 +2541,8 @@ export interface PromptData {
 
   origin?: PromptData.Origin | null;
 
+  parser?: PromptData.Parser | null;
+
   prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullableVariant | null;
 }
 
@@ -2458,12 +2550,7 @@ export namespace PromptData {
   export interface Options {
     model?: string;
 
-    params?:
-      | Options.OpenAIModelParams
-      | Options.AnthropicModelParams
-      | Options.GoogleModelParams
-      | Options.WindowAIModelParams
-      | Options.JsCompletionParams;
+    params?: Options.OpenAIModelParams | Options.AnthropicModelParams | Options.GoogleModelParams | Options.WindowAIModelParams | Options.JsCompletionParams;
 
     position?: string;
   }
@@ -2565,6 +2652,14 @@ export namespace PromptData {
     prompt_id?: string;
 
     prompt_version?: string;
+  }
+
+  export interface Parser {
+    choice_scores: Record<string, number>;
+
+    type: 'llm_classifier';
+
+    use_cot: boolean;
   }
 
   export interface Completion {
@@ -2679,7 +2774,8 @@ export namespace PromptData {
     }
   }
 
-  export interface NullableVariant {}
+  export interface NullableVariant {
+  }
 }
 
 /**
@@ -2802,33 +2898,12 @@ export namespace Role {
      * Permissions can be assigned to to objects on an individual basis, or grouped
      * into roles
      */
-    permission:
-      | 'create'
-      | 'read'
-      | 'update'
-      | 'delete'
-      | 'create_acls'
-      | 'read_acls'
-      | 'update_acls'
-      | 'delete_acls'
-      | null;
+    permission: 'create' | 'read' | 'update' | 'delete' | 'create_acls' | 'read_acls' | 'update_acls' | 'delete_acls' | null;
 
     /**
      * The object type that the ACL applies to
      */
-    restrict_object_type?:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'group'
-      | 'role'
-      | 'org_member'
-      | 'project_log'
-      | 'org_project'
-      | null;
+    restrict_object_type?: 'organization' | 'project' | 'experiment' | 'dataset' | 'prompt' | 'prompt_session' | 'group' | 'role' | 'org_member' | 'project_log' | 'org_project' | null;
   }
 }
 
@@ -2983,33 +3058,12 @@ export interface View {
   /**
    * The object type that the ACL applies to
    */
-  object_type:
-    | 'organization'
-    | 'project'
-    | 'experiment'
-    | 'dataset'
-    | 'prompt'
-    | 'prompt_session'
-    | 'group'
-    | 'role'
-    | 'org_member'
-    | 'project_log'
-    | 'org_project'
-    | null;
+  object_type: 'organization' | 'project' | 'experiment' | 'dataset' | 'prompt' | 'prompt_session' | 'group' | 'role' | 'org_member' | 'project_log' | 'org_project' | null;
 
   /**
    * Type of table that the view corresponds to.
    */
-  view_type:
-    | 'projects'
-    | 'logs'
-    | 'experiments'
-    | 'datasets'
-    | 'prompts'
-    | 'playgrounds'
-    | 'experiment'
-    | 'dataset'
-    | null;
+  view_type: 'projects' | 'logs' | 'experiments' | 'datasets' | 'prompts' | 'playgrounds' | 'experiment' | 'dataset' | null;
 
   /**
    * Date of view creation
@@ -3068,69 +3122,89 @@ export interface ViewOptions {
 /**
  * Pagination for endpoints which list data objects
  */
-export class ProjectsListObjects extends ListObjects<Project> {}
+export class ProjectsListObjects extends ListObjects<Project> {
+}
 
 /**
  * Pagination for endpoints which list data objects
  */
-export class ExperimentsListObjects extends ListObjects<Experiment> {}
+export class ExperimentsListObjects extends ListObjects<Experiment> {
+}
 
 /**
  * Pagination for endpoints which list data objects
  */
-export class DatasetsListObjects extends ListObjects<Dataset> {}
+export class DatasetsListObjects extends ListObjects<Dataset> {
+}
 
 /**
  * Pagination for endpoints which list data objects
  */
-export class PromptsListObjects extends ListObjects<Prompt> {}
+export class PromptsListObjects extends ListObjects<Prompt> {
+}
 
 /**
  * Pagination for endpoints which list data objects
  */
-export class RolesListObjects extends ListObjects<Role> {}
+export class RolesListObjects extends ListObjects<Role> {
+}
 
 /**
  * Pagination for endpoints which list data objects
  */
-export class GroupsListObjects extends ListObjects<Group> {}
+export class GroupsListObjects extends ListObjects<Group> {
+}
 
 /**
  * Pagination for endpoints which list data objects
  */
-export class ACLsListObjects extends ListObjects<ACL> {}
+export class ACLsListObjects extends ListObjects<ACL> {
+}
 
 /**
  * Pagination for endpoints which list data objects
  */
-export class UsersListObjects extends ListObjects<User> {}
+export class UsersListObjects extends ListObjects<User> {
+}
 
 /**
  * Pagination for endpoints which list data objects
  */
-export class ProjectScoresListObjects extends ListObjects<ProjectScore> {}
+export class ProjectScoresListObjects extends ListObjects<ProjectScore> {
+}
 
 /**
  * Pagination for endpoints which list data objects
  */
-export class ProjectTagsListObjects extends ListObjects<ProjectTag> {}
+export class ProjectTagsListObjects extends ListObjects<ProjectTag> {
+}
 
 /**
  * Pagination for endpoints which list data objects
  */
-export class FunctionsListObjects extends ListObjects<Function> {}
+export class FunctionsListObjects extends ListObjects<Function> {
+}
 
 /**
  * Pagination for endpoints which list data objects
  */
-export class ViewsListObjects extends ListObjects<View> {}
+export class ViewsListObjects extends ListObjects<View> {
+}
 
 /**
  * Pagination for endpoints which list data objects
  */
-export class OrganizationsListObjects extends ListObjects<Organization> {}
+export class OrganizationsListObjects extends ListObjects<Organization> {
+}
 
 /**
  * Pagination for endpoints which list data objects
  */
-export class APIKeysListObjects extends ListObjects<APIKey> {}
+export class APIKeysListObjects extends ListObjects<APIKey> {
+}
+
+/**
+ * Pagination for endpoints which list data objects
+ */
+export class OrgSecretsListObjects extends ListObjects<OrgSecret> {
+}
