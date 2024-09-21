@@ -4,7 +4,7 @@ import * as Errors from './error';
 import * as Uploads from './uploads';
 import { isRequestOptions } from './core';
 import { type Agent, type RequestInit } from './_shims/index';
-import * as qs from 'qs';
+import * as qs from './internal/qs';
 import * as Core from './core';
 import * as Pagination from './pagination';
 import * as API from './resources/index';
@@ -43,7 +43,7 @@ export interface ClientOptions {
    * Specify a custom `fetch` function implementation.
    *
    * If not provided, we use `node-fetch` on Node.js and otherwise expect that `fetch` is
-   * defined globally.
+  * defined globally. 
    */
   fetch?: Core.Fetch | undefined;
 
