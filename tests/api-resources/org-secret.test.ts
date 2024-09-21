@@ -18,7 +18,7 @@ describe('resource orgSecret', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await client.orgSecret.create({ name: 'name', metadata: { foo: {} }, org_name: 'org_name', secret: 'secret', type: 'type' });
+    const response = await client.orgSecret.create({ name: 'name', metadata: { foo: 'bar' }, org_name: 'org_name', secret: 'secret', type: 'type' });
   });
 
   test('retrieve', async () => {
@@ -59,7 +59,7 @@ describe('resource orgSecret', () => {
 
   test('update: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.orgSecret.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { metadata: { foo: {} }, name: 'name', secret: 'secret', type: 'type' }, { path: '/_stainless_unknown_path' }))
+    await expect(client.orgSecret.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { metadata: { foo: 'bar' }, name: 'name', secret: 'secret', type: 'type' }, { path: '/_stainless_unknown_path' }))
       .rejects
       .toThrow(Braintrust.NotFoundError);
   });
@@ -119,6 +119,6 @@ describe('resource orgSecret', () => {
   });
 
   test('replace: required and optional params', async () => {
-    const response = await client.orgSecret.replace({ name: 'name', metadata: { foo: {} }, org_name: 'org_name', secret: 'secret', type: 'type' });
+    const response = await client.orgSecret.replace({ name: 'name', metadata: { foo: 'bar' }, org_name: 'org_name', secret: 'secret', type: 'type' });
   });
 });

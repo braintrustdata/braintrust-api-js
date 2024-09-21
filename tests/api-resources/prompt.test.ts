@@ -18,7 +18,7 @@ describe('resource prompt', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await client.prompt.create({ name: 'name', project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', slug: 'slug', description: 'description', function_type: 'task', prompt_data: { prompt: { type: 'completion', content: 'content' }, options: { model: 'model', params: { use_cache: true, temperature: 0, top_p: 0, max_tokens: 0, frequency_penalty: 0, presence_penalty: 0, response_format: { type: 'json_object' }, tool_choice: 'auto', function_call: 'auto', n: 0, stop: ['string', 'string', 'string'] }, position: 'position' }, parser: { type: 'llm_classifier', use_cot: true, choice_scores: { foo: 0 } }, origin: { prompt_id: 'prompt_id', project_id: 'project_id', prompt_version: 'prompt_version' } }, tags: ['string', 'string', 'string'] });
+    const response = await client.prompt.create({ name: 'name', project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', slug: 'slug', description: 'description', function_type: 'task', prompt_data: { options: { model: 'model', params: { frequency_penalty: 0, function_call: 'auto', max_tokens: 0, n: 0, presence_penalty: 0, response_format: { type: 'json_object' }, stop: ['string', 'string', 'string'], temperature: 0, tool_choice: 'auto', top_p: 0, use_cache: true }, position: 'position' }, origin: { project_id: 'project_id', prompt_id: 'prompt_id', prompt_version: 'prompt_version' }, parser: { choice_scores: { foo: 0 }, type: 'llm_classifier', use_cot: true }, prompt: { content: 'content', type: 'completion' } }, tags: ['string', 'string', 'string'] });
   });
 
   test('retrieve', async () => {
@@ -59,7 +59,7 @@ describe('resource prompt', () => {
 
   test('update: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.prompt.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { description: 'description', name: 'name', prompt_data: { prompt: { type: 'completion', content: 'content' }, options: { model: 'model', params: { use_cache: true, temperature: 0, top_p: 0, max_tokens: 0, frequency_penalty: 0, presence_penalty: 0, response_format: { type: 'json_object' }, tool_choice: 'auto', function_call: 'auto', n: 0, stop: ['string', 'string', 'string'] }, position: 'position' }, parser: { type: 'llm_classifier', use_cot: true, choice_scores: { foo: 0 } }, origin: { prompt_id: 'prompt_id', project_id: 'project_id', prompt_version: 'prompt_version' } }, slug: 'slug', tags: ['string', 'string', 'string'] }, { path: '/_stainless_unknown_path' }))
+    await expect(client.prompt.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { description: 'description', name: 'name', prompt_data: { options: { model: 'model', params: { frequency_penalty: 0, function_call: 'auto', max_tokens: 0, n: 0, presence_penalty: 0, response_format: { type: 'json_object' }, stop: ['string', 'string', 'string'], temperature: 0, tool_choice: 'auto', top_p: 0, use_cache: true }, position: 'position' }, origin: { project_id: 'project_id', prompt_id: 'prompt_id', prompt_version: 'prompt_version' }, parser: { choice_scores: { foo: 0 }, type: 'llm_classifier', use_cot: true }, prompt: { content: 'content', type: 'completion' } }, slug: 'slug', tags: ['string', 'string', 'string'] }, { path: '/_stainless_unknown_path' }))
       .rejects
       .toThrow(Braintrust.NotFoundError);
   });
@@ -119,6 +119,6 @@ describe('resource prompt', () => {
   });
 
   test('replace: required and optional params', async () => {
-    const response = await client.prompt.replace({ name: 'name', project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', slug: 'slug', description: 'description', function_type: 'task', prompt_data: { prompt: { type: 'completion', content: 'content' }, options: { model: 'model', params: { use_cache: true, temperature: 0, top_p: 0, max_tokens: 0, frequency_penalty: 0, presence_penalty: 0, response_format: { type: 'json_object' }, tool_choice: 'auto', function_call: 'auto', n: 0, stop: ['string', 'string', 'string'] }, position: 'position' }, parser: { type: 'llm_classifier', use_cot: true, choice_scores: { foo: 0 } }, origin: { prompt_id: 'prompt_id', project_id: 'project_id', prompt_version: 'prompt_version' } }, tags: ['string', 'string', 'string'] });
+    const response = await client.prompt.replace({ name: 'name', project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', slug: 'slug', description: 'description', function_type: 'task', prompt_data: { options: { model: 'model', params: { frequency_penalty: 0, function_call: 'auto', max_tokens: 0, n: 0, presence_penalty: 0, response_format: { type: 'json_object' }, stop: ['string', 'string', 'string'], temperature: 0, tool_choice: 'auto', top_p: 0, use_cache: true }, position: 'position' }, origin: { project_id: 'project_id', prompt_id: 'prompt_id', prompt_version: 'prompt_version' }, parser: { choice_scores: { foo: 0 }, type: 'llm_classifier', use_cot: true }, prompt: { content: 'content', type: 'completion' } }, tags: ['string', 'string', 'string'] });
   });
 });
