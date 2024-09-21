@@ -18,7 +18,7 @@ describe('resource experiment', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await client.experiment.create({ project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', base_exp_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', dataset_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', dataset_version: 'dataset_version', description: 'description', ensure_new: true, metadata: { foo: {} }, name: 'name', public: true, repo_info: { commit: 'commit', branch: 'branch', tag: 'tag', dirty: true, author_name: 'author_name', author_email: 'author_email', commit_message: 'commit_message', commit_time: 'commit_time', git_diff: 'git_diff' } });
+    const response = await client.experiment.create({ project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', base_exp_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', dataset_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', dataset_version: 'dataset_version', description: 'description', ensure_new: true, metadata: { foo: 'bar' }, name: 'name', public: true, repo_info: { author_email: 'author_email', author_name: 'author_name', branch: 'branch', commit: 'commit', commit_message: 'commit_message', commit_time: 'commit_time', dirty: true, git_diff: 'git_diff', tag: 'tag' } });
   });
 
   test('retrieve', async () => {
@@ -59,7 +59,7 @@ describe('resource experiment', () => {
 
   test('update: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.experiment.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { base_exp_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', dataset_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', dataset_version: 'dataset_version', description: 'description', metadata: { foo: {} }, name: 'name', public: true, repo_info: { commit: 'commit', branch: 'branch', tag: 'tag', dirty: true, author_name: 'author_name', author_email: 'author_email', commit_message: 'commit_message', commit_time: 'commit_time', git_diff: 'git_diff' } }, { path: '/_stainless_unknown_path' }))
+    await expect(client.experiment.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { base_exp_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', dataset_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', dataset_version: 'dataset_version', description: 'description', metadata: { foo: 'bar' }, name: 'name', public: true, repo_info: { author_email: 'author_email', author_name: 'author_name', branch: 'branch', commit: 'commit', commit_message: 'commit_message', commit_time: 'commit_time', dirty: true, git_diff: 'git_diff', tag: 'tag' } }, { path: '/_stainless_unknown_path' }))
       .rejects
       .toThrow(Braintrust.NotFoundError);
   });
@@ -119,7 +119,7 @@ describe('resource experiment', () => {
   });
 
   test('feedback: required and optional params', async () => {
-    const response = await client.experiment.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { feedback: [{ id: 'id', scores: { foo: 0 }, expected: {}, comment: 'comment', metadata: { foo: {} }, source: 'app' }, { id: 'id', scores: { foo: 0 }, expected: {}, comment: 'comment', metadata: { foo: {} }, source: 'app' }, { id: 'id', scores: { foo: 0 }, expected: {}, comment: 'comment', metadata: { foo: {} }, source: 'app' }] });
+    const response = await client.experiment.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { feedback: [{ id: 'id', comment: 'comment', expected: {}, metadata: { foo: 'bar' }, scores: { foo: 0 }, source: 'app' }, { id: 'id', comment: 'comment', expected: {}, metadata: { foo: 'bar' }, scores: { foo: 0 }, source: 'app' }, { id: 'id', comment: 'comment', expected: {}, metadata: { foo: 'bar' }, scores: { foo: 0 }, source: 'app' }] });
   });
 
   test('fetch', async () => {
@@ -167,7 +167,7 @@ describe('resource experiment', () => {
 
   test('fetchPost: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.experiment.fetchPost('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { cursor: 'cursor', filters: [{ type: 'path_lookup', path: ['string', 'string', 'string'], value: {} }, { type: 'path_lookup', path: ['string', 'string', 'string'], value: {} }, { type: 'path_lookup', path: ['string', 'string', 'string'], value: {} }], limit: 0, max_root_span_id: 'max_root_span_id', max_xact_id: 'max_xact_id', version: 'version' }, { path: '/_stainless_unknown_path' }))
+    await expect(client.experiment.fetchPost('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { cursor: 'cursor', filters: [{ path: ['string', 'string', 'string'], type: 'path_lookup', value: {} }, { path: ['string', 'string', 'string'], type: 'path_lookup', value: {} }, { path: ['string', 'string', 'string'], type: 'path_lookup', value: {} }], limit: 0, max_root_span_id: 'max_root_span_id', max_xact_id: 'max_xact_id', version: 'version' }, { path: '/_stainless_unknown_path' }))
       .rejects
       .toThrow(Braintrust.NotFoundError);
   });
@@ -184,7 +184,7 @@ describe('resource experiment', () => {
   });
 
   test('insert: required and optional params', async () => {
-    const response = await client.experiment.insert('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { events: [{ input: {}, output: {}, expected: {}, error: {}, scores: { foo: 0 }, metadata: { foo: {} }, tags: ['string', 'string', 'string'], metrics: { start: 0, end: 0, prompt_tokens: 0, completion_tokens: 0, tokens: 0 }, context: { caller_functionname: 'caller_functionname', caller_filename: 'caller_filename', caller_lineno: 0 }, span_attributes: { name: 'name', type: 'llm' }, id: 'id', dataset_record_id: 'dataset_record_id', created: '2019-12-27T18:11:19.117Z', _object_delete: true, _is_merge: true, _parent_id: '_parent_id' }, { input: {}, output: {}, expected: {}, error: {}, scores: { foo: 0 }, metadata: { foo: {} }, tags: ['string', 'string', 'string'], metrics: { start: 0, end: 0, prompt_tokens: 0, completion_tokens: 0, tokens: 0 }, context: { caller_functionname: 'caller_functionname', caller_filename: 'caller_filename', caller_lineno: 0 }, span_attributes: { name: 'name', type: 'llm' }, id: 'id', dataset_record_id: 'dataset_record_id', created: '2019-12-27T18:11:19.117Z', _object_delete: true, _is_merge: true, _parent_id: '_parent_id' }, { input: {}, output: {}, expected: {}, error: {}, scores: { foo: 0 }, metadata: { foo: {} }, tags: ['string', 'string', 'string'], metrics: { start: 0, end: 0, prompt_tokens: 0, completion_tokens: 0, tokens: 0 }, context: { caller_functionname: 'caller_functionname', caller_filename: 'caller_filename', caller_lineno: 0 }, span_attributes: { name: 'name', type: 'llm' }, id: 'id', dataset_record_id: 'dataset_record_id', created: '2019-12-27T18:11:19.117Z', _object_delete: true, _is_merge: true, _parent_id: '_parent_id' }] });
+    const response = await client.experiment.insert('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { events: [{ id: 'id', _is_merge: true, _object_delete: true, _parent_id: '_parent_id', context: { caller_filename: 'caller_filename', caller_functionname: 'caller_functionname', caller_lineno: 0 }, created: '2019-12-27T18:11:19.117Z', dataset_record_id: 'dataset_record_id', error: {}, expected: {}, input: {}, metadata: { foo: 'bar' }, metrics: { completion_tokens: 0, end: 0, prompt_tokens: 0, start: 0, tokens: 0 }, output: {}, scores: { foo: 0 }, span_attributes: { name: 'name', type: 'llm' }, tags: ['string', 'string', 'string'] }, { id: 'id', _is_merge: true, _object_delete: true, _parent_id: '_parent_id', context: { caller_filename: 'caller_filename', caller_functionname: 'caller_functionname', caller_lineno: 0 }, created: '2019-12-27T18:11:19.117Z', dataset_record_id: 'dataset_record_id', error: {}, expected: {}, input: {}, metadata: { foo: 'bar' }, metrics: { completion_tokens: 0, end: 0, prompt_tokens: 0, start: 0, tokens: 0 }, output: {}, scores: { foo: 0 }, span_attributes: { name: 'name', type: 'llm' }, tags: ['string', 'string', 'string'] }, { id: 'id', _is_merge: true, _object_delete: true, _parent_id: '_parent_id', context: { caller_filename: 'caller_filename', caller_functionname: 'caller_functionname', caller_lineno: 0 }, created: '2019-12-27T18:11:19.117Z', dataset_record_id: 'dataset_record_id', error: {}, expected: {}, input: {}, metadata: { foo: 'bar' }, metrics: { completion_tokens: 0, end: 0, prompt_tokens: 0, start: 0, tokens: 0 }, output: {}, scores: { foo: 0 }, span_attributes: { name: 'name', type: 'llm' }, tags: ['string', 'string', 'string'] }] });
   });
 
   test('summarize', async () => {
