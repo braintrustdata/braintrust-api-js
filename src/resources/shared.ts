@@ -2100,49 +2100,6 @@ export interface PathLookupFilter {
   value?: unknown;
 }
 
-export interface Project {
-  /**
-   * Unique identifier for the project
-   */
-  id: string;
-
-  /**
-   * Name of the project
-   */
-  name: string;
-
-  /**
-   * Unique id for the organization that the project belongs under
-   */
-  org_id: string;
-
-  /**
-   * Date of project creation
-   */
-  created?: string | null;
-
-  /**
-   * Date of project deletion, or null if the project is still active
-   */
-  deleted_at?: string | null;
-
-  settings?: Project.Settings | null;
-
-  /**
-   * Identifies the user who created the project
-   */
-  user_id?: string | null;
-}
-
-export namespace Project {
-  export interface Settings {
-    /**
-     * The key used to join two experiments (defaults to `input`).
-     */
-    comparison_key?: string | null;
-  }
-}
-
 export interface ProjectLogsEvent {
   /**
    * A unique identifier for the project logs event. If you don't provide one,
@@ -2351,6 +2308,49 @@ export namespace ProjectLogsEvent {
      */
     type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
     [k: string]: unknown;
+  }
+}
+
+export interface ProjectModel {
+  /**
+   * Unique identifier for the project
+   */
+  id: string;
+
+  /**
+   * Name of the project
+   */
+  name: string;
+
+  /**
+   * Unique id for the organization that the project belongs under
+   */
+  org_id: string;
+
+  /**
+   * Date of project creation
+   */
+  created?: string | null;
+
+  /**
+   * Date of project deletion, or null if the project is still active
+   */
+  deleted_at?: string | null;
+
+  settings?: ProjectModel.Settings | null;
+
+  /**
+   * Identifies the user who created the project
+   */
+  user_id?: string | null;
+}
+
+export namespace ProjectModel {
+  export interface Settings {
+    /**
+     * The key used to join two experiments (defaults to `input`).
+     */
+    comparison_key?: string | null;
   }
 }
 
@@ -3215,7 +3215,7 @@ export interface ViewOptions {
 /**
  * Pagination for endpoints which list data objects
  */
-export class ProjectsListObjects extends ListObjects<Project> {}
+export class ProjectModelsListObjects extends ListObjects<ProjectModel> {}
 
 /**
  * Pagination for endpoints which list data objects

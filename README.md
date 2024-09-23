@@ -27,9 +27,9 @@ const client = new Braintrust({
 });
 
 async function main() {
-  const project = await client.project.create({ name: 'foobar' });
+  const projectModel = await client.project.create({ name: 'foobar' });
 
-  console.log(project.id);
+  console.log(projectModel.id);
 }
 
 main();
@@ -49,7 +49,7 @@ const client = new Braintrust({
 
 async function main() {
   const params: Braintrust.ProjectCreateParams = { name: 'foobar' };
-  const project: Braintrust.Project = await client.project.create(params);
+  const projectModel: Braintrust.ProjectModel = await client.project.create(params);
 }
 
 main();
@@ -66,7 +66,7 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const project = await client.project.create({ name: 'foobar' }).catch(async (err) => {
+  const projectModel = await client.project.create({ name: 'foobar' }).catch(async (err) => {
     if (err instanceof Braintrust.APIError) {
       console.log(err.status); // 400
       console.log(err.name); // BadRequestError
@@ -144,8 +144,8 @@ You can use `for await … of` syntax to iterate through items across all pages:
 async function fetchAllProjects(params) {
   const allProjects = [];
   // Automatically fetches more pages as needed.
-  for await (const project of client.project.list()) {
-    allProjects.push(project);
+  for await (const projectModel of client.project.list()) {
+    allProjects.push(projectModel);
   }
   return allProjects;
 }
@@ -155,8 +155,8 @@ Alternatively, you can make request a single page at a time:
 
 ```ts
 let page = await client.project.list();
-for (const project of page.objects) {
-  console.log(project);
+for (const projectModel of page.objects) {
+  console.log(projectModel);
 }
 
 // Convenience methods are provided for manually paginating:
@@ -182,9 +182,9 @@ const response = await client.project.create({ name: 'foobar' }).asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: project, response: raw } = await client.project.create({ name: 'foobar' }).withResponse();
+const { data: projectModel, response: raw } = await client.project.create({ name: 'foobar' }).withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(project.id);
+console.log(projectModel.id);
 ```
 
 ### Making custom/undocumented requests
