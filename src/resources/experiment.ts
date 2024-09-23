@@ -2,12 +2,11 @@
 
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
-import { APIPromise } from '../core';
 import * as Core from '../core';
 import * as ExperimentAPI from './experiment';
 import * as Shared from './shared';
 import { ExperimentsListObjects } from './shared';
-import { ListObjects, type ListObjectsParams } from '../pagination';
+import { type ListObjectsParams } from '../pagination';
 
 export class Experiment extends APIResource {
   /**
@@ -31,9 +30,17 @@ export class Experiment extends APIResource {
    * payload. Any object-type fields will be deep-merged with existing content.
    * Currently we do not support removing fields or setting them to null.
    */
-  update(experimentId: string, body?: ExperimentUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.Experiment>
-  update(experimentId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Experiment>
-  update(experimentId: string, body: ExperimentUpdateParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<Shared.Experiment> {
+  update(
+    experimentId: string,
+    body?: ExperimentUpdateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.Experiment>;
+  update(experimentId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Experiment>;
+  update(
+    experimentId: string,
+    body: ExperimentUpdateParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.Experiment> {
     if (isRequestOptions(body)) {
       return this.update(experimentId, {}, body);
     }
@@ -44,9 +51,15 @@ export class Experiment extends APIResource {
    * List out all experiments. The experiments are sorted by creation date, with the
    * most recently-created experiments coming first
    */
-  list(query?: ExperimentListParams, options?: Core.RequestOptions): Core.PagePromise<ExperimentsListObjects, Shared.Experiment>
-  list(options?: Core.RequestOptions): Core.PagePromise<ExperimentsListObjects, Shared.Experiment>
-  list(query: ExperimentListParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.PagePromise<ExperimentsListObjects, Shared.Experiment> {
+  list(
+    query?: ExperimentListParams,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<ExperimentsListObjects, Shared.Experiment>;
+  list(options?: Core.RequestOptions): Core.PagePromise<ExperimentsListObjects, Shared.Experiment>;
+  list(
+    query: ExperimentListParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<ExperimentsListObjects, Shared.Experiment> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -63,7 +76,11 @@ export class Experiment extends APIResource {
   /**
    * Log feedback for a set of experiment events
    */
-  feedback(experimentId: string, body: ExperimentFeedbackParams, options?: Core.RequestOptions): Core.APIPromise<Shared.FeedbackResponseSchema> {
+  feedback(
+    experimentId: string,
+    body: ExperimentFeedbackParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.FeedbackResponseSchema> {
     return this._client.post(`/v1/experiment/${experimentId}/feedback`, { body, ...options });
   }
 
@@ -71,9 +88,20 @@ export class Experiment extends APIResource {
    * Fetch the events in an experiment. Equivalent to the POST form of the same path,
    * but with the parameters in the URL query rather than in the request body
    */
-  fetch(experimentId: string, query?: ExperimentFetchParams, options?: Core.RequestOptions): Core.APIPromise<Shared.FetchExperimentEventsResponse>
-  fetch(experimentId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.FetchExperimentEventsResponse>
-  fetch(experimentId: string, query: ExperimentFetchParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<Shared.FetchExperimentEventsResponse> {
+  fetch(
+    experimentId: string,
+    query?: ExperimentFetchParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.FetchExperimentEventsResponse>;
+  fetch(
+    experimentId: string,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.FetchExperimentEventsResponse>;
+  fetch(
+    experimentId: string,
+    query: ExperimentFetchParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.FetchExperimentEventsResponse> {
     if (isRequestOptions(query)) {
       return this.fetch(experimentId, {}, query);
     }
@@ -84,9 +112,20 @@ export class Experiment extends APIResource {
    * Fetch the events in an experiment. Equivalent to the GET form of the same path,
    * but with the parameters in the request body rather than in the URL query
    */
-  fetchPost(experimentId: string, body?: ExperimentFetchPostParams, options?: Core.RequestOptions): Core.APIPromise<Shared.FetchExperimentEventsResponse>
-  fetchPost(experimentId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.FetchExperimentEventsResponse>
-  fetchPost(experimentId: string, body: ExperimentFetchPostParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<Shared.FetchExperimentEventsResponse> {
+  fetchPost(
+    experimentId: string,
+    body?: ExperimentFetchPostParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.FetchExperimentEventsResponse>;
+  fetchPost(
+    experimentId: string,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.FetchExperimentEventsResponse>;
+  fetchPost(
+    experimentId: string,
+    body: ExperimentFetchPostParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.FetchExperimentEventsResponse> {
     if (isRequestOptions(body)) {
       return this.fetchPost(experimentId, {}, body);
     }
@@ -96,16 +135,31 @@ export class Experiment extends APIResource {
   /**
    * Insert a set of events into the experiment
    */
-  insert(experimentId: string, body: ExperimentInsertParams, options?: Core.RequestOptions): Core.APIPromise<Shared.InsertEventsResponse> {
+  insert(
+    experimentId: string,
+    body: ExperimentInsertParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.InsertEventsResponse> {
     return this._client.post(`/v1/experiment/${experimentId}/insert`, { body, ...options });
   }
 
   /**
    * Summarize experiment
    */
-  summarize(experimentId: string, query?: ExperimentSummarizeParams, options?: Core.RequestOptions): Core.APIPromise<Shared.SummarizeExperimentResponse>
-  summarize(experimentId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.SummarizeExperimentResponse>
-  summarize(experimentId: string, query: ExperimentSummarizeParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<Shared.SummarizeExperimentResponse> {
+  summarize(
+    experimentId: string,
+    query?: ExperimentSummarizeParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.SummarizeExperimentResponse>;
+  summarize(
+    experimentId: string,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.SummarizeExperimentResponse>;
+  summarize(
+    experimentId: string,
+    query: ExperimentSummarizeParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.SummarizeExperimentResponse> {
     if (isRequestOptions(query)) {
       return this.summarize(experimentId, {}, query);
     }
@@ -418,4 +472,4 @@ export namespace Experiment {
   export import ExperimentSummarizeParams = ExperimentAPI.ExperimentSummarizeParams;
 }
 
-export { ExperimentsListObjects }
+export { ExperimentsListObjects };

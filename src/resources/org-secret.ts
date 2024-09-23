@@ -2,12 +2,11 @@
 
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
-import { APIPromise } from '../core';
 import * as Core from '../core';
 import * as OrgSecretAPI from './org-secret';
 import * as Shared from './shared';
 import { OrgSecretsListObjects } from './shared';
-import { ListObjects, type ListObjectsParams } from '../pagination';
+import { type ListObjectsParams } from '../pagination';
 
 export class OrgSecret extends APIResource {
   /**
@@ -31,9 +30,17 @@ export class OrgSecret extends APIResource {
    * payload. Any object-type fields will be deep-merged with existing content.
    * Currently we do not support removing fields or setting them to null.
    */
-  update(orgSecretId: string, body?: OrgSecretUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.OrgSecret>
-  update(orgSecretId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.OrgSecret>
-  update(orgSecretId: string, body: OrgSecretUpdateParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<Shared.OrgSecret> {
+  update(
+    orgSecretId: string,
+    body?: OrgSecretUpdateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.OrgSecret>;
+  update(orgSecretId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.OrgSecret>;
+  update(
+    orgSecretId: string,
+    body: OrgSecretUpdateParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.OrgSecret> {
     if (isRequestOptions(body)) {
       return this.update(orgSecretId, {}, body);
     }
@@ -44,9 +51,15 @@ export class OrgSecret extends APIResource {
    * List out all org_secrets. The org_secrets are sorted by creation date, with the
    * most recently-created org_secrets coming first
    */
-  list(query?: OrgSecretListParams, options?: Core.RequestOptions): Core.PagePromise<OrgSecretsListObjects, Shared.OrgSecret>
-  list(options?: Core.RequestOptions): Core.PagePromise<OrgSecretsListObjects, Shared.OrgSecret>
-  list(query: OrgSecretListParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.PagePromise<OrgSecretsListObjects, Shared.OrgSecret> {
+  list(
+    query?: OrgSecretListParams,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<OrgSecretsListObjects, Shared.OrgSecret>;
+  list(options?: Core.RequestOptions): Core.PagePromise<OrgSecretsListObjects, Shared.OrgSecret>;
+  list(
+    query: OrgSecretListParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<OrgSecretsListObjects, Shared.OrgSecret> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -158,4 +171,4 @@ export namespace OrgSecret {
   export import OrgSecretReplaceParams = OrgSecretAPI.OrgSecretReplaceParams;
 }
 
-export { OrgSecretsListObjects }
+export { OrgSecretsListObjects };

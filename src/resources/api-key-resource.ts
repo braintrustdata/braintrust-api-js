@@ -2,19 +2,21 @@
 
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
-import { APIPromise } from '../core';
 import * as Core from '../core';
 import * as APIKeyResourceAPI from './api-key-resource';
 import * as Shared from './shared';
 import { APIKeysListObjects } from './shared';
-import { ListObjects, type ListObjectsParams } from '../pagination';
+import { type ListObjectsParams } from '../pagination';
 
 export class APIKeyResource extends APIResource {
   /**
    * Create a new api_key. It is possible to have multiple API keys with the same
    * name. There is no de-duplication
    */
-  create(body: APIKeyResourceCreateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.CreateAPIKeyOutput> {
+  create(
+    body: APIKeyResourceCreateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.CreateAPIKeyOutput> {
     return this._client.post('/v1/api_key', { body, ...options });
   }
 
@@ -29,9 +31,15 @@ export class APIKeyResource extends APIResource {
    * List out all api_keys. The api_keys are sorted by creation date, with the most
    * recently-created api_keys coming first
    */
-  list(query?: APIKeyResourceListParams, options?: Core.RequestOptions): Core.PagePromise<APIKeysListObjects, Shared.APIKey>
-  list(options?: Core.RequestOptions): Core.PagePromise<APIKeysListObjects, Shared.APIKey>
-  list(query: APIKeyResourceListParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.PagePromise<APIKeysListObjects, Shared.APIKey> {
+  list(
+    query?: APIKeyResourceListParams,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<APIKeysListObjects, Shared.APIKey>;
+  list(options?: Core.RequestOptions): Core.PagePromise<APIKeysListObjects, Shared.APIKey>;
+  list(
+    query: APIKeyResourceListParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<APIKeysListObjects, Shared.APIKey> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -83,4 +91,4 @@ export namespace APIKeyResource {
   export import APIKeyResourceListParams = APIKeyResourceAPI.APIKeyResourceListParams;
 }
 
-export { APIKeysListObjects }
+export { APIKeysListObjects };
