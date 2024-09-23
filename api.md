@@ -31,8 +31,8 @@ Types:
 - <code><a href="./src/resources/shared.ts">MetricSummary</a></code>
 - <code><a href="./src/resources/shared.ts">Organization</a></code>
 - <code><a href="./src/resources/shared.ts">PathLookupFilter</a></code>
-- <code><a href="./src/resources/shared.ts">Project</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectLogsEvent</a></code>
+- <code><a href="./src/resources/shared.ts">ProjectModel</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectScore</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectScoreCategory</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectTag</a></code>
@@ -63,11 +63,11 @@ Methods:
 
 Methods:
 
-- <code title="post /v1/project">client.project.<a href="./src/resources/project/project.ts">create</a>({ ...params }) -> Project</code>
-- <code title="get /v1/project/{project_id}">client.project.<a href="./src/resources/project/project.ts">retrieve</a>(projectId) -> Project</code>
-- <code title="patch /v1/project/{project_id}">client.project.<a href="./src/resources/project/project.ts">update</a>(projectId, { ...params }) -> Project</code>
-- <code title="get /v1/project">client.project.<a href="./src/resources/project/project.ts">list</a>({ ...params }) -> ProjectsListObjects</code>
-- <code title="delete /v1/project/{project_id}">client.project.<a href="./src/resources/project/project.ts">delete</a>(projectId) -> Project</code>
+- <code title="post /v1/project">client.project.<a href="./src/resources/project/project.ts">create</a>({ ...params }) -> ProjectModel</code>
+- <code title="get /v1/project/{project_id}">client.project.<a href="./src/resources/project/project.ts">retrieve</a>(projectId) -> ProjectModel</code>
+- <code title="patch /v1/project/{project_id}">client.project.<a href="./src/resources/project/project.ts">update</a>(projectId, { ...params }) -> ProjectModel</code>
+- <code title="get /v1/project">client.project.<a href="./src/resources/project/project.ts">list</a>({ ...params }) -> ProjectModelsListObjects</code>
+- <code title="delete /v1/project/{project_id}">client.project.<a href="./src/resources/project/project.ts">delete</a>(projectId) -> ProjectModel</code>
 
 ## Logs
 
