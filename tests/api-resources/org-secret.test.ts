@@ -131,6 +131,21 @@ describe('resource orgSecret', () => {
     ).rejects.toThrow(Braintrust.NotFoundError);
   });
 
+  test('findAndDelete: only required params', async () => {
+    const responsePromise = client.orgSecret.findAndDelete({ name: 'name' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('findAndDelete: required and optional params', async () => {
+    const response = await client.orgSecret.findAndDelete({ name: 'name', org_name: 'org_name' });
+  });
+
   test('replace: only required params', async () => {
     const responsePromise = client.orgSecret.replace({ name: 'name' });
     const rawResponse = await responsePromise.asResponse();

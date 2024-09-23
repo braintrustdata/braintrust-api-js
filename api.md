@@ -143,12 +143,18 @@ Methods:
 
 # ACL
 
+Types:
+
+- <code><a href="./src/resources/acl.ts">ACLBatchUpdateResponse</a></code>
+
 Methods:
 
 - <code title="post /v1/acl">client.acl.<a href="./src/resources/acl.ts">create</a>({ ...params }) -> ACL</code>
 - <code title="get /v1/acl/{acl_id}">client.acl.<a href="./src/resources/acl.ts">retrieve</a>(aclId) -> ACL</code>
 - <code title="get /v1/acl">client.acl.<a href="./src/resources/acl.ts">list</a>({ ...params }) -> ACLsListObjects</code>
 - <code title="delete /v1/acl/{acl_id}">client.acl.<a href="./src/resources/acl.ts">delete</a>(aclId) -> ACL</code>
+- <code title="post /v1/acl/batch-update">client.acl.<a href="./src/resources/acl.ts">batchUpdate</a>({ ...params }) -> ACLBatchUpdateResponse</code>
+- <code title="delete /v1/acl">client.acl.<a href="./src/resources/acl.ts">findAndDelete</a>({ ...params }) -> ACL</code>
 
 # User
 
@@ -238,4 +244,5 @@ Methods:
 - <code title="patch /v1/org_secret/{org_secret_id}">client.orgSecret.<a href="./src/resources/org-secret.ts">update</a>(orgSecretId, { ...params }) -> OrgSecret</code>
 - <code title="get /v1/org_secret">client.orgSecret.<a href="./src/resources/org-secret.ts">list</a>({ ...params }) -> OrgSecretsListObjects</code>
 - <code title="delete /v1/org_secret/{org_secret_id}">client.orgSecret.<a href="./src/resources/org-secret.ts">delete</a>(orgSecretId) -> OrgSecret</code>
+- <code title="delete /v1/org_secret">client.orgSecret.<a href="./src/resources/org-secret.ts">findAndDelete</a>({ ...params }) -> OrgSecret</code>
 - <code title="put /v1/org_secret">client.orgSecret.<a href="./src/resources/org-secret.ts">replace</a>({ ...params }) -> OrgSecret</code>
