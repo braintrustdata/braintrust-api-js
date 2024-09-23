@@ -2,12 +2,11 @@
 
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
-import { APIPromise } from '../core';
 import * as Core from '../core';
 import * as PromptAPI from './prompt';
 import * as Shared from './shared';
 import { PromptsListObjects } from './shared';
-import { ListObjects, type ListObjectsParams } from '../pagination';
+import { type ListObjectsParams } from '../pagination';
 
 export class Prompt extends APIResource {
   /**
@@ -31,9 +30,17 @@ export class Prompt extends APIResource {
    * Any object-type fields will be deep-merged with existing content. Currently we
    * do not support removing fields or setting them to null.
    */
-  update(promptId: string, body?: PromptUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.Prompt>
-  update(promptId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Prompt>
-  update(promptId: string, body: PromptUpdateParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<Shared.Prompt> {
+  update(
+    promptId: string,
+    body?: PromptUpdateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.Prompt>;
+  update(promptId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Prompt>;
+  update(
+    promptId: string,
+    body: PromptUpdateParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.Prompt> {
     if (isRequestOptions(body)) {
       return this.update(promptId, {}, body);
     }
@@ -44,9 +51,15 @@ export class Prompt extends APIResource {
    * List out all prompts. The prompts are sorted by creation date, with the most
    * recently-created prompts coming first
    */
-  list(query?: PromptListParams, options?: Core.RequestOptions): Core.PagePromise<PromptsListObjects, Shared.Prompt>
-  list(options?: Core.RequestOptions): Core.PagePromise<PromptsListObjects, Shared.Prompt>
-  list(query: PromptListParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.PagePromise<PromptsListObjects, Shared.Prompt> {
+  list(
+    query?: PromptListParams,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<PromptsListObjects, Shared.Prompt>;
+  list(options?: Core.RequestOptions): Core.PagePromise<PromptsListObjects, Shared.Prompt>;
+  list(
+    query: PromptListParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<PromptsListObjects, Shared.Prompt> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -213,4 +226,4 @@ export namespace Prompt {
   export import PromptReplaceParams = PromptAPI.PromptReplaceParams;
 }
 
-export { PromptsListObjects }
+export { PromptsListObjects };

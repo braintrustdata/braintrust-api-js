@@ -1,13 +1,11 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../resource';
-import { isRequestOptions } from '../core';
-import { APIPromise } from '../core';
 import * as Core from '../core';
 import * as ViewAPI from './view';
 import * as Shared from './shared';
 import { ViewsListObjects } from './shared';
-import { ListObjects, type ListObjectsParams } from '../pagination';
+import { type ListObjectsParams } from '../pagination';
 
 export class View extends APIResource {
   /**
@@ -21,7 +19,11 @@ export class View extends APIResource {
   /**
    * Get a view object by its id
    */
-  retrieve(viewId: string, query: ViewRetrieveParams, options?: Core.RequestOptions): Core.APIPromise<Shared.View> {
+  retrieve(
+    viewId: string,
+    query: ViewRetrieveParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.View> {
     return this._client.get(`/v1/view/${viewId}`, { query, ...options });
   }
 
@@ -30,7 +32,11 @@ export class View extends APIResource {
    * object-type fields will be deep-merged with existing content. Currently we do
    * not support removing fields or setting them to null.
    */
-  update(viewId: string, body: ViewUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.View> {
+  update(
+    viewId: string,
+    body: ViewUpdateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.View> {
     return this._client.patch(`/v1/view/${viewId}`, { body, ...options });
   }
 
@@ -38,14 +44,21 @@ export class View extends APIResource {
    * List out all views. The views are sorted by creation date, with the most
    * recently-created views coming first
    */
-  list(query: ViewListParams, options?: Core.RequestOptions): Core.PagePromise<ViewsListObjects, Shared.View> {
+  list(
+    query: ViewListParams,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<ViewsListObjects, Shared.View> {
     return this._client.getAPIList('/v1/view', ViewsListObjects, { query, ...options });
   }
 
   /**
    * Delete a view object by its id
    */
-  delete(viewId: string, body: ViewDeleteParams, options?: Core.RequestOptions): Core.APIPromise<Shared.View> {
+  delete(
+    viewId: string,
+    body: ViewDeleteParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.View> {
     return this._client.delete(`/v1/view/${viewId}`, { body, ...options });
   }
 
@@ -73,12 +86,33 @@ export interface ViewCreateParams {
   /**
    * The object type that the ACL applies to
    */
-  object_type: 'organization' | 'project' | 'experiment' | 'dataset' | 'prompt' | 'prompt_session' | 'group' | 'role' | 'org_member' | 'project_log' | 'org_project' | null;
+  object_type:
+    | 'organization'
+    | 'project'
+    | 'experiment'
+    | 'dataset'
+    | 'prompt'
+    | 'prompt_session'
+    | 'group'
+    | 'role'
+    | 'org_member'
+    | 'project_log'
+    | 'org_project'
+    | null;
 
   /**
    * Type of table that the view corresponds to.
    */
-  view_type: 'projects' | 'logs' | 'experiments' | 'datasets' | 'prompts' | 'playgrounds' | 'experiment' | 'dataset' | null;
+  view_type:
+    | 'projects'
+    | 'logs'
+    | 'experiments'
+    | 'datasets'
+    | 'prompts'
+    | 'playgrounds'
+    | 'experiment'
+    | 'dataset'
+    | null;
 
   /**
    * Date of role deletion, or null if the role is still active
@@ -110,7 +144,19 @@ export interface ViewRetrieveParams {
   /**
    * The object type that the ACL applies to
    */
-  object_type: 'organization' | 'project' | 'experiment' | 'dataset' | 'prompt' | 'prompt_session' | 'group' | 'role' | 'org_member' | 'project_log' | 'org_project' | null;
+  object_type:
+    | 'organization'
+    | 'project'
+    | 'experiment'
+    | 'dataset'
+    | 'prompt'
+    | 'prompt_session'
+    | 'group'
+    | 'role'
+    | 'org_member'
+    | 'project_log'
+    | 'org_project'
+    | null;
 }
 
 export interface ViewUpdateParams {
@@ -122,7 +168,19 @@ export interface ViewUpdateParams {
   /**
    * The object type that the ACL applies to
    */
-  object_type: 'organization' | 'project' | 'experiment' | 'dataset' | 'prompt' | 'prompt_session' | 'group' | 'role' | 'org_member' | 'project_log' | 'org_project' | null;
+  object_type:
+    | 'organization'
+    | 'project'
+    | 'experiment'
+    | 'dataset'
+    | 'prompt'
+    | 'prompt_session'
+    | 'group'
+    | 'role'
+    | 'org_member'
+    | 'project_log'
+    | 'org_project'
+    | null;
 
   /**
    * Name of the view
@@ -147,7 +205,16 @@ export interface ViewUpdateParams {
   /**
    * Type of table that the view corresponds to.
    */
-  view_type?: 'projects' | 'logs' | 'experiments' | 'datasets' | 'prompts' | 'playgrounds' | 'experiment' | 'dataset' | null;
+  view_type?:
+    | 'projects'
+    | 'logs'
+    | 'experiments'
+    | 'datasets'
+    | 'prompts'
+    | 'playgrounds'
+    | 'experiment'
+    | 'dataset'
+    | null;
 }
 
 export interface ViewListParams extends ListObjectsParams {
@@ -159,7 +226,19 @@ export interface ViewListParams extends ListObjectsParams {
   /**
    * The object type that the ACL applies to
    */
-  object_type: 'organization' | 'project' | 'experiment' | 'dataset' | 'prompt' | 'prompt_session' | 'group' | 'role' | 'org_member' | 'project_log' | 'org_project' | null;
+  object_type:
+    | 'organization'
+    | 'project'
+    | 'experiment'
+    | 'dataset'
+    | 'prompt'
+    | 'prompt_session'
+    | 'group'
+    | 'role'
+    | 'org_member'
+    | 'project_log'
+    | 'org_project'
+    | null;
 
   /**
    * Filter search results to a particular set of object IDs. To specify a list of
@@ -175,7 +254,16 @@ export interface ViewListParams extends ListObjectsParams {
   /**
    * Type of table that the view corresponds to.
    */
-  view_type?: 'projects' | 'logs' | 'experiments' | 'datasets' | 'prompts' | 'playgrounds' | 'experiment' | 'dataset' | null;
+  view_type?:
+    | 'projects'
+    | 'logs'
+    | 'experiments'
+    | 'datasets'
+    | 'prompts'
+    | 'playgrounds'
+    | 'experiment'
+    | 'dataset'
+    | null;
 }
 
 export interface ViewDeleteParams {
@@ -187,7 +275,19 @@ export interface ViewDeleteParams {
   /**
    * The object type that the ACL applies to
    */
-  object_type: 'organization' | 'project' | 'experiment' | 'dataset' | 'prompt' | 'prompt_session' | 'group' | 'role' | 'org_member' | 'project_log' | 'org_project' | null;
+  object_type:
+    | 'organization'
+    | 'project'
+    | 'experiment'
+    | 'dataset'
+    | 'prompt'
+    | 'prompt_session'
+    | 'group'
+    | 'role'
+    | 'org_member'
+    | 'project_log'
+    | 'org_project'
+    | null;
 }
 
 export interface ViewReplaceParams {
@@ -204,12 +304,33 @@ export interface ViewReplaceParams {
   /**
    * The object type that the ACL applies to
    */
-  object_type: 'organization' | 'project' | 'experiment' | 'dataset' | 'prompt' | 'prompt_session' | 'group' | 'role' | 'org_member' | 'project_log' | 'org_project' | null;
+  object_type:
+    | 'organization'
+    | 'project'
+    | 'experiment'
+    | 'dataset'
+    | 'prompt'
+    | 'prompt_session'
+    | 'group'
+    | 'role'
+    | 'org_member'
+    | 'project_log'
+    | 'org_project'
+    | null;
 
   /**
    * Type of table that the view corresponds to.
    */
-  view_type: 'projects' | 'logs' | 'experiments' | 'datasets' | 'prompts' | 'playgrounds' | 'experiment' | 'dataset' | null;
+  view_type:
+    | 'projects'
+    | 'logs'
+    | 'experiments'
+    | 'datasets'
+    | 'prompts'
+    | 'playgrounds'
+    | 'experiment'
+    | 'dataset'
+    | null;
 
   /**
    * Date of role deletion, or null if the role is still active
@@ -241,4 +362,4 @@ export namespace View {
   export import ViewReplaceParams = ViewAPI.ViewReplaceParams;
 }
 
-export { ViewsListObjects }
+export { ViewsListObjects };

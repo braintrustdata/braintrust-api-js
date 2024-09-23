@@ -2,14 +2,12 @@
 
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
-import { APIPromise } from '../../core';
 import * as Core from '../../core';
-import { Members } from './members';
 import * as OrganizationAPI from './organization';
 import * as Shared from '../shared';
 import { OrganizationsListObjects } from '../shared';
 import * as MembersAPI from './members';
-import { ListObjects, type ListObjectsParams } from '../../pagination';
+import { type ListObjectsParams } from '../../pagination';
 
 export class Organization extends APIResource {
   members: MembersAPI.Members = new MembersAPI.Members(this._client);
@@ -26,9 +24,17 @@ export class Organization extends APIResource {
    * payload. Any object-type fields will be deep-merged with existing content.
    * Currently we do not support removing fields or setting them to null.
    */
-  update(organizationId: string, body?: OrganizationUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.Organization>
-  update(organizationId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Organization>
-  update(organizationId: string, body: OrganizationUpdateParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<Shared.Organization> {
+  update(
+    organizationId: string,
+    body?: OrganizationUpdateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.Organization>;
+  update(organizationId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Organization>;
+  update(
+    organizationId: string,
+    body: OrganizationUpdateParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.Organization> {
     if (isRequestOptions(body)) {
       return this.update(organizationId, {}, body);
     }
@@ -39,9 +45,15 @@ export class Organization extends APIResource {
    * List out all organizations. The organizations are sorted by creation date, with
    * the most recently-created organizations coming first
    */
-  list(query?: OrganizationListParams, options?: Core.RequestOptions): Core.PagePromise<OrganizationsListObjects, Shared.Organization>
-  list(options?: Core.RequestOptions): Core.PagePromise<OrganizationsListObjects, Shared.Organization>
-  list(query: OrganizationListParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.PagePromise<OrganizationsListObjects, Shared.Organization> {
+  list(
+    query?: OrganizationListParams,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<OrganizationsListObjects, Shared.Organization>;
+  list(options?: Core.RequestOptions): Core.PagePromise<OrganizationsListObjects, Shared.Organization>;
+  list(
+    query: OrganizationListParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<OrganizationsListObjects, Shared.Organization> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -92,4 +104,4 @@ export namespace Organization {
   export import MemberUpdateParams = MembersAPI.MemberUpdateParams;
 }
 
-export { OrganizationsListObjects }
+export { OrganizationsListObjects };

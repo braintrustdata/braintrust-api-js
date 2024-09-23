@@ -2,12 +2,11 @@
 
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
-import { APIPromise } from '../core';
 import * as Core from '../core';
 import * as ProjectTagAPI from './project-tag';
 import * as Shared from './shared';
 import { ProjectTagsListObjects } from './shared';
-import { ListObjects, type ListObjectsParams } from '../pagination';
+import { type ListObjectsParams } from '../pagination';
 
 export class ProjectTag extends APIResource {
   /**
@@ -31,9 +30,17 @@ export class ProjectTag extends APIResource {
    * payload. Any object-type fields will be deep-merged with existing content.
    * Currently we do not support removing fields or setting them to null.
    */
-  update(projectTagId: string, body?: ProjectTagUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.ProjectTag>
-  update(projectTagId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.ProjectTag>
-  update(projectTagId: string, body: ProjectTagUpdateParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<Shared.ProjectTag> {
+  update(
+    projectTagId: string,
+    body?: ProjectTagUpdateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.ProjectTag>;
+  update(projectTagId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.ProjectTag>;
+  update(
+    projectTagId: string,
+    body: ProjectTagUpdateParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.ProjectTag> {
     if (isRequestOptions(body)) {
       return this.update(projectTagId, {}, body);
     }
@@ -44,9 +51,15 @@ export class ProjectTag extends APIResource {
    * List out all project_tags. The project_tags are sorted by creation date, with
    * the most recently-created project_tags coming first
    */
-  list(query?: ProjectTagListParams, options?: Core.RequestOptions): Core.PagePromise<ProjectTagsListObjects, Shared.ProjectTag>
-  list(options?: Core.RequestOptions): Core.PagePromise<ProjectTagsListObjects, Shared.ProjectTag>
-  list(query: ProjectTagListParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.PagePromise<ProjectTagsListObjects, Shared.ProjectTag> {
+  list(
+    query?: ProjectTagListParams,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<ProjectTagsListObjects, Shared.ProjectTag>;
+  list(options?: Core.RequestOptions): Core.PagePromise<ProjectTagsListObjects, Shared.ProjectTag>;
+  list(
+    query: ProjectTagListParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<ProjectTagsListObjects, Shared.ProjectTag> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -166,4 +179,4 @@ export namespace ProjectTag {
   export import ProjectTagReplaceParams = ProjectTagAPI.ProjectTagReplaceParams;
 }
 
-export { ProjectTagsListObjects }
+export { ProjectTagsListObjects };

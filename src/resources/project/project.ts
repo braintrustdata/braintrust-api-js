@@ -2,14 +2,12 @@
 
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
-import { APIPromise } from '../../core';
 import * as Core from '../../core';
-import { Logs } from './logs';
 import * as ProjectAPI from './project';
 import * as Shared from '../shared';
 import { ProjectsListObjects } from '../shared';
 import * as LogsAPI from './logs';
-import { ListObjects, type ListObjectsParams } from '../../pagination';
+import { type ListObjectsParams } from '../../pagination';
 
 export class Project extends APIResource {
   logs: LogsAPI.Logs = new LogsAPI.Logs(this._client);
@@ -34,9 +32,17 @@ export class Project extends APIResource {
    * Any object-type fields will be deep-merged with existing content. Currently we
    * do not support removing fields or setting them to null.
    */
-  update(projectId: string, body?: ProjectUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.Project>
-  update(projectId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Project>
-  update(projectId: string, body: ProjectUpdateParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<Shared.Project> {
+  update(
+    projectId: string,
+    body?: ProjectUpdateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.Project>;
+  update(projectId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Project>;
+  update(
+    projectId: string,
+    body: ProjectUpdateParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.Project> {
     if (isRequestOptions(body)) {
       return this.update(projectId, {}, body);
     }
@@ -47,9 +53,15 @@ export class Project extends APIResource {
    * List out all projects. The projects are sorted by creation date, with the most
    * recently-created projects coming first
    */
-  list(query?: ProjectListParams, options?: Core.RequestOptions): Core.PagePromise<ProjectsListObjects, Shared.Project>
-  list(options?: Core.RequestOptions): Core.PagePromise<ProjectsListObjects, Shared.Project>
-  list(query: ProjectListParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.PagePromise<ProjectsListObjects, Shared.Project> {
+  list(
+    query?: ProjectListParams,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<ProjectsListObjects, Shared.Project>;
+  list(options?: Core.RequestOptions): Core.PagePromise<ProjectsListObjects, Shared.Project>;
+  list(
+    query: ProjectListParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<ProjectsListObjects, Shared.Project> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -133,4 +145,4 @@ export namespace Project {
   export import LogInsertParams = LogsAPI.LogInsertParams;
 }
 
-export { ProjectsListObjects }
+export { ProjectsListObjects };
