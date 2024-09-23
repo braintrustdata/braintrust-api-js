@@ -2,7 +2,6 @@
 
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
-import { APIPromise } from '../../core';
 import * as Core from '../../core';
 import * as LogsAPI from './logs';
 import * as Shared from '../shared';
@@ -11,7 +10,11 @@ export class Logs extends APIResource {
   /**
    * Log feedback for a set of project logs events
    */
-  feedback(projectId: string, body: LogFeedbackParams, options?: Core.RequestOptions): Core.APIPromise<Shared.FeedbackResponseSchema> {
+  feedback(
+    projectId: string,
+    body: LogFeedbackParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.FeedbackResponseSchema> {
     return this._client.post(`/v1/project_logs/${projectId}/feedback`, { body, ...options });
   }
 
@@ -19,9 +22,20 @@ export class Logs extends APIResource {
    * Fetch the events in a project logs. Equivalent to the POST form of the same
    * path, but with the parameters in the URL query rather than in the request body
    */
-  fetch(projectId: string, query?: LogFetchParams, options?: Core.RequestOptions): Core.APIPromise<Shared.FetchProjectLogsEventsResponse>
-  fetch(projectId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.FetchProjectLogsEventsResponse>
-  fetch(projectId: string, query: LogFetchParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<Shared.FetchProjectLogsEventsResponse> {
+  fetch(
+    projectId: string,
+    query?: LogFetchParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.FetchProjectLogsEventsResponse>;
+  fetch(
+    projectId: string,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.FetchProjectLogsEventsResponse>;
+  fetch(
+    projectId: string,
+    query: LogFetchParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.FetchProjectLogsEventsResponse> {
     if (isRequestOptions(query)) {
       return this.fetch(projectId, {}, query);
     }
@@ -32,9 +46,20 @@ export class Logs extends APIResource {
    * Fetch the events in a project logs. Equivalent to the GET form of the same path,
    * but with the parameters in the request body rather than in the URL query
    */
-  fetchPost(projectId: string, body?: LogFetchPostParams, options?: Core.RequestOptions): Core.APIPromise<Shared.FetchProjectLogsEventsResponse>
-  fetchPost(projectId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.FetchProjectLogsEventsResponse>
-  fetchPost(projectId: string, body: LogFetchPostParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<Shared.FetchProjectLogsEventsResponse> {
+  fetchPost(
+    projectId: string,
+    body?: LogFetchPostParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.FetchProjectLogsEventsResponse>;
+  fetchPost(
+    projectId: string,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.FetchProjectLogsEventsResponse>;
+  fetchPost(
+    projectId: string,
+    body: LogFetchPostParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.FetchProjectLogsEventsResponse> {
     if (isRequestOptions(body)) {
       return this.fetchPost(projectId, {}, body);
     }
@@ -44,7 +69,11 @@ export class Logs extends APIResource {
   /**
    * Insert a set of events into the project logs
    */
-  insert(projectId: string, body: LogInsertParams, options?: Core.RequestOptions): Core.APIPromise<Shared.InsertEventsResponse> {
+  insert(
+    projectId: string,
+    body: LogInsertParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.InsertEventsResponse> {
     return this._client.post(`/v1/project_logs/${projectId}/insert`, { body, ...options });
   }
 }

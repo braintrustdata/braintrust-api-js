@@ -2,12 +2,11 @@
 
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
-import { APIPromise } from '../core';
 import * as Core from '../core';
 import * as GroupAPI from './group';
 import * as Shared from './shared';
 import { GroupsListObjects } from './shared';
-import { ListObjects, type ListObjectsParams } from '../pagination';
+import { type ListObjectsParams } from '../pagination';
 
 export class Group extends APIResource {
   /**
@@ -30,9 +29,17 @@ export class Group extends APIResource {
    * Any object-type fields will be deep-merged with existing content. Currently we
    * do not support removing fields or setting them to null.
    */
-  update(groupId: string, body?: GroupUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.Group>
-  update(groupId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Group>
-  update(groupId: string, body: GroupUpdateParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<Shared.Group> {
+  update(
+    groupId: string,
+    body?: GroupUpdateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.Group>;
+  update(groupId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Group>;
+  update(
+    groupId: string,
+    body: GroupUpdateParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.Group> {
     if (isRequestOptions(body)) {
       return this.update(groupId, {}, body);
     }
@@ -43,9 +50,15 @@ export class Group extends APIResource {
    * List out all groups. The groups are sorted by creation date, with the most
    * recently-created groups coming first
    */
-  list(query?: GroupListParams, options?: Core.RequestOptions): Core.PagePromise<GroupsListObjects, Shared.Group>
-  list(options?: Core.RequestOptions): Core.PagePromise<GroupsListObjects, Shared.Group>
-  list(query: GroupListParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.PagePromise<GroupsListObjects, Shared.Group> {
+  list(
+    query?: GroupListParams,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<GroupsListObjects, Shared.Group>;
+  list(options?: Core.RequestOptions): Core.PagePromise<GroupsListObjects, Shared.Group>;
+  list(
+    query: GroupListParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<GroupsListObjects, Shared.Group> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -190,4 +203,4 @@ export namespace Group {
   export import GroupReplaceParams = GroupAPI.GroupReplaceParams;
 }
 
-export { GroupsListObjects }
+export { GroupsListObjects };
