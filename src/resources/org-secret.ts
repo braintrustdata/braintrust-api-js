@@ -74,6 +74,16 @@ export class OrgSecret extends APIResource {
   }
 
   /**
+   * Delete a single org_secret
+   */
+  findAndDelete(
+    body: OrgSecretFindAndDeleteParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.OrgSecret> {
+    return this._client.delete('/v1/org_secret', { body, ...options });
+  }
+
+  /**
    * Create or replace org_secret. If there is an existing org_secret with the same
    * name as the one specified in the request, will replace the existing org_secret
    * with the provided fields
@@ -140,6 +150,20 @@ export interface OrgSecretListParams extends ListObjectsParams {
   org_secret_type?: string | Array<string>;
 }
 
+export interface OrgSecretFindAndDeleteParams {
+  /**
+   * Name of the org secret
+   */
+  name: string;
+
+  /**
+   * For nearly all users, this parameter should be unnecessary. But in the rare case
+   * that your API key belongs to multiple organizations, you may specify the name of
+   * the organization the Org Secret belongs in.
+   */
+  org_name?: string | null;
+}
+
 export interface OrgSecretReplaceParams {
   /**
    * Name of the org secret
@@ -168,6 +192,7 @@ export namespace OrgSecret {
   export import OrgSecretCreateParams = OrgSecretAPI.OrgSecretCreateParams;
   export import OrgSecretUpdateParams = OrgSecretAPI.OrgSecretUpdateParams;
   export import OrgSecretListParams = OrgSecretAPI.OrgSecretListParams;
+  export import OrgSecretFindAndDeleteParams = OrgSecretAPI.OrgSecretFindAndDeleteParams;
   export import OrgSecretReplaceParams = OrgSecretAPI.OrgSecretReplaceParams;
 }
 
