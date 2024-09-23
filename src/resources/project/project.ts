@@ -5,7 +5,7 @@ import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
 import * as ProjectAPI from './project';
 import * as Shared from '../shared';
-import { ProjectsListObjects } from '../shared';
+import { ProjectModelsListObjects } from '../shared';
 import * as LogsAPI from './logs';
 import { type ListObjectsParams } from '../../pagination';
 
@@ -16,14 +16,14 @@ export class Project extends APIResource {
    * Create a new project. If there is an existing project with the same name as the
    * one specified in the request, will return the existing project unmodified
    */
-  create(body: ProjectCreateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.Project> {
+  create(body: ProjectCreateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.ProjectModel> {
     return this._client.post('/v1/project', { body, ...options });
   }
 
   /**
    * Get a project object by its id
    */
-  retrieve(projectId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Project> {
+  retrieve(projectId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.ProjectModel> {
     return this._client.get(`/v1/project/${projectId}`, options);
   }
 
@@ -36,13 +36,13 @@ export class Project extends APIResource {
     projectId: string,
     body?: ProjectUpdateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.Project>;
-  update(projectId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Project>;
+  ): Core.APIPromise<Shared.ProjectModel>;
+  update(projectId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.ProjectModel>;
   update(
     projectId: string,
     body: ProjectUpdateParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.Project> {
+  ): Core.APIPromise<Shared.ProjectModel> {
     if (isRequestOptions(body)) {
       return this.update(projectId, {}, body);
     }
@@ -56,22 +56,22 @@ export class Project extends APIResource {
   list(
     query?: ProjectListParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<ProjectsListObjects, Shared.Project>;
-  list(options?: Core.RequestOptions): Core.PagePromise<ProjectsListObjects, Shared.Project>;
+  ): Core.PagePromise<ProjectModelsListObjects, Shared.ProjectModel>;
+  list(options?: Core.RequestOptions): Core.PagePromise<ProjectModelsListObjects, Shared.ProjectModel>;
   list(
     query: ProjectListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<ProjectsListObjects, Shared.Project> {
+  ): Core.PagePromise<ProjectModelsListObjects, Shared.ProjectModel> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this._client.getAPIList('/v1/project', ProjectsListObjects, { query, ...options });
+    return this._client.getAPIList('/v1/project', ProjectModelsListObjects, { query, ...options });
   }
 
   /**
    * Delete a project object by its id
    */
-  delete(projectId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Project> {
+  delete(projectId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.ProjectModel> {
     return this._client.delete(`/v1/project/${projectId}`, options);
   }
 }
@@ -145,4 +145,4 @@ export namespace Project {
   export import LogInsertParams = LogsAPI.LogInsertParams;
 }
 
-export { ProjectsListObjects };
+export { ProjectModelsListObjects };
