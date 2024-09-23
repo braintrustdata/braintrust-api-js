@@ -2,6 +2,34 @@
 
 import { ListObjects } from '../pagination';
 
+export interface AISecret {
+  /**
+   * Unique identifier for the AI secret
+   */
+  id: string;
+
+  /**
+   * Name of the AI secret
+   */
+  name: string;
+
+  /**
+   * Unique identifier for the organization
+   */
+  org_id: string;
+
+  /**
+   * Date of AI secret creation
+   */
+  created?: string | null;
+
+  metadata?: Record<string, unknown> | null;
+
+  preview_secret?: string | null;
+
+  type?: string | null;
+}
+
 /**
  * An ACL grants a certain permission or role to a certain user or group on an
  * object.
@@ -2018,34 +2046,6 @@ export interface MetricSummary {
   diff?: number;
 }
 
-export interface OrgSecret {
-  /**
-   * Unique identifier for the org secret
-   */
-  id: string;
-
-  /**
-   * Name of the org secret
-   */
-  name: string;
-
-  /**
-   * Unique identifier for the organization
-   */
-  org_id: string;
-
-  /**
-   * Date of org secret creation
-   */
-  created?: string | null;
-
-  metadata?: Record<string, unknown> | null;
-
-  preview_secret?: string | null;
-
-  type?: string | null;
-}
-
 export interface Organization {
   /**
    * Unique identifier for the organization
@@ -3285,4 +3285,4 @@ export class APIKeysListObjects extends ListObjects<APIKey> {}
 /**
  * Pagination for endpoints which list data objects
  */
-export class OrgSecretsListObjects extends ListObjects<OrgSecret> {}
+export class AISecretsListObjects extends ListObjects<AISecret> {}
