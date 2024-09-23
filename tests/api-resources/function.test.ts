@@ -195,6 +195,45 @@ describe('resource function', () => {
     ).rejects.toThrow(Braintrust.NotFoundError);
   });
 
+  test('invoke', async () => {
+    const responsePromise = client.function.invoke('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('invoke: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.function.invoke('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Braintrust.NotFoundError);
+  });
+
+  test('invoke: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.function.invoke(
+        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+        {
+          input: {},
+          parent: {
+            object_id: 'object_id',
+            object_type: 'project_logs',
+            propagated_event: { foo: 'bar' },
+            row_ids: { id: 'id', root_span_id: 'root_span_id', span_id: 'span_id' },
+          },
+          stream: true,
+          version: 'version',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Braintrust.NotFoundError);
+  });
+
   test('replace: only required params', async () => {
     const responsePromise = client.function.replace({
       function_data: { type: 'prompt' },
