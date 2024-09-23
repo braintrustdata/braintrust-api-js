@@ -130,7 +130,7 @@ export class Braintrust extends Core.APIClient {
   view: API.View = new API.View(this);
   organization: API.Organization = new API.Organization(this);
   apiKeyResource: API.APIKeyResource = new API.APIKeyResource(this);
-  orgSecret: API.OrgSecret = new API.OrgSecret(this);
+  aiSecret: API.AISecret = new API.AISecret(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
@@ -270,9 +270,11 @@ export namespace Braintrust {
   export import ProjectTagReplaceParams = API.ProjectTagReplaceParams;
 
   export import Function = API.Function;
+  export import FunctionInvokeResponse = API.FunctionInvokeResponse;
   export import FunctionCreateParams = API.FunctionCreateParams;
   export import FunctionUpdateParams = API.FunctionUpdateParams;
   export import FunctionListParams = API.FunctionListParams;
+  export import FunctionInvokeParams = API.FunctionInvokeParams;
   export import FunctionReplaceParams = API.FunctionReplaceParams;
 
   export import View = API.View;
@@ -291,13 +293,14 @@ export namespace Braintrust {
   export import APIKeyResourceCreateParams = API.APIKeyResourceCreateParams;
   export import APIKeyResourceListParams = API.APIKeyResourceListParams;
 
-  export import OrgSecret = API.OrgSecret;
-  export import OrgSecretCreateParams = API.OrgSecretCreateParams;
-  export import OrgSecretUpdateParams = API.OrgSecretUpdateParams;
-  export import OrgSecretListParams = API.OrgSecretListParams;
-  export import OrgSecretFindAndDeleteParams = API.OrgSecretFindAndDeleteParams;
-  export import OrgSecretReplaceParams = API.OrgSecretReplaceParams;
+  export import AISecret = API.AISecret;
+  export import AISecretCreateParams = API.AISecretCreateParams;
+  export import AISecretUpdateParams = API.AISecretUpdateParams;
+  export import AISecretListParams = API.AISecretListParams;
+  export import AISecretFindAndDeleteParams = API.AISecretFindAndDeleteParams;
+  export import AISecretReplaceParams = API.AISecretReplaceParams;
 
+  export import AISecret = API.AISecret;
   export import ACL = API.ACL;
   export import APIKey = API.APIKey;
   export import CreateAPIKeyOutput = API.CreateAPIKeyOutput;
@@ -324,7 +327,6 @@ export namespace Braintrust {
   export import InsertProjectLogsEventMerge = API.InsertProjectLogsEventMerge;
   export import InsertProjectLogsEventReplace = API.InsertProjectLogsEventReplace;
   export import MetricSummary = API.MetricSummary;
-  export import OrgSecret = API.OrgSecret;
   export import Organization = API.Organization;
   export import PathLookupFilter = API.PathLookupFilter;
   export import Project = API.Project;

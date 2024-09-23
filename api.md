@@ -2,6 +2,7 @@
 
 Types:
 
+- <code><a href="./src/resources/shared.ts">AISecret</a></code>
 - <code><a href="./src/resources/shared.ts">ACL</a></code>
 - <code><a href="./src/resources/shared.ts">APIKey</a></code>
 - <code><a href="./src/resources/shared.ts">CreateAPIKeyOutput</a></code>
@@ -28,7 +29,6 @@ Types:
 - <code><a href="./src/resources/shared.ts">InsertProjectLogsEventMerge</a></code>
 - <code><a href="./src/resources/shared.ts">InsertProjectLogsEventReplace</a></code>
 - <code><a href="./src/resources/shared.ts">MetricSummary</a></code>
-- <code><a href="./src/resources/shared.ts">OrgSecret</a></code>
 - <code><a href="./src/resources/shared.ts">Organization</a></code>
 - <code><a href="./src/resources/shared.ts">PathLookupFilter</a></code>
 - <code><a href="./src/resources/shared.ts">Project</a></code>
@@ -187,6 +187,10 @@ Methods:
 
 # Function
 
+Types:
+
+- <code><a href="./src/resources/function.ts">FunctionInvokeResponse</a></code>
+
 Methods:
 
 - <code title="post /v1/function">client.function.<a href="./src/resources/function.ts">create</a>({ ...params }) -> Function</code>
@@ -194,6 +198,7 @@ Methods:
 - <code title="patch /v1/function/{function_id}">client.function.<a href="./src/resources/function.ts">update</a>(functionId, { ...params }) -> Function</code>
 - <code title="get /v1/function">client.function.<a href="./src/resources/function.ts">list</a>({ ...params }) -> FunctionsListObjects</code>
 - <code title="delete /v1/function/{function_id}">client.function.<a href="./src/resources/function.ts">delete</a>(functionId) -> Function</code>
+- <code title="post /v1/function/{function_id}/invoke">client.function.<a href="./src/resources/function.ts">invoke</a>(functionId, { ...params }) -> unknown</code>
 - <code title="put /v1/function">client.function.<a href="./src/resources/function.ts">replace</a>({ ...params }) -> Function</code>
 
 # View
@@ -235,14 +240,14 @@ Methods:
 - <code title="get /v1/api_key">client.apiKeyResource.<a href="./src/resources/api-key-resource.ts">list</a>({ ...params }) -> APIKeysListObjects</code>
 - <code title="delete /v1/api_key/{api_key_id}">client.apiKeyResource.<a href="./src/resources/api-key-resource.ts">delete</a>(apiKeyId) -> APIKey</code>
 
-# OrgSecret
+# AISecret
 
 Methods:
 
-- <code title="post /v1/org_secret">client.orgSecret.<a href="./src/resources/org-secret.ts">create</a>({ ...params }) -> OrgSecret</code>
-- <code title="get /v1/org_secret/{org_secret_id}">client.orgSecret.<a href="./src/resources/org-secret.ts">retrieve</a>(orgSecretId) -> OrgSecret</code>
-- <code title="patch /v1/org_secret/{org_secret_id}">client.orgSecret.<a href="./src/resources/org-secret.ts">update</a>(orgSecretId, { ...params }) -> OrgSecret</code>
-- <code title="get /v1/org_secret">client.orgSecret.<a href="./src/resources/org-secret.ts">list</a>({ ...params }) -> OrgSecretsListObjects</code>
-- <code title="delete /v1/org_secret/{org_secret_id}">client.orgSecret.<a href="./src/resources/org-secret.ts">delete</a>(orgSecretId) -> OrgSecret</code>
-- <code title="delete /v1/org_secret">client.orgSecret.<a href="./src/resources/org-secret.ts">findAndDelete</a>({ ...params }) -> OrgSecret</code>
-- <code title="put /v1/org_secret">client.orgSecret.<a href="./src/resources/org-secret.ts">replace</a>({ ...params }) -> OrgSecret</code>
+- <code title="post /v1/ai_secret">client.aiSecret.<a href="./src/resources/ai-secret.ts">create</a>({ ...params }) -> AISecret</code>
+- <code title="get /v1/ai_secret/{ai_secret_id}">client.aiSecret.<a href="./src/resources/ai-secret.ts">retrieve</a>(aiSecretId) -> AISecret</code>
+- <code title="patch /v1/ai_secret/{ai_secret_id}">client.aiSecret.<a href="./src/resources/ai-secret.ts">update</a>(aiSecretId, { ...params }) -> AISecret</code>
+- <code title="get /v1/ai_secret">client.aiSecret.<a href="./src/resources/ai-secret.ts">list</a>({ ...params }) -> AISecretsListObjects</code>
+- <code title="delete /v1/ai_secret/{ai_secret_id}">client.aiSecret.<a href="./src/resources/ai-secret.ts">delete</a>(aiSecretId) -> AISecret</code>
+- <code title="delete /v1/ai_secret">client.aiSecret.<a href="./src/resources/ai-secret.ts">findAndDelete</a>({ ...params }) -> AISecret</code>
+- <code title="put /v1/ai_secret">client.aiSecret.<a href="./src/resources/ai-secret.ts">replace</a>({ ...params }) -> AISecret</code>
