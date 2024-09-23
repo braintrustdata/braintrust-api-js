@@ -74,6 +74,26 @@ export class Function extends APIResource {
   }
 
   /**
+   * Invoke a function.
+   */
+  invoke(
+    functionId: string,
+    body?: FunctionInvokeParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<unknown>;
+  invoke(functionId: string, options?: Core.RequestOptions): Core.APIPromise<unknown>;
+  invoke(
+    functionId: string,
+    body: FunctionInvokeParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<unknown> {
+    if (isRequestOptions(body)) {
+      return this.invoke(functionId, {}, body);
+    }
+    return this._client.post(`/v1/function/${functionId}/invoke`, { body, ...options });
+  }
+
+  /**
    * Create or replace function. If there is an existing function in the project with
    * the same slug as the one specified in the request, will replace the existing
    * function with the provided fields
@@ -82,6 +102,8 @@ export class Function extends APIResource {
     return this._client.put('/v1/function', { body, ...options });
   }
 }
+
+export type FunctionInvokeResponse = unknown;
 
 export interface FunctionCreateParams {
   function_data: FunctionCreateParams.Prompt | FunctionCreateParams.Code | FunctionCreateParams.Global;
@@ -381,6 +403,75 @@ export interface FunctionListParams extends ListObjectsParams {
   version?: string;
 }
 
+export interface FunctionInvokeParams {
+  /**
+   * Argument to the function, which can be any JSON serializable value
+   */
+  input?: unknown;
+
+  /**
+   * Options for tracing the function call
+   */
+  parent?: FunctionInvokeParams.SpanParentStruct | string;
+
+  /**
+   * Whether to stream the response. If true, results will be returned in the
+   * Braintrust SSE format.
+   */
+  stream?: boolean;
+
+  /**
+   * The version of the function
+   */
+  version?: string;
+}
+
+export namespace FunctionInvokeParams {
+  /**
+   * Span parent properties
+   */
+  export interface SpanParentStruct {
+    /**
+     * The id of the container object you are logging to
+     */
+    object_id: string;
+
+    object_type: 'project_logs' | 'experiment';
+
+    /**
+     * Include these properties in every span created under this parent
+     */
+    propagated_event?: Record<string, unknown> | null;
+
+    /**
+     * Identifiers for the row to to log a subspan under
+     */
+    row_ids?: SpanParentStruct.RowIDs | null;
+  }
+
+  export namespace SpanParentStruct {
+    /**
+     * Identifiers for the row to to log a subspan under
+     */
+    export interface RowIDs {
+      /**
+       * The id of the row
+       */
+      id: string;
+
+      /**
+       * The root_span_id of the row
+       */
+      root_span_id: string;
+
+      /**
+       * The span_id of the row
+       */
+      span_id: string;
+    }
+  }
+}
+
 export interface FunctionReplaceParams {
   function_data: FunctionReplaceParams.Prompt | FunctionReplaceParams.Code | FunctionReplaceParams.Global;
 
@@ -529,9 +620,11 @@ export namespace FunctionReplaceParams {
 }
 
 export namespace Function {
+  export import FunctionInvokeResponse = FunctionAPI.FunctionInvokeResponse;
   export import FunctionCreateParams = FunctionAPI.FunctionCreateParams;
   export import FunctionUpdateParams = FunctionAPI.FunctionUpdateParams;
   export import FunctionListParams = FunctionAPI.FunctionListParams;
+  export import FunctionInvokeParams = FunctionAPI.FunctionInvokeParams;
   export import FunctionReplaceParams = FunctionAPI.FunctionReplaceParams;
 }
 

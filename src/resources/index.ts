@@ -9,6 +9,14 @@ export {
   ACLFindAndDeleteParams,
   ACL,
 } from './acl';
+export {
+  AISecretCreateParams,
+  AISecretUpdateParams,
+  AISecretListParams,
+  AISecretFindAndDeleteParams,
+  AISecretReplaceParams,
+  AISecret,
+} from './ai-secret';
 export { APIKeyResourceCreateParams, APIKeyResourceListParams, APIKeyResource } from './api-key-resource';
 export {
   DatasetCreateParams,
@@ -33,21 +41,15 @@ export {
   Experiment,
 } from './experiment';
 export {
+  FunctionInvokeResponse,
   FunctionCreateParams,
   FunctionUpdateParams,
   FunctionListParams,
+  FunctionInvokeParams,
   FunctionReplaceParams,
   Function,
 } from './function';
 export { GroupCreateParams, GroupUpdateParams, GroupListParams, GroupReplaceParams, Group } from './group';
-export {
-  OrgSecretCreateParams,
-  OrgSecretUpdateParams,
-  OrgSecretListParams,
-  OrgSecretFindAndDeleteParams,
-  OrgSecretReplaceParams,
-  OrgSecret,
-} from './org-secret';
 export { OrganizationUpdateParams, OrganizationListParams, Organization } from './organization/organization';
 export { ProjectCreateParams, ProjectUpdateParams, ProjectListParams, Project } from './project/project';
 export {
