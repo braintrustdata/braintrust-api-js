@@ -2,12 +2,11 @@
 
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
-import { APIPromise } from '../core';
 import * as Core from '../core';
 import * as UserAPI from './user';
 import * as Shared from './shared';
 import { UsersListObjects } from './shared';
-import { ListObjects, type ListObjectsParams } from '../pagination';
+import { type ListObjectsParams } from '../pagination';
 
 export class User extends APIResource {
   /**
@@ -21,9 +20,15 @@ export class User extends APIResource {
    * List out all users. The users are sorted by creation date, with the most
    * recently-created users coming first
    */
-  list(query?: UserListParams, options?: Core.RequestOptions): Core.PagePromise<UsersListObjects, Shared.User>
-  list(options?: Core.RequestOptions): Core.PagePromise<UsersListObjects, Shared.User>
-  list(query: UserListParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.PagePromise<UsersListObjects, Shared.User> {
+  list(
+    query?: UserListParams,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<UsersListObjects, Shared.User>;
+  list(options?: Core.RequestOptions): Core.PagePromise<UsersListObjects, Shared.User>;
+  list(
+    query: UserListParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<UsersListObjects, Shared.User> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -66,4 +71,4 @@ export namespace User {
   export import UserListParams = UserAPI.UserListParams;
 }
 
-export { UsersListObjects }
+export { UsersListObjects };

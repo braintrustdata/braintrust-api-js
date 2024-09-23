@@ -2,12 +2,11 @@
 
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
-import { APIPromise } from '../core';
 import * as Core from '../core';
 import * as ProjectScoreAPI from './project-score';
 import * as Shared from './shared';
 import { ProjectScoresListObjects } from './shared';
-import { ListObjects, type ListObjectsParams } from '../pagination';
+import { type ListObjectsParams } from '../pagination';
 
 export class ProjectScore extends APIResource {
   /**
@@ -15,7 +14,10 @@ export class ProjectScore extends APIResource {
    * with the same name as the one specified in the request, will return the existing
    * project_score unmodified
    */
-  create(body: ProjectScoreCreateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.ProjectScore> {
+  create(
+    body: ProjectScoreCreateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.ProjectScore> {
     return this._client.post('/v1/project_score', { body, ...options });
   }
 
@@ -31,9 +33,17 @@ export class ProjectScore extends APIResource {
    * payload. Any object-type fields will be deep-merged with existing content.
    * Currently we do not support removing fields or setting them to null.
    */
-  update(projectScoreId: string, body?: ProjectScoreUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.ProjectScore>
-  update(projectScoreId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.ProjectScore>
-  update(projectScoreId: string, body: ProjectScoreUpdateParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<Shared.ProjectScore> {
+  update(
+    projectScoreId: string,
+    body?: ProjectScoreUpdateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.ProjectScore>;
+  update(projectScoreId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.ProjectScore>;
+  update(
+    projectScoreId: string,
+    body: ProjectScoreUpdateParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.ProjectScore> {
     if (isRequestOptions(body)) {
       return this.update(projectScoreId, {}, body);
     }
@@ -44,9 +54,15 @@ export class ProjectScore extends APIResource {
    * List out all project_scores. The project_scores are sorted by creation date,
    * with the most recently-created project_scores coming first
    */
-  list(query?: ProjectScoreListParams, options?: Core.RequestOptions): Core.PagePromise<ProjectScoresListObjects, Shared.ProjectScore>
-  list(options?: Core.RequestOptions): Core.PagePromise<ProjectScoresListObjects, Shared.ProjectScore>
-  list(query: ProjectScoreListParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.PagePromise<ProjectScoresListObjects, Shared.ProjectScore> {
+  list(
+    query?: ProjectScoreListParams,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<ProjectScoresListObjects, Shared.ProjectScore>;
+  list(options?: Core.RequestOptions): Core.PagePromise<ProjectScoresListObjects, Shared.ProjectScore>;
+  list(
+    query: ProjectScoreListParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<ProjectScoresListObjects, Shared.ProjectScore> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -65,7 +81,10 @@ export class ProjectScore extends APIResource {
    * project with the same name as the one specified in the request, will replace the
    * existing project_score with the provided fields
    */
-  replace(body: ProjectScoreReplaceParams, options?: Core.RequestOptions): Core.APIPromise<Shared.ProjectScore> {
+  replace(
+    body: ProjectScoreReplaceParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.ProjectScore> {
     return this._client.put('/v1/project_score', { body, ...options });
   }
 }
@@ -89,7 +108,12 @@ export interface ProjectScoreCreateParams {
   /**
    * For categorical-type project scores, the list of all categories
    */
-  categories?: Array<Shared.ProjectScoreCategory> | Record<string, number> | Array<string> | ProjectScoreCreateParams.NullableVariant | null;
+  categories?:
+    | Array<Shared.ProjectScoreCategory>
+    | Record<string, number>
+    | Array<string>
+    | ProjectScoreCreateParams.NullableVariant
+    | null;
 
   /**
    * Textual description of the project score
@@ -98,15 +122,19 @@ export interface ProjectScoreCreateParams {
 }
 
 export namespace ProjectScoreCreateParams {
-  export interface NullableVariant {
-  }
+  export interface NullableVariant {}
 }
 
 export interface ProjectScoreUpdateParams {
   /**
    * For categorical-type project scores, the list of all categories
    */
-  categories?: Array<Shared.ProjectScoreCategory> | Record<string, number> | Array<string> | ProjectScoreUpdateParams.NullableVariant | null;
+  categories?:
+    | Array<Shared.ProjectScoreCategory>
+    | Record<string, number>
+    | Array<string>
+    | ProjectScoreUpdateParams.NullableVariant
+    | null;
 
   /**
    * Textual description of the project score
@@ -125,8 +153,7 @@ export interface ProjectScoreUpdateParams {
 }
 
 export namespace ProjectScoreUpdateParams {
-  export interface NullableVariant {
-  }
+  export interface NullableVariant {}
 }
 
 export interface ProjectScoreListParams extends ListObjectsParams {
@@ -159,7 +186,14 @@ export interface ProjectScoreListParams extends ListObjectsParams {
   /**
    * The type of the configured score
    */
-  score_type?: 'slider' | 'categorical' | 'weighted' | 'minimum' | 'online' | null | Array<'slider' | 'categorical' | 'weighted' | 'minimum' | 'online' | null>;
+  score_type?:
+    | 'slider'
+    | 'categorical'
+    | 'weighted'
+    | 'minimum'
+    | 'online'
+    | null
+    | Array<'slider' | 'categorical' | 'weighted' | 'minimum' | 'online' | null>;
 }
 
 export interface ProjectScoreReplaceParams {
@@ -181,7 +215,12 @@ export interface ProjectScoreReplaceParams {
   /**
    * For categorical-type project scores, the list of all categories
    */
-  categories?: Array<Shared.ProjectScoreCategory> | Record<string, number> | Array<string> | ProjectScoreReplaceParams.NullableVariant | null;
+  categories?:
+    | Array<Shared.ProjectScoreCategory>
+    | Record<string, number>
+    | Array<string>
+    | ProjectScoreReplaceParams.NullableVariant
+    | null;
 
   /**
    * Textual description of the project score
@@ -190,8 +229,7 @@ export interface ProjectScoreReplaceParams {
 }
 
 export namespace ProjectScoreReplaceParams {
-  export interface NullableVariant {
-  }
+  export interface NullableVariant {}
 }
 
 export namespace ProjectScore {
@@ -201,4 +239,4 @@ export namespace ProjectScore {
   export import ProjectScoreReplaceParams = ProjectScoreAPI.ProjectScoreReplaceParams;
 }
 
-export { ProjectScoresListObjects }
+export { ProjectScoresListObjects };

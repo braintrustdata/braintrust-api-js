@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from '../core'
-import * as Shared from './shared';
 import { ListObjects } from '../pagination';
 
 /**
@@ -35,7 +33,19 @@ export interface ACL {
   /**
    * The object type that the ACL applies to
    */
-  object_type: 'organization' | 'project' | 'experiment' | 'dataset' | 'prompt' | 'prompt_session' | 'group' | 'role' | 'org_member' | 'project_log' | 'org_project' | null;
+  object_type:
+    | 'organization'
+    | 'project'
+    | 'experiment'
+    | 'dataset'
+    | 'prompt'
+    | 'prompt_session'
+    | 'group'
+    | 'role'
+    | 'org_member'
+    | 'project_log'
+    | 'org_project'
+    | null;
 
   /**
    * Date of acl creation
@@ -52,13 +62,34 @@ export interface ACL {
    * Permission the ACL grants. Exactly one of `permission` and `role_id` will be
    * provided
    */
-  permission?: 'create' | 'read' | 'update' | 'delete' | 'create_acls' | 'read_acls' | 'update_acls' | 'delete_acls' | null;
+  permission?:
+    | 'create'
+    | 'read'
+    | 'update'
+    | 'delete'
+    | 'create_acls'
+    | 'read_acls'
+    | 'update_acls'
+    | 'delete_acls'
+    | null;
 
   /**
    * When setting a permission directly, optionally restricts the permission grant to
    * just the specified object type. Cannot be set alongside a `role_id`.
    */
-  restrict_object_type?: 'organization' | 'project' | 'experiment' | 'dataset' | 'prompt' | 'prompt_session' | 'group' | 'role' | 'org_member' | 'project_log' | 'org_project' | null;
+  restrict_object_type?:
+    | 'organization'
+    | 'project'
+    | 'experiment'
+    | 'dataset'
+    | 'prompt'
+    | 'prompt_session'
+    | 'group'
+    | 'role'
+    | 'org_member'
+    | 'project_log'
+    | 'org_project'
+    | null;
 
   /**
    * Id of the role the ACL grants. Exactly one of `permission` and `role_id` will be
@@ -509,7 +540,7 @@ export namespace ExperimentEvent {
      * Line of code where the experiment event was created
      */
     caller_lineno?: number | null;
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   /**
@@ -546,7 +577,7 @@ export namespace ExperimentEvent {
      * The total number of tokens in the input and output of the experiment event.
      */
     tokens?: number | null;
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   /**
@@ -562,7 +593,7 @@ export namespace ExperimentEvent {
      * Type of the span, for display purposes only
      */
     type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 }
 
@@ -869,7 +900,19 @@ export namespace Function {
     /**
      * The object type that the ACL applies to
      */
-    object_type: 'organization' | 'project' | 'experiment' | 'dataset' | 'prompt' | 'prompt_session' | 'group' | 'role' | 'org_member' | 'project_log' | 'org_project' | null;
+    object_type:
+      | 'organization'
+      | 'project'
+      | 'experiment'
+      | 'dataset'
+      | 'prompt'
+      | 'prompt_session'
+      | 'group'
+      | 'role'
+      | 'org_member'
+      | 'project_log'
+      | 'org_project'
+      | null;
 
     /**
      * The function exists for internal purposes and should not be displayed in the
@@ -1257,7 +1300,7 @@ export namespace InsertExperimentEventMerge {
      * Line of code where the experiment event was created
      */
     caller_lineno?: number | null;
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   /**
@@ -1294,7 +1337,7 @@ export namespace InsertExperimentEventMerge {
      * The total number of tokens in the input and output of the experiment event.
      */
     tokens?: number | null;
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   /**
@@ -1310,7 +1353,7 @@ export namespace InsertExperimentEventMerge {
      * Type of the span, for display purposes only
      */
     type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 }
 
@@ -1472,7 +1515,7 @@ export namespace InsertExperimentEventReplace {
      * Line of code where the experiment event was created
      */
     caller_lineno?: number | null;
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   /**
@@ -1509,7 +1552,7 @@ export namespace InsertExperimentEventReplace {
      * The total number of tokens in the input and output of the experiment event.
      */
     tokens?: number | null;
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   /**
@@ -1525,7 +1568,7 @@ export namespace InsertExperimentEventReplace {
      * Type of the span, for display purposes only
      */
     type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 }
 
@@ -1678,7 +1721,7 @@ export namespace InsertProjectLogsEventMerge {
      * Line of code where the project logs event was created
      */
     caller_lineno?: number | null;
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   /**
@@ -1715,7 +1758,7 @@ export namespace InsertProjectLogsEventMerge {
      * The total number of tokens in the input and output of the project logs event.
      */
     tokens?: number | null;
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   /**
@@ -1731,7 +1774,7 @@ export namespace InsertProjectLogsEventMerge {
      * Type of the span, for display purposes only
      */
     type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 }
 
@@ -1883,7 +1926,7 @@ export namespace InsertProjectLogsEventReplace {
      * Line of code where the project logs event was created
      */
     caller_lineno?: number | null;
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   /**
@@ -1920,7 +1963,7 @@ export namespace InsertProjectLogsEventReplace {
      * The total number of tokens in the input and output of the project logs event.
      */
     tokens?: number | null;
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   /**
@@ -1936,7 +1979,7 @@ export namespace InsertProjectLogsEventReplace {
      * Type of the span, for display purposes only
      */
     type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 }
 
@@ -2254,7 +2297,7 @@ export namespace ProjectLogsEvent {
      * Line of code where the project logs event was created
      */
     caller_lineno?: number | null;
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   /**
@@ -2291,7 +2334,7 @@ export namespace ProjectLogsEvent {
      * The total number of tokens in the input and output of the project logs event.
      */
     tokens?: number | null;
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 
   /**
@@ -2307,7 +2350,7 @@ export namespace ProjectLogsEvent {
      * Type of the span, for display purposes only
      */
     type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
-  [k: string]: unknown
+    [k: string]: unknown;
   }
 }
 
@@ -2341,7 +2384,12 @@ export interface ProjectScore {
   /**
    * For categorical-type project scores, the list of all categories
    */
-  categories?: Array<ProjectScoreCategory> | Record<string, number> | Array<string> | ProjectScore.NullableVariant | null;
+  categories?:
+    | Array<ProjectScoreCategory>
+    | Record<string, number>
+    | Array<string>
+    | ProjectScore.NullableVariant
+    | null;
 
   config?: ProjectScore.Config | null;
 
@@ -2363,8 +2411,7 @@ export interface ProjectScore {
 }
 
 export namespace ProjectScore {
-  export interface NullableVariant {
-  }
+  export interface NullableVariant {}
 
   export interface Config {
     destination?: 'expected' | null;
@@ -2550,7 +2597,12 @@ export namespace PromptData {
   export interface Options {
     model?: string;
 
-    params?: Options.OpenAIModelParams | Options.AnthropicModelParams | Options.GoogleModelParams | Options.WindowAIModelParams | Options.JsCompletionParams;
+    params?:
+      | Options.OpenAIModelParams
+      | Options.AnthropicModelParams
+      | Options.GoogleModelParams
+      | Options.WindowAIModelParams
+      | Options.JsCompletionParams;
 
     position?: string;
   }
@@ -2774,8 +2826,7 @@ export namespace PromptData {
     }
   }
 
-  export interface NullableVariant {
-  }
+  export interface NullableVariant {}
 }
 
 /**
@@ -2898,12 +2949,33 @@ export namespace Role {
      * Permissions can be assigned to to objects on an individual basis, or grouped
      * into roles
      */
-    permission: 'create' | 'read' | 'update' | 'delete' | 'create_acls' | 'read_acls' | 'update_acls' | 'delete_acls' | null;
+    permission:
+      | 'create'
+      | 'read'
+      | 'update'
+      | 'delete'
+      | 'create_acls'
+      | 'read_acls'
+      | 'update_acls'
+      | 'delete_acls'
+      | null;
 
     /**
      * The object type that the ACL applies to
      */
-    restrict_object_type?: 'organization' | 'project' | 'experiment' | 'dataset' | 'prompt' | 'prompt_session' | 'group' | 'role' | 'org_member' | 'project_log' | 'org_project' | null;
+    restrict_object_type?:
+      | 'organization'
+      | 'project'
+      | 'experiment'
+      | 'dataset'
+      | 'prompt'
+      | 'prompt_session'
+      | 'group'
+      | 'role'
+      | 'org_member'
+      | 'project_log'
+      | 'org_project'
+      | null;
   }
 }
 
@@ -3058,12 +3130,33 @@ export interface View {
   /**
    * The object type that the ACL applies to
    */
-  object_type: 'organization' | 'project' | 'experiment' | 'dataset' | 'prompt' | 'prompt_session' | 'group' | 'role' | 'org_member' | 'project_log' | 'org_project' | null;
+  object_type:
+    | 'organization'
+    | 'project'
+    | 'experiment'
+    | 'dataset'
+    | 'prompt'
+    | 'prompt_session'
+    | 'group'
+    | 'role'
+    | 'org_member'
+    | 'project_log'
+    | 'org_project'
+    | null;
 
   /**
    * Type of table that the view corresponds to.
    */
-  view_type: 'projects' | 'logs' | 'experiments' | 'datasets' | 'prompts' | 'playgrounds' | 'experiment' | 'dataset' | null;
+  view_type:
+    | 'projects'
+    | 'logs'
+    | 'experiments'
+    | 'datasets'
+    | 'prompts'
+    | 'playgrounds'
+    | 'experiment'
+    | 'dataset'
+    | null;
 
   /**
    * Date of view creation
@@ -3122,89 +3215,74 @@ export interface ViewOptions {
 /**
  * Pagination for endpoints which list data objects
  */
-export class ProjectsListObjects extends ListObjects<Project> {
-}
+export class ProjectsListObjects extends ListObjects<Project> {}
 
 /**
  * Pagination for endpoints which list data objects
  */
-export class ExperimentsListObjects extends ListObjects<Experiment> {
-}
+export class ExperimentsListObjects extends ListObjects<Experiment> {}
 
 /**
  * Pagination for endpoints which list data objects
  */
-export class DatasetsListObjects extends ListObjects<Dataset> {
-}
+export class DatasetsListObjects extends ListObjects<Dataset> {}
 
 /**
  * Pagination for endpoints which list data objects
  */
-export class PromptsListObjects extends ListObjects<Prompt> {
-}
+export class PromptsListObjects extends ListObjects<Prompt> {}
 
 /**
  * Pagination for endpoints which list data objects
  */
-export class RolesListObjects extends ListObjects<Role> {
-}
+export class RolesListObjects extends ListObjects<Role> {}
 
 /**
  * Pagination for endpoints which list data objects
  */
-export class GroupsListObjects extends ListObjects<Group> {
-}
+export class GroupsListObjects extends ListObjects<Group> {}
 
 /**
  * Pagination for endpoints which list data objects
  */
-export class ACLsListObjects extends ListObjects<ACL> {
-}
+export class ACLsListObjects extends ListObjects<ACL> {}
 
 /**
  * Pagination for endpoints which list data objects
  */
-export class UsersListObjects extends ListObjects<User> {
-}
+export class UsersListObjects extends ListObjects<User> {}
 
 /**
  * Pagination for endpoints which list data objects
  */
-export class ProjectScoresListObjects extends ListObjects<ProjectScore> {
-}
+export class ProjectScoresListObjects extends ListObjects<ProjectScore> {}
 
 /**
  * Pagination for endpoints which list data objects
  */
-export class ProjectTagsListObjects extends ListObjects<ProjectTag> {
-}
+export class ProjectTagsListObjects extends ListObjects<ProjectTag> {}
 
 /**
  * Pagination for endpoints which list data objects
  */
-export class FunctionsListObjects extends ListObjects<Function> {
-}
+export class FunctionsListObjects extends ListObjects<Function> {}
 
 /**
  * Pagination for endpoints which list data objects
  */
-export class ViewsListObjects extends ListObjects<View> {
-}
+export class ViewsListObjects extends ListObjects<View> {}
 
 /**
  * Pagination for endpoints which list data objects
  */
-export class OrganizationsListObjects extends ListObjects<Organization> {
-}
+export class OrganizationsListObjects extends ListObjects<Organization> {}
 
 /**
  * Pagination for endpoints which list data objects
  */
-export class APIKeysListObjects extends ListObjects<APIKey> {
-}
+export class APIKeysListObjects extends ListObjects<APIKey> {}
 
 /**
  * Pagination for endpoints which list data objects
  */
-export class OrgSecretsListObjects extends ListObjects<OrgSecret> {
-}
+export class OrgSecretsListObjects extends ListObjects<OrgSecret> {}

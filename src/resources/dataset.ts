@@ -2,12 +2,11 @@
 
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
-import { APIPromise } from '../core';
 import * as Core from '../core';
 import * as DatasetAPI from './dataset';
 import * as Shared from './shared';
 import { DatasetsListObjects } from './shared';
-import { ListObjects, type ListObjectsParams } from '../pagination';
+import { type ListObjectsParams } from '../pagination';
 
 export class Dataset extends APIResource {
   /**
@@ -31,9 +30,17 @@ export class Dataset extends APIResource {
    * Any object-type fields will be deep-merged with existing content. Currently we
    * do not support removing fields or setting them to null.
    */
-  update(datasetId: string, body?: DatasetUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.Dataset>
-  update(datasetId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Dataset>
-  update(datasetId: string, body: DatasetUpdateParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<Shared.Dataset> {
+  update(
+    datasetId: string,
+    body?: DatasetUpdateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.Dataset>;
+  update(datasetId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Dataset>;
+  update(
+    datasetId: string,
+    body: DatasetUpdateParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.Dataset> {
     if (isRequestOptions(body)) {
       return this.update(datasetId, {}, body);
     }
@@ -44,9 +51,15 @@ export class Dataset extends APIResource {
    * List out all datasets. The datasets are sorted by creation date, with the most
    * recently-created datasets coming first
    */
-  list(query?: DatasetListParams, options?: Core.RequestOptions): Core.PagePromise<DatasetsListObjects, Shared.Dataset>
-  list(options?: Core.RequestOptions): Core.PagePromise<DatasetsListObjects, Shared.Dataset>
-  list(query: DatasetListParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.PagePromise<DatasetsListObjects, Shared.Dataset> {
+  list(
+    query?: DatasetListParams,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<DatasetsListObjects, Shared.Dataset>;
+  list(options?: Core.RequestOptions): Core.PagePromise<DatasetsListObjects, Shared.Dataset>;
+  list(
+    query: DatasetListParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<DatasetsListObjects, Shared.Dataset> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -63,7 +76,11 @@ export class Dataset extends APIResource {
   /**
    * Log feedback for a set of dataset events
    */
-  feedback(datasetId: string, body: DatasetFeedbackParams, options?: Core.RequestOptions): Core.APIPromise<Shared.FeedbackResponseSchema> {
+  feedback(
+    datasetId: string,
+    body: DatasetFeedbackParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.FeedbackResponseSchema> {
     return this._client.post(`/v1/dataset/${datasetId}/feedback`, { body, ...options });
   }
 
@@ -71,9 +88,17 @@ export class Dataset extends APIResource {
    * Fetch the events in a dataset. Equivalent to the POST form of the same path, but
    * with the parameters in the URL query rather than in the request body
    */
-  fetch(datasetId: string, query?: DatasetFetchParams, options?: Core.RequestOptions): Core.APIPromise<Shared.FetchDatasetEventsResponse>
-  fetch(datasetId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.FetchDatasetEventsResponse>
-  fetch(datasetId: string, query: DatasetFetchParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<Shared.FetchDatasetEventsResponse> {
+  fetch(
+    datasetId: string,
+    query?: DatasetFetchParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.FetchDatasetEventsResponse>;
+  fetch(datasetId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.FetchDatasetEventsResponse>;
+  fetch(
+    datasetId: string,
+    query: DatasetFetchParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.FetchDatasetEventsResponse> {
     if (isRequestOptions(query)) {
       return this.fetch(datasetId, {}, query);
     }
@@ -84,9 +109,20 @@ export class Dataset extends APIResource {
    * Fetch the events in a dataset. Equivalent to the GET form of the same path, but
    * with the parameters in the request body rather than in the URL query
    */
-  fetchPost(datasetId: string, body?: DatasetFetchPostParams, options?: Core.RequestOptions): Core.APIPromise<Shared.FetchDatasetEventsResponse>
-  fetchPost(datasetId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.FetchDatasetEventsResponse>
-  fetchPost(datasetId: string, body: DatasetFetchPostParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<Shared.FetchDatasetEventsResponse> {
+  fetchPost(
+    datasetId: string,
+    body?: DatasetFetchPostParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.FetchDatasetEventsResponse>;
+  fetchPost(
+    datasetId: string,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.FetchDatasetEventsResponse>;
+  fetchPost(
+    datasetId: string,
+    body: DatasetFetchPostParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.FetchDatasetEventsResponse> {
     if (isRequestOptions(body)) {
       return this.fetchPost(datasetId, {}, body);
     }
@@ -96,16 +132,31 @@ export class Dataset extends APIResource {
   /**
    * Insert a set of events into the dataset
    */
-  insert(datasetId: string, body: DatasetInsertParams, options?: Core.RequestOptions): Core.APIPromise<Shared.InsertEventsResponse> {
+  insert(
+    datasetId: string,
+    body: DatasetInsertParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.InsertEventsResponse> {
     return this._client.post(`/v1/dataset/${datasetId}/insert`, { body, ...options });
   }
 
   /**
    * Summarize dataset
    */
-  summarize(datasetId: string, query?: DatasetSummarizeParams, options?: Core.RequestOptions): Core.APIPromise<Shared.SummarizeDatasetResponse>
-  summarize(datasetId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.SummarizeDatasetResponse>
-  summarize(datasetId: string, query: DatasetSummarizeParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<Shared.SummarizeDatasetResponse> {
+  summarize(
+    datasetId: string,
+    query?: DatasetSummarizeParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.SummarizeDatasetResponse>;
+  summarize(
+    datasetId: string,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.SummarizeDatasetResponse>;
+  summarize(
+    datasetId: string,
+    query: DatasetSummarizeParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.SummarizeDatasetResponse> {
     if (isRequestOptions(query)) {
       return this.summarize(datasetId, {}, query);
     }
@@ -341,4 +392,4 @@ export namespace Dataset {
   export import DatasetSummarizeParams = DatasetAPI.DatasetSummarizeParams;
 }
 
-export { DatasetsListObjects }
+export { DatasetsListObjects };

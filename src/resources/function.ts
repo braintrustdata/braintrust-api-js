@@ -2,12 +2,11 @@
 
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
-import { APIPromise } from '../core';
 import * as Core from '../core';
 import * as FunctionAPI from './function';
 import * as Shared from './shared';
 import { FunctionsListObjects } from './shared';
-import { ListObjects, type ListObjectsParams } from '../pagination';
+import { type ListObjectsParams } from '../pagination';
 
 export class Function extends APIResource {
   /**
@@ -31,9 +30,17 @@ export class Function extends APIResource {
    * Any object-type fields will be deep-merged with existing content. Currently we
    * do not support removing fields or setting them to null.
    */
-  update(functionId: string, body?: FunctionUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.Function>
-  update(functionId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Function>
-  update(functionId: string, body: FunctionUpdateParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.APIPromise<Shared.Function> {
+  update(
+    functionId: string,
+    body?: FunctionUpdateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.Function>;
+  update(functionId: string, options?: Core.RequestOptions): Core.APIPromise<Shared.Function>;
+  update(
+    functionId: string,
+    body: FunctionUpdateParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.Function> {
     if (isRequestOptions(body)) {
       return this.update(functionId, {}, body);
     }
@@ -44,9 +51,15 @@ export class Function extends APIResource {
    * List out all functions. The functions are sorted by creation date, with the most
    * recently-created functions coming first
    */
-  list(query?: FunctionListParams, options?: Core.RequestOptions): Core.PagePromise<FunctionsListObjects, Shared.Function>
-  list(options?: Core.RequestOptions): Core.PagePromise<FunctionsListObjects, Shared.Function>
-  list(query: FunctionListParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Core.PagePromise<FunctionsListObjects, Shared.Function> {
+  list(
+    query?: FunctionListParams,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<FunctionsListObjects, Shared.Function>;
+  list(options?: Core.RequestOptions): Core.PagePromise<FunctionsListObjects, Shared.Function>;
+  list(
+    query: FunctionListParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<FunctionsListObjects, Shared.Function> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -195,7 +208,19 @@ export namespace FunctionCreateParams {
     /**
      * The object type that the ACL applies to
      */
-    object_type: 'organization' | 'project' | 'experiment' | 'dataset' | 'prompt' | 'prompt_session' | 'group' | 'role' | 'org_member' | 'project_log' | 'org_project' | null;
+    object_type:
+      | 'organization'
+      | 'project'
+      | 'experiment'
+      | 'dataset'
+      | 'prompt'
+      | 'prompt_session'
+      | 'group'
+      | 'role'
+      | 'org_member'
+      | 'project_log'
+      | 'org_project'
+      | null;
 
     /**
      * The function exists for internal purposes and should not be displayed in the
@@ -211,7 +236,12 @@ export interface FunctionUpdateParams {
    */
   description?: string | null;
 
-  function_data?: FunctionUpdateParams.Prompt | FunctionUpdateParams.Code | FunctionUpdateParams.Global | FunctionUpdateParams.NullableVariant | null;
+  function_data?:
+    | FunctionUpdateParams.Prompt
+    | FunctionUpdateParams.Code
+    | FunctionUpdateParams.Global
+    | FunctionUpdateParams.NullableVariant
+    | null;
 
   /**
    * Name of the prompt
@@ -307,8 +337,7 @@ export namespace FunctionUpdateParams {
     type: 'global';
   }
 
-  export interface NullableVariant {
-  }
+  export interface NullableVariant {}
 }
 
 export interface FunctionListParams extends ListObjectsParams {
@@ -477,7 +506,19 @@ export namespace FunctionReplaceParams {
     /**
      * The object type that the ACL applies to
      */
-    object_type: 'organization' | 'project' | 'experiment' | 'dataset' | 'prompt' | 'prompt_session' | 'group' | 'role' | 'org_member' | 'project_log' | 'org_project' | null;
+    object_type:
+      | 'organization'
+      | 'project'
+      | 'experiment'
+      | 'dataset'
+      | 'prompt'
+      | 'prompt_session'
+      | 'group'
+      | 'role'
+      | 'org_member'
+      | 'project_log'
+      | 'org_project'
+      | null;
 
     /**
      * The function exists for internal purposes and should not be displayed in the
@@ -494,4 +535,4 @@ export namespace Function {
   export import FunctionReplaceParams = FunctionAPI.FunctionReplaceParams;
 }
 
-export { FunctionsListObjects }
+export { FunctionsListObjects };
