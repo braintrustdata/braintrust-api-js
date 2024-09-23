@@ -248,8 +248,11 @@ export namespace Braintrust {
   export import GroupReplaceParams = API.GroupReplaceParams;
 
   export import ACL = API.ACL;
+  export import ACLBatchUpdateResponse = API.ACLBatchUpdateResponse;
   export import ACLCreateParams = API.ACLCreateParams;
   export import ACLListParams = API.ACLListParams;
+  export import ACLBatchUpdateParams = API.ACLBatchUpdateParams;
+  export import ACLFindAndDeleteParams = API.ACLFindAndDeleteParams;
 
   export import User = API.User;
   export import UserListParams = API.UserListParams;
@@ -292,6 +295,7 @@ export namespace Braintrust {
   export import OrgSecretCreateParams = API.OrgSecretCreateParams;
   export import OrgSecretUpdateParams = API.OrgSecretUpdateParams;
   export import OrgSecretListParams = API.OrgSecretListParams;
+  export import OrgSecretFindAndDeleteParams = API.OrgSecretFindAndDeleteParams;
   export import OrgSecretReplaceParams = API.OrgSecretReplaceParams;
 
   export import ACL = API.ACL;

@@ -1,7 +1,14 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export * from './shared';
-export { ACLCreateParams, ACLListParams, ACL } from './acl';
+export {
+  ACLBatchUpdateResponse,
+  ACLCreateParams,
+  ACLListParams,
+  ACLBatchUpdateParams,
+  ACLFindAndDeleteParams,
+  ACL,
+} from './acl';
 export { APIKeyResourceCreateParams, APIKeyResourceListParams, APIKeyResource } from './api-key-resource';
 export {
   DatasetCreateParams,
@@ -37,6 +44,7 @@ export {
   OrgSecretCreateParams,
   OrgSecretUpdateParams,
   OrgSecretListParams,
+  OrgSecretFindAndDeleteParams,
   OrgSecretReplaceParams,
   OrgSecret,
 } from './org-secret';
