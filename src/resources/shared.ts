@@ -821,7 +821,12 @@ export interface Function {
    */
   description?: string | null;
 
-  function_type?: 'task' | 'llm' | 'scorer' | null;
+  /**
+   * JSON schema for the function's parameters and return type
+   */
+  function_schema?: Function.FunctionSchema | null;
+
+  function_type?: 'llm' | 'scorer' | 'task' | 'tool' | null;
 
   /**
    * User-controlled metadata about the prompt
@@ -856,7 +861,7 @@ export namespace Function {
     export interface Bundle {
       bundle_id: string;
 
-      location: Bundle.Location;
+      location: Bundle.Experiment | Bundle.Function;
 
       runtime_context: Bundle.RuntimeContext;
 
@@ -869,15 +874,15 @@ export namespace Function {
     }
 
     export namespace Bundle {
-      export interface Location {
+      export interface Experiment {
         eval_name: string;
 
-        position: Location.Type | Location.Scorer;
+        position: Experiment.Type | Experiment.Scorer;
 
         type: 'experiment';
       }
 
-      export namespace Location {
+      export namespace Experiment {
         export interface Type {
           type: 'task';
         }
@@ -887,6 +892,12 @@ export namespace Function {
 
           type: 'scorer';
         }
+      }
+
+      export interface Function {
+        index: number;
+
+        type: 'function';
       }
 
       export interface RuntimeContext {
@@ -917,6 +928,15 @@ export namespace Function {
     name: string;
 
     type: 'global';
+  }
+
+  /**
+   * JSON schema for the function's parameters and return type
+   */
+  export interface FunctionSchema {
+    parameters?: unknown;
+
+    returns?: unknown;
   }
 
   export interface Origin {
@@ -2100,6 +2120,49 @@ export interface PathLookupFilter {
   value?: unknown;
 }
 
+export interface Project {
+  /**
+   * Unique identifier for the project
+   */
+  id: string;
+
+  /**
+   * Name of the project
+   */
+  name: string;
+
+  /**
+   * Unique id for the organization that the project belongs under
+   */
+  org_id: string;
+
+  /**
+   * Date of project creation
+   */
+  created?: string | null;
+
+  /**
+   * Date of project deletion, or null if the project is still active
+   */
+  deleted_at?: string | null;
+
+  settings?: Project.Settings | null;
+
+  /**
+   * Identifies the user who created the project
+   */
+  user_id?: string | null;
+}
+
+export namespace Project {
+  export interface Settings {
+    /**
+     * The key used to join two experiments (defaults to `input`).
+     */
+    comparison_key?: string | null;
+  }
+}
+
 export interface ProjectLogsEvent {
   /**
    * A unique identifier for the project logs event. If you don't provide one,
@@ -2311,49 +2374,6 @@ export namespace ProjectLogsEvent {
   }
 }
 
-export interface ProjectModel {
-  /**
-   * Unique identifier for the project
-   */
-  id: string;
-
-  /**
-   * Name of the project
-   */
-  name: string;
-
-  /**
-   * Unique id for the organization that the project belongs under
-   */
-  org_id: string;
-
-  /**
-   * Date of project creation
-   */
-  created?: string | null;
-
-  /**
-   * Date of project deletion, or null if the project is still active
-   */
-  deleted_at?: string | null;
-
-  settings?: ProjectModel.Settings | null;
-
-  /**
-   * Identifies the user who created the project
-   */
-  user_id?: string | null;
-}
-
-export namespace ProjectModel {
-  export interface Settings {
-    /**
-     * The key used to join two experiments (defaults to `input`).
-     */
-    comparison_key?: string | null;
-  }
-}
-
 /**
  * A project score is a user-configured score, which can be manually-labeled
  * through the UI
@@ -2562,7 +2582,7 @@ export interface Prompt {
    */
   description?: string | null;
 
-  function_type?: 'task' | 'llm' | 'scorer' | null;
+  function_type?: 'llm' | 'scorer' | 'task' | 'tool' | null;
 
   /**
    * User-controlled metadata about the prompt
@@ -2591,6 +2611,8 @@ export interface PromptData {
   parser?: PromptData.Parser | null;
 
   prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullableVariant | null;
+
+  tool_functions?: Array<PromptData.Function | PromptData.Global> | null;
 }
 
 export namespace PromptData {
@@ -2827,6 +2849,18 @@ export namespace PromptData {
   }
 
   export interface NullableVariant {}
+
+  export interface Function {
+    id: string;
+
+    type: 'function';
+  }
+
+  export interface Global {
+    name: string;
+
+    type: 'global';
+  }
 }
 
 /**
@@ -3215,7 +3249,7 @@ export interface ViewOptions {
 /**
  * Pagination for endpoints which list data objects
  */
-export class ProjectModelsListObjects extends ListObjects<ProjectModel> {}
+export class ProjectsListObjects extends ListObjects<Project> {}
 
 /**
  * Pagination for endpoints which list data objects
