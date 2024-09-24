@@ -278,7 +278,12 @@ export interface FunctionUpdateParams {
    */
   description?: string | null;
 
-  function_data?: FunctionUpdateParams.FunctionData;
+  function_data?:
+    | FunctionUpdateParams.Prompt
+    | FunctionUpdateParams.Code
+    | FunctionUpdateParams.Global
+    | FunctionUpdateParams.NullableVariant
+    | null;
 
   /**
    * Name of the prompt
@@ -297,7 +302,90 @@ export interface FunctionUpdateParams {
 }
 
 export namespace FunctionUpdateParams {
-  export interface FunctionData {}
+  export interface Prompt {
+    type: 'prompt';
+  }
+
+  export interface Code {
+    data: Code.Bundle | Code.Inline;
+
+    type: 'code';
+  }
+
+  export namespace Code {
+    export interface Bundle {
+      bundle_id: string;
+
+      location: Bundle.Experiment | Bundle.Function;
+
+      runtime_context: Bundle.RuntimeContext;
+
+      type: 'bundle';
+
+      /**
+       * A preview of the code
+       */
+      preview?: string | null;
+    }
+
+    export namespace Bundle {
+      export interface Experiment {
+        eval_name: string;
+
+        position: Experiment.Type | Experiment.Scorer;
+
+        type: 'experiment';
+      }
+
+      export namespace Experiment {
+        export interface Type {
+          type: 'task';
+        }
+
+        export interface Scorer {
+          index: number;
+
+          type: 'scorer';
+        }
+      }
+
+      export interface Function {
+        index: number;
+
+        type: 'function';
+      }
+
+      export interface RuntimeContext {
+        runtime: 'node' | 'python';
+
+        version: string;
+      }
+    }
+
+    export interface Inline {
+      code: string;
+
+      runtime_context: Inline.RuntimeContext;
+
+      type: 'inline';
+    }
+
+    export namespace Inline {
+      export interface RuntimeContext {
+        runtime: 'node' | 'python';
+
+        version: string;
+      }
+    }
+  }
+
+  export interface Global {
+    name: string;
+
+    type: 'global';
+  }
+
+  export interface NullableVariant {}
 }
 
 export interface FunctionListParams extends ListObjectsParams {
