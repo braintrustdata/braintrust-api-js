@@ -31,8 +31,8 @@ Types:
 - <code><a href="./src/resources/shared.ts">MetricSummary</a></code>
 - <code><a href="./src/resources/shared.ts">Organization</a></code>
 - <code><a href="./src/resources/shared.ts">PathLookupFilter</a></code>
+- <code><a href="./src/resources/shared.ts">Project</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectLogsEvent</a></code>
-- <code><a href="./src/resources/shared.ts">ProjectModel</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectScore</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectScoreCategory</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectTag</a></code>
@@ -59,195 +59,195 @@ Methods:
 
 - <code title="get /v1">client.topLevel.<a href="./src/resources/top-level.ts">helloWorld</a>() -> string</code>
 
-# Project
+# Projects
 
 Methods:
 
-- <code title="post /v1/project">client.project.<a href="./src/resources/project/project.ts">create</a>({ ...params }) -> ProjectModel</code>
-- <code title="get /v1/project/{project_id}">client.project.<a href="./src/resources/project/project.ts">retrieve</a>(projectId) -> ProjectModel</code>
-- <code title="patch /v1/project/{project_id}">client.project.<a href="./src/resources/project/project.ts">update</a>(projectId, { ...params }) -> ProjectModel</code>
-- <code title="get /v1/project">client.project.<a href="./src/resources/project/project.ts">list</a>({ ...params }) -> ProjectModelsListObjects</code>
-- <code title="delete /v1/project/{project_id}">client.project.<a href="./src/resources/project/project.ts">delete</a>(projectId) -> ProjectModel</code>
+- <code title="post /v1/project">client.projects.<a href="./src/resources/projects/projects.ts">create</a>({ ...params }) -> Project</code>
+- <code title="get /v1/project/{project_id}">client.projects.<a href="./src/resources/projects/projects.ts">retrieve</a>(projectId) -> Project</code>
+- <code title="patch /v1/project/{project_id}">client.projects.<a href="./src/resources/projects/projects.ts">update</a>(projectId, { ...params }) -> Project</code>
+- <code title="get /v1/project">client.projects.<a href="./src/resources/projects/projects.ts">list</a>({ ...params }) -> ProjectsListObjects</code>
+- <code title="delete /v1/project/{project_id}">client.projects.<a href="./src/resources/projects/projects.ts">delete</a>(projectId) -> Project</code>
 
 ## Logs
 
 Methods:
 
-- <code title="post /v1/project_logs/{project_id}/feedback">client.project.logs.<a href="./src/resources/project/logs.ts">feedback</a>(projectId, { ...params }) -> FeedbackResponseSchema</code>
-- <code title="get /v1/project_logs/{project_id}/fetch">client.project.logs.<a href="./src/resources/project/logs.ts">fetch</a>(projectId, { ...params }) -> FetchProjectLogsEventsResponse</code>
-- <code title="post /v1/project_logs/{project_id}/fetch">client.project.logs.<a href="./src/resources/project/logs.ts">fetchPost</a>(projectId, { ...params }) -> FetchProjectLogsEventsResponse</code>
-- <code title="post /v1/project_logs/{project_id}/insert">client.project.logs.<a href="./src/resources/project/logs.ts">insert</a>(projectId, { ...params }) -> InsertEventsResponse</code>
+- <code title="post /v1/project_logs/{project_id}/feedback">client.projects.logs.<a href="./src/resources/projects/logs.ts">feedback</a>(projectId, { ...params }) -> FeedbackResponseSchema</code>
+- <code title="get /v1/project_logs/{project_id}/fetch">client.projects.logs.<a href="./src/resources/projects/logs.ts">fetch</a>(projectId, { ...params }) -> FetchProjectLogsEventsResponse</code>
+- <code title="post /v1/project_logs/{project_id}/fetch">client.projects.logs.<a href="./src/resources/projects/logs.ts">fetchPost</a>(projectId, { ...params }) -> FetchProjectLogsEventsResponse</code>
+- <code title="post /v1/project_logs/{project_id}/insert">client.projects.logs.<a href="./src/resources/projects/logs.ts">insert</a>(projectId, { ...params }) -> InsertEventsResponse</code>
 
-# Experiment
-
-Methods:
-
-- <code title="post /v1/experiment">client.experiment.<a href="./src/resources/experiment.ts">create</a>({ ...params }) -> Experiment</code>
-- <code title="get /v1/experiment/{experiment_id}">client.experiment.<a href="./src/resources/experiment.ts">retrieve</a>(experimentId) -> Experiment</code>
-- <code title="patch /v1/experiment/{experiment_id}">client.experiment.<a href="./src/resources/experiment.ts">update</a>(experimentId, { ...params }) -> Experiment</code>
-- <code title="get /v1/experiment">client.experiment.<a href="./src/resources/experiment.ts">list</a>({ ...params }) -> ExperimentsListObjects</code>
-- <code title="delete /v1/experiment/{experiment_id}">client.experiment.<a href="./src/resources/experiment.ts">delete</a>(experimentId) -> Experiment</code>
-- <code title="post /v1/experiment/{experiment_id}/feedback">client.experiment.<a href="./src/resources/experiment.ts">feedback</a>(experimentId, { ...params }) -> FeedbackResponseSchema</code>
-- <code title="get /v1/experiment/{experiment_id}/fetch">client.experiment.<a href="./src/resources/experiment.ts">fetch</a>(experimentId, { ...params }) -> FetchExperimentEventsResponse</code>
-- <code title="post /v1/experiment/{experiment_id}/fetch">client.experiment.<a href="./src/resources/experiment.ts">fetchPost</a>(experimentId, { ...params }) -> FetchExperimentEventsResponse</code>
-- <code title="post /v1/experiment/{experiment_id}/insert">client.experiment.<a href="./src/resources/experiment.ts">insert</a>(experimentId, { ...params }) -> InsertEventsResponse</code>
-- <code title="get /v1/experiment/{experiment_id}/summarize">client.experiment.<a href="./src/resources/experiment.ts">summarize</a>(experimentId, { ...params }) -> SummarizeExperimentResponse</code>
-
-# Dataset
+# Experiments
 
 Methods:
 
-- <code title="post /v1/dataset">client.dataset.<a href="./src/resources/dataset.ts">create</a>({ ...params }) -> Dataset</code>
-- <code title="get /v1/dataset/{dataset_id}">client.dataset.<a href="./src/resources/dataset.ts">retrieve</a>(datasetId) -> Dataset</code>
-- <code title="patch /v1/dataset/{dataset_id}">client.dataset.<a href="./src/resources/dataset.ts">update</a>(datasetId, { ...params }) -> Dataset</code>
-- <code title="get /v1/dataset">client.dataset.<a href="./src/resources/dataset.ts">list</a>({ ...params }) -> DatasetsListObjects</code>
-- <code title="delete /v1/dataset/{dataset_id}">client.dataset.<a href="./src/resources/dataset.ts">delete</a>(datasetId) -> Dataset</code>
-- <code title="post /v1/dataset/{dataset_id}/feedback">client.dataset.<a href="./src/resources/dataset.ts">feedback</a>(datasetId, { ...params }) -> FeedbackResponseSchema</code>
-- <code title="get /v1/dataset/{dataset_id}/fetch">client.dataset.<a href="./src/resources/dataset.ts">fetch</a>(datasetId, { ...params }) -> FetchDatasetEventsResponse</code>
-- <code title="post /v1/dataset/{dataset_id}/fetch">client.dataset.<a href="./src/resources/dataset.ts">fetchPost</a>(datasetId, { ...params }) -> FetchDatasetEventsResponse</code>
-- <code title="post /v1/dataset/{dataset_id}/insert">client.dataset.<a href="./src/resources/dataset.ts">insert</a>(datasetId, { ...params }) -> InsertEventsResponse</code>
-- <code title="get /v1/dataset/{dataset_id}/summarize">client.dataset.<a href="./src/resources/dataset.ts">summarize</a>(datasetId, { ...params }) -> SummarizeDatasetResponse</code>
+- <code title="post /v1/experiment">client.experiments.<a href="./src/resources/experiments.ts">create</a>({ ...params }) -> Experiment</code>
+- <code title="get /v1/experiment/{experiment_id}">client.experiments.<a href="./src/resources/experiments.ts">retrieve</a>(experimentId) -> Experiment</code>
+- <code title="patch /v1/experiment/{experiment_id}">client.experiments.<a href="./src/resources/experiments.ts">update</a>(experimentId, { ...params }) -> Experiment</code>
+- <code title="get /v1/experiment">client.experiments.<a href="./src/resources/experiments.ts">list</a>({ ...params }) -> ExperimentsListObjects</code>
+- <code title="delete /v1/experiment/{experiment_id}">client.experiments.<a href="./src/resources/experiments.ts">delete</a>(experimentId) -> Experiment</code>
+- <code title="post /v1/experiment/{experiment_id}/feedback">client.experiments.<a href="./src/resources/experiments.ts">feedback</a>(experimentId, { ...params }) -> FeedbackResponseSchema</code>
+- <code title="get /v1/experiment/{experiment_id}/fetch">client.experiments.<a href="./src/resources/experiments.ts">fetch</a>(experimentId, { ...params }) -> FetchExperimentEventsResponse</code>
+- <code title="post /v1/experiment/{experiment_id}/fetch">client.experiments.<a href="./src/resources/experiments.ts">fetchPost</a>(experimentId, { ...params }) -> FetchExperimentEventsResponse</code>
+- <code title="post /v1/experiment/{experiment_id}/insert">client.experiments.<a href="./src/resources/experiments.ts">insert</a>(experimentId, { ...params }) -> InsertEventsResponse</code>
+- <code title="get /v1/experiment/{experiment_id}/summarize">client.experiments.<a href="./src/resources/experiments.ts">summarize</a>(experimentId, { ...params }) -> SummarizeExperimentResponse</code>
 
-# Prompt
-
-Methods:
-
-- <code title="post /v1/prompt">client.prompt.<a href="./src/resources/prompt.ts">create</a>({ ...params }) -> Prompt</code>
-- <code title="get /v1/prompt/{prompt_id}">client.prompt.<a href="./src/resources/prompt.ts">retrieve</a>(promptId) -> Prompt</code>
-- <code title="patch /v1/prompt/{prompt_id}">client.prompt.<a href="./src/resources/prompt.ts">update</a>(promptId, { ...params }) -> Prompt</code>
-- <code title="get /v1/prompt">client.prompt.<a href="./src/resources/prompt.ts">list</a>({ ...params }) -> PromptsListObjects</code>
-- <code title="delete /v1/prompt/{prompt_id}">client.prompt.<a href="./src/resources/prompt.ts">delete</a>(promptId) -> Prompt</code>
-- <code title="put /v1/prompt">client.prompt.<a href="./src/resources/prompt.ts">replace</a>({ ...params }) -> Prompt</code>
-
-# Role
+# Datasets
 
 Methods:
 
-- <code title="post /v1/role">client.role.<a href="./src/resources/role.ts">create</a>({ ...params }) -> Role</code>
-- <code title="get /v1/role/{role_id}">client.role.<a href="./src/resources/role.ts">retrieve</a>(roleId) -> Role</code>
-- <code title="patch /v1/role/{role_id}">client.role.<a href="./src/resources/role.ts">update</a>(roleId, { ...params }) -> Role</code>
-- <code title="get /v1/role">client.role.<a href="./src/resources/role.ts">list</a>({ ...params }) -> RolesListObjects</code>
-- <code title="delete /v1/role/{role_id}">client.role.<a href="./src/resources/role.ts">delete</a>(roleId) -> Role</code>
-- <code title="put /v1/role">client.role.<a href="./src/resources/role.ts">replace</a>({ ...params }) -> Role</code>
+- <code title="post /v1/dataset">client.datasets.<a href="./src/resources/datasets.ts">create</a>({ ...params }) -> Dataset</code>
+- <code title="get /v1/dataset/{dataset_id}">client.datasets.<a href="./src/resources/datasets.ts">retrieve</a>(datasetId) -> Dataset</code>
+- <code title="patch /v1/dataset/{dataset_id}">client.datasets.<a href="./src/resources/datasets.ts">update</a>(datasetId, { ...params }) -> Dataset</code>
+- <code title="get /v1/dataset">client.datasets.<a href="./src/resources/datasets.ts">list</a>({ ...params }) -> DatasetsListObjects</code>
+- <code title="delete /v1/dataset/{dataset_id}">client.datasets.<a href="./src/resources/datasets.ts">delete</a>(datasetId) -> Dataset</code>
+- <code title="post /v1/dataset/{dataset_id}/feedback">client.datasets.<a href="./src/resources/datasets.ts">feedback</a>(datasetId, { ...params }) -> FeedbackResponseSchema</code>
+- <code title="get /v1/dataset/{dataset_id}/fetch">client.datasets.<a href="./src/resources/datasets.ts">fetch</a>(datasetId, { ...params }) -> FetchDatasetEventsResponse</code>
+- <code title="post /v1/dataset/{dataset_id}/fetch">client.datasets.<a href="./src/resources/datasets.ts">fetchPost</a>(datasetId, { ...params }) -> FetchDatasetEventsResponse</code>
+- <code title="post /v1/dataset/{dataset_id}/insert">client.datasets.<a href="./src/resources/datasets.ts">insert</a>(datasetId, { ...params }) -> InsertEventsResponse</code>
+- <code title="get /v1/dataset/{dataset_id}/summarize">client.datasets.<a href="./src/resources/datasets.ts">summarize</a>(datasetId, { ...params }) -> SummarizeDatasetResponse</code>
 
-# Group
+# Prompts
 
 Methods:
 
-- <code title="post /v1/group">client.group.<a href="./src/resources/group.ts">create</a>({ ...params }) -> Group</code>
-- <code title="get /v1/group/{group_id}">client.group.<a href="./src/resources/group.ts">retrieve</a>(groupId) -> Group</code>
-- <code title="patch /v1/group/{group_id}">client.group.<a href="./src/resources/group.ts">update</a>(groupId, { ...params }) -> Group</code>
-- <code title="get /v1/group">client.group.<a href="./src/resources/group.ts">list</a>({ ...params }) -> GroupsListObjects</code>
-- <code title="delete /v1/group/{group_id}">client.group.<a href="./src/resources/group.ts">delete</a>(groupId) -> Group</code>
-- <code title="put /v1/group">client.group.<a href="./src/resources/group.ts">replace</a>({ ...params }) -> Group</code>
+- <code title="post /v1/prompt">client.prompts.<a href="./src/resources/prompts.ts">create</a>({ ...params }) -> Prompt</code>
+- <code title="get /v1/prompt/{prompt_id}">client.prompts.<a href="./src/resources/prompts.ts">retrieve</a>(promptId) -> Prompt</code>
+- <code title="patch /v1/prompt/{prompt_id}">client.prompts.<a href="./src/resources/prompts.ts">update</a>(promptId, { ...params }) -> Prompt</code>
+- <code title="get /v1/prompt">client.prompts.<a href="./src/resources/prompts.ts">list</a>({ ...params }) -> PromptsListObjects</code>
+- <code title="delete /v1/prompt/{prompt_id}">client.prompts.<a href="./src/resources/prompts.ts">delete</a>(promptId) -> Prompt</code>
+- <code title="put /v1/prompt">client.prompts.<a href="./src/resources/prompts.ts">replace</a>({ ...params }) -> Prompt</code>
 
-# ACL
+# Roles
+
+Methods:
+
+- <code title="post /v1/role">client.roles.<a href="./src/resources/roles.ts">create</a>({ ...params }) -> Role</code>
+- <code title="get /v1/role/{role_id}">client.roles.<a href="./src/resources/roles.ts">retrieve</a>(roleId) -> Role</code>
+- <code title="patch /v1/role/{role_id}">client.roles.<a href="./src/resources/roles.ts">update</a>(roleId, { ...params }) -> Role</code>
+- <code title="get /v1/role">client.roles.<a href="./src/resources/roles.ts">list</a>({ ...params }) -> RolesListObjects</code>
+- <code title="delete /v1/role/{role_id}">client.roles.<a href="./src/resources/roles.ts">delete</a>(roleId) -> Role</code>
+- <code title="put /v1/role">client.roles.<a href="./src/resources/roles.ts">replace</a>({ ...params }) -> Role</code>
+
+# Groups
+
+Methods:
+
+- <code title="post /v1/group">client.groups.<a href="./src/resources/groups.ts">create</a>({ ...params }) -> Group</code>
+- <code title="get /v1/group/{group_id}">client.groups.<a href="./src/resources/groups.ts">retrieve</a>(groupId) -> Group</code>
+- <code title="patch /v1/group/{group_id}">client.groups.<a href="./src/resources/groups.ts">update</a>(groupId, { ...params }) -> Group</code>
+- <code title="get /v1/group">client.groups.<a href="./src/resources/groups.ts">list</a>({ ...params }) -> GroupsListObjects</code>
+- <code title="delete /v1/group/{group_id}">client.groups.<a href="./src/resources/groups.ts">delete</a>(groupId) -> Group</code>
+- <code title="put /v1/group">client.groups.<a href="./src/resources/groups.ts">replace</a>({ ...params }) -> Group</code>
+
+# ACLs
 
 Types:
 
-- <code><a href="./src/resources/acl.ts">ACLBatchUpdateResponse</a></code>
+- <code><a href="./src/resources/acls.ts">ACLBatchUpdateResponse</a></code>
 
 Methods:
 
-- <code title="post /v1/acl">client.acl.<a href="./src/resources/acl.ts">create</a>({ ...params }) -> ACL</code>
-- <code title="get /v1/acl/{acl_id}">client.acl.<a href="./src/resources/acl.ts">retrieve</a>(aclId) -> ACL</code>
-- <code title="get /v1/acl">client.acl.<a href="./src/resources/acl.ts">list</a>({ ...params }) -> ACLsListObjects</code>
-- <code title="delete /v1/acl/{acl_id}">client.acl.<a href="./src/resources/acl.ts">delete</a>(aclId) -> ACL</code>
-- <code title="post /v1/acl/batch-update">client.acl.<a href="./src/resources/acl.ts">batchUpdate</a>({ ...params }) -> ACLBatchUpdateResponse</code>
-- <code title="delete /v1/acl">client.acl.<a href="./src/resources/acl.ts">findAndDelete</a>({ ...params }) -> ACL</code>
+- <code title="post /v1/acl">client.acls.<a href="./src/resources/acls.ts">create</a>({ ...params }) -> ACL</code>
+- <code title="get /v1/acl/{acl_id}">client.acls.<a href="./src/resources/acls.ts">retrieve</a>(aclId) -> ACL</code>
+- <code title="get /v1/acl">client.acls.<a href="./src/resources/acls.ts">list</a>({ ...params }) -> ACLsListObjects</code>
+- <code title="delete /v1/acl/{acl_id}">client.acls.<a href="./src/resources/acls.ts">delete</a>(aclId) -> ACL</code>
+- <code title="post /v1/acl/batch-update">client.acls.<a href="./src/resources/acls.ts">batchUpdate</a>({ ...params }) -> ACLBatchUpdateResponse</code>
+- <code title="delete /v1/acl">client.acls.<a href="./src/resources/acls.ts">findAndDelete</a>({ ...params }) -> ACL</code>
 
-# User
-
-Methods:
-
-- <code title="get /v1/user/{user_id}">client.user.<a href="./src/resources/user.ts">retrieve</a>(userId) -> User</code>
-- <code title="get /v1/user">client.user.<a href="./src/resources/user.ts">list</a>({ ...params }) -> UsersListObjects</code>
-
-# ProjectScore
+# Users
 
 Methods:
 
-- <code title="post /v1/project_score">client.projectScore.<a href="./src/resources/project-score.ts">create</a>({ ...params }) -> ProjectScore</code>
-- <code title="get /v1/project_score/{project_score_id}">client.projectScore.<a href="./src/resources/project-score.ts">retrieve</a>(projectScoreId) -> ProjectScore</code>
-- <code title="patch /v1/project_score/{project_score_id}">client.projectScore.<a href="./src/resources/project-score.ts">update</a>(projectScoreId, { ...params }) -> ProjectScore</code>
-- <code title="get /v1/project_score">client.projectScore.<a href="./src/resources/project-score.ts">list</a>({ ...params }) -> ProjectScoresListObjects</code>
-- <code title="delete /v1/project_score/{project_score_id}">client.projectScore.<a href="./src/resources/project-score.ts">delete</a>(projectScoreId) -> ProjectScore</code>
-- <code title="put /v1/project_score">client.projectScore.<a href="./src/resources/project-score.ts">replace</a>({ ...params }) -> ProjectScore</code>
+- <code title="get /v1/user/{user_id}">client.users.<a href="./src/resources/users.ts">retrieve</a>(userId) -> User</code>
+- <code title="get /v1/user">client.users.<a href="./src/resources/users.ts">list</a>({ ...params }) -> UsersListObjects</code>
 
-# ProjectTag
+# ProjectScores
 
 Methods:
 
-- <code title="post /v1/project_tag">client.projectTag.<a href="./src/resources/project-tag.ts">create</a>({ ...params }) -> ProjectTag</code>
-- <code title="get /v1/project_tag/{project_tag_id}">client.projectTag.<a href="./src/resources/project-tag.ts">retrieve</a>(projectTagId) -> ProjectTag</code>
-- <code title="patch /v1/project_tag/{project_tag_id}">client.projectTag.<a href="./src/resources/project-tag.ts">update</a>(projectTagId, { ...params }) -> ProjectTag</code>
-- <code title="get /v1/project_tag">client.projectTag.<a href="./src/resources/project-tag.ts">list</a>({ ...params }) -> ProjectTagsListObjects</code>
-- <code title="delete /v1/project_tag/{project_tag_id}">client.projectTag.<a href="./src/resources/project-tag.ts">delete</a>(projectTagId) -> ProjectTag</code>
-- <code title="put /v1/project_tag">client.projectTag.<a href="./src/resources/project-tag.ts">replace</a>({ ...params }) -> ProjectTag</code>
+- <code title="post /v1/project_score">client.projectScores.<a href="./src/resources/project-scores.ts">create</a>({ ...params }) -> ProjectScore</code>
+- <code title="get /v1/project_score/{project_score_id}">client.projectScores.<a href="./src/resources/project-scores.ts">retrieve</a>(projectScoreId) -> ProjectScore</code>
+- <code title="patch /v1/project_score/{project_score_id}">client.projectScores.<a href="./src/resources/project-scores.ts">update</a>(projectScoreId, { ...params }) -> ProjectScore</code>
+- <code title="get /v1/project_score">client.projectScores.<a href="./src/resources/project-scores.ts">list</a>({ ...params }) -> ProjectScoresListObjects</code>
+- <code title="delete /v1/project_score/{project_score_id}">client.projectScores.<a href="./src/resources/project-scores.ts">delete</a>(projectScoreId) -> ProjectScore</code>
+- <code title="put /v1/project_score">client.projectScores.<a href="./src/resources/project-scores.ts">replace</a>({ ...params }) -> ProjectScore</code>
 
-# Function
+# ProjectTags
+
+Methods:
+
+- <code title="post /v1/project_tag">client.projectTags.<a href="./src/resources/project-tags.ts">create</a>({ ...params }) -> ProjectTag</code>
+- <code title="get /v1/project_tag/{project_tag_id}">client.projectTags.<a href="./src/resources/project-tags.ts">retrieve</a>(projectTagId) -> ProjectTag</code>
+- <code title="patch /v1/project_tag/{project_tag_id}">client.projectTags.<a href="./src/resources/project-tags.ts">update</a>(projectTagId, { ...params }) -> ProjectTag</code>
+- <code title="get /v1/project_tag">client.projectTags.<a href="./src/resources/project-tags.ts">list</a>({ ...params }) -> ProjectTagsListObjects</code>
+- <code title="delete /v1/project_tag/{project_tag_id}">client.projectTags.<a href="./src/resources/project-tags.ts">delete</a>(projectTagId) -> ProjectTag</code>
+- <code title="put /v1/project_tag">client.projectTags.<a href="./src/resources/project-tags.ts">replace</a>({ ...params }) -> ProjectTag</code>
+
+# Functions
 
 Types:
 
-- <code><a href="./src/resources/function.ts">FunctionInvokeResponse</a></code>
+- <code><a href="./src/resources/functions.ts">FunctionInvokeResponse</a></code>
 
 Methods:
 
-- <code title="post /v1/function">client.function.<a href="./src/resources/function.ts">create</a>({ ...params }) -> Function</code>
-- <code title="get /v1/function/{function_id}">client.function.<a href="./src/resources/function.ts">retrieve</a>(functionId) -> Function</code>
-- <code title="patch /v1/function/{function_id}">client.function.<a href="./src/resources/function.ts">update</a>(functionId, { ...params }) -> Function</code>
-- <code title="get /v1/function">client.function.<a href="./src/resources/function.ts">list</a>({ ...params }) -> FunctionsListObjects</code>
-- <code title="delete /v1/function/{function_id}">client.function.<a href="./src/resources/function.ts">delete</a>(functionId) -> Function</code>
-- <code title="post /v1/function/{function_id}/invoke">client.function.<a href="./src/resources/function.ts">invoke</a>(functionId, { ...params }) -> unknown</code>
-- <code title="put /v1/function">client.function.<a href="./src/resources/function.ts">replace</a>({ ...params }) -> Function</code>
+- <code title="post /v1/function">client.functions.<a href="./src/resources/functions.ts">create</a>({ ...params }) -> Function</code>
+- <code title="get /v1/function/{function_id}">client.functions.<a href="./src/resources/functions.ts">retrieve</a>(functionId) -> Function</code>
+- <code title="patch /v1/function/{function_id}">client.functions.<a href="./src/resources/functions.ts">update</a>(functionId, { ...params }) -> Function</code>
+- <code title="get /v1/function">client.functions.<a href="./src/resources/functions.ts">list</a>({ ...params }) -> FunctionsListObjects</code>
+- <code title="delete /v1/function/{function_id}">client.functions.<a href="./src/resources/functions.ts">delete</a>(functionId) -> Function</code>
+- <code title="post /v1/function/{function_id}/invoke">client.functions.<a href="./src/resources/functions.ts">invoke</a>(functionId, { ...params }) -> unknown</code>
+- <code title="put /v1/function">client.functions.<a href="./src/resources/functions.ts">replace</a>({ ...params }) -> Function</code>
 
-# View
-
-Methods:
-
-- <code title="post /v1/view">client.view.<a href="./src/resources/view.ts">create</a>({ ...params }) -> View</code>
-- <code title="get /v1/view/{view_id}">client.view.<a href="./src/resources/view.ts">retrieve</a>(viewId, { ...params }) -> View</code>
-- <code title="patch /v1/view/{view_id}">client.view.<a href="./src/resources/view.ts">update</a>(viewId, { ...params }) -> View</code>
-- <code title="get /v1/view">client.view.<a href="./src/resources/view.ts">list</a>({ ...params }) -> ViewsListObjects</code>
-- <code title="delete /v1/view/{view_id}">client.view.<a href="./src/resources/view.ts">delete</a>(viewId, { ...params }) -> View</code>
-- <code title="put /v1/view">client.view.<a href="./src/resources/view.ts">replace</a>({ ...params }) -> View</code>
-
-# Organization
+# Views
 
 Methods:
 
-- <code title="get /v1/organization/{organization_id}">client.organization.<a href="./src/resources/organization/organization.ts">retrieve</a>(organizationId) -> Organization</code>
-- <code title="patch /v1/organization/{organization_id}">client.organization.<a href="./src/resources/organization/organization.ts">update</a>(organizationId, { ...params }) -> Organization</code>
-- <code title="get /v1/organization">client.organization.<a href="./src/resources/organization/organization.ts">list</a>({ ...params }) -> OrganizationsListObjects</code>
-- <code title="delete /v1/organization/{organization_id}">client.organization.<a href="./src/resources/organization/organization.ts">delete</a>(organizationId) -> Organization</code>
+- <code title="post /v1/view">client.views.<a href="./src/resources/views.ts">create</a>({ ...params }) -> View</code>
+- <code title="get /v1/view/{view_id}">client.views.<a href="./src/resources/views.ts">retrieve</a>(viewId, { ...params }) -> View</code>
+- <code title="patch /v1/view/{view_id}">client.views.<a href="./src/resources/views.ts">update</a>(viewId, { ...params }) -> View</code>
+- <code title="get /v1/view">client.views.<a href="./src/resources/views.ts">list</a>({ ...params }) -> ViewsListObjects</code>
+- <code title="delete /v1/view/{view_id}">client.views.<a href="./src/resources/views.ts">delete</a>(viewId, { ...params }) -> View</code>
+- <code title="put /v1/view">client.views.<a href="./src/resources/views.ts">replace</a>({ ...params }) -> View</code>
+
+# Organizations
+
+Methods:
+
+- <code title="get /v1/organization/{organization_id}">client.organizations.<a href="./src/resources/organizations/organizations.ts">retrieve</a>(organizationId) -> Organization</code>
+- <code title="patch /v1/organization/{organization_id}">client.organizations.<a href="./src/resources/organizations/organizations.ts">update</a>(organizationId, { ...params }) -> Organization</code>
+- <code title="get /v1/organization">client.organizations.<a href="./src/resources/organizations/organizations.ts">list</a>({ ...params }) -> OrganizationsListObjects</code>
+- <code title="delete /v1/organization/{organization_id}">client.organizations.<a href="./src/resources/organizations/organizations.ts">delete</a>(organizationId) -> Organization</code>
 
 ## Members
 
 Types:
 
-- <code><a href="./src/resources/organization/members.ts">MemberUpdateResponse</a></code>
+- <code><a href="./src/resources/organizations/members.ts">MemberUpdateResponse</a></code>
 
 Methods:
 
-- <code title="patch /v1/organization/members">client.organization.members.<a href="./src/resources/organization/members.ts">update</a>({ ...params }) -> MemberUpdateResponse</code>
+- <code title="patch /v1/organization/members">client.organizations.members.<a href="./src/resources/organizations/members.ts">update</a>({ ...params }) -> MemberUpdateResponse</code>
 
-# APIKeyResource
-
-Methods:
-
-- <code title="post /v1/api_key">client.apiKeyResource.<a href="./src/resources/api-key-resource.ts">create</a>({ ...params }) -> CreateAPIKeyOutput</code>
-- <code title="get /v1/api_key/{api_key_id}">client.apiKeyResource.<a href="./src/resources/api-key-resource.ts">retrieve</a>(apiKeyId) -> APIKey</code>
-- <code title="get /v1/api_key">client.apiKeyResource.<a href="./src/resources/api-key-resource.ts">list</a>({ ...params }) -> APIKeysListObjects</code>
-- <code title="delete /v1/api_key/{api_key_id}">client.apiKeyResource.<a href="./src/resources/api-key-resource.ts">delete</a>(apiKeyId) -> APIKey</code>
-
-# AISecret
+# APIKeys
 
 Methods:
 
-- <code title="post /v1/ai_secret">client.aiSecret.<a href="./src/resources/ai-secret.ts">create</a>({ ...params }) -> AISecret</code>
-- <code title="get /v1/ai_secret/{ai_secret_id}">client.aiSecret.<a href="./src/resources/ai-secret.ts">retrieve</a>(aiSecretId) -> AISecret</code>
-- <code title="patch /v1/ai_secret/{ai_secret_id}">client.aiSecret.<a href="./src/resources/ai-secret.ts">update</a>(aiSecretId, { ...params }) -> AISecret</code>
-- <code title="get /v1/ai_secret">client.aiSecret.<a href="./src/resources/ai-secret.ts">list</a>({ ...params }) -> AISecretsListObjects</code>
-- <code title="delete /v1/ai_secret/{ai_secret_id}">client.aiSecret.<a href="./src/resources/ai-secret.ts">delete</a>(aiSecretId) -> AISecret</code>
-- <code title="delete /v1/ai_secret">client.aiSecret.<a href="./src/resources/ai-secret.ts">findAndDelete</a>({ ...params }) -> AISecret</code>
-- <code title="put /v1/ai_secret">client.aiSecret.<a href="./src/resources/ai-secret.ts">replace</a>({ ...params }) -> AISecret</code>
+- <code title="post /v1/api_key">client.apiKeys.<a href="./src/resources/api-keys.ts">create</a>({ ...params }) -> CreateAPIKeyOutput</code>
+- <code title="get /v1/api_key/{api_key_id}">client.apiKeys.<a href="./src/resources/api-keys.ts">retrieve</a>(apiKeyId) -> APIKey</code>
+- <code title="get /v1/api_key">client.apiKeys.<a href="./src/resources/api-keys.ts">list</a>({ ...params }) -> APIKeysListObjects</code>
+- <code title="delete /v1/api_key/{api_key_id}">client.apiKeys.<a href="./src/resources/api-keys.ts">delete</a>(apiKeyId) -> APIKey</code>
+
+# AISecrets
+
+Methods:
+
+- <code title="post /v1/ai_secret">client.aiSecrets.<a href="./src/resources/ai-secrets.ts">create</a>({ ...params }) -> AISecret</code>
+- <code title="get /v1/ai_secret/{ai_secret_id}">client.aiSecrets.<a href="./src/resources/ai-secrets.ts">retrieve</a>(aiSecretId) -> AISecret</code>
+- <code title="patch /v1/ai_secret/{ai_secret_id}">client.aiSecrets.<a href="./src/resources/ai-secrets.ts">update</a>(aiSecretId, { ...params }) -> AISecret</code>
+- <code title="get /v1/ai_secret">client.aiSecrets.<a href="./src/resources/ai-secrets.ts">list</a>({ ...params }) -> AISecretsListObjects</code>
+- <code title="delete /v1/ai_secret/{ai_secret_id}">client.aiSecrets.<a href="./src/resources/ai-secrets.ts">delete</a>(aiSecretId) -> AISecret</code>
+- <code title="delete /v1/ai_secret">client.aiSecrets.<a href="./src/resources/ai-secrets.ts">findAndDelete</a>({ ...params }) -> AISecret</code>
+- <code title="put /v1/ai_secret">client.aiSecrets.<a href="./src/resources/ai-secrets.ts">replace</a>({ ...params }) -> AISecret</code>
