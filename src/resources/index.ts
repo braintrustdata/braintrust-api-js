@@ -7,17 +7,17 @@ export {
   ACLListParams,
   ACLBatchUpdateParams,
   ACLFindAndDeleteParams,
-  ACL,
-} from './acl';
+  ACLs,
+} from './acls';
 export {
   AISecretCreateParams,
   AISecretUpdateParams,
   AISecretListParams,
   AISecretFindAndDeleteParams,
   AISecretReplaceParams,
-  AISecret,
-} from './ai-secret';
-export { APIKeyResourceCreateParams, APIKeyResourceListParams, APIKeyResource } from './api-key-resource';
+  AISecrets,
+} from './ai-secrets';
+export { APIKeyCreateParams, APIKeyListParams, APIKeys } from './api-keys';
 export {
   DatasetCreateParams,
   DatasetUpdateParams,
@@ -27,8 +27,8 @@ export {
   DatasetFetchPostParams,
   DatasetInsertParams,
   DatasetSummarizeParams,
-  Dataset,
-} from './dataset';
+  Datasets,
+} from './datasets';
 export {
   ExperimentCreateParams,
   ExperimentUpdateParams,
@@ -38,8 +38,8 @@ export {
   ExperimentFetchPostParams,
   ExperimentInsertParams,
   ExperimentSummarizeParams,
-  Experiment,
-} from './experiment';
+  Experiments,
+} from './experiments';
 export {
   FunctionInvokeResponse,
   FunctionCreateParams,
@@ -47,35 +47,39 @@ export {
   FunctionListParams,
   FunctionInvokeParams,
   FunctionReplaceParams,
-  Function,
-} from './function';
-export { GroupCreateParams, GroupUpdateParams, GroupListParams, GroupReplaceParams, Group } from './group';
-export { OrganizationUpdateParams, OrganizationListParams, Organization } from './organization/organization';
-export { ProjectCreateParams, ProjectUpdateParams, ProjectListParams, Project } from './project/project';
+  Functions,
+} from './functions';
+export { GroupCreateParams, GroupUpdateParams, GroupListParams, GroupReplaceParams, Groups } from './groups';
+export {
+  OrganizationUpdateParams,
+  OrganizationListParams,
+  Organizations,
+} from './organizations/organizations';
+export { ProjectCreateParams, ProjectUpdateParams, ProjectListParams, Projects } from './projects/projects';
 export {
   ProjectScoreCreateParams,
   ProjectScoreUpdateParams,
   ProjectScoreListParams,
   ProjectScoreReplaceParams,
-  ProjectScore,
-} from './project-score';
+  ProjectScores,
+} from './project-scores';
 export {
   ProjectTagCreateParams,
   ProjectTagUpdateParams,
   ProjectTagListParams,
   ProjectTagReplaceParams,
-  ProjectTag,
-} from './project-tag';
+  ProjectTags,
+} from './project-tags';
 export {
   PromptCreateParams,
   PromptUpdateParams,
   PromptListParams,
   PromptReplaceParams,
-  Prompt,
-} from './prompt';
-export { RoleCreateParams, RoleUpdateParams, RoleListParams, RoleReplaceParams, Role } from './role';
+  Prompts,
+} from './prompts';
+export { RoleCreateParams, RoleUpdateParams, RoleListParams, RoleReplaceParams, Roles } from './roles';
 export { TopLevelHelloWorldResponse, TopLevel } from './top-level';
-export { UserListParams, User } from './user';
+export { UserListParams, Users } from './users';
 export {
   ViewCreateParams,
   ViewRetrieveParams,
@@ -83,5 +87,5 @@ export {
   ViewListParams,
   ViewDeleteParams,
   ViewReplaceParams,
-  View,
-} from './view';
+  Views,
+} from './views';
