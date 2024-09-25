@@ -103,16 +103,10 @@ export class Functions extends APIResource {
   }
 }
 
-export interface ImageURL {
-  url: string;
-
-  detail?: 'auto' | 'low' | 'high';
-}
-
 export type FunctionInvokeResponse = unknown;
 
 export interface FunctionCreateParams {
-  function_data: FunctionCreateParams.Prompt | Shared.Code | FunctionCreateParams.Global;
+  function_data: FunctionCreateParams.Prompt | FunctionCreateParams.Code | FunctionCreateParams.Global;
 
   /**
    * Name of the prompt
@@ -159,6 +153,34 @@ export namespace FunctionCreateParams {
     type: 'prompt';
   }
 
+  export interface Code {
+    data: Code.Bundle | Code.Inline;
+
+    type: 'code';
+  }
+
+  export namespace Code {
+    export interface Bundle extends Shared.CodeBundle {
+      type: 'bundle';
+    }
+
+    export interface Inline {
+      code: string;
+
+      runtime_context: Inline.RuntimeContext;
+
+      type: 'inline';
+    }
+
+    export namespace Inline {
+      export interface RuntimeContext {
+        runtime: 'node' | 'python';
+
+        version: string;
+      }
+    }
+  }
+
   export interface Global {
     name: string;
 
@@ -194,8 +216,7 @@ export namespace FunctionCreateParams {
       | 'role'
       | 'org_member'
       | 'project_log'
-      | 'org_project'
-      | null;
+      | 'org_project';
 
     /**
      * The function exists for internal purposes and should not be displayed in the
@@ -213,7 +234,7 @@ export interface FunctionUpdateParams {
 
   function_data?:
     | FunctionUpdateParams.Prompt
-    | Shared.Code
+    | FunctionUpdateParams.Code
     | FunctionUpdateParams.Global
     | FunctionUpdateParams.NullableVariant
     | null;
@@ -237,6 +258,34 @@ export interface FunctionUpdateParams {
 export namespace FunctionUpdateParams {
   export interface Prompt {
     type: 'prompt';
+  }
+
+  export interface Code {
+    data: Code.Bundle | Code.Inline;
+
+    type: 'code';
+  }
+
+  export namespace Code {
+    export interface Bundle extends Shared.CodeBundle {
+      type: 'bundle';
+    }
+
+    export interface Inline {
+      code: string;
+
+      runtime_context: Inline.RuntimeContext;
+
+      type: 'inline';
+    }
+
+    export namespace Inline {
+      export interface RuntimeContext {
+        runtime: 'node' | 'python';
+
+        version: string;
+      }
+    }
   }
 
   export interface Global {
@@ -298,7 +347,14 @@ export interface FunctionInvokeParams {
   /**
    * If the function is an LLM, additional messages to pass along to it
    */
-  messages?: Array<Shared.Messages>;
+  messages?: Array<
+    | FunctionInvokeParams.System
+    | FunctionInvokeParams.User
+    | FunctionInvokeParams.Assistant
+    | FunctionInvokeParams.Tool
+    | FunctionInvokeParams.Function
+    | FunctionInvokeParams.Fallback
+  >;
 
   /**
    * The mode format of the returned value (defaults to 'auto')
@@ -323,6 +379,64 @@ export interface FunctionInvokeParams {
 }
 
 export namespace FunctionInvokeParams {
+  export interface System {
+    role: 'system';
+
+    content?: string;
+
+    name?: string;
+  }
+
+  export interface User {
+    role: 'user';
+
+    content?: string | Array<Shared.ChatCompletionContentPartText | Shared.ChatCompletionContentPartImage>;
+
+    name?: string;
+  }
+
+  export interface Assistant {
+    role: 'assistant';
+
+    content?: string | null;
+
+    function_call?: Assistant.FunctionCall | null;
+
+    name?: string | null;
+
+    tool_calls?: Array<Shared.ChatCompletionMessageToolCall> | null;
+  }
+
+  export namespace Assistant {
+    export interface FunctionCall {
+      arguments: string;
+
+      name: string;
+    }
+  }
+
+  export interface Tool {
+    role: 'tool';
+
+    content?: string;
+
+    tool_call_id?: string;
+  }
+
+  export interface Function {
+    name: string;
+
+    role: 'function';
+
+    content?: string;
+  }
+
+  export interface Fallback {
+    role: 'model';
+
+    content?: string | null;
+  }
+
   /**
    * Span parent properties
    */
@@ -369,7 +483,7 @@ export namespace FunctionInvokeParams {
 }
 
 export interface FunctionReplaceParams {
-  function_data: FunctionReplaceParams.Prompt | Shared.Code | FunctionReplaceParams.Global;
+  function_data: FunctionReplaceParams.Prompt | FunctionReplaceParams.Code | FunctionReplaceParams.Global;
 
   /**
    * Name of the prompt
@@ -416,6 +530,34 @@ export namespace FunctionReplaceParams {
     type: 'prompt';
   }
 
+  export interface Code {
+    data: Code.Bundle | Code.Inline;
+
+    type: 'code';
+  }
+
+  export namespace Code {
+    export interface Bundle extends Shared.CodeBundle {
+      type: 'bundle';
+    }
+
+    export interface Inline {
+      code: string;
+
+      runtime_context: Inline.RuntimeContext;
+
+      type: 'inline';
+    }
+
+    export namespace Inline {
+      export interface RuntimeContext {
+        runtime: 'node' | 'python';
+
+        version: string;
+      }
+    }
+  }
+
   export interface Global {
     name: string;
 
@@ -451,8 +593,7 @@ export namespace FunctionReplaceParams {
       | 'role'
       | 'org_member'
       | 'project_log'
-      | 'org_project'
-      | null;
+      | 'org_project';
 
     /**
      * The function exists for internal purposes and should not be displayed in the
@@ -463,7 +604,6 @@ export namespace FunctionReplaceParams {
 }
 
 export namespace Functions {
-  export import ImageURL = FunctionsAPI.ImageURL;
   export import FunctionInvokeResponse = FunctionsAPI.FunctionInvokeResponse;
   export import FunctionCreateParams = FunctionsAPI.FunctionCreateParams;
   export import FunctionUpdateParams = FunctionsAPI.FunctionUpdateParams;
