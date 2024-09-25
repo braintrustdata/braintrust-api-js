@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import * as Shared from './shared';
-import * as FunctionsAPI from './functions';
 import { ListObjects } from '../pagination';
 
 export interface AISecret {
@@ -74,8 +73,7 @@ export interface ACL {
     | 'role'
     | 'org_member'
     | 'project_log'
-    | 'org_project'
-    | null;
+    | 'org_project';
 
   /**
    * Date of acl creation
@@ -89,8 +87,10 @@ export interface ACL {
   group_id?: string | null;
 
   /**
-   * Permission the ACL grants. Exactly one of `permission` and `role_id` will be
-   * provided
+   * Each permission permits a certain type of operation on an object in the system
+   *
+   * Permissions can be assigned to to objects on an individual basis, or grouped
+   * into roles
    */
   permission?:
     | 'create'
@@ -100,12 +100,10 @@ export interface ACL {
     | 'create_acls'
     | 'read_acls'
     | 'update_acls'
-    | 'delete_acls'
-    | null;
+    | 'delete_acls';
 
   /**
-   * When setting a permission directly, optionally restricts the permission grant to
-   * just the specified object type. Cannot be set alongside a `role_id`.
+   * The object type that the ACL applies to
    */
   restrict_object_type?:
     | 'organization'
@@ -118,8 +116,7 @@ export interface ACL {
     | 'role'
     | 'org_member'
     | 'project_log'
-    | 'org_project'
-    | null;
+    | 'org_project';
 
   /**
    * Id of the role the ACL grants. Exactly one of `permission` and `role_id` will be
@@ -132,6 +129,36 @@ export interface ACL {
    * be provided
    */
   user_id?: string | null;
+}
+
+export interface ACLBatchUpdateResponse {
+  /**
+   * An ACL grants a certain permission or role to a certain user or group on an
+   * object.
+   *
+   * ACLs are inherited across the object hierarchy. So for example, if a user has
+   * read permissions on a project, they will also have read permissions on any
+   * experiment, dataset, etc. created within that project.
+   *
+   * To restrict a grant to a particular sub-object, you may specify
+   * `restrict_object_type` in the ACL, as part of a direct permission grant or as
+   * part of a role.
+   */
+  added_acls: Array<ACL>;
+
+  /**
+   * An ACL grants a certain permission or role to a certain user or group on an
+   * object.
+   *
+   * ACLs are inherited across the object hierarchy. So for example, if a user has
+   * read permissions on a project, they will also have read permissions on any
+   * experiment, dataset, etc. created within that project.
+   *
+   * To restrict a grant to a particular sub-object, you may specify
+   * `restrict_object_type` in the ACL, as part of a direct permission grant or as
+   * part of a role.
+   */
+  removed_acls: Array<ACL>;
 }
 
 export interface APIKey {
@@ -163,64 +190,86 @@ export interface APIKey {
   user_id?: string | null;
 }
 
-export interface Code {
-  data: Code.Bundle | Code.Inline;
+export interface ChatCompletionContentPartImage {
+  image_url: ChatCompletionContentPartImage.ImageURL;
 
-  type: 'code';
+  type: 'image_url';
 }
 
-export namespace Code {
-  export interface Bundle {
-    bundle_id: string;
+export namespace ChatCompletionContentPartImage {
+  export interface ImageURL {
+    url: string;
 
-    location: Bundle.Experiment | Bundle.Function;
+    detail?: 'auto' | 'low' | 'high';
+  }
+}
 
-    runtime_context: Bundle.RuntimeContext;
+export interface ChatCompletionContentPartText {
+  type: 'text';
 
-    type: 'bundle';
+  text?: string;
+}
 
-    /**
-     * A preview of the code
-     */
-    preview?: string | null;
+export interface ChatCompletionMessageToolCall {
+  id: string;
+
+  function: ChatCompletionMessageToolCall.Function;
+
+  type: 'function';
+}
+
+export namespace ChatCompletionMessageToolCall {
+  export interface Function {
+    arguments: string;
+
+    name: string;
+  }
+}
+
+export interface CodeBundle {
+  bundle_id: string;
+
+  location: CodeBundle.Experiment | CodeBundle.Function;
+
+  runtime_context: CodeBundle.RuntimeContext;
+
+  /**
+   * A preview of the code
+   */
+  preview?: string | null;
+}
+
+export namespace CodeBundle {
+  export interface Experiment {
+    eval_name: string;
+
+    position: Experiment.Type | Experiment.Scorer;
+
+    type: 'experiment';
   }
 
-  export namespace Bundle {
-    export interface Experiment {
-      eval_name: string;
-
-      position: Shared.Task | Shared.Scorer;
-
-      type: 'experiment';
+  export namespace Experiment {
+    export interface Type {
+      type: 'task';
     }
 
-    export interface Function {
+    export interface Scorer {
       index: number;
 
-      type: 'function';
-    }
-
-    export interface RuntimeContext {
-      runtime: 'node' | 'python';
-
-      version: string;
+      type: 'scorer';
     }
   }
 
-  export interface Inline {
-    code: string;
+  export interface Function {
+    index: number;
 
-    runtime_context: Inline.RuntimeContext;
-
-    type: 'inline';
+    type: 'function';
   }
 
-  export namespace Inline {
-    export interface RuntimeContext {
-      runtime: 'node' | 'python';
+  export interface RuntimeContext {
+    runtime: 'node' | 'python';
 
-      version: string;
-    }
+    version: string;
   }
 }
 
@@ -847,7 +896,7 @@ export interface Function {
    */
   _xact_id: string;
 
-  function_data: Function.Prompt | Code | Function.Global;
+  function_data: Function.Prompt | Function.Code | Function.Global;
 
   /**
    * A literal 'p' which identifies the object as a project prompt
@@ -914,6 +963,34 @@ export namespace Function {
     type: 'prompt';
   }
 
+  export interface Code {
+    data: Code.Bundle | Code.Inline;
+
+    type: 'code';
+  }
+
+  export namespace Code {
+    export interface Bundle extends Shared.CodeBundle {
+      type: 'bundle';
+    }
+
+    export interface Inline {
+      code: string;
+
+      runtime_context: Inline.RuntimeContext;
+
+      type: 'inline';
+    }
+
+    export namespace Inline {
+      export interface RuntimeContext {
+        runtime: 'node' | 'python';
+
+        version: string;
+      }
+    }
+  }
+
   export interface Global {
     name: string;
 
@@ -949,8 +1026,7 @@ export namespace Function {
       | 'role'
       | 'org_member'
       | 'project_log'
-      | 'org_project'
-      | null;
+      | 'org_project';
 
     /**
      * The function exists for internal purposes and should not be displayed in the
@@ -2021,104 +2097,6 @@ export namespace InsertProjectLogsEventReplace {
   }
 }
 
-export type Messages =
-  | Messages.System
-  | Messages.User
-  | Messages.Assistant
-  | Messages.Tool
-  | Messages.Function
-  | Messages.Fallback;
-
-export namespace Messages {
-  export interface System {
-    role: 'system';
-
-    content?: string;
-
-    name?: string;
-  }
-
-  export interface User {
-    role: 'user';
-
-    content?: string | Array<User.Text | User.ImageURL>;
-
-    name?: string;
-  }
-
-  export namespace User {
-    export interface Text {
-      type: 'text';
-
-      text?: string;
-    }
-
-    export interface ImageURL {
-      image_url: FunctionsAPI.ImageURL;
-
-      type: 'image_url';
-    }
-  }
-
-  export interface Assistant {
-    role: 'assistant';
-
-    content?: string | null;
-
-    function_call?: Assistant.FunctionCall | null;
-
-    name?: string | null;
-
-    tool_calls?: Array<Assistant.ToolCall> | null;
-  }
-
-  export namespace Assistant {
-    export interface FunctionCall {
-      arguments: string;
-
-      name: string;
-    }
-
-    export interface ToolCall {
-      id: string;
-
-      function: ToolCall.Function;
-
-      type: 'function';
-    }
-
-    export namespace ToolCall {
-      export interface Function {
-        arguments: string;
-
-        name: string;
-      }
-    }
-  }
-
-  export interface Tool {
-    role: 'tool';
-
-    content?: string;
-
-    tool_call_id?: string;
-  }
-
-  export interface Function {
-    name: string;
-
-    role: 'function';
-
-    content?: string;
-  }
-
-  export interface Fallback {
-    role: 'model';
-
-    content?: string | null;
-  }
-}
-
 /**
  * Summary of a metric's performance
  */
@@ -2154,6 +2132,42 @@ export interface MetricSummary {
   diff?: number;
 }
 
+export interface OnlineScoreConfig {
+  /**
+   * The sampling rate for online scoring
+   */
+  sampling_rate: number;
+
+  /**
+   * The list of scorers to use for online scoring
+   */
+  scorers: Array<OnlineScoreConfig.Function | OnlineScoreConfig.Global>;
+
+  /**
+   * Whether to trigger online scoring on the root span of each trace
+   */
+  apply_to_root_span?: boolean | null;
+
+  /**
+   * Trigger online scoring on any spans with a name in this list
+   */
+  apply_to_span_names?: Array<string> | null;
+}
+
+export namespace OnlineScoreConfig {
+  export interface Function {
+    id: string;
+
+    type: 'function';
+  }
+
+  export interface Global {
+    name: string;
+
+    type: 'global';
+  }
+}
+
 export interface Organization {
   /**
    * Unique identifier for the organization
@@ -2177,6 +2191,16 @@ export interface Organization {
   proxy_url?: string | null;
 
   realtime_url?: string | null;
+}
+
+export interface PatchOrganizationMembersOutput {
+  status: 'success';
+
+  /**
+   * If invite emails failed to send for some reason, the patch operation will still
+   * complete, but we will return an error message here
+   */
+  send_email_error?: string | null;
 }
 
 /**
@@ -2234,21 +2258,12 @@ export interface Project {
    */
   deleted_at?: string | null;
 
-  settings?: Project.Settings | null;
+  settings?: ProjectSettings | null;
 
   /**
    * Identifies the user who created the project
    */
   user_id?: string | null;
-}
-
-export namespace Project {
-  export interface Settings {
-    /**
-     * The key used to join two experiments (defaults to `input`).
-     */
-    comparison_key?: string | null;
-  }
 }
 
 export interface ProjectLogsEvent {
@@ -2485,7 +2500,7 @@ export interface ProjectScore {
   /**
    * The type of the configured score
    */
-  score_type: 'slider' | 'categorical' | 'weighted' | 'minimum' | 'online' | null;
+  score_type: 'slider' | 'categorical' | 'weighted' | 'minimum' | 'online';
 
   user_id: string;
 
@@ -2526,45 +2541,7 @@ export namespace ProjectScore {
 
     multi_select?: boolean | null;
 
-    online?: Config.Online | null;
-  }
-
-  export namespace Config {
-    export interface Online {
-      /**
-       * The sampling rate for online scoring
-       */
-      sampling_rate: number;
-
-      /**
-       * The list of scorers to use for online scoring
-       */
-      scorers: Array<Online.Function | Online.Global>;
-
-      /**
-       * Whether to trigger online scoring on the root span of each trace
-       */
-      apply_to_root_span?: boolean | null;
-
-      /**
-       * Trigger online scoring on any spans with a name in this list
-       */
-      apply_to_span_names?: Array<string> | null;
-    }
-
-    export namespace Online {
-      export interface Function {
-        id: string;
-
-        type: 'function';
-      }
-
-      export interface Global {
-        name: string;
-
-        type: 'global';
-      }
-    }
+    online?: Shared.OnlineScoreConfig | null;
   }
 }
 
@@ -2581,6 +2558,13 @@ export interface ProjectScoreCategory {
    * Numerical value of the category. Must be between 0 and 1, inclusive
    */
   value: number;
+}
+
+export interface ProjectSettings {
+  /**
+   * The key used to join two experiments (defaults to `input`).
+   */
+  comparison_key?: string | null;
 }
 
 /**
@@ -2752,9 +2736,15 @@ export namespace PromptData {
       }
 
       export interface Function {
-        function: Shared.ToolChoiceFunction;
+        function: Function.Function;
 
         type: 'function';
+      }
+
+      export namespace Function {
+        export interface Function {
+          name: string;
+        }
       }
     }
 
@@ -2825,11 +2815,71 @@ export namespace PromptData {
   }
 
   export interface Chat {
-    messages: Array<Shared.Messages>;
+    messages: Array<Chat.System | Chat.User | Chat.Assistant | Chat.Tool | Chat.Function | Chat.Fallback>;
 
     type: 'chat';
 
     tools?: string;
+  }
+
+  export namespace Chat {
+    export interface System {
+      role: 'system';
+
+      content?: string;
+
+      name?: string;
+    }
+
+    export interface User {
+      role: 'user';
+
+      content?: string | Array<Shared.ChatCompletionContentPartText | Shared.ChatCompletionContentPartImage>;
+
+      name?: string;
+    }
+
+    export interface Assistant {
+      role: 'assistant';
+
+      content?: string | null;
+
+      function_call?: Assistant.FunctionCall | null;
+
+      name?: string | null;
+
+      tool_calls?: Array<Shared.ChatCompletionMessageToolCall> | null;
+    }
+
+    export namespace Assistant {
+      export interface FunctionCall {
+        arguments: string;
+
+        name: string;
+      }
+    }
+
+    export interface Tool {
+      role: 'tool';
+
+      content?: string;
+
+      tool_call_id?: string;
+    }
+
+    export interface Function {
+      name: string;
+
+      role: 'function';
+
+      content?: string;
+    }
+
+    export interface Fallback {
+      role: 'model';
+
+      content?: string | null;
+    }
   }
 
   export interface NullableVariant {}
@@ -2845,12 +2895,6 @@ export namespace PromptData {
 
     type: 'global';
   }
-}
-
-export interface PromptImageURL {
-  url: string;
-
-  detail?: 'auto' | 'low' | 'high';
 }
 
 /**
@@ -2981,8 +3025,7 @@ export namespace Role {
       | 'create_acls'
       | 'read_acls'
       | 'update_acls'
-      | 'delete_acls'
-      | null;
+      | 'delete_acls';
 
     /**
      * The object type that the ACL applies to
@@ -2998,8 +3041,7 @@ export namespace Role {
       | 'role'
       | 'org_member'
       | 'project_log'
-      | 'org_project'
-      | null;
+      | 'org_project';
   }
 }
 
@@ -3031,12 +3073,6 @@ export interface ScoreSummary {
    * Difference in score between the current and comparison experiment
    */
   diff?: number;
-}
-
-export interface Scorer {
-  index: number;
-
-  type: 'scorer';
 }
 
 /**
@@ -3109,14 +3145,6 @@ export interface SummarizeExperimentResponse {
   scores?: Record<string, ScoreSummary> | null;
 }
 
-export interface Task {
-  type: 'task';
-}
-
-export interface ToolChoiceFunction {
-  name: string;
-}
-
 export interface User {
   /**
    * Unique identifier for the user
@@ -3179,8 +3207,7 @@ export interface View {
     | 'role'
     | 'org_member'
     | 'project_log'
-    | 'org_project'
-    | null;
+    | 'org_project';
 
   /**
    * Type of table that the view corresponds to.

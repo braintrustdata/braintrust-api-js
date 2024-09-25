@@ -130,8 +130,7 @@ export namespace RoleCreateParams {
       | 'create_acls'
       | 'read_acls'
       | 'update_acls'
-      | 'delete_acls'
-      | null;
+      | 'delete_acls';
 
     /**
      * The object type that the ACL applies to
@@ -147,8 +146,7 @@ export namespace RoleCreateParams {
       | 'role'
       | 'org_member'
       | 'project_log'
-      | 'org_project'
-      | null;
+      | 'org_project';
   }
 }
 
@@ -200,8 +198,7 @@ export namespace RoleUpdateParams {
       | 'create_acls'
       | 'read_acls'
       | 'update_acls'
-      | 'delete_acls'
-      | null;
+      | 'delete_acls';
 
     /**
      * The object type that the ACL applies to
@@ -217,8 +214,7 @@ export namespace RoleUpdateParams {
       | 'role'
       | 'org_member'
       | 'project_log'
-      | 'org_project'
-      | null;
+      | 'org_project';
   }
 
   export interface RemoveMemberPermission {
@@ -236,8 +232,7 @@ export namespace RoleUpdateParams {
       | 'create_acls'
       | 'read_acls'
       | 'update_acls'
-      | 'delete_acls'
-      | null;
+      | 'delete_acls';
 
     /**
      * The object type that the ACL applies to
@@ -253,8 +248,7 @@ export namespace RoleUpdateParams {
       | 'role'
       | 'org_member'
       | 'project_log'
-      | 'org_project'
-      | null;
+      | 'org_project';
   }
 }
 
@@ -324,8 +318,7 @@ export namespace RoleReplaceParams {
       | 'create_acls'
       | 'read_acls'
       | 'update_acls'
-      | 'delete_acls'
-      | null;
+      | 'delete_acls';
 
     /**
      * The object type that the ACL applies to
@@ -341,8 +334,7 @@ export namespace RoleReplaceParams {
       | 'role'
       | 'org_member'
       | 'project_log'
-      | 'org_project'
-      | null;
+      | 'org_project';
   }
 }
 
