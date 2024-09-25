@@ -1,14 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export * from './shared';
-export {
-  ACLBatchUpdateResponse,
-  ACLCreateParams,
-  ACLListParams,
-  ACLBatchUpdateParams,
-  ACLFindAndDeleteParams,
-  ACLs,
-} from './acls';
+export { ACLCreateParams, ACLListParams, ACLBatchUpdateParams, ACLFindAndDeleteParams, ACLs } from './acls';
 export {
   AISecretCreateParams,
   AISecretUpdateParams,
@@ -40,9 +33,7 @@ export {
   ExperimentSummarizeParams,
   Experiments,
 } from './experiments';
-export { GroupCreateParams, GroupUpdateParams, GroupListParams, GroupReplaceParams, Groups } from './groups';
 export {
-  ImageURL,
   FunctionInvokeResponse,
   FunctionCreateParams,
   FunctionUpdateParams,
@@ -51,6 +42,7 @@ export {
   FunctionReplaceParams,
   Functions,
 } from './functions';
+export { GroupCreateParams, GroupUpdateParams, GroupListParams, GroupReplaceParams, Groups } from './groups';
 export {
   OrganizationUpdateParams,
   OrganizationListParams,

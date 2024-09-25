@@ -100,20 +100,7 @@ export interface ProjectUpdateParams {
    * Project settings. Patch operations replace all settings, so make sure you
    * include all settings you want to keep.
    */
-  settings?: ProjectUpdateParams.Settings | null;
-}
-
-export namespace ProjectUpdateParams {
-  /**
-   * Project settings. Patch operations replace all settings, so make sure you
-   * include all settings you want to keep.
-   */
-  export interface Settings {
-    /**
-     * The key used to join two experiments (defaults to `input`).
-     */
-    comparison_key?: string | null;
-  }
+  settings?: Shared.ProjectSettings | null;
 }
 
 export interface ProjectListParams extends ListObjectsParams {

@@ -248,7 +248,6 @@ export namespace Braintrust {
   export import GroupReplaceParams = API.GroupReplaceParams;
 
   export import ACLs = API.ACLs;
-  export import ACLBatchUpdateResponse = API.ACLBatchUpdateResponse;
   export import ACLCreateParams = API.ACLCreateParams;
   export import ACLListParams = API.ACLListParams;
   export import ACLBatchUpdateParams = API.ACLBatchUpdateParams;
@@ -270,7 +269,6 @@ export namespace Braintrust {
   export import ProjectTagReplaceParams = API.ProjectTagReplaceParams;
 
   export import Functions = API.Functions;
-  export import ImageURL = API.ImageURL;
   export import FunctionInvokeResponse = API.FunctionInvokeResponse;
   export import FunctionCreateParams = API.FunctionCreateParams;
   export import FunctionUpdateParams = API.FunctionUpdateParams;
@@ -303,8 +301,12 @@ export namespace Braintrust {
 
   export import AISecret = API.AISecret;
   export import ACL = API.ACL;
+  export import ACLBatchUpdateResponse = API.ACLBatchUpdateResponse;
   export import APIKey = API.APIKey;
-  export import Code = API.Code;
+  export import ChatCompletionContentPartImage = API.ChatCompletionContentPartImage;
+  export import ChatCompletionContentPartText = API.ChatCompletionContentPartText;
+  export import ChatCompletionMessageToolCall = API.ChatCompletionMessageToolCall;
+  export import CodeBundle = API.CodeBundle;
   export import CreateAPIKeyOutput = API.CreateAPIKeyOutput;
   export import CrossObjectInsertResponse = API.CrossObjectInsertResponse;
   export import DataSummary = API.DataSummary;
@@ -328,26 +330,24 @@ export namespace Braintrust {
   export import InsertExperimentEventReplace = API.InsertExperimentEventReplace;
   export import InsertProjectLogsEventMerge = API.InsertProjectLogsEventMerge;
   export import InsertProjectLogsEventReplace = API.InsertProjectLogsEventReplace;
-  export import Messages = API.Messages;
   export import MetricSummary = API.MetricSummary;
+  export import OnlineScoreConfig = API.OnlineScoreConfig;
   export import Organization = API.Organization;
+  export import PatchOrganizationMembersOutput = API.PatchOrganizationMembersOutput;
   export import PathLookupFilter = API.PathLookupFilter;
   export import Project = API.Project;
   export import ProjectLogsEvent = API.ProjectLogsEvent;
   export import ProjectScore = API.ProjectScore;
   export import ProjectScoreCategory = API.ProjectScoreCategory;
+  export import ProjectSettings = API.ProjectSettings;
   export import ProjectTag = API.ProjectTag;
   export import Prompt = API.Prompt;
   export import PromptData = API.PromptData;
-  export import PromptImageURL = API.PromptImageURL;
   export import RepoInfo = API.RepoInfo;
   export import Role = API.Role;
   export import ScoreSummary = API.ScoreSummary;
-  export import Scorer = API.Scorer;
   export import SummarizeDatasetResponse = API.SummarizeDatasetResponse;
   export import SummarizeExperimentResponse = API.SummarizeExperimentResponse;
-  export import Task = API.Task;
-  export import ToolChoiceFunction = API.ToolChoiceFunction;
   export import User = API.User;
   export import View = API.View;
   export import ViewData = API.ViewData;
