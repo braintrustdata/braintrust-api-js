@@ -270,6 +270,7 @@ export namespace Braintrust {
   export import ProjectTagReplaceParams = API.ProjectTagReplaceParams;
 
   export import Functions = API.Functions;
+  export import ImageURL = API.ImageURL;
   export import FunctionInvokeResponse = API.FunctionInvokeResponse;
   export import FunctionCreateParams = API.FunctionCreateParams;
   export import FunctionUpdateParams = API.FunctionUpdateParams;
@@ -303,6 +304,7 @@ export namespace Braintrust {
   export import AISecret = API.AISecret;
   export import ACL = API.ACL;
   export import APIKey = API.APIKey;
+  export import Code = API.Code;
   export import CreateAPIKeyOutput = API.CreateAPIKeyOutput;
   export import CrossObjectInsertResponse = API.CrossObjectInsertResponse;
   export import DataSummary = API.DataSummary;
@@ -326,10 +328,10 @@ export namespace Braintrust {
   export import InsertExperimentEventReplace = API.InsertExperimentEventReplace;
   export import InsertProjectLogsEventMerge = API.InsertProjectLogsEventMerge;
   export import InsertProjectLogsEventReplace = API.InsertProjectLogsEventReplace;
+  export import Messages = API.Messages;
   export import MetricSummary = API.MetricSummary;
   export import Organization = API.Organization;
   export import PathLookupFilter = API.PathLookupFilter;
-  export import Position = API.Position;
   export import Project = API.Project;
   export import ProjectLogsEvent = API.ProjectLogsEvent;
   export import ProjectScore = API.ProjectScore;
@@ -337,11 +339,15 @@ export namespace Braintrust {
   export import ProjectTag = API.ProjectTag;
   export import Prompt = API.Prompt;
   export import PromptData = API.PromptData;
+  export import PromptImageURL = API.PromptImageURL;
   export import RepoInfo = API.RepoInfo;
   export import Role = API.Role;
   export import ScoreSummary = API.ScoreSummary;
+  export import Scorer = API.Scorer;
   export import SummarizeDatasetResponse = API.SummarizeDatasetResponse;
   export import SummarizeExperimentResponse = API.SummarizeExperimentResponse;
+  export import Task = API.Task;
+  export import ToolChoiceFunction = API.ToolChoiceFunction;
   export import User = API.User;
   export import View = API.View;
   export import ViewData = API.ViewData;
