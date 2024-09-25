@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import * as Shared from './shared';
+import * as FunctionsAPI from './functions';
 import { ListObjects } from '../pagination';
 
 export interface AISecret {
@@ -160,6 +161,67 @@ export interface APIKey {
    * Unique identifier for the user
    */
   user_id?: string | null;
+}
+
+export interface Code {
+  data: Code.Bundle | Code.Inline;
+
+  type: 'code';
+}
+
+export namespace Code {
+  export interface Bundle {
+    bundle_id: string;
+
+    location: Bundle.Experiment | Bundle.Function;
+
+    runtime_context: Bundle.RuntimeContext;
+
+    type: 'bundle';
+
+    /**
+     * A preview of the code
+     */
+    preview?: string | null;
+  }
+
+  export namespace Bundle {
+    export interface Experiment {
+      eval_name: string;
+
+      position: Shared.Task | Shared.Scorer;
+
+      type: 'experiment';
+    }
+
+    export interface Function {
+      index: number;
+
+      type: 'function';
+    }
+
+    export interface RuntimeContext {
+      runtime: 'node' | 'python';
+
+      version: string;
+    }
+  }
+
+  export interface Inline {
+    code: string;
+
+    runtime_context: Inline.RuntimeContext;
+
+    type: 'inline';
+  }
+
+  export namespace Inline {
+    export interface RuntimeContext {
+      runtime: 'node' | 'python';
+
+      version: string;
+    }
+  }
 }
 
 export interface CreateAPIKeyOutput {
@@ -785,7 +847,7 @@ export interface Function {
    */
   _xact_id: string;
 
-  function_data: Function.Prompt | Function.Code | Function.Global;
+  function_data: Function.Prompt | Code | Function.Global;
 
   /**
    * A literal 'p' which identifies the object as a project prompt
@@ -850,67 +912,6 @@ export interface Function {
 export namespace Function {
   export interface Prompt {
     type: 'prompt';
-  }
-
-  export interface Code {
-    data: Code.Bundle | Code.Inline;
-
-    type: 'code';
-  }
-
-  export namespace Code {
-    export interface Bundle {
-      bundle_id: string;
-
-      location: Bundle.Experiment | Bundle.Function;
-
-      runtime_context: Bundle.RuntimeContext;
-
-      type: 'bundle';
-
-      /**
-       * A preview of the code
-       */
-      preview?: string | null;
-    }
-
-    export namespace Bundle {
-      export interface Experiment {
-        eval_name: string;
-
-        position: Shared.Position;
-
-        type: 'experiment';
-      }
-
-      export interface Function {
-        index: number;
-
-        type: 'function';
-      }
-
-      export interface RuntimeContext {
-        runtime: 'node' | 'python';
-
-        version: string;
-      }
-    }
-
-    export interface Inline {
-      code: string;
-
-      runtime_context: Inline.RuntimeContext;
-
-      type: 'inline';
-    }
-
-    export namespace Inline {
-      export interface RuntimeContext {
-        runtime: 'node' | 'python';
-
-        version: string;
-      }
-    }
   }
 
   export interface Global {
@@ -2020,6 +2021,104 @@ export namespace InsertProjectLogsEventReplace {
   }
 }
 
+export type Messages =
+  | Messages.System
+  | Messages.User
+  | Messages.Assistant
+  | Messages.Tool
+  | Messages.Function
+  | Messages.Fallback;
+
+export namespace Messages {
+  export interface System {
+    role: 'system';
+
+    content?: string;
+
+    name?: string;
+  }
+
+  export interface User {
+    role: 'user';
+
+    content?: string | Array<User.Text | User.ImageURL>;
+
+    name?: string;
+  }
+
+  export namespace User {
+    export interface Text {
+      type: 'text';
+
+      text?: string;
+    }
+
+    export interface ImageURL {
+      image_url: FunctionsAPI.ImageURL;
+
+      type: 'image_url';
+    }
+  }
+
+  export interface Assistant {
+    role: 'assistant';
+
+    content?: string | null;
+
+    function_call?: Assistant.FunctionCall | null;
+
+    name?: string | null;
+
+    tool_calls?: Array<Assistant.ToolCall> | null;
+  }
+
+  export namespace Assistant {
+    export interface FunctionCall {
+      arguments: string;
+
+      name: string;
+    }
+
+    export interface ToolCall {
+      id: string;
+
+      function: ToolCall.Function;
+
+      type: 'function';
+    }
+
+    export namespace ToolCall {
+      export interface Function {
+        arguments: string;
+
+        name: string;
+      }
+    }
+  }
+
+  export interface Tool {
+    role: 'tool';
+
+    content?: string;
+
+    tool_call_id?: string;
+  }
+
+  export interface Function {
+    name: string;
+
+    role: 'function';
+
+    content?: string;
+  }
+
+  export interface Fallback {
+    role: 'model';
+
+    content?: string | null;
+  }
+}
+
 /**
  * Summary of a metric's performance
  */
@@ -2107,20 +2206,6 @@ export interface PathLookupFilter {
    * `value="hello"`
    */
   value?: unknown;
-}
-
-export type Position = Position.Type | Position.Scorer;
-
-export namespace Position {
-  export interface Type {
-    type: 'task';
-  }
-
-  export interface Scorer {
-    index: number;
-
-    type: 'scorer';
-  }
 }
 
 export interface Project {
@@ -2667,15 +2752,9 @@ export namespace PromptData {
       }
 
       export interface Function {
-        function: Function.Function;
+        function: Shared.ToolChoiceFunction;
 
         type: 'function';
-      }
-
-      export namespace Function {
-        export interface Function {
-          name: string;
-        }
       }
     }
 
@@ -2746,109 +2825,11 @@ export namespace PromptData {
   }
 
   export interface Chat {
-    messages: Array<Chat.System | Chat.User | Chat.Assistant | Chat.Tool | Chat.Function | Chat.Fallback>;
+    messages: Array<Shared.Messages>;
 
     type: 'chat';
 
     tools?: string;
-  }
-
-  export namespace Chat {
-    export interface System {
-      role: 'system';
-
-      content?: string;
-
-      name?: string;
-    }
-
-    export interface User {
-      role: 'user';
-
-      content?: string | Array<User.Text | User.ImageURL>;
-
-      name?: string;
-    }
-
-    export namespace User {
-      export interface Text {
-        type: 'text';
-
-        text?: string;
-      }
-
-      export interface ImageURL {
-        image_url: ImageURL.ImageURL;
-
-        type: 'image_url';
-      }
-
-      export namespace ImageURL {
-        export interface ImageURL {
-          url: string;
-
-          detail?: 'auto' | 'low' | 'high';
-        }
-      }
-    }
-
-    export interface Assistant {
-      role: 'assistant';
-
-      content?: string | null;
-
-      function_call?: Assistant.FunctionCall | null;
-
-      name?: string | null;
-
-      tool_calls?: Array<Assistant.ToolCall> | null;
-    }
-
-    export namespace Assistant {
-      export interface FunctionCall {
-        arguments: string;
-
-        name: string;
-      }
-
-      export interface ToolCall {
-        id: string;
-
-        function: ToolCall.Function;
-
-        type: 'function';
-      }
-
-      export namespace ToolCall {
-        export interface Function {
-          arguments: string;
-
-          name: string;
-        }
-      }
-    }
-
-    export interface Tool {
-      role: 'tool';
-
-      content?: string;
-
-      tool_call_id?: string;
-    }
-
-    export interface Function {
-      name: string;
-
-      role: 'function';
-
-      content?: string;
-    }
-
-    export interface Fallback {
-      role: 'model';
-
-      content?: string | null;
-    }
   }
 
   export interface NullableVariant {}
@@ -2864,6 +2845,12 @@ export namespace PromptData {
 
     type: 'global';
   }
+}
+
+export interface PromptImageURL {
+  url: string;
+
+  detail?: 'auto' | 'low' | 'high';
 }
 
 /**
@@ -3046,6 +3033,12 @@ export interface ScoreSummary {
   diff?: number;
 }
 
+export interface Scorer {
+  index: number;
+
+  type: 'scorer';
+}
+
 /**
  * Summary of a dataset
  */
@@ -3114,6 +3107,14 @@ export interface SummarizeExperimentResponse {
    * Summary of the experiment's scores
    */
   scores?: Record<string, ScoreSummary> | null;
+}
+
+export interface Task {
+  type: 'task';
+}
+
+export interface ToolChoiceFunction {
+  name: string;
 }
 
 export interface User {

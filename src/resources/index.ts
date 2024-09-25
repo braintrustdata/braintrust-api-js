@@ -40,7 +40,9 @@ export {
   ExperimentSummarizeParams,
   Experiments,
 } from './experiments';
+export { GroupCreateParams, GroupUpdateParams, GroupListParams, GroupReplaceParams, Groups } from './groups';
 export {
+  ImageURL,
   FunctionInvokeResponse,
   FunctionCreateParams,
   FunctionUpdateParams,
@@ -49,7 +51,6 @@ export {
   FunctionReplaceParams,
   Functions,
 } from './functions';
-export { GroupCreateParams, GroupUpdateParams, GroupListParams, GroupReplaceParams, Groups } from './groups';
 export {
   OrganizationUpdateParams,
   OrganizationListParams,

@@ -5,6 +5,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">AISecret</a></code>
 - <code><a href="./src/resources/shared.ts">ACL</a></code>
 - <code><a href="./src/resources/shared.ts">APIKey</a></code>
+- <code><a href="./src/resources/shared.ts">Code</a></code>
 - <code><a href="./src/resources/shared.ts">CreateAPIKeyOutput</a></code>
 - <code><a href="./src/resources/shared.ts">CrossObjectInsertResponse</a></code>
 - <code><a href="./src/resources/shared.ts">DataSummary</a></code>
@@ -28,10 +29,10 @@ Types:
 - <code><a href="./src/resources/shared.ts">InsertExperimentEventReplace</a></code>
 - <code><a href="./src/resources/shared.ts">InsertProjectLogsEventMerge</a></code>
 - <code><a href="./src/resources/shared.ts">InsertProjectLogsEventReplace</a></code>
+- <code><a href="./src/resources/shared.ts">Messages</a></code>
 - <code><a href="./src/resources/shared.ts">MetricSummary</a></code>
 - <code><a href="./src/resources/shared.ts">Organization</a></code>
 - <code><a href="./src/resources/shared.ts">PathLookupFilter</a></code>
-- <code><a href="./src/resources/shared.ts">Position</a></code>
 - <code><a href="./src/resources/shared.ts">Project</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectLogsEvent</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectScore</a></code>
@@ -39,11 +40,15 @@ Types:
 - <code><a href="./src/resources/shared.ts">ProjectTag</a></code>
 - <code><a href="./src/resources/shared.ts">Prompt</a></code>
 - <code><a href="./src/resources/shared.ts">PromptData</a></code>
+- <code><a href="./src/resources/shared.ts">PromptImageURL</a></code>
 - <code><a href="./src/resources/shared.ts">RepoInfo</a></code>
 - <code><a href="./src/resources/shared.ts">Role</a></code>
 - <code><a href="./src/resources/shared.ts">ScoreSummary</a></code>
+- <code><a href="./src/resources/shared.ts">Scorer</a></code>
 - <code><a href="./src/resources/shared.ts">SummarizeDatasetResponse</a></code>
 - <code><a href="./src/resources/shared.ts">SummarizeExperimentResponse</a></code>
+- <code><a href="./src/resources/shared.ts">Task</a></code>
+- <code><a href="./src/resources/shared.ts">ToolChoiceFunction</a></code>
 - <code><a href="./src/resources/shared.ts">User</a></code>
 - <code><a href="./src/resources/shared.ts">View</a></code>
 - <code><a href="./src/resources/shared.ts">ViewData</a></code>
@@ -190,6 +195,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/functions.ts">ImageURL</a></code>
 - <code><a href="./src/resources/functions.ts">FunctionInvokeResponse</a></code>
 
 Methods:
