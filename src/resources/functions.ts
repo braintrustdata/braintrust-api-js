@@ -103,10 +103,16 @@ export class Functions extends APIResource {
   }
 }
 
+export interface ImageURL {
+  url: string;
+
+  detail?: 'auto' | 'low' | 'high';
+}
+
 export type FunctionInvokeResponse = unknown;
 
 export interface FunctionCreateParams {
-  function_data: FunctionCreateParams.Prompt | FunctionCreateParams.Code | FunctionCreateParams.Global;
+  function_data: FunctionCreateParams.Prompt | Shared.Code | FunctionCreateParams.Global;
 
   /**
    * Name of the prompt
@@ -151,79 +157,6 @@ export interface FunctionCreateParams {
 export namespace FunctionCreateParams {
   export interface Prompt {
     type: 'prompt';
-  }
-
-  export interface Code {
-    data: Code.Bundle | Code.Inline;
-
-    type: 'code';
-  }
-
-  export namespace Code {
-    export interface Bundle {
-      bundle_id: string;
-
-      location: Bundle.Experiment | Bundle.Function;
-
-      runtime_context: Bundle.RuntimeContext;
-
-      type: 'bundle';
-
-      /**
-       * A preview of the code
-       */
-      preview?: string | null;
-    }
-
-    export namespace Bundle {
-      export interface Experiment {
-        eval_name: string;
-
-        position: Experiment.Type | Experiment.Scorer;
-
-        type: 'experiment';
-      }
-
-      export namespace Experiment {
-        export interface Type {
-          type: 'task';
-        }
-
-        export interface Scorer {
-          index: number;
-
-          type: 'scorer';
-        }
-      }
-
-      export interface Function {
-        index: number;
-
-        type: 'function';
-      }
-
-      export interface RuntimeContext {
-        runtime: 'node' | 'python';
-
-        version: string;
-      }
-    }
-
-    export interface Inline {
-      code: string;
-
-      runtime_context: Inline.RuntimeContext;
-
-      type: 'inline';
-    }
-
-    export namespace Inline {
-      export interface RuntimeContext {
-        runtime: 'node' | 'python';
-
-        version: string;
-      }
-    }
   }
 
   export interface Global {
@@ -280,7 +213,7 @@ export interface FunctionUpdateParams {
 
   function_data?:
     | FunctionUpdateParams.Prompt
-    | FunctionUpdateParams.Code
+    | Shared.Code
     | FunctionUpdateParams.Global
     | FunctionUpdateParams.NullableVariant
     | null;
@@ -304,79 +237,6 @@ export interface FunctionUpdateParams {
 export namespace FunctionUpdateParams {
   export interface Prompt {
     type: 'prompt';
-  }
-
-  export interface Code {
-    data: Code.Bundle | Code.Inline;
-
-    type: 'code';
-  }
-
-  export namespace Code {
-    export interface Bundle {
-      bundle_id: string;
-
-      location: Bundle.Experiment | Bundle.Function;
-
-      runtime_context: Bundle.RuntimeContext;
-
-      type: 'bundle';
-
-      /**
-       * A preview of the code
-       */
-      preview?: string | null;
-    }
-
-    export namespace Bundle {
-      export interface Experiment {
-        eval_name: string;
-
-        position: Experiment.Type | Experiment.Scorer;
-
-        type: 'experiment';
-      }
-
-      export namespace Experiment {
-        export interface Type {
-          type: 'task';
-        }
-
-        export interface Scorer {
-          index: number;
-
-          type: 'scorer';
-        }
-      }
-
-      export interface Function {
-        index: number;
-
-        type: 'function';
-      }
-
-      export interface RuntimeContext {
-        runtime: 'node' | 'python';
-
-        version: string;
-      }
-    }
-
-    export interface Inline {
-      code: string;
-
-      runtime_context: Inline.RuntimeContext;
-
-      type: 'inline';
-    }
-
-    export namespace Inline {
-      export interface RuntimeContext {
-        runtime: 'node' | 'python';
-
-        version: string;
-      }
-    }
   }
 
   export interface Global {
@@ -438,14 +298,7 @@ export interface FunctionInvokeParams {
   /**
    * If the function is an LLM, additional messages to pass along to it
    */
-  messages?: Array<
-    | FunctionInvokeParams.System
-    | FunctionInvokeParams.User
-    | FunctionInvokeParams.Assistant
-    | FunctionInvokeParams.Tool
-    | FunctionInvokeParams.Function
-    | FunctionInvokeParams.Fallback
-  >;
+  messages?: Array<Shared.Messages>;
 
   /**
    * The mode format of the returned value (defaults to 'auto')
@@ -470,102 +323,6 @@ export interface FunctionInvokeParams {
 }
 
 export namespace FunctionInvokeParams {
-  export interface System {
-    role: 'system';
-
-    content?: string;
-
-    name?: string;
-  }
-
-  export interface User {
-    role: 'user';
-
-    content?: string | Array<User.Text | User.ImageURL>;
-
-    name?: string;
-  }
-
-  export namespace User {
-    export interface Text {
-      type: 'text';
-
-      text?: string;
-    }
-
-    export interface ImageURL {
-      image_url: ImageURL.ImageURL;
-
-      type: 'image_url';
-    }
-
-    export namespace ImageURL {
-      export interface ImageURL {
-        url: string;
-
-        detail?: 'auto' | 'low' | 'high';
-      }
-    }
-  }
-
-  export interface Assistant {
-    role: 'assistant';
-
-    content?: string | null;
-
-    function_call?: Assistant.FunctionCall | null;
-
-    name?: string | null;
-
-    tool_calls?: Array<Assistant.ToolCall> | null;
-  }
-
-  export namespace Assistant {
-    export interface FunctionCall {
-      arguments: string;
-
-      name: string;
-    }
-
-    export interface ToolCall {
-      id: string;
-
-      function: ToolCall.Function;
-
-      type: 'function';
-    }
-
-    export namespace ToolCall {
-      export interface Function {
-        arguments: string;
-
-        name: string;
-      }
-    }
-  }
-
-  export interface Tool {
-    role: 'tool';
-
-    content?: string;
-
-    tool_call_id?: string;
-  }
-
-  export interface Function {
-    name: string;
-
-    role: 'function';
-
-    content?: string;
-  }
-
-  export interface Fallback {
-    role: 'model';
-
-    content?: string | null;
-  }
-
   /**
    * Span parent properties
    */
@@ -612,7 +369,7 @@ export namespace FunctionInvokeParams {
 }
 
 export interface FunctionReplaceParams {
-  function_data: FunctionReplaceParams.Prompt | FunctionReplaceParams.Code | FunctionReplaceParams.Global;
+  function_data: FunctionReplaceParams.Prompt | Shared.Code | FunctionReplaceParams.Global;
 
   /**
    * Name of the prompt
@@ -657,79 +414,6 @@ export interface FunctionReplaceParams {
 export namespace FunctionReplaceParams {
   export interface Prompt {
     type: 'prompt';
-  }
-
-  export interface Code {
-    data: Code.Bundle | Code.Inline;
-
-    type: 'code';
-  }
-
-  export namespace Code {
-    export interface Bundle {
-      bundle_id: string;
-
-      location: Bundle.Experiment | Bundle.Function;
-
-      runtime_context: Bundle.RuntimeContext;
-
-      type: 'bundle';
-
-      /**
-       * A preview of the code
-       */
-      preview?: string | null;
-    }
-
-    export namespace Bundle {
-      export interface Experiment {
-        eval_name: string;
-
-        position: Experiment.Type | Experiment.Scorer;
-
-        type: 'experiment';
-      }
-
-      export namespace Experiment {
-        export interface Type {
-          type: 'task';
-        }
-
-        export interface Scorer {
-          index: number;
-
-          type: 'scorer';
-        }
-      }
-
-      export interface Function {
-        index: number;
-
-        type: 'function';
-      }
-
-      export interface RuntimeContext {
-        runtime: 'node' | 'python';
-
-        version: string;
-      }
-    }
-
-    export interface Inline {
-      code: string;
-
-      runtime_context: Inline.RuntimeContext;
-
-      type: 'inline';
-    }
-
-    export namespace Inline {
-      export interface RuntimeContext {
-        runtime: 'node' | 'python';
-
-        version: string;
-      }
-    }
   }
 
   export interface Global {
@@ -779,6 +463,7 @@ export namespace FunctionReplaceParams {
 }
 
 export namespace Functions {
+  export import ImageURL = FunctionsAPI.ImageURL;
   export import FunctionInvokeResponse = FunctionsAPI.FunctionInvokeResponse;
   export import FunctionCreateParams = FunctionsAPI.FunctionCreateParams;
   export import FunctionUpdateParams = FunctionsAPI.FunctionUpdateParams;
