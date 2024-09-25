@@ -31,6 +31,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">MetricSummary</a></code>
 - <code><a href="./src/resources/shared.ts">Organization</a></code>
 - <code><a href="./src/resources/shared.ts">PathLookupFilter</a></code>
+- <code><a href="./src/resources/shared.ts">Position</a></code>
 - <code><a href="./src/resources/shared.ts">Project</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectLogsEvent</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectScore</a></code>
