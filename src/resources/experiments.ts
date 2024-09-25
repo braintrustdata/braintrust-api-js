@@ -412,7 +412,7 @@ export interface ExperimentFetchPostParams {
    * value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
    * for an overview of paginating fetch queries.
    */
-  max_root_span_id?: string | null;
+  max_root_span_id?: string;
 
   /**
    * DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
@@ -426,7 +426,7 @@ export interface ExperimentFetchPostParams {
    * value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
    * for an overview of paginating fetch queries.
    */
-  max_xact_id?: string | null;
+  max_xact_id?: string;
 
   /**
    * Retrieve a snapshot of events from a past time
@@ -435,7 +435,7 @@ export interface ExperimentFetchPostParams {
    * can use the `max_xact_id` returned by a past fetch as the version to reproduce
    * that exact fetch.
    */
-  version?: string | null;
+  version?: string;
 }
 
 export interface ExperimentInsertParams {

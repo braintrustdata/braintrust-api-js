@@ -100,7 +100,6 @@ export namespace Organizations {
   export import OrganizationUpdateParams = OrganizationsAPI.OrganizationUpdateParams;
   export import OrganizationListParams = OrganizationsAPI.OrganizationListParams;
   export import Members = MembersAPI.Members;
-  export import MemberUpdateResponse = MembersAPI.MemberUpdateResponse;
   export import MemberUpdateParams = MembersAPI.MemberUpdateParams;
 }
 

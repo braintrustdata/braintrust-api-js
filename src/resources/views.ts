@@ -97,8 +97,7 @@ export interface ViewCreateParams {
     | 'role'
     | 'org_member'
     | 'project_log'
-    | 'org_project'
-    | null;
+    | 'org_project';
 
   /**
    * Type of table that the view corresponds to.
@@ -155,8 +154,7 @@ export interface ViewRetrieveParams {
     | 'role'
     | 'org_member'
     | 'project_log'
-    | 'org_project'
-    | null;
+    | 'org_project';
 }
 
 export interface ViewUpdateParams {
@@ -179,8 +177,7 @@ export interface ViewUpdateParams {
     | 'role'
     | 'org_member'
     | 'project_log'
-    | 'org_project'
-    | null;
+    | 'org_project';
 
   /**
    * Name of the view
@@ -237,8 +234,7 @@ export interface ViewListParams extends ListObjectsParams {
     | 'role'
     | 'org_member'
     | 'project_log'
-    | 'org_project'
-    | null;
+    | 'org_project';
 
   /**
    * Filter search results to a particular set of object IDs. To specify a list of
@@ -286,8 +282,7 @@ export interface ViewDeleteParams {
     | 'role'
     | 'org_member'
     | 'project_log'
-    | 'org_project'
-    | null;
+    | 'org_project';
 }
 
 export interface ViewReplaceParams {
@@ -315,8 +310,7 @@ export interface ViewReplaceParams {
     | 'role'
     | 'org_member'
     | 'project_log'
-    | 'org_project'
-    | null;
+    | 'org_project';
 
   /**
    * Type of table that the view corresponds to.

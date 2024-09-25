@@ -47,12 +47,12 @@ export class ACLs extends APIResource {
   batchUpdate(
     body?: ACLBatchUpdateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<ACLBatchUpdateResponse>;
-  batchUpdate(options?: Core.RequestOptions): Core.APIPromise<ACLBatchUpdateResponse>;
+  ): Core.APIPromise<Shared.ACLBatchUpdateResponse>;
+  batchUpdate(options?: Core.RequestOptions): Core.APIPromise<Shared.ACLBatchUpdateResponse>;
   batchUpdate(
     body: ACLBatchUpdateParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<ACLBatchUpdateResponse> {
+  ): Core.APIPromise<Shared.ACLBatchUpdateResponse> {
     if (isRequestOptions(body)) {
       return this.batchUpdate({}, body);
     }
@@ -65,36 +65,6 @@ export class ACLs extends APIResource {
   findAndDelete(body: ACLFindAndDeleteParams, options?: Core.RequestOptions): Core.APIPromise<Shared.ACL> {
     return this._client.delete('/v1/acl', { body, ...options });
   }
-}
-
-export interface ACLBatchUpdateResponse {
-  /**
-   * An ACL grants a certain permission or role to a certain user or group on an
-   * object.
-   *
-   * ACLs are inherited across the object hierarchy. So for example, if a user has
-   * read permissions on a project, they will also have read permissions on any
-   * experiment, dataset, etc. created within that project.
-   *
-   * To restrict a grant to a particular sub-object, you may specify
-   * `restrict_object_type` in the ACL, as part of a direct permission grant or as
-   * part of a role.
-   */
-  added_acls: Array<Shared.ACL>;
-
-  /**
-   * An ACL grants a certain permission or role to a certain user or group on an
-   * object.
-   *
-   * ACLs are inherited across the object hierarchy. So for example, if a user has
-   * read permissions on a project, they will also have read permissions on any
-   * experiment, dataset, etc. created within that project.
-   *
-   * To restrict a grant to a particular sub-object, you may specify
-   * `restrict_object_type` in the ACL, as part of a direct permission grant or as
-   * part of a role.
-   */
-  removed_acls: Array<Shared.ACL>;
 }
 
 export interface ACLCreateParams {
@@ -117,8 +87,7 @@ export interface ACLCreateParams {
     | 'role'
     | 'org_member'
     | 'project_log'
-    | 'org_project'
-    | null;
+    | 'org_project';
 
   /**
    * Id of the group the ACL applies to. Exactly one of `user_id` and `group_id` will
@@ -127,8 +96,10 @@ export interface ACLCreateParams {
   group_id?: string | null;
 
   /**
-   * Permission the ACL grants. Exactly one of `permission` and `role_id` will be
-   * provided
+   * Each permission permits a certain type of operation on an object in the system
+   *
+   * Permissions can be assigned to to objects on an individual basis, or grouped
+   * into roles
    */
   permission?:
     | 'create'
@@ -138,12 +109,10 @@ export interface ACLCreateParams {
     | 'create_acls'
     | 'read_acls'
     | 'update_acls'
-    | 'delete_acls'
-    | null;
+    | 'delete_acls';
 
   /**
-   * When setting a permission directly, optionally restricts the permission grant to
-   * just the specified object type. Cannot be set alongside a `role_id`.
+   * The object type that the ACL applies to
    */
   restrict_object_type?:
     | 'organization'
@@ -156,8 +125,7 @@ export interface ACLCreateParams {
     | 'role'
     | 'org_member'
     | 'project_log'
-    | 'org_project'
-    | null;
+    | 'org_project';
 
   /**
    * Id of the role the ACL grants. Exactly one of `permission` and `role_id` will be
@@ -192,8 +160,7 @@ export interface ACLListParams extends ListObjectsParams {
     | 'role'
     | 'org_member'
     | 'project_log'
-    | 'org_project'
-    | null;
+    | 'org_project';
 
   /**
    * Filter search results to a particular set of object IDs. To specify a list of
@@ -265,8 +232,7 @@ export namespace ACLBatchUpdateParams {
       | 'role'
       | 'org_member'
       | 'project_log'
-      | 'org_project'
-      | null;
+      | 'org_project';
 
     /**
      * Id of the group the ACL applies to. Exactly one of `user_id` and `group_id` will
@@ -275,8 +241,10 @@ export namespace ACLBatchUpdateParams {
     group_id?: string | null;
 
     /**
-     * Permission the ACL grants. Exactly one of `permission` and `role_id` will be
-     * provided
+     * Each permission permits a certain type of operation on an object in the system
+     *
+     * Permissions can be assigned to to objects on an individual basis, or grouped
+     * into roles
      */
     permission?:
       | 'create'
@@ -286,12 +254,10 @@ export namespace ACLBatchUpdateParams {
       | 'create_acls'
       | 'read_acls'
       | 'update_acls'
-      | 'delete_acls'
-      | null;
+      | 'delete_acls';
 
     /**
-     * When setting a permission directly, optionally restricts the permission grant to
-     * just the specified object type. Cannot be set alongside a `role_id`.
+     * The object type that the ACL applies to
      */
     restrict_object_type?:
       | 'organization'
@@ -304,8 +270,7 @@ export namespace ACLBatchUpdateParams {
       | 'role'
       | 'org_member'
       | 'project_log'
-      | 'org_project'
-      | null;
+      | 'org_project';
 
     /**
      * Id of the role the ACL grants. Exactly one of `permission` and `role_id` will be
@@ -352,8 +317,7 @@ export namespace ACLBatchUpdateParams {
       | 'role'
       | 'org_member'
       | 'project_log'
-      | 'org_project'
-      | null;
+      | 'org_project';
 
     /**
      * Id of the group the ACL applies to. Exactly one of `user_id` and `group_id` will
@@ -362,8 +326,10 @@ export namespace ACLBatchUpdateParams {
     group_id?: string | null;
 
     /**
-     * Permission the ACL grants. Exactly one of `permission` and `role_id` will be
-     * provided
+     * Each permission permits a certain type of operation on an object in the system
+     *
+     * Permissions can be assigned to to objects on an individual basis, or grouped
+     * into roles
      */
     permission?:
       | 'create'
@@ -373,12 +339,10 @@ export namespace ACLBatchUpdateParams {
       | 'create_acls'
       | 'read_acls'
       | 'update_acls'
-      | 'delete_acls'
-      | null;
+      | 'delete_acls';
 
     /**
-     * When setting a permission directly, optionally restricts the permission grant to
-     * just the specified object type. Cannot be set alongside a `role_id`.
+     * The object type that the ACL applies to
      */
     restrict_object_type?:
       | 'organization'
@@ -391,8 +355,7 @@ export namespace ACLBatchUpdateParams {
       | 'role'
       | 'org_member'
       | 'project_log'
-      | 'org_project'
-      | null;
+      | 'org_project';
 
     /**
      * Id of the role the ACL grants. Exactly one of `permission` and `role_id` will be
@@ -428,8 +391,7 @@ export interface ACLFindAndDeleteParams {
     | 'role'
     | 'org_member'
     | 'project_log'
-    | 'org_project'
-    | null;
+    | 'org_project';
 
   /**
    * Id of the group the ACL applies to. Exactly one of `user_id` and `group_id` will
@@ -438,8 +400,10 @@ export interface ACLFindAndDeleteParams {
   group_id?: string | null;
 
   /**
-   * Permission the ACL grants. Exactly one of `permission` and `role_id` will be
-   * provided
+   * Each permission permits a certain type of operation on an object in the system
+   *
+   * Permissions can be assigned to to objects on an individual basis, or grouped
+   * into roles
    */
   permission?:
     | 'create'
@@ -449,12 +413,10 @@ export interface ACLFindAndDeleteParams {
     | 'create_acls'
     | 'read_acls'
     | 'update_acls'
-    | 'delete_acls'
-    | null;
+    | 'delete_acls';
 
   /**
-   * When setting a permission directly, optionally restricts the permission grant to
-   * just the specified object type. Cannot be set alongside a `role_id`.
+   * The object type that the ACL applies to
    */
   restrict_object_type?:
     | 'organization'
@@ -467,8 +429,7 @@ export interface ACLFindAndDeleteParams {
     | 'role'
     | 'org_member'
     | 'project_log'
-    | 'org_project'
-    | null;
+    | 'org_project';
 
   /**
    * Id of the role the ACL grants. Exactly one of `permission` and `role_id` will be
@@ -484,7 +445,6 @@ export interface ACLFindAndDeleteParams {
 }
 
 export namespace ACLs {
-  export import ACLBatchUpdateResponse = ACLsAPI.ACLBatchUpdateResponse;
   export import ACLCreateParams = ACLsAPI.ACLCreateParams;
   export import ACLListParams = ACLsAPI.ACLListParams;
   export import ACLBatchUpdateParams = ACLsAPI.ACLBatchUpdateParams;

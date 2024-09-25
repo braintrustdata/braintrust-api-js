@@ -4,32 +4,26 @@ import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
 import * as MembersAPI from './members';
+import * as Shared from '../shared';
 
 export class Members extends APIResource {
   /**
    * Modify organization membership
    */
-  update(body?: MemberUpdateParams, options?: Core.RequestOptions): Core.APIPromise<MemberUpdateResponse>;
-  update(options?: Core.RequestOptions): Core.APIPromise<MemberUpdateResponse>;
+  update(
+    body?: MemberUpdateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.PatchOrganizationMembersOutput>;
+  update(options?: Core.RequestOptions): Core.APIPromise<Shared.PatchOrganizationMembersOutput>;
   update(
     body: MemberUpdateParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<MemberUpdateResponse> {
+  ): Core.APIPromise<Shared.PatchOrganizationMembersOutput> {
     if (isRequestOptions(body)) {
       return this.update({}, body);
     }
     return this._client.patch('/v1/organization/members', { body, ...options });
   }
-}
-
-export interface MemberUpdateResponse {
-  status: 'success';
-
-  /**
-   * If invite emails failed to send for some reason, the patch operation will still
-   * complete, but we will return an error message here
-   */
-  send_email_error?: string | null;
 }
 
 export interface MemberUpdateParams {
@@ -118,6 +112,5 @@ export namespace MemberUpdateParams {
 }
 
 export namespace Members {
-  export import MemberUpdateResponse = MembersAPI.MemberUpdateResponse;
   export import MemberUpdateParams = MembersAPI.MemberUpdateParams;
 }
