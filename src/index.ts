@@ -329,6 +329,7 @@ export namespace Braintrust {
   export import MetricSummary = API.MetricSummary;
   export import Organization = API.Organization;
   export import PathLookupFilter = API.PathLookupFilter;
+  export import Position = API.Position;
   export import Project = API.Project;
   export import ProjectLogsEvent = API.ProjectLogsEvent;
   export import ProjectScore = API.ProjectScore;

@@ -1,5 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+import * as Shared from './shared';
 import { ListObjects } from '../pagination';
 
 export interface AISecret {
@@ -877,21 +878,9 @@ export namespace Function {
       export interface Experiment {
         eval_name: string;
 
-        position: Experiment.Type | Experiment.Scorer;
+        position: Shared.Position;
 
         type: 'experiment';
-      }
-
-      export namespace Experiment {
-        export interface Type {
-          type: 'task';
-        }
-
-        export interface Scorer {
-          index: number;
-
-          type: 'scorer';
-        }
       }
 
       export interface Function {
@@ -2118,6 +2107,20 @@ export interface PathLookupFilter {
    * `value="hello"`
    */
   value?: unknown;
+}
+
+export type Position = Position.Type | Position.Scorer;
+
+export namespace Position {
+  export interface Type {
+    type: 'task';
+  }
+
+  export interface Scorer {
+    index: number;
+
+    type: 'scorer';
+  }
 }
 
 export interface Project {
