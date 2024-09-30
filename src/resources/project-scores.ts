@@ -115,6 +115,8 @@ export interface ProjectScoreCreateParams {
     | ProjectScoreCreateParams.NullableVariant
     | null;
 
+  config?: Shared.ProjectScoreConfig | null;
+
   /**
    * Textual description of the project score
    */
@@ -136,6 +138,8 @@ export interface ProjectScoreUpdateParams {
     | ProjectScoreUpdateParams.NullableVariant
     | null;
 
+  config?: Shared.ProjectScoreConfig | null;
+
   /**
    * Textual description of the project score
    */
@@ -149,7 +153,7 @@ export interface ProjectScoreUpdateParams {
   /**
    * The type of the configured score
    */
-  score_type?: 'slider' | 'categorical' | 'weighted' | 'minimum' | 'online';
+  score_type?: 'slider' | 'categorical' | 'weighted' | 'minimum' | 'online' | null;
 }
 
 export namespace ProjectScoreUpdateParams {
@@ -220,6 +224,8 @@ export interface ProjectScoreReplaceParams {
     | Array<string>
     | ProjectScoreReplaceParams.NullableVariant
     | null;
+
+  config?: Shared.ProjectScoreConfig | null;
 
   /**
    * Textual description of the project score

@@ -34,6 +34,20 @@ describe('resource projectScores', () => {
         { name: 'name', value: 0 },
         { name: 'name', value: 0 },
       ],
+      config: {
+        destination: 'expected',
+        multi_select: true,
+        online: {
+          sampling_rate: 0,
+          scorers: [
+            { id: 'id', type: 'function' },
+            { id: 'id', type: 'function' },
+            { id: 'id', type: 'function' },
+          ],
+          apply_to_root_span: true,
+          apply_to_span_names: ['string', 'string', 'string'],
+        },
+      },
       description: 'description',
     });
   });
@@ -89,6 +103,20 @@ describe('resource projectScores', () => {
             { name: 'name', value: 0 },
             { name: 'name', value: 0 },
           ],
+          config: {
+            destination: 'expected',
+            multi_select: true,
+            online: {
+              sampling_rate: 0,
+              scorers: [
+                { id: 'id', type: 'function' },
+                { id: 'id', type: 'function' },
+                { id: 'id', type: 'function' },
+              ],
+              apply_to_root_span: true,
+              apply_to_span_names: ['string', 'string', 'string'],
+            },
+          },
           description: 'description',
           name: 'name',
           score_type: 'slider',
@@ -181,6 +209,20 @@ describe('resource projectScores', () => {
         { name: 'name', value: 0 },
         { name: 'name', value: 0 },
       ],
+      config: {
+        destination: 'expected',
+        multi_select: true,
+        online: {
+          sampling_rate: 0,
+          scorers: [
+            { id: 'id', type: 'function' },
+            { id: 'id', type: 'function' },
+            { id: 'id', type: 'function' },
+          ],
+          apply_to_root_span: true,
+          apply_to_span_names: ['string', 'string', 'string'],
+        },
+      },
       description: 'description',
     });
   });

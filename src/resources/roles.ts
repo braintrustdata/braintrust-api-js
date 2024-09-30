@@ -146,7 +146,8 @@ export namespace RoleCreateParams {
       | 'role'
       | 'org_member'
       | 'project_log'
-      | 'org_project';
+      | 'org_project'
+      | null;
   }
 }
 
@@ -214,7 +215,8 @@ export namespace RoleUpdateParams {
       | 'role'
       | 'org_member'
       | 'project_log'
-      | 'org_project';
+      | 'org_project'
+      | null;
   }
 
   export interface RemoveMemberPermission {
@@ -248,7 +250,8 @@ export namespace RoleUpdateParams {
       | 'role'
       | 'org_member'
       | 'project_log'
-      | 'org_project';
+      | 'org_project'
+      | null;
   }
 }
 
@@ -334,7 +337,8 @@ export namespace RoleReplaceParams {
       | 'role'
       | 'org_member'
       | 'project_log'
-      | 'org_project';
+      | 'org_project'
+      | null;
   }
 }
 
