@@ -109,7 +109,8 @@ export interface ACLCreateParams {
     | 'create_acls'
     | 'read_acls'
     | 'update_acls'
-    | 'delete_acls';
+    | 'delete_acls'
+    | null;
 
   /**
    * The object type that the ACL applies to
@@ -125,7 +126,8 @@ export interface ACLCreateParams {
     | 'role'
     | 'org_member'
     | 'project_log'
-    | 'org_project';
+    | 'org_project'
+    | null;
 
   /**
    * Id of the role the ACL grants. Exactly one of `permission` and `role_id` will be
@@ -254,7 +256,8 @@ export namespace ACLBatchUpdateParams {
       | 'create_acls'
       | 'read_acls'
       | 'update_acls'
-      | 'delete_acls';
+      | 'delete_acls'
+      | null;
 
     /**
      * The object type that the ACL applies to
@@ -270,7 +273,8 @@ export namespace ACLBatchUpdateParams {
       | 'role'
       | 'org_member'
       | 'project_log'
-      | 'org_project';
+      | 'org_project'
+      | null;
 
     /**
      * Id of the role the ACL grants. Exactly one of `permission` and `role_id` will be
@@ -339,7 +343,8 @@ export namespace ACLBatchUpdateParams {
       | 'create_acls'
       | 'read_acls'
       | 'update_acls'
-      | 'delete_acls';
+      | 'delete_acls'
+      | null;
 
     /**
      * The object type that the ACL applies to
@@ -355,7 +360,8 @@ export namespace ACLBatchUpdateParams {
       | 'role'
       | 'org_member'
       | 'project_log'
-      | 'org_project';
+      | 'org_project'
+      | null;
 
     /**
      * Id of the role the ACL grants. Exactly one of `permission` and `role_id` will be
@@ -413,7 +419,8 @@ export interface ACLFindAndDeleteParams {
     | 'create_acls'
     | 'read_acls'
     | 'update_acls'
-    | 'delete_acls';
+    | 'delete_acls'
+    | null;
 
   /**
    * The object type that the ACL applies to
@@ -429,7 +436,8 @@ export interface ACLFindAndDeleteParams {
     | 'role'
     | 'org_member'
     | 'project_log'
-    | 'org_project';
+    | 'org_project'
+    | null;
 
   /**
    * Id of the role the ACL grants. Exactly one of `permission` and `role_id` will be

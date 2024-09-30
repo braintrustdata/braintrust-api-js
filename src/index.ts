@@ -131,6 +131,8 @@ export class Braintrust extends Core.APIClient {
   organizations: API.Organizations = new API.Organizations(this);
   apiKeys: API.APIKeys = new API.APIKeys(this);
   aiSecrets: API.AISecrets = new API.AISecrets(this);
+  envVars: API.EnvVars = new API.EnvVars(this);
+  evals: API.Evals = new API.Evals(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
@@ -299,6 +301,16 @@ export namespace Braintrust {
   export import AISecretFindAndDeleteParams = API.AISecretFindAndDeleteParams;
   export import AISecretReplaceParams = API.AISecretReplaceParams;
 
+  export import EnvVars = API.EnvVars;
+  export import EnvVarListResponse = API.EnvVarListResponse;
+  export import EnvVarCreateParams = API.EnvVarCreateParams;
+  export import EnvVarUpdateParams = API.EnvVarUpdateParams;
+  export import EnvVarListParams = API.EnvVarListParams;
+  export import EnvVarReplaceParams = API.EnvVarReplaceParams;
+
+  export import Evals = API.Evals;
+  export import EvalCreateParams = API.EvalCreateParams;
+
   export import AISecret = API.AISecret;
   export import ACL = API.ACL;
   export import ACLBatchUpdateResponse = API.ACLBatchUpdateResponse;
@@ -312,6 +324,7 @@ export namespace Braintrust {
   export import DataSummary = API.DataSummary;
   export import Dataset = API.Dataset;
   export import DatasetEvent = API.DatasetEvent;
+  export import EnvVar = API.EnvVar;
   export import Experiment = API.Experiment;
   export import ExperimentEvent = API.ExperimentEvent;
   export import FeedbackDatasetItem = API.FeedbackDatasetItem;
@@ -339,6 +352,7 @@ export namespace Braintrust {
   export import ProjectLogsEvent = API.ProjectLogsEvent;
   export import ProjectScore = API.ProjectScore;
   export import ProjectScoreCategory = API.ProjectScoreCategory;
+  export import ProjectScoreConfig = API.ProjectScoreConfig;
   export import ProjectSettings = API.ProjectSettings;
   export import ProjectTag = API.ProjectTag;
   export import Prompt = API.Prompt;
