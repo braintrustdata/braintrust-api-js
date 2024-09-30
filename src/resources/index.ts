@@ -23,6 +23,15 @@ export {
   Datasets,
 } from './datasets';
 export {
+  EnvVarListResponse,
+  EnvVarCreateParams,
+  EnvVarUpdateParams,
+  EnvVarListParams,
+  EnvVarReplaceParams,
+  EnvVars,
+} from './env-vars';
+export { EvalCreateParams, Evals } from './evals';
+export {
   ExperimentCreateParams,
   ExperimentUpdateParams,
   ExperimentListParams,

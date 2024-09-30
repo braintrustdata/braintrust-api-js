@@ -322,7 +322,7 @@ export interface ExperimentFetchParams {
    * end up with more individual rows than the specified limit if you are fetching
    * events containing traces.
    */
-  limit?: number;
+  limit?: number | null;
 
   /**
    * DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
@@ -412,7 +412,7 @@ export interface ExperimentFetchPostParams {
    * value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
    * for an overview of paginating fetch queries.
    */
-  max_root_span_id?: string;
+  max_root_span_id?: string | null;
 
   /**
    * DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
@@ -426,7 +426,7 @@ export interface ExperimentFetchPostParams {
    * value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
    * for an overview of paginating fetch queries.
    */
-  max_xact_id?: string;
+  max_xact_id?: string | null;
 
   /**
    * Retrieve a snapshot of events from a past time
@@ -435,7 +435,7 @@ export interface ExperimentFetchPostParams {
    * can use the `max_xact_id` returned by a past fetch as the version to reproduce
    * that exact fetch.
    */
-  version?: string;
+  version?: string | null;
 }
 
 export interface ExperimentInsertParams {
@@ -458,7 +458,7 @@ export interface ExperimentSummarizeParams {
    * Whether to summarize the scores and metrics. If false (or omitted), only the
    * metadata will be returned.
    */
-  summarize_scores?: boolean;
+  summarize_scores?: boolean | null;
 }
 
 export namespace Experiments {
