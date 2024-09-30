@@ -15,6 +15,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">DataSummary</a></code>
 - <code><a href="./src/resources/shared.ts">Dataset</a></code>
 - <code><a href="./src/resources/shared.ts">DatasetEvent</a></code>
+- <code><a href="./src/resources/shared.ts">EnvVar</a></code>
 - <code><a href="./src/resources/shared.ts">Experiment</a></code>
 - <code><a href="./src/resources/shared.ts">ExperimentEvent</a></code>
 - <code><a href="./src/resources/shared.ts">FeedbackDatasetItem</a></code>
@@ -42,6 +43,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">ProjectLogsEvent</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectScore</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectScoreCategory</a></code>
+- <code><a href="./src/resources/shared.ts">ProjectScoreConfig</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectSettings</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectTag</a></code>
 - <code><a href="./src/resources/shared.ts">Prompt</a></code>
@@ -251,3 +253,24 @@ Methods:
 - <code title="delete /v1/ai_secret/{ai_secret_id}">client.aiSecrets.<a href="./src/resources/ai-secrets.ts">delete</a>(aiSecretId) -> AISecret</code>
 - <code title="delete /v1/ai_secret">client.aiSecrets.<a href="./src/resources/ai-secrets.ts">findAndDelete</a>({ ...params }) -> AISecret</code>
 - <code title="put /v1/ai_secret">client.aiSecrets.<a href="./src/resources/ai-secrets.ts">replace</a>({ ...params }) -> AISecret</code>
+
+# EnvVars
+
+Types:
+
+- <code><a href="./src/resources/env-vars.ts">EnvVarListResponse</a></code>
+
+Methods:
+
+- <code title="post /v1/env_var">client.envVars.<a href="./src/resources/env-vars.ts">create</a>({ ...params }) -> EnvVar</code>
+- <code title="get /v1/env_var/{env_var_id}">client.envVars.<a href="./src/resources/env-vars.ts">retrieve</a>(envVarId) -> EnvVar</code>
+- <code title="patch /v1/env_var/{env_var_id}">client.envVars.<a href="./src/resources/env-vars.ts">update</a>(envVarId, { ...params }) -> EnvVar</code>
+- <code title="get /v1/env_var">client.envVars.<a href="./src/resources/env-vars.ts">list</a>({ ...params }) -> EnvVarListResponse</code>
+- <code title="delete /v1/env_var/{env_var_id}">client.envVars.<a href="./src/resources/env-vars.ts">delete</a>(envVarId) -> EnvVar</code>
+- <code title="put /v1/env_var">client.envVars.<a href="./src/resources/env-vars.ts">replace</a>({ ...params }) -> EnvVar</code>
+
+# Evals
+
+Methods:
+
+- <code title="post /v1/eval">client.evals.<a href="./src/resources/evals.ts">create</a>({ ...params }) -> SummarizeExperimentResponse</code>

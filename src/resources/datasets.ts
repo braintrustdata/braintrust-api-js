@@ -171,14 +171,14 @@ export interface DatasetCreateParams {
   name: string;
 
   /**
+   * Unique identifier for the project that the dataset belongs under
+   */
+  project_id: string;
+
+  /**
    * Textual description of the dataset
    */
   description?: string | null;
-
-  /**
-   * Unique identifier for the project that the dataset belongs under
-   */
-  project_id?: string | null;
 }
 
 export interface DatasetUpdateParams {
@@ -250,7 +250,7 @@ export interface DatasetFetchParams {
    * end up with more individual rows than the specified limit if you are fetching
    * events containing traces.
    */
-  limit?: number;
+  limit?: number | null;
 
   /**
    * DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
@@ -340,7 +340,7 @@ export interface DatasetFetchPostParams {
    * value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
    * for an overview of paginating fetch queries.
    */
-  max_root_span_id?: string;
+  max_root_span_id?: string | null;
 
   /**
    * DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
@@ -354,7 +354,7 @@ export interface DatasetFetchPostParams {
    * value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
    * for an overview of paginating fetch queries.
    */
-  max_xact_id?: string;
+  max_xact_id?: string | null;
 
   /**
    * Retrieve a snapshot of events from a past time
@@ -363,7 +363,7 @@ export interface DatasetFetchPostParams {
    * can use the `max_xact_id` returned by a past fetch as the version to reproduce
    * that exact fetch.
    */
-  version?: string;
+  version?: string | null;
 }
 
 export interface DatasetInsertParams {
@@ -378,7 +378,7 @@ export interface DatasetSummarizeParams {
    * Whether to summarize the data. If false (or omitted), only the metadata will be
    * returned.
    */
-  summarize_data?: boolean;
+  summarize_data?: boolean | null;
 }
 
 export namespace Datasets {
