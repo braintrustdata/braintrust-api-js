@@ -26,6 +26,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">FetchExperimentEventsResponse</a></code>
 - <code><a href="./src/resources/shared.ts">FetchProjectLogsEventsResponse</a></code>
 - <code><a href="./src/resources/shared.ts">Function</a></code>
+- <code><a href="./src/resources/shared.ts">FunctionToolChoice</a></code>
 - <code><a href="./src/resources/shared.ts">Group</a></code>
 - <code><a href="./src/resources/shared.ts">InsertDatasetEventMerge</a></code>
 - <code><a href="./src/resources/shared.ts">InsertDatasetEventReplace</a></code>
@@ -44,6 +45,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">ProjectScore</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectScoreCategory</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectScoreConfig</a></code>
+- <code><a href="./src/resources/shared.ts">ProjectScoreType</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectSettings</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectTag</a></code>
 - <code><a href="./src/resources/shared.ts">Prompt</a></code>
@@ -51,8 +53,11 @@ Types:
 - <code><a href="./src/resources/shared.ts">RepoInfo</a></code>
 - <code><a href="./src/resources/shared.ts">Role</a></code>
 - <code><a href="./src/resources/shared.ts">ScoreSummary</a></code>
+- <code><a href="./src/resources/shared.ts">Scorer</a></code>
 - <code><a href="./src/resources/shared.ts">SummarizeDatasetResponse</a></code>
 - <code><a href="./src/resources/shared.ts">SummarizeExperimentResponse</a></code>
+- <code><a href="./src/resources/shared.ts">Task</a></code>
+- <code><a href="./src/resources/shared.ts">ToolChoice</a></code>
 - <code><a href="./src/resources/shared.ts">User</a></code>
 - <code><a href="./src/resources/shared.ts">View</a></code>
 - <code><a href="./src/resources/shared.ts">ViewData</a></code>

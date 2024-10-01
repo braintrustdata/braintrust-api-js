@@ -245,21 +245,9 @@ export namespace CodeBundle {
   export interface Experiment {
     eval_name: string;
 
-    position: Experiment.Type | Experiment.Scorer;
+    position: Shared.Task | Shared.Scorer;
 
     type: 'experiment';
-  }
-
-  export namespace Experiment {
-    export interface Type {
-      type: 'task';
-    }
-
-    export interface Scorer {
-      index: number;
-
-      type: 'scorer';
-    }
   }
 
   export interface Function {
@@ -1068,6 +1056,10 @@ export namespace Function {
      */
     internal?: boolean | null;
   }
+}
+
+export interface FunctionToolChoice {
+  name: string;
 }
 
 /**
@@ -2534,7 +2526,7 @@ export interface ProjectScore {
   /**
    * The type of the configured score
    */
-  score_type: 'slider' | 'categorical' | 'weighted' | 'minimum' | 'online';
+  score_type: ProjectScoreType;
 
   user_id: string;
 
@@ -2593,6 +2585,11 @@ export interface ProjectScoreConfig {
 
   online?: OnlineScoreConfig | null;
 }
+
+/**
+ * The type of the configured score
+ */
+export type ProjectScoreType = 'slider' | 'categorical' | 'weighted' | 'minimum' | 'online';
 
 export interface ProjectSettings {
   /**
@@ -2753,7 +2750,7 @@ export namespace PromptData {
 
       temperature?: number;
 
-      tool_choice?: 'auto' | 'none' | OpenAIModelParams.Function;
+      tool_choice?: Shared.ToolChoice;
 
       top_p?: number;
 
@@ -2767,18 +2764,6 @@ export namespace PromptData {
 
       export interface ResponseFormat {
         type: 'json_object';
-      }
-
-      export interface Function {
-        function: Function.Function;
-
-        type: 'function';
-      }
-
-      export namespace Function {
-        export interface Function {
-          name: string;
-        }
       }
     }
 
@@ -3110,6 +3095,12 @@ export interface ScoreSummary {
   diff?: number;
 }
 
+export interface Scorer {
+  index: number;
+
+  type: 'scorer';
+}
+
 /**
  * Summary of a dataset
  */
@@ -3178,6 +3169,20 @@ export interface SummarizeExperimentResponse {
    * Summary of the experiment's scores
    */
   scores?: Record<string, ScoreSummary> | null;
+}
+
+export interface Task {
+  type: 'task';
+}
+
+export type ToolChoice = 'auto' | 'none' | ToolChoice.Function;
+
+export namespace ToolChoice {
+  export interface Function {
+    function: Shared.FunctionToolChoice;
+
+    type: 'function';
+  }
 }
 
 export interface User {

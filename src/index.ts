@@ -335,6 +335,7 @@ export namespace Braintrust {
   export import FetchExperimentEventsResponse = API.FetchExperimentEventsResponse;
   export import FetchProjectLogsEventsResponse = API.FetchProjectLogsEventsResponse;
   export import Function = API.Function;
+  export import FunctionToolChoice = API.FunctionToolChoice;
   export import Group = API.Group;
   export import InsertDatasetEventMerge = API.InsertDatasetEventMerge;
   export import InsertDatasetEventReplace = API.InsertDatasetEventReplace;
@@ -353,6 +354,7 @@ export namespace Braintrust {
   export import ProjectScore = API.ProjectScore;
   export import ProjectScoreCategory = API.ProjectScoreCategory;
   export import ProjectScoreConfig = API.ProjectScoreConfig;
+  export import ProjectScoreType = API.ProjectScoreType;
   export import ProjectSettings = API.ProjectSettings;
   export import ProjectTag = API.ProjectTag;
   export import Prompt = API.Prompt;
@@ -360,8 +362,11 @@ export namespace Braintrust {
   export import RepoInfo = API.RepoInfo;
   export import Role = API.Role;
   export import ScoreSummary = API.ScoreSummary;
+  export import Scorer = API.Scorer;
   export import SummarizeDatasetResponse = API.SummarizeDatasetResponse;
   export import SummarizeExperimentResponse = API.SummarizeExperimentResponse;
+  export import Task = API.Task;
+  export import ToolChoice = API.ToolChoice;
   export import User = API.User;
   export import View = API.View;
   export import ViewData = API.ViewData;
