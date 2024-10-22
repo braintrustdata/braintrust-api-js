@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.6.0 (2024-10-22)
+
+Full Changelog: [v0.5.0...v0.6.0](https://github.com/braintrustdata/braintrust-api-js/compare/v0.5.0...v0.6.0)
+
+### Features
+
+* **api:** api update ([#73](https://github.com/braintrustdata/braintrust-api-js/issues/73)) ([19ae422](https://github.com/braintrustdata/braintrust-api-js/commit/19ae4222937843e0e0a590143372644c23377dc4))
+* **api:** api update ([#75](https://github.com/braintrustdata/braintrust-api-js/issues/75)) ([11889ac](https://github.com/braintrustdata/braintrust-api-js/commit/11889ac6e3da9b3ec71bed7b3833e966a3ddb5bc))
+
 ## 0.5.0 (2024-10-01)
 
 Full Changelog: [v0.4.0...v0.5.0](https://github.com/braintrustdata/braintrust-api-js/compare/v0.4.0...v0.5.0)
