@@ -122,14 +122,14 @@ export interface ProjectListParams extends ListObjectsParams {
 }
 
 export namespace Projects {
-  export type ProjectCreateParams = ProjectsAPI.ProjectCreateParams;
-  export type ProjectUpdateParams = ProjectsAPI.ProjectUpdateParams;
-  export type ProjectListParams = ProjectsAPI.ProjectListParams;
+  export import ProjectCreateParams = ProjectsAPI.ProjectCreateParams;
+  export import ProjectUpdateParams = ProjectsAPI.ProjectUpdateParams;
+  export import ProjectListParams = ProjectsAPI.ProjectListParams;
   export import Logs = LogsAPI.Logs;
-  export type LogFeedbackParams = LogsAPI.LogFeedbackParams;
-  export type LogFetchParams = LogsAPI.LogFetchParams;
-  export type LogFetchPostParams = LogsAPI.LogFetchPostParams;
-  export type LogInsertParams = LogsAPI.LogInsertParams;
+  export import LogFeedbackParams = LogsAPI.LogFeedbackParams;
+  export import LogFetchParams = LogsAPI.LogFetchParams;
+  export import LogFetchPostParams = LogsAPI.LogFetchPostParams;
+  export import LogInsertParams = LogsAPI.LogInsertParams;
 }
 
 export { ProjectsListObjects };

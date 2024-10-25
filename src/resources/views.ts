@@ -348,12 +348,12 @@ export interface ViewReplaceParams {
 }
 
 export namespace Views {
-  export type ViewCreateParams = ViewsAPI.ViewCreateParams;
-  export type ViewRetrieveParams = ViewsAPI.ViewRetrieveParams;
-  export type ViewUpdateParams = ViewsAPI.ViewUpdateParams;
-  export type ViewListParams = ViewsAPI.ViewListParams;
-  export type ViewDeleteParams = ViewsAPI.ViewDeleteParams;
-  export type ViewReplaceParams = ViewsAPI.ViewReplaceParams;
+  export import ViewCreateParams = ViewsAPI.ViewCreateParams;
+  export import ViewRetrieveParams = ViewsAPI.ViewRetrieveParams;
+  export import ViewUpdateParams = ViewsAPI.ViewUpdateParams;
+  export import ViewListParams = ViewsAPI.ViewListParams;
+  export import ViewDeleteParams = ViewsAPI.ViewDeleteParams;
+  export import ViewReplaceParams = ViewsAPI.ViewReplaceParams;
 }
 
 export { ViewsListObjects };

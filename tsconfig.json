@@ -11,7 +11,7 @@
     "paths": {
       "@braintrust/api/_shims/auto/*": ["src/_shims/auto/*-node"],
       "@braintrust/api/*": ["src/*"],
-      "@braintrust/api": ["src/index.ts"]
+      "@braintrust/api": ["src/index.ts"],
     },
     "noEmit": true,
 
@@ -32,7 +32,6 @@
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
-    "isolatedModules": true,
 
     "skipLibCheck": true
   }

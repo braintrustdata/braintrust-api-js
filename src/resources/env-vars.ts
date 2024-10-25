@@ -160,9 +160,9 @@ export interface EnvVarReplaceParams {
 }
 
 export namespace EnvVars {
-  export type EnvVarListResponse = EnvVarsAPI.EnvVarListResponse;
-  export type EnvVarCreateParams = EnvVarsAPI.EnvVarCreateParams;
-  export type EnvVarUpdateParams = EnvVarsAPI.EnvVarUpdateParams;
-  export type EnvVarListParams = EnvVarsAPI.EnvVarListParams;
-  export type EnvVarReplaceParams = EnvVarsAPI.EnvVarReplaceParams;
+  export import EnvVarListResponse = EnvVarsAPI.EnvVarListResponse;
+  export import EnvVarCreateParams = EnvVarsAPI.EnvVarCreateParams;
+  export import EnvVarUpdateParams = EnvVarsAPI.EnvVarUpdateParams;
+  export import EnvVarListParams = EnvVarsAPI.EnvVarListParams;
+  export import EnvVarReplaceParams = EnvVarsAPI.EnvVarReplaceParams;
 }

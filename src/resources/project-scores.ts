@@ -232,10 +232,10 @@ export namespace ProjectScoreReplaceParams {
 }
 
 export namespace ProjectScores {
-  export type ProjectScoreCreateParams = ProjectScoresAPI.ProjectScoreCreateParams;
-  export type ProjectScoreUpdateParams = ProjectScoresAPI.ProjectScoreUpdateParams;
-  export type ProjectScoreListParams = ProjectScoresAPI.ProjectScoreListParams;
-  export type ProjectScoreReplaceParams = ProjectScoresAPI.ProjectScoreReplaceParams;
+  export import ProjectScoreCreateParams = ProjectScoresAPI.ProjectScoreCreateParams;
+  export import ProjectScoreUpdateParams = ProjectScoresAPI.ProjectScoreUpdateParams;
+  export import ProjectScoreListParams = ProjectScoresAPI.ProjectScoreListParams;
+  export import ProjectScoreReplaceParams = ProjectScoresAPI.ProjectScoreReplaceParams;
 }
 
 export { ProjectScoresListObjects };
