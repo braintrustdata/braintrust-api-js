@@ -188,11 +188,11 @@ export interface AISecretReplaceParams {
 }
 
 export namespace AISecrets {
-  export import AISecretCreateParams = AISecretsAPI.AISecretCreateParams;
-  export import AISecretUpdateParams = AISecretsAPI.AISecretUpdateParams;
-  export import AISecretListParams = AISecretsAPI.AISecretListParams;
-  export import AISecretFindAndDeleteParams = AISecretsAPI.AISecretFindAndDeleteParams;
-  export import AISecretReplaceParams = AISecretsAPI.AISecretReplaceParams;
+  export type AISecretCreateParams = AISecretsAPI.AISecretCreateParams;
+  export type AISecretUpdateParams = AISecretsAPI.AISecretUpdateParams;
+  export type AISecretListParams = AISecretsAPI.AISecretListParams;
+  export type AISecretFindAndDeleteParams = AISecretsAPI.AISecretFindAndDeleteParams;
+  export type AISecretReplaceParams = AISecretsAPI.AISecretReplaceParams;
 }
 
 export { AISecretsListObjects };

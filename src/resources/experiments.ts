@@ -462,14 +462,14 @@ export interface ExperimentSummarizeParams {
 }
 
 export namespace Experiments {
-  export import ExperimentCreateParams = ExperimentsAPI.ExperimentCreateParams;
-  export import ExperimentUpdateParams = ExperimentsAPI.ExperimentUpdateParams;
-  export import ExperimentListParams = ExperimentsAPI.ExperimentListParams;
-  export import ExperimentFeedbackParams = ExperimentsAPI.ExperimentFeedbackParams;
-  export import ExperimentFetchParams = ExperimentsAPI.ExperimentFetchParams;
-  export import ExperimentFetchPostParams = ExperimentsAPI.ExperimentFetchPostParams;
-  export import ExperimentInsertParams = ExperimentsAPI.ExperimentInsertParams;
-  export import ExperimentSummarizeParams = ExperimentsAPI.ExperimentSummarizeParams;
+  export type ExperimentCreateParams = ExperimentsAPI.ExperimentCreateParams;
+  export type ExperimentUpdateParams = ExperimentsAPI.ExperimentUpdateParams;
+  export type ExperimentListParams = ExperimentsAPI.ExperimentListParams;
+  export type ExperimentFeedbackParams = ExperimentsAPI.ExperimentFeedbackParams;
+  export type ExperimentFetchParams = ExperimentsAPI.ExperimentFetchParams;
+  export type ExperimentFetchPostParams = ExperimentsAPI.ExperimentFetchPostParams;
+  export type ExperimentInsertParams = ExperimentsAPI.ExperimentInsertParams;
+  export type ExperimentSummarizeParams = ExperimentsAPI.ExperimentSummarizeParams;
 }
 
 export { ExperimentsListObjects };

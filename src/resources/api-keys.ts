@@ -87,8 +87,8 @@ export interface APIKeyListParams extends ListObjectsParams {
 }
 
 export namespace APIKeys {
-  export import APIKeyCreateParams = APIKeysAPI.APIKeyCreateParams;
-  export import APIKeyListParams = APIKeysAPI.APIKeyListParams;
+  export type APIKeyCreateParams = APIKeysAPI.APIKeyCreateParams;
+  export type APIKeyListParams = APIKeysAPI.APIKeyListParams;
 }
 
 export { APIKeysListObjects };

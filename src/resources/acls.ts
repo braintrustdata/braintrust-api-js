@@ -453,10 +453,10 @@ export interface ACLFindAndDeleteParams {
 }
 
 export namespace ACLs {
-  export import ACLCreateParams = ACLsAPI.ACLCreateParams;
-  export import ACLListParams = ACLsAPI.ACLListParams;
-  export import ACLBatchUpdateParams = ACLsAPI.ACLBatchUpdateParams;
-  export import ACLFindAndDeleteParams = ACLsAPI.ACLFindAndDeleteParams;
+  export type ACLCreateParams = ACLsAPI.ACLCreateParams;
+  export type ACLListParams = ACLsAPI.ACLListParams;
+  export type ACLBatchUpdateParams = ACLsAPI.ACLBatchUpdateParams;
+  export type ACLFindAndDeleteParams = ACLsAPI.ACLFindAndDeleteParams;
 }
 
 export { ACLsListObjects };

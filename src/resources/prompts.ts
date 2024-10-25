@@ -220,10 +220,10 @@ export interface PromptReplaceParams {
 }
 
 export namespace Prompts {
-  export import PromptCreateParams = PromptsAPI.PromptCreateParams;
-  export import PromptUpdateParams = PromptsAPI.PromptUpdateParams;
-  export import PromptListParams = PromptsAPI.PromptListParams;
-  export import PromptReplaceParams = PromptsAPI.PromptReplaceParams;
+  export type PromptCreateParams = PromptsAPI.PromptCreateParams;
+  export type PromptUpdateParams = PromptsAPI.PromptUpdateParams;
+  export type PromptListParams = PromptsAPI.PromptListParams;
+  export type PromptReplaceParams = PromptsAPI.PromptReplaceParams;
 }
 
 export { PromptsListObjects };

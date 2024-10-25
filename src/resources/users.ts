@@ -68,7 +68,7 @@ export interface UserListParams extends ListObjectsParams {
 }
 
 export namespace Users {
-  export import UserListParams = UsersAPI.UserListParams;
+  export type UserListParams = UsersAPI.UserListParams;
 }
 
 export { UsersListObjects };

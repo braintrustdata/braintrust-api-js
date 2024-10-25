@@ -97,10 +97,10 @@ export interface OrganizationListParams extends ListObjectsParams {
 }
 
 export namespace Organizations {
-  export import OrganizationUpdateParams = OrganizationsAPI.OrganizationUpdateParams;
-  export import OrganizationListParams = OrganizationsAPI.OrganizationListParams;
+  export type OrganizationUpdateParams = OrganizationsAPI.OrganizationUpdateParams;
+  export type OrganizationListParams = OrganizationsAPI.OrganizationListParams;
   export import Members = MembersAPI.Members;
-  export import MemberUpdateParams = MembersAPI.MemberUpdateParams;
+  export type MemberUpdateParams = MembersAPI.MemberUpdateParams;
 }
 
 export { OrganizationsListObjects };

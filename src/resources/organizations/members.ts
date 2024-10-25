@@ -112,5 +112,5 @@ export namespace MemberUpdateParams {
 }
 
 export namespace Members {
-  export import MemberUpdateParams = MembersAPI.MemberUpdateParams;
+  export type MemberUpdateParams = MembersAPI.MemberUpdateParams;
 }

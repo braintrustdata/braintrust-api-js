@@ -197,10 +197,10 @@ export interface GroupReplaceParams {
 }
 
 export namespace Groups {
-  export import GroupCreateParams = GroupsAPI.GroupCreateParams;
-  export import GroupUpdateParams = GroupsAPI.GroupUpdateParams;
-  export import GroupListParams = GroupsAPI.GroupListParams;
-  export import GroupReplaceParams = GroupsAPI.GroupReplaceParams;
+  export type GroupCreateParams = GroupsAPI.GroupCreateParams;
+  export type GroupUpdateParams = GroupsAPI.GroupUpdateParams;
+  export type GroupListParams = GroupsAPI.GroupListParams;
+  export type GroupReplaceParams = GroupsAPI.GroupReplaceParams;
 }
 
 export { GroupsListObjects };
