@@ -173,10 +173,10 @@ export interface ProjectTagReplaceParams {
 }
 
 export namespace ProjectTags {
-  export type ProjectTagCreateParams = ProjectTagsAPI.ProjectTagCreateParams;
-  export type ProjectTagUpdateParams = ProjectTagsAPI.ProjectTagUpdateParams;
-  export type ProjectTagListParams = ProjectTagsAPI.ProjectTagListParams;
-  export type ProjectTagReplaceParams = ProjectTagsAPI.ProjectTagReplaceParams;
+  export import ProjectTagCreateParams = ProjectTagsAPI.ProjectTagCreateParams;
+  export import ProjectTagUpdateParams = ProjectTagsAPI.ProjectTagUpdateParams;
+  export import ProjectTagListParams = ProjectTagsAPI.ProjectTagListParams;
+  export import ProjectTagReplaceParams = ProjectTagsAPI.ProjectTagReplaceParams;
 }
 
 export { ProjectTagsListObjects };
