@@ -343,10 +343,10 @@ export namespace RoleReplaceParams {
 }
 
 export namespace Roles {
-  export type RoleCreateParams = RolesAPI.RoleCreateParams;
-  export type RoleUpdateParams = RolesAPI.RoleUpdateParams;
-  export type RoleListParams = RolesAPI.RoleListParams;
-  export type RoleReplaceParams = RolesAPI.RoleReplaceParams;
+  export import RoleCreateParams = RolesAPI.RoleCreateParams;
+  export import RoleUpdateParams = RolesAPI.RoleUpdateParams;
+  export import RoleListParams = RolesAPI.RoleListParams;
+  export import RoleReplaceParams = RolesAPI.RoleReplaceParams;
 }
 
 export { RolesListObjects };
