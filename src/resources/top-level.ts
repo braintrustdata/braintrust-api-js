@@ -17,5 +17,5 @@ export class TopLevel extends APIResource {
 export type TopLevelHelloWorldResponse = string;
 
 export namespace TopLevel {
-  export import TopLevelHelloWorldResponse = TopLevelAPI.TopLevelHelloWorldResponse;
+  export type TopLevelHelloWorldResponse = TopLevelAPI.TopLevelHelloWorldResponse;
 }

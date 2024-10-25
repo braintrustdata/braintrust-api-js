@@ -604,12 +604,12 @@ export namespace FunctionReplaceParams {
 }
 
 export namespace Functions {
-  export import FunctionInvokeResponse = FunctionsAPI.FunctionInvokeResponse;
-  export import FunctionCreateParams = FunctionsAPI.FunctionCreateParams;
-  export import FunctionUpdateParams = FunctionsAPI.FunctionUpdateParams;
-  export import FunctionListParams = FunctionsAPI.FunctionListParams;
-  export import FunctionInvokeParams = FunctionsAPI.FunctionInvokeParams;
-  export import FunctionReplaceParams = FunctionsAPI.FunctionReplaceParams;
+  export type FunctionInvokeResponse = FunctionsAPI.FunctionInvokeResponse;
+  export type FunctionCreateParams = FunctionsAPI.FunctionCreateParams;
+  export type FunctionUpdateParams = FunctionsAPI.FunctionUpdateParams;
+  export type FunctionListParams = FunctionsAPI.FunctionListParams;
+  export type FunctionInvokeParams = FunctionsAPI.FunctionInvokeParams;
+  export type FunctionReplaceParams = FunctionsAPI.FunctionReplaceParams;
 }
 
 export { FunctionsListObjects };

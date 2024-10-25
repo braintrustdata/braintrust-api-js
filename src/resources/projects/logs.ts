@@ -226,8 +226,8 @@ export interface LogInsertParams {
 }
 
 export namespace Logs {
-  export import LogFeedbackParams = LogsAPI.LogFeedbackParams;
-  export import LogFetchParams = LogsAPI.LogFetchParams;
-  export import LogFetchPostParams = LogsAPI.LogFetchPostParams;
-  export import LogInsertParams = LogsAPI.LogInsertParams;
+  export type LogFeedbackParams = LogsAPI.LogFeedbackParams;
+  export type LogFetchParams = LogsAPI.LogFetchParams;
+  export type LogFetchPostParams = LogsAPI.LogFetchPostParams;
+  export type LogInsertParams = LogsAPI.LogInsertParams;
 }
