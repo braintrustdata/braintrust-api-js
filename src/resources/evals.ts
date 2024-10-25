@@ -307,5 +307,5 @@ export namespace EvalCreateParams {
 }
 
 export namespace Evals {
-  export type EvalCreateParams = EvalsAPI.EvalCreateParams;
+  export import EvalCreateParams = EvalsAPI.EvalCreateParams;
 }

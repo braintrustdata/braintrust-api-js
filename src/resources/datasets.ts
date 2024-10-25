@@ -382,14 +382,14 @@ export interface DatasetSummarizeParams {
 }
 
 export namespace Datasets {
-  export type DatasetCreateParams = DatasetsAPI.DatasetCreateParams;
-  export type DatasetUpdateParams = DatasetsAPI.DatasetUpdateParams;
-  export type DatasetListParams = DatasetsAPI.DatasetListParams;
-  export type DatasetFeedbackParams = DatasetsAPI.DatasetFeedbackParams;
-  export type DatasetFetchParams = DatasetsAPI.DatasetFetchParams;
-  export type DatasetFetchPostParams = DatasetsAPI.DatasetFetchPostParams;
-  export type DatasetInsertParams = DatasetsAPI.DatasetInsertParams;
-  export type DatasetSummarizeParams = DatasetsAPI.DatasetSummarizeParams;
+  export import DatasetCreateParams = DatasetsAPI.DatasetCreateParams;
+  export import DatasetUpdateParams = DatasetsAPI.DatasetUpdateParams;
+  export import DatasetListParams = DatasetsAPI.DatasetListParams;
+  export import DatasetFeedbackParams = DatasetsAPI.DatasetFeedbackParams;
+  export import DatasetFetchParams = DatasetsAPI.DatasetFetchParams;
+  export import DatasetFetchPostParams = DatasetsAPI.DatasetFetchPostParams;
+  export import DatasetInsertParams = DatasetsAPI.DatasetInsertParams;
+  export import DatasetSummarizeParams = DatasetsAPI.DatasetSummarizeParams;
 }
 
 export { DatasetsListObjects };
