@@ -315,6 +315,7 @@ export namespace Braintrust {
   export import ACL = API.ACL;
   export import ACLBatchUpdateResponse = API.ACLBatchUpdateResponse;
   export import APIKey = API.APIKey;
+  export import ChatCompletionContentPart = API.ChatCompletionContentPart;
   export import ChatCompletionContentPartImage = API.ChatCompletionContentPartImage;
   export import ChatCompletionContentPartText = API.ChatCompletionContentPartText;
   export import ChatCompletionMessageToolCall = API.ChatCompletionMessageToolCall;
