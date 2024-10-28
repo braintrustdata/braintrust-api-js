@@ -192,6 +192,8 @@ export interface APIKey {
   user_id?: string | null;
 }
 
+export type ChatCompletionContentPart = ChatCompletionContentPartText | ChatCompletionContentPartImage;
+
 export interface ChatCompletionContentPartImage {
   image_url: ChatCompletionContentPartImage.ImageURL;
 
@@ -2853,7 +2855,7 @@ export namespace PromptData {
     export interface User {
       role: 'user';
 
-      content?: string | Array<Shared.ChatCompletionContentPartText | Shared.ChatCompletionContentPartImage>;
+      content?: string | Array<Shared.ChatCompletionContentPart>;
 
       name?: string;
     }

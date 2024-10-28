@@ -6,6 +6,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">ACL</a></code>
 - <code><a href="./src/resources/shared.ts">ACLBatchUpdateResponse</a></code>
 - <code><a href="./src/resources/shared.ts">APIKey</a></code>
+- <code><a href="./src/resources/shared.ts">ChatCompletionContentPart</a></code>
 - <code><a href="./src/resources/shared.ts">ChatCompletionContentPartImage</a></code>
 - <code><a href="./src/resources/shared.ts">ChatCompletionContentPartText</a></code>
 - <code><a href="./src/resources/shared.ts">ChatCompletionMessageToolCall</a></code>
