@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as ACLsAPI from './acls';
 import * as Shared from './shared';
 import { ACLsListObjects } from './shared';
 import { type ListObjectsParams } from '../pagination';
@@ -452,11 +451,13 @@ export interface ACLFindAndDeleteParams {
   user_id?: string | null;
 }
 
-export namespace ACLs {
-  export import ACLCreateParams = ACLsAPI.ACLCreateParams;
-  export import ACLListParams = ACLsAPI.ACLListParams;
-  export import ACLBatchUpdateParams = ACLsAPI.ACLBatchUpdateParams;
-  export import ACLFindAndDeleteParams = ACLsAPI.ACLFindAndDeleteParams;
+export declare namespace ACLs {
+  export {
+    type ACLCreateParams as ACLCreateParams,
+    type ACLListParams as ACLListParams,
+    type ACLBatchUpdateParams as ACLBatchUpdateParams,
+    type ACLFindAndDeleteParams as ACLFindAndDeleteParams,
+  };
 }
 
 export { ACLsListObjects };
