@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as GroupsAPI from './groups';
 import * as Shared from './shared';
 import { GroupsListObjects } from './shared';
 import { type ListObjectsParams } from '../pagination';
@@ -196,11 +195,13 @@ export interface GroupReplaceParams {
   org_name?: string | null;
 }
 
-export namespace Groups {
-  export import GroupCreateParams = GroupsAPI.GroupCreateParams;
-  export import GroupUpdateParams = GroupsAPI.GroupUpdateParams;
-  export import GroupListParams = GroupsAPI.GroupListParams;
-  export import GroupReplaceParams = GroupsAPI.GroupReplaceParams;
+export declare namespace Groups {
+  export {
+    type GroupCreateParams as GroupCreateParams,
+    type GroupUpdateParams as GroupUpdateParams,
+    type GroupListParams as GroupListParams,
+    type GroupReplaceParams as GroupReplaceParams,
+  };
 }
 
 export { GroupsListObjects };
