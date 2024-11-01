@@ -2,7 +2,6 @@
 
 import { APIResource } from '../resource';
 import * as Core from '../core';
-import * as EvalsAPI from './evals';
 import * as Shared from './shared';
 
 export class Evals extends APIResource {
@@ -306,6 +305,6 @@ export namespace EvalCreateParams {
   }
 }
 
-export namespace Evals {
-  export import EvalCreateParams = EvalsAPI.EvalCreateParams;
+export declare namespace Evals {
+  export { type EvalCreateParams as EvalCreateParams };
 }

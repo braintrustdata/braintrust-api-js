@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as DatasetsAPI from './datasets';
 import * as Shared from './shared';
 import { DatasetsListObjects } from './shared';
 import { type ListObjectsParams } from '../pagination';
@@ -381,15 +380,17 @@ export interface DatasetSummarizeParams {
   summarize_data?: boolean | null;
 }
 
-export namespace Datasets {
-  export import DatasetCreateParams = DatasetsAPI.DatasetCreateParams;
-  export import DatasetUpdateParams = DatasetsAPI.DatasetUpdateParams;
-  export import DatasetListParams = DatasetsAPI.DatasetListParams;
-  export import DatasetFeedbackParams = DatasetsAPI.DatasetFeedbackParams;
-  export import DatasetFetchParams = DatasetsAPI.DatasetFetchParams;
-  export import DatasetFetchPostParams = DatasetsAPI.DatasetFetchPostParams;
-  export import DatasetInsertParams = DatasetsAPI.DatasetInsertParams;
-  export import DatasetSummarizeParams = DatasetsAPI.DatasetSummarizeParams;
+export declare namespace Datasets {
+  export {
+    type DatasetCreateParams as DatasetCreateParams,
+    type DatasetUpdateParams as DatasetUpdateParams,
+    type DatasetListParams as DatasetListParams,
+    type DatasetFeedbackParams as DatasetFeedbackParams,
+    type DatasetFetchParams as DatasetFetchParams,
+    type DatasetFetchPostParams as DatasetFetchPostParams,
+    type DatasetInsertParams as DatasetInsertParams,
+    type DatasetSummarizeParams as DatasetSummarizeParams,
+  };
 }
 
 export { DatasetsListObjects };

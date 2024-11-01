@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as ExperimentsAPI from './experiments';
 import * as Shared from './shared';
 import { ExperimentsListObjects } from './shared';
 import { type ListObjectsParams } from '../pagination';
@@ -461,15 +460,17 @@ export interface ExperimentSummarizeParams {
   summarize_scores?: boolean | null;
 }
 
-export namespace Experiments {
-  export import ExperimentCreateParams = ExperimentsAPI.ExperimentCreateParams;
-  export import ExperimentUpdateParams = ExperimentsAPI.ExperimentUpdateParams;
-  export import ExperimentListParams = ExperimentsAPI.ExperimentListParams;
-  export import ExperimentFeedbackParams = ExperimentsAPI.ExperimentFeedbackParams;
-  export import ExperimentFetchParams = ExperimentsAPI.ExperimentFetchParams;
-  export import ExperimentFetchPostParams = ExperimentsAPI.ExperimentFetchPostParams;
-  export import ExperimentInsertParams = ExperimentsAPI.ExperimentInsertParams;
-  export import ExperimentSummarizeParams = ExperimentsAPI.ExperimentSummarizeParams;
+export declare namespace Experiments {
+  export {
+    type ExperimentCreateParams as ExperimentCreateParams,
+    type ExperimentUpdateParams as ExperimentUpdateParams,
+    type ExperimentListParams as ExperimentListParams,
+    type ExperimentFeedbackParams as ExperimentFeedbackParams,
+    type ExperimentFetchParams as ExperimentFetchParams,
+    type ExperimentFetchPostParams as ExperimentFetchPostParams,
+    type ExperimentInsertParams as ExperimentInsertParams,
+    type ExperimentSummarizeParams as ExperimentSummarizeParams,
+  };
 }
 
 export { ExperimentsListObjects };

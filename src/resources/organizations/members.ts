@@ -3,7 +3,6 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as MembersAPI from './members';
 import * as Shared from '../shared';
 
 export class Members extends APIResource {
@@ -111,6 +110,6 @@ export namespace MemberUpdateParams {
   }
 }
 
-export namespace Members {
-  export import MemberUpdateParams = MembersAPI.MemberUpdateParams;
+export declare namespace Members {
+  export { type MemberUpdateParams as MemberUpdateParams };
 }

@@ -3,10 +3,10 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as ProjectsAPI from './projects';
 import * as Shared from '../shared';
 import { ProjectsListObjects } from '../shared';
 import * as LogsAPI from './logs';
+import { LogFeedbackParams, LogFetchParams, LogFetchPostParams, LogInsertParams, Logs } from './logs';
 import { type ListObjectsParams } from '../../pagination';
 
 export class Projects extends APIResource {
@@ -121,15 +121,22 @@ export interface ProjectListParams extends ListObjectsParams {
   project_name?: string;
 }
 
-export namespace Projects {
-  export import ProjectCreateParams = ProjectsAPI.ProjectCreateParams;
-  export import ProjectUpdateParams = ProjectsAPI.ProjectUpdateParams;
-  export import ProjectListParams = ProjectsAPI.ProjectListParams;
-  export import Logs = LogsAPI.Logs;
-  export import LogFeedbackParams = LogsAPI.LogFeedbackParams;
-  export import LogFetchParams = LogsAPI.LogFetchParams;
-  export import LogFetchPostParams = LogsAPI.LogFetchPostParams;
-  export import LogInsertParams = LogsAPI.LogInsertParams;
+Projects.Logs = Logs;
+
+export declare namespace Projects {
+  export {
+    type ProjectCreateParams as ProjectCreateParams,
+    type ProjectUpdateParams as ProjectUpdateParams,
+    type ProjectListParams as ProjectListParams,
+  };
+
+  export {
+    Logs as Logs,
+    type LogFeedbackParams as LogFeedbackParams,
+    type LogFetchParams as LogFetchParams,
+    type LogFetchPostParams as LogFetchPostParams,
+    type LogInsertParams as LogInsertParams,
+  };
 }
 
 export { ProjectsListObjects };

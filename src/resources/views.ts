@@ -2,7 +2,6 @@
 
 import { APIResource } from '../resource';
 import * as Core from '../core';
-import * as ViewsAPI from './views';
 import * as Shared from './shared';
 import { ViewsListObjects } from './shared';
 import { type ListObjectsParams } from '../pagination';
@@ -347,13 +346,15 @@ export interface ViewReplaceParams {
   view_data?: Shared.ViewData | null;
 }
 
-export namespace Views {
-  export import ViewCreateParams = ViewsAPI.ViewCreateParams;
-  export import ViewRetrieveParams = ViewsAPI.ViewRetrieveParams;
-  export import ViewUpdateParams = ViewsAPI.ViewUpdateParams;
-  export import ViewListParams = ViewsAPI.ViewListParams;
-  export import ViewDeleteParams = ViewsAPI.ViewDeleteParams;
-  export import ViewReplaceParams = ViewsAPI.ViewReplaceParams;
+export declare namespace Views {
+  export {
+    type ViewCreateParams as ViewCreateParams,
+    type ViewRetrieveParams as ViewRetrieveParams,
+    type ViewUpdateParams as ViewUpdateParams,
+    type ViewListParams as ViewListParams,
+    type ViewDeleteParams as ViewDeleteParams,
+    type ViewReplaceParams as ViewReplaceParams,
+  };
 }
 
 export { ViewsListObjects };

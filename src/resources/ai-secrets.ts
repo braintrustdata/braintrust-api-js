@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as AISecretsAPI from './ai-secrets';
 import * as Shared from './shared';
 import { AISecretsListObjects } from './shared';
 import { type ListObjectsParams } from '../pagination';
@@ -187,12 +186,14 @@ export interface AISecretReplaceParams {
   type?: string | null;
 }
 
-export namespace AISecrets {
-  export import AISecretCreateParams = AISecretsAPI.AISecretCreateParams;
-  export import AISecretUpdateParams = AISecretsAPI.AISecretUpdateParams;
-  export import AISecretListParams = AISecretsAPI.AISecretListParams;
-  export import AISecretFindAndDeleteParams = AISecretsAPI.AISecretFindAndDeleteParams;
-  export import AISecretReplaceParams = AISecretsAPI.AISecretReplaceParams;
+export declare namespace AISecrets {
+  export {
+    type AISecretCreateParams as AISecretCreateParams,
+    type AISecretUpdateParams as AISecretUpdateParams,
+    type AISecretListParams as AISecretListParams,
+    type AISecretFindAndDeleteParams as AISecretFindAndDeleteParams,
+    type AISecretReplaceParams as AISecretReplaceParams,
+  };
 }
 
 export { AISecretsListObjects };

@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as ProjectScoresAPI from './project-scores';
 import * as Shared from './shared';
 import { ProjectScoresListObjects } from './shared';
 import { type ListObjectsParams } from '../pagination';
@@ -231,11 +230,13 @@ export namespace ProjectScoreReplaceParams {
   export interface NullableVariant {}
 }
 
-export namespace ProjectScores {
-  export import ProjectScoreCreateParams = ProjectScoresAPI.ProjectScoreCreateParams;
-  export import ProjectScoreUpdateParams = ProjectScoresAPI.ProjectScoreUpdateParams;
-  export import ProjectScoreListParams = ProjectScoresAPI.ProjectScoreListParams;
-  export import ProjectScoreReplaceParams = ProjectScoresAPI.ProjectScoreReplaceParams;
+export declare namespace ProjectScores {
+  export {
+    type ProjectScoreCreateParams as ProjectScoreCreateParams,
+    type ProjectScoreUpdateParams as ProjectScoreUpdateParams,
+    type ProjectScoreListParams as ProjectScoreListParams,
+    type ProjectScoreReplaceParams as ProjectScoreReplaceParams,
+  };
 }
 
 export { ProjectScoresListObjects };

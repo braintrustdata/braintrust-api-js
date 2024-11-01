@@ -3,7 +3,6 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as LogsAPI from './logs';
 import * as Shared from '../shared';
 
 export class Logs extends APIResource {
@@ -225,9 +224,11 @@ export interface LogInsertParams {
   events: Array<Shared.InsertProjectLogsEventReplace | Shared.InsertProjectLogsEventMerge>;
 }
 
-export namespace Logs {
-  export import LogFeedbackParams = LogsAPI.LogFeedbackParams;
-  export import LogFetchParams = LogsAPI.LogFetchParams;
-  export import LogFetchPostParams = LogsAPI.LogFetchPostParams;
-  export import LogInsertParams = LogsAPI.LogInsertParams;
+export declare namespace Logs {
+  export {
+    type LogFeedbackParams as LogFeedbackParams,
+    type LogFetchParams as LogFetchParams,
+    type LogFetchPostParams as LogFetchPostParams,
+    type LogInsertParams as LogInsertParams,
+  };
 }
