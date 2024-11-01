@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as FunctionsAPI from './functions';
 import * as Shared from './shared';
 import { FunctionsListObjects } from './shared';
 import { type ListObjectsParams } from '../pagination';
@@ -603,13 +602,15 @@ export namespace FunctionReplaceParams {
   }
 }
 
-export namespace Functions {
-  export import FunctionInvokeResponse = FunctionsAPI.FunctionInvokeResponse;
-  export import FunctionCreateParams = FunctionsAPI.FunctionCreateParams;
-  export import FunctionUpdateParams = FunctionsAPI.FunctionUpdateParams;
-  export import FunctionListParams = FunctionsAPI.FunctionListParams;
-  export import FunctionInvokeParams = FunctionsAPI.FunctionInvokeParams;
-  export import FunctionReplaceParams = FunctionsAPI.FunctionReplaceParams;
+export declare namespace Functions {
+  export {
+    type FunctionInvokeResponse as FunctionInvokeResponse,
+    type FunctionCreateParams as FunctionCreateParams,
+    type FunctionUpdateParams as FunctionUpdateParams,
+    type FunctionListParams as FunctionListParams,
+    type FunctionInvokeParams as FunctionInvokeParams,
+    type FunctionReplaceParams as FunctionReplaceParams,
+  };
 }
 
 export { FunctionsListObjects };

@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as RolesAPI from './roles';
 import * as Shared from './shared';
 import { RolesListObjects } from './shared';
 import { type ListObjectsParams } from '../pagination';
@@ -342,11 +341,13 @@ export namespace RoleReplaceParams {
   }
 }
 
-export namespace Roles {
-  export import RoleCreateParams = RolesAPI.RoleCreateParams;
-  export import RoleUpdateParams = RolesAPI.RoleUpdateParams;
-  export import RoleListParams = RolesAPI.RoleListParams;
-  export import RoleReplaceParams = RolesAPI.RoleReplaceParams;
+export declare namespace Roles {
+  export {
+    type RoleCreateParams as RoleCreateParams,
+    type RoleUpdateParams as RoleUpdateParams,
+    type RoleListParams as RoleListParams,
+    type RoleReplaceParams as RoleReplaceParams,
+  };
 }
 
 export { RolesListObjects };

@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as ProjectTagsAPI from './project-tags';
 import * as Shared from './shared';
 import { ProjectTagsListObjects } from './shared';
 import { type ListObjectsParams } from '../pagination';
@@ -172,11 +171,13 @@ export interface ProjectTagReplaceParams {
   description?: string | null;
 }
 
-export namespace ProjectTags {
-  export import ProjectTagCreateParams = ProjectTagsAPI.ProjectTagCreateParams;
-  export import ProjectTagUpdateParams = ProjectTagsAPI.ProjectTagUpdateParams;
-  export import ProjectTagListParams = ProjectTagsAPI.ProjectTagListParams;
-  export import ProjectTagReplaceParams = ProjectTagsAPI.ProjectTagReplaceParams;
+export declare namespace ProjectTags {
+  export {
+    type ProjectTagCreateParams as ProjectTagCreateParams,
+    type ProjectTagUpdateParams as ProjectTagUpdateParams,
+    type ProjectTagListParams as ProjectTagListParams,
+    type ProjectTagReplaceParams as ProjectTagReplaceParams,
+  };
 }
 
 export { ProjectTagsListObjects };
