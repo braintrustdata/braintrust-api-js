@@ -291,25 +291,6 @@ export class Braintrust extends Core.APIClient {
   static fileFromPath = Uploads.fileFromPath;
 }
 
-export {
-  BraintrustError,
-  APIError,
-  APIConnectionError,
-  APIConnectionTimeoutError,
-  APIUserAbortError,
-  NotFoundError,
-  ConflictError,
-  RateLimitError,
-  BadRequestError,
-  AuthenticationError,
-  InternalServerError,
-  PermissionDeniedError,
-  UnprocessableEntityError,
-} from './error';
-
-export import toFile = Uploads.toFile;
-export import fileFromPath = Uploads.fileFromPath;
-
 Braintrust.TopLevel = TopLevel;
 Braintrust.Projects = Projects;
 Braintrust.Experiments = Experiments;
@@ -328,7 +309,6 @@ Braintrust.APIKeys = APIKeys;
 Braintrust.AISecrets = AISecrets;
 Braintrust.EnvVars = EnvVars;
 Braintrust.Evals = Evals;
-
 export declare namespace Braintrust {
   export type RequestOptions = Core.RequestOptions;
 
@@ -533,5 +513,22 @@ export declare namespace Braintrust {
   export type ViewDataSearch = API.ViewDataSearch;
   export type ViewOptions = API.ViewOptions;
 }
+
+export { toFile, fileFromPath } from '@braintrust/api/uploads';
+export {
+  BraintrustError,
+  APIError,
+  APIConnectionError,
+  APIConnectionTimeoutError,
+  APIUserAbortError,
+  NotFoundError,
+  ConflictError,
+  RateLimitError,
+  BadRequestError,
+  AuthenticationError,
+  InternalServerError,
+  PermissionDeniedError,
+  UnprocessableEntityError,
+} from '@braintrust/api/error';
 
 export default Braintrust;
