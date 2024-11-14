@@ -39,6 +39,7 @@ export {
 export { Evals, type EvalCreateParams } from './evals';
 export {
   Experiments,
+  type ExperimentInsertResponse,
   type ExperimentCreateParams,
   type ExperimentUpdateParams,
   type ExperimentListParams,
@@ -103,6 +104,13 @@ export {
   type RoleListParams,
   type RoleReplaceParams,
 } from './roles';
+export {
+  SpanIframes,
+  type SpanIframeCreateParams,
+  type SpanIframeUpdateParams,
+  type SpanIframeListParams,
+  type SpanIframeReplaceParams,
+} from './span-iframes';
 export { TopLevel, type TopLevelHelloWorldResponse } from './top-level';
 export { Users, type UserListParams } from './users';
 export {

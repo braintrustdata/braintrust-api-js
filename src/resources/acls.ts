@@ -95,10 +95,8 @@ export interface ACLCreateParams {
   group_id?: string | null;
 
   /**
-   * Each permission permits a certain type of operation on an object in the system
-   *
-   * Permissions can be assigned to to objects on an individual basis, or grouped
-   * into roles
+   * Permission the ACL grants. Exactly one of `permission` and `role_id` will be
+   * provided
    */
   permission?:
     | 'create'
@@ -112,7 +110,8 @@ export interface ACLCreateParams {
     | null;
 
   /**
-   * The object type that the ACL applies to
+   * When setting a permission directly, optionally restricts the permission grant to
+   * just the specified object type. Cannot be set alongside a `role_id`.
    */
   restrict_object_type?:
     | 'organization'
@@ -242,10 +241,8 @@ export namespace ACLBatchUpdateParams {
     group_id?: string | null;
 
     /**
-     * Each permission permits a certain type of operation on an object in the system
-     *
-     * Permissions can be assigned to to objects on an individual basis, or grouped
-     * into roles
+     * Permission the ACL grants. Exactly one of `permission` and `role_id` will be
+     * provided
      */
     permission?:
       | 'create'
@@ -259,7 +256,8 @@ export namespace ACLBatchUpdateParams {
       | null;
 
     /**
-     * The object type that the ACL applies to
+     * When setting a permission directly, optionally restricts the permission grant to
+     * just the specified object type. Cannot be set alongside a `role_id`.
      */
     restrict_object_type?:
       | 'organization'
@@ -329,10 +327,8 @@ export namespace ACLBatchUpdateParams {
     group_id?: string | null;
 
     /**
-     * Each permission permits a certain type of operation on an object in the system
-     *
-     * Permissions can be assigned to to objects on an individual basis, or grouped
-     * into roles
+     * Permission the ACL grants. Exactly one of `permission` and `role_id` will be
+     * provided
      */
     permission?:
       | 'create'
@@ -346,7 +342,8 @@ export namespace ACLBatchUpdateParams {
       | null;
 
     /**
-     * The object type that the ACL applies to
+     * When setting a permission directly, optionally restricts the permission grant to
+     * just the specified object type. Cannot be set alongside a `role_id`.
      */
     restrict_object_type?:
       | 'organization'
@@ -405,10 +402,8 @@ export interface ACLFindAndDeleteParams {
   group_id?: string | null;
 
   /**
-   * Each permission permits a certain type of operation on an object in the system
-   *
-   * Permissions can be assigned to to objects on an individual basis, or grouped
-   * into roles
+   * Permission the ACL grants. Exactly one of `permission` and `role_id` will be
+   * provided
    */
   permission?:
     | 'create'
@@ -422,7 +417,8 @@ export interface ACLFindAndDeleteParams {
     | null;
 
   /**
-   * The object type that the ACL applies to
+   * When setting a permission directly, optionally restricts the permission grant to
+   * just the specified object type. Cannot be set alongside a `role_id`.
    */
   restrict_object_type?:
     | 'organization'
