@@ -39,9 +39,27 @@ describe('resource evals', () => {
         { function_id: 'function_id', version: 'version' },
       ],
       task: { function_id: 'function_id', version: 'version' },
+      base_experiment_id: 'base_experiment_id',
+      base_experiment_name: 'base_experiment_name',
       experiment_name: 'experiment_name',
+      git_metadata_settings: { collect: 'all', fields: ['commit', 'branch', 'tag'] },
+      is_public: true,
+      max_concurrency: 0,
       metadata: { foo: 'bar' },
+      repo_info: {
+        author_email: 'author_email',
+        author_name: 'author_name',
+        branch: 'branch',
+        commit: 'commit',
+        commit_message: 'commit_message',
+        commit_time: 'commit_time',
+        dirty: true,
+        git_diff: 'git_diff',
+        tag: 'tag',
+      },
       stream: true,
+      timeout: 0,
+      trial_count: 0,
     });
   });
 });

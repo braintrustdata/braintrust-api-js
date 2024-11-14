@@ -56,10 +56,39 @@ export interface EvalCreateParams {
     | EvalCreateParams.InlinePrompt;
 
   /**
+   * An optional experiment id to use as a base. If specified, the new experiment
+   * will be summarized and compared to this experiment.
+   */
+  base_experiment_id?: string | null;
+
+  /**
+   * An optional experiment name to use as a base. If specified, the new experiment
+   * will be summarized and compared to this experiment.
+   */
+  base_experiment_name?: string | null;
+
+  /**
    * An optional name for the experiment created by this eval. If it conflicts with
    * an existing experiment, it will be suffixed with a unique identifier.
    */
   experiment_name?: string;
+
+  /**
+   * Optional settings for collecting git metadata. By default, will collect all git
+   * metadata fields allowed in org-level settings.
+   */
+  git_metadata_settings?: EvalCreateParams.GitMetadataSettings | null;
+
+  /**
+   * Whether the experiment should be public. Defaults to false.
+   */
+  is_public?: boolean | null;
+
+  /**
+   * The maximum number of tasks/scorers that will be run concurrently. Defaults to
+   * undefined, in which case there is no max concurrency.
+   */
+  max_concurrency?: number | null;
 
   /**
    * Optional experiment-level metadata to store about the evaluation. You can later
@@ -68,11 +97,29 @@ export interface EvalCreateParams {
   metadata?: Record<string, unknown>;
 
   /**
+   * Metadata about the state of the repo when the experiment was created
+   */
+  repo_info?: Shared.RepoInfo | null;
+
+  /**
    * Whether to stream the results of the eval. If true, the request will return two
    * events: one to indicate the experiment has started, and another upon completion.
    * If false, the request will return the evaluation's summary upon completion.
    */
   stream?: boolean;
+
+  /**
+   * The maximum duration, in milliseconds, to run the evaluation. Defaults to
+   * undefined, in which case there is no timeout.
+   */
+  timeout?: number | null;
+
+  /**
+   * The number of times to run the evaluator per input. This is useful for
+   * evaluating applications that have non-deterministic behavior and gives you both
+   * a stronger aggregate measure and a sense of the variance in the results.
+   */
+  trial_count?: number | null;
 }
 
 export namespace EvalCreateParams {
@@ -302,6 +349,26 @@ export namespace EvalCreateParams {
      * The name of the inline prompt
      */
     name?: string | null;
+  }
+
+  /**
+   * Optional settings for collecting git metadata. By default, will collect all git
+   * metadata fields allowed in org-level settings.
+   */
+  export interface GitMetadataSettings {
+    collect: 'all' | 'none' | 'some';
+
+    fields?: Array<
+      | 'commit'
+      | 'branch'
+      | 'tag'
+      | 'dirty'
+      | 'author_name'
+      | 'author_email'
+      | 'commit_message'
+      | 'commit_time'
+      | 'git_diff'
+    >;
   }
 }
 

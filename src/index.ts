@@ -50,6 +50,7 @@ import {
   ExperimentFetchParams,
   ExperimentFetchPostParams,
   ExperimentInsertParams,
+  ExperimentInsertResponse,
   ExperimentListParams,
   ExperimentSummarizeParams,
   ExperimentUpdateParams,
@@ -99,6 +100,13 @@ import {
   RoleUpdateParams,
   Roles,
 } from './resources/roles';
+import {
+  SpanIframeCreateParams,
+  SpanIframeListParams,
+  SpanIframeReplaceParams,
+  SpanIframeUpdateParams,
+  SpanIframes,
+} from './resources/span-iframes';
 import { TopLevel, TopLevelHelloWorldResponse } from './resources/top-level';
 import { UserListParams, Users } from './resources/users';
 import {
@@ -240,6 +248,7 @@ export class Braintrust extends Core.APIClient {
   users: API.Users = new API.Users(this);
   projectScores: API.ProjectScores = new API.ProjectScores(this);
   projectTags: API.ProjectTags = new API.ProjectTags(this);
+  spanIframes: API.SpanIframes = new API.SpanIframes(this);
   functions: API.Functions = new API.Functions(this);
   views: API.Views = new API.Views(this);
   organizations: API.Organizations = new API.Organizations(this);
@@ -302,6 +311,7 @@ Braintrust.ACLs = ACLs;
 Braintrust.Users = Users;
 Braintrust.ProjectScores = ProjectScores;
 Braintrust.ProjectTags = ProjectTags;
+Braintrust.SpanIframes = SpanIframes;
 Braintrust.Functions = Functions;
 Braintrust.Views = Views;
 Braintrust.Organizations = Organizations;
@@ -326,6 +336,7 @@ export declare namespace Braintrust {
 
   export {
     Experiments as Experiments,
+    type ExperimentInsertResponse as ExperimentInsertResponse,
     type ExperimentCreateParams as ExperimentCreateParams,
     type ExperimentUpdateParams as ExperimentUpdateParams,
     type ExperimentListParams as ExperimentListParams,
@@ -399,6 +410,14 @@ export declare namespace Braintrust {
   };
 
   export {
+    SpanIframes as SpanIframes,
+    type SpanIframeCreateParams as SpanIframeCreateParams,
+    type SpanIframeUpdateParams as SpanIframeUpdateParams,
+    type SpanIframeListParams as SpanIframeListParams,
+    type SpanIframeReplaceParams as SpanIframeReplaceParams,
+  };
+
+  export {
     Functions as Functions,
     type FunctionInvokeResponse as FunctionInvokeResponse,
     type FunctionCreateParams as FunctionCreateParams,
@@ -454,7 +473,6 @@ export declare namespace Braintrust {
   export type ACL = API.ACL;
   export type ACLBatchUpdateResponse = API.ACLBatchUpdateResponse;
   export type APIKey = API.APIKey;
-  export type ChatCompletionContentPart = API.ChatCompletionContentPart;
   export type ChatCompletionContentPartImage = API.ChatCompletionContentPartImage;
   export type ChatCompletionContentPartText = API.ChatCompletionContentPartText;
   export type ChatCompletionMessageToolCall = API.ChatCompletionMessageToolCall;
@@ -475,7 +493,6 @@ export declare namespace Braintrust {
   export type FetchExperimentEventsResponse = API.FetchExperimentEventsResponse;
   export type FetchProjectLogsEventsResponse = API.FetchProjectLogsEventsResponse;
   export type Function = API.Function;
-  export type FunctionToolChoice = API.FunctionToolChoice;
   export type Group = API.Group;
   export type InsertDatasetEventMerge = API.InsertDatasetEventMerge;
   export type InsertDatasetEventReplace = API.InsertDatasetEventReplace;
@@ -494,7 +511,6 @@ export declare namespace Braintrust {
   export type ProjectScore = API.ProjectScore;
   export type ProjectScoreCategory = API.ProjectScoreCategory;
   export type ProjectScoreConfig = API.ProjectScoreConfig;
-  export type ProjectScoreType = API.ProjectScoreType;
   export type ProjectSettings = API.ProjectSettings;
   export type ProjectTag = API.ProjectTag;
   export type Prompt = API.Prompt;
@@ -502,11 +518,9 @@ export declare namespace Braintrust {
   export type RepoInfo = API.RepoInfo;
   export type Role = API.Role;
   export type ScoreSummary = API.ScoreSummary;
-  export type Scorer = API.Scorer;
+  export type SpanIFrame = API.SpanIFrame;
   export type SummarizeDatasetResponse = API.SummarizeDatasetResponse;
   export type SummarizeExperimentResponse = API.SummarizeExperimentResponse;
-  export type Task = API.Task;
-  export type ToolChoice = API.ToolChoice;
   export type User = API.User;
   export type View = API.View;
   export type ViewData = API.ViewData;

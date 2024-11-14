@@ -10,7 +10,7 @@ const client = new Braintrust({
 
 describe('resource projects', () => {
   test('create: only required params', async () => {
-    const responsePromise = client.projects.create({ name: 'name' });
+    const responsePromise = client.projects.create({ name: 'x' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,7 +21,7 @@ describe('resource projects', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await client.projects.create({ name: 'name', org_name: 'org_name' });
+    const response = await client.projects.create({ name: 'x', org_name: 'org_name' });
   });
 
   test('retrieve', async () => {
