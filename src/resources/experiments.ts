@@ -138,7 +138,7 @@ export class Experiments extends APIResource {
     experimentId: string,
     body: ExperimentInsertParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.InsertEventsResponse> {
+  ): Core.APIPromise<ExperimentInsertResponse> {
     return this._client.post(`/v1/experiment/${experimentId}/insert`, { body, ...options });
   }
 
@@ -164,6 +164,14 @@ export class Experiments extends APIResource {
     }
     return this._client.get(`/v1/experiment/${experimentId}/summarize`, { query, ...options });
   }
+}
+
+export interface ExperimentInsertResponse extends Shared.InsertEventsResponse {
+  /**
+   * String slugs which line up 1-1 with the row_ids. These slugs can be used as the
+   * 'parent' specifier to attach spans underneath the row
+   */
+  serialized_span_slugs: Array<string>;
 }
 
 export interface ExperimentCreateParams {
@@ -462,6 +470,7 @@ export interface ExperimentSummarizeParams {
 
 export declare namespace Experiments {
   export {
+    type ExperimentInsertResponse as ExperimentInsertResponse,
     type ExperimentCreateParams as ExperimentCreateParams,
     type ExperimentUpdateParams as ExperimentUpdateParams,
     type ExperimentListParams as ExperimentListParams,

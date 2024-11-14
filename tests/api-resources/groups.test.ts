@@ -10,7 +10,7 @@ const client = new Braintrust({
 
 describe('resource groups', () => {
   test('create: only required params', async () => {
-    const responsePromise = client.groups.create({ name: 'name' });
+    const responsePromise = client.groups.create({ name: 'x' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,7 +22,7 @@ describe('resource groups', () => {
 
   test('create: required and optional params', async () => {
     const response = await client.groups.create({
-      name: 'name',
+      name: 'x',
       description: 'description',
       member_groups: [
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -91,7 +91,7 @@ describe('resource groups', () => {
             '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           ],
           description: 'description',
-          name: 'name',
+          name: 'x',
           remove_member_groups: [
             '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
             '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -162,7 +162,7 @@ describe('resource groups', () => {
   });
 
   test('replace: only required params', async () => {
-    const responsePromise = client.groups.replace({ name: 'name' });
+    const responsePromise = client.groups.replace({ name: 'x' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -174,7 +174,7 @@ describe('resource groups', () => {
 
   test('replace: required and optional params', async () => {
     const response = await client.groups.replace({
-      name: 'name',
+      name: 'x',
       description: 'description',
       member_groups: [
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',

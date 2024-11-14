@@ -102,7 +102,7 @@ export interface ProjectScoreCreateParams {
   /**
    * The type of the configured score
    */
-  score_type: Shared.ProjectScoreType;
+  score_type: 'slider' | 'categorical' | 'weighted' | 'minimum' | 'maximum' | 'online';
 
   /**
    * For categorical-type project scores, the list of all categories
@@ -152,7 +152,7 @@ export interface ProjectScoreUpdateParams {
   /**
    * The type of the configured score
    */
-  score_type?: Shared.ProjectScoreType | null;
+  score_type?: 'slider' | 'categorical' | 'weighted' | 'minimum' | 'maximum' | 'online' | null;
 }
 
 export namespace ProjectScoreUpdateParams {
@@ -189,7 +189,14 @@ export interface ProjectScoreListParams extends ListObjectsParams {
   /**
    * The type of the configured score
    */
-  score_type?: Shared.ProjectScoreType | Array<Shared.ProjectScoreType>;
+  score_type?:
+    | 'slider'
+    | 'categorical'
+    | 'weighted'
+    | 'minimum'
+    | 'maximum'
+    | 'online'
+    | Array<'slider' | 'categorical' | 'weighted' | 'minimum' | 'maximum' | 'online'>;
 }
 
 export interface ProjectScoreReplaceParams {
@@ -206,7 +213,7 @@ export interface ProjectScoreReplaceParams {
   /**
    * The type of the configured score
    */
-  score_type: Shared.ProjectScoreType;
+  score_type: 'slider' | 'categorical' | 'weighted' | 'minimum' | 'maximum' | 'online';
 
   /**
    * For categorical-type project scores, the list of all categories

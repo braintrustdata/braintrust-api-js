@@ -12,9 +12,9 @@ describe('resource functions', () => {
   test('create: only required params', async () => {
     const responsePromise = client.functions.create({
       function_data: { type: 'prompt' },
-      name: 'name',
+      name: 'x',
       project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      slug: 'slug',
+      slug: 'x',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -28,9 +28,9 @@ describe('resource functions', () => {
   test('create: required and optional params', async () => {
     const response = await client.functions.create({
       function_data: { type: 'prompt' },
-      name: 'name',
+      name: 'x',
       project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      slug: 'slug',
+      slug: 'x',
       description: 'description',
       function_schema: { parameters: {}, returns: {} },
       function_type: 'llm',
@@ -254,9 +254,9 @@ describe('resource functions', () => {
   test('replace: only required params', async () => {
     const responsePromise = client.functions.replace({
       function_data: { type: 'prompt' },
-      name: 'name',
+      name: 'x',
       project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      slug: 'slug',
+      slug: 'x',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -270,9 +270,9 @@ describe('resource functions', () => {
   test('replace: required and optional params', async () => {
     const response = await client.functions.replace({
       function_data: { type: 'prompt' },
-      name: 'name',
+      name: 'x',
       project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      slug: 'slug',
+      slug: 'x',
       description: 'description',
       function_schema: { parameters: {}, returns: {} },
       function_type: 'llm',
