@@ -72,9 +72,17 @@ export class Logs extends APIResource {
     projectId: string,
     body: LogInsertParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.InsertEventsResponse> {
+  ): Core.APIPromise<LogInsertResponse> {
     return this._client.post(`/v1/project_logs/${projectId}/insert`, { body, ...options });
   }
+}
+
+export interface LogInsertResponse extends Shared.InsertEventsResponse {
+  /**
+   * String slugs which line up 1-1 with the row_ids. These slugs can be used as the
+   * 'parent' specifier to attach spans underneath the row
+   */
+  serialized_span_slugs: Array<string>;
 }
 
 export interface LogFeedbackParams {
@@ -226,6 +234,7 @@ export interface LogInsertParams {
 
 export declare namespace Logs {
   export {
+    type LogInsertResponse as LogInsertResponse,
     type LogFeedbackParams as LogFeedbackParams,
     type LogFetchParams as LogFetchParams,
     type LogFetchPostParams as LogFetchPostParams,

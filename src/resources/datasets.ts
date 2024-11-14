@@ -178,6 +178,11 @@ export interface DatasetCreateParams {
    * Textual description of the dataset
    */
   description?: string | null;
+
+  /**
+   * User-controlled metadata about the dataset
+   */
+  metadata?: Record<string, unknown> | null;
 }
 
 export interface DatasetUpdateParams {

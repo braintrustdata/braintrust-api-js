@@ -389,7 +389,7 @@ export namespace FunctionInvokeParams {
   export interface User {
     role: 'user';
 
-    content?: string | Array<Shared.ChatCompletionContentPart>;
+    content?: string | Array<Shared.ChatCompletionContentPartText | Shared.ChatCompletionContentPartImage>;
 
     name?: string;
   }

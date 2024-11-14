@@ -6,7 +6,6 @@ Types:
 - <code><a href="./src/resources/shared.ts">ACL</a></code>
 - <code><a href="./src/resources/shared.ts">ACLBatchUpdateResponse</a></code>
 - <code><a href="./src/resources/shared.ts">APIKey</a></code>
-- <code><a href="./src/resources/shared.ts">ChatCompletionContentPart</a></code>
 - <code><a href="./src/resources/shared.ts">ChatCompletionContentPartImage</a></code>
 - <code><a href="./src/resources/shared.ts">ChatCompletionContentPartText</a></code>
 - <code><a href="./src/resources/shared.ts">ChatCompletionMessageToolCall</a></code>
@@ -27,7 +26,6 @@ Types:
 - <code><a href="./src/resources/shared.ts">FetchExperimentEventsResponse</a></code>
 - <code><a href="./src/resources/shared.ts">FetchProjectLogsEventsResponse</a></code>
 - <code><a href="./src/resources/shared.ts">Function</a></code>
-- <code><a href="./src/resources/shared.ts">FunctionToolChoice</a></code>
 - <code><a href="./src/resources/shared.ts">Group</a></code>
 - <code><a href="./src/resources/shared.ts">InsertDatasetEventMerge</a></code>
 - <code><a href="./src/resources/shared.ts">InsertDatasetEventReplace</a></code>
@@ -46,7 +44,6 @@ Types:
 - <code><a href="./src/resources/shared.ts">ProjectScore</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectScoreCategory</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectScoreConfig</a></code>
-- <code><a href="./src/resources/shared.ts">ProjectScoreType</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectSettings</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectTag</a></code>
 - <code><a href="./src/resources/shared.ts">Prompt</a></code>
@@ -54,11 +51,9 @@ Types:
 - <code><a href="./src/resources/shared.ts">RepoInfo</a></code>
 - <code><a href="./src/resources/shared.ts">Role</a></code>
 - <code><a href="./src/resources/shared.ts">ScoreSummary</a></code>
-- <code><a href="./src/resources/shared.ts">Scorer</a></code>
+- <code><a href="./src/resources/shared.ts">SpanIFrame</a></code>
 - <code><a href="./src/resources/shared.ts">SummarizeDatasetResponse</a></code>
 - <code><a href="./src/resources/shared.ts">SummarizeExperimentResponse</a></code>
-- <code><a href="./src/resources/shared.ts">Task</a></code>
-- <code><a href="./src/resources/shared.ts">ToolChoice</a></code>
 - <code><a href="./src/resources/shared.ts">User</a></code>
 - <code><a href="./src/resources/shared.ts">View</a></code>
 - <code><a href="./src/resources/shared.ts">ViewData</a></code>
@@ -87,14 +82,22 @@ Methods:
 
 ## Logs
 
+Types:
+
+- <code><a href="./src/resources/projects/logs.ts">LogInsertResponse</a></code>
+
 Methods:
 
 - <code title="post /v1/project_logs/{project_id}/feedback">client.projects.logs.<a href="./src/resources/projects/logs.ts">feedback</a>(projectId, { ...params }) -> FeedbackResponseSchema</code>
 - <code title="get /v1/project_logs/{project_id}/fetch">client.projects.logs.<a href="./src/resources/projects/logs.ts">fetch</a>(projectId, { ...params }) -> FetchProjectLogsEventsResponse</code>
 - <code title="post /v1/project_logs/{project_id}/fetch">client.projects.logs.<a href="./src/resources/projects/logs.ts">fetchPost</a>(projectId, { ...params }) -> FetchProjectLogsEventsResponse</code>
-- <code title="post /v1/project_logs/{project_id}/insert">client.projects.logs.<a href="./src/resources/projects/logs.ts">insert</a>(projectId, { ...params }) -> InsertEventsResponse</code>
+- <code title="post /v1/project_logs/{project_id}/insert">client.projects.logs.<a href="./src/resources/projects/logs.ts">insert</a>(projectId, { ...params }) -> LogInsertResponse</code>
 
 # Experiments
+
+Types:
+
+- <code><a href="./src/resources/experiments.ts">ExperimentInsertResponse</a></code>
 
 Methods:
 
@@ -106,7 +109,7 @@ Methods:
 - <code title="post /v1/experiment/{experiment_id}/feedback">client.experiments.<a href="./src/resources/experiments.ts">feedback</a>(experimentId, { ...params }) -> FeedbackResponseSchema</code>
 - <code title="get /v1/experiment/{experiment_id}/fetch">client.experiments.<a href="./src/resources/experiments.ts">fetch</a>(experimentId, { ...params }) -> FetchExperimentEventsResponse</code>
 - <code title="post /v1/experiment/{experiment_id}/fetch">client.experiments.<a href="./src/resources/experiments.ts">fetchPost</a>(experimentId, { ...params }) -> FetchExperimentEventsResponse</code>
-- <code title="post /v1/experiment/{experiment_id}/insert">client.experiments.<a href="./src/resources/experiments.ts">insert</a>(experimentId, { ...params }) -> InsertEventsResponse</code>
+- <code title="post /v1/experiment/{experiment_id}/insert">client.experiments.<a href="./src/resources/experiments.ts">insert</a>(experimentId, { ...params }) -> ExperimentInsertResponse</code>
 - <code title="get /v1/experiment/{experiment_id}/summarize">client.experiments.<a href="./src/resources/experiments.ts">summarize</a>(experimentId, { ...params }) -> SummarizeExperimentResponse</code>
 
 # Datasets
@@ -196,6 +199,17 @@ Methods:
 - <code title="get /v1/project_tag">client.projectTags.<a href="./src/resources/project-tags.ts">list</a>({ ...params }) -> ProjectTagsListObjects</code>
 - <code title="delete /v1/project_tag/{project_tag_id}">client.projectTags.<a href="./src/resources/project-tags.ts">delete</a>(projectTagId) -> ProjectTag</code>
 - <code title="put /v1/project_tag">client.projectTags.<a href="./src/resources/project-tags.ts">replace</a>({ ...params }) -> ProjectTag</code>
+
+# SpanIframes
+
+Methods:
+
+- <code title="post /v1/span_iframe">client.spanIframes.<a href="./src/resources/span-iframes.ts">create</a>({ ...params }) -> SpanIFrame</code>
+- <code title="get /v1/span_iframe/{span_iframe_id}">client.spanIframes.<a href="./src/resources/span-iframes.ts">retrieve</a>(spanIframeId) -> SpanIFrame</code>
+- <code title="patch /v1/span_iframe/{span_iframe_id}">client.spanIframes.<a href="./src/resources/span-iframes.ts">update</a>(spanIframeId, { ...params }) -> SpanIFrame</code>
+- <code title="get /v1/span_iframe">client.spanIframes.<a href="./src/resources/span-iframes.ts">list</a>({ ...params }) -> SpanIFramesListObjects</code>
+- <code title="delete /v1/span_iframe/{span_iframe_id}">client.spanIframes.<a href="./src/resources/span-iframes.ts">delete</a>(spanIframeId) -> SpanIFrame</code>
+- <code title="put /v1/span_iframe">client.spanIframes.<a href="./src/resources/span-iframes.ts">replace</a>({ ...params }) -> SpanIFrame</code>
 
 # Functions
 
