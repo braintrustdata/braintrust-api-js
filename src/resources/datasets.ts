@@ -374,7 +374,7 @@ export interface DatasetInsertParams {
   /**
    * A list of dataset events to insert
    */
-  events: Array<Shared.InsertDatasetEventReplace | Shared.InsertDatasetEventMerge>;
+  events: Array<Shared.InsertDatasetEvent>;
 }
 
 export interface DatasetSummarizeParams {

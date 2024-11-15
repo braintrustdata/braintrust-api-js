@@ -449,7 +449,7 @@ export interface ExperimentInsertParams {
   /**
    * A list of experiment events to insert
    */
-  events: Array<Shared.InsertExperimentEventReplace | Shared.InsertExperimentEventMerge>;
+  events: Array<Shared.InsertExperimentEvent>;
 }
 
 export interface ExperimentSummarizeParams {

@@ -408,7 +408,7 @@ export interface DatasetEvent {
   project_id: string;
 
   /**
-   * The `span_id` of the root of the trace this dataset event belongs to
+   * A unique identifier for the trace this dataset event belongs to
    */
   root_span_id: string;
 
@@ -622,7 +622,7 @@ export interface ExperimentEvent {
   project_id: string;
 
   /**
-   * The `span_id` of the root of the trace this experiment event belongs to
+   * A unique identifier for the trace this experiment event belongs to
    */
   root_span_id: string;
 
@@ -723,7 +723,7 @@ export interface ExperimentEvent {
   /**
    * Human-identifying attributes of the span, such as name, type, etc.
    */
-  span_attributes?: ExperimentEvent.SpanAttributes | null;
+  span_attributes?: SpanAttributes | null;
 
   /**
    * An array of the parent `span_ids` of this experiment event. This should be empty
@@ -838,22 +838,6 @@ export namespace ExperimentEvent {
      * Type of the object the event is originating from.
      */
     object_type: 'experiment' | 'dataset' | 'prompt' | 'function' | 'prompt_session' | 'project_logs';
-  }
-
-  /**
-   * Human-identifying attributes of the span, such as name, type, etc.
-   */
-  export interface SpanAttributes {
-    /**
-     * Name of the span, for display purposes only
-     */
-    name?: string | null;
-
-    /**
-     * Type of the span, for display purposes only
-     */
-    type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
-    [k: string]: unknown;
   }
 }
 
@@ -1214,12 +1198,22 @@ export interface Group {
   user_id?: string | null;
 }
 
-export interface InsertDatasetEventMerge {
+/**
+ * A dataset event
+ */
+export interface InsertDatasetEvent {
+  /**
+   * A unique identifier for the dataset event. If you don't provide one, BrainTrust
+   * will generate one for you
+   */
+  id?: string | null;
+
   /**
    * The `_is_merge` field controls how the row is merged with any existing row with
    * the same id in the DB. By default (or when set to `false`), the existing row is
    * completely replaced by the new row. When set to `true`, the new row is
-   * deep-merged into the existing row
+   * deep-merged into the existing row, if one is found. If no existing row is found,
+   * the new row is inserted as is.
    *
    * For example, say there is an existing row in the DB
    * `{"id": "foo", "input": {"a": 5, "b": 10}}`. If we merge a new row as
@@ -1228,19 +1222,13 @@ export interface InsertDatasetEventMerge {
    * new row as `{"id": "foo", "input": {"b": 11, "c": 20}}`, the new row will be
    * `{"id": "foo", "input": {"b": 11, "c": 20}}`
    */
-  _is_merge: boolean;
+  _is_merge?: boolean | null;
 
   /**
-   * A unique identifier for the dataset event. If you don't provide one, BrainTrust
-   * will generate one for you
-   */
-  id?: string | null;
-
-  /**
-   * The `_merge_paths` field allows controlling the depth of the merge. It can only
-   * be specified alongside `_is_merge=true`. `_merge_paths` is a list of paths,
-   * where each path is a list of field names. The deep merge will not descend below
-   * any of the specified merge paths.
+   * The `_merge_paths` field allows controlling the depth of the merge, when
+   * `_is_merge=true`. `_merge_paths` is a list of paths, where each path is a list
+   * of field names. The deep merge will not descend below any of the specified merge
+   * paths.
    *
    * For example, say there is an existing row in the DB
    * `{"id": "foo", "input": {"a": {"b": 10}, "c": {"d": 20}}, "output": {"a": 20}}`.
@@ -1260,69 +1248,8 @@ export interface InsertDatasetEventMerge {
   _object_delete?: boolean | null;
 
   /**
-   * The timestamp the dataset event was created
-   */
-  created?: string | null;
-
-  /**
-   * The output of your application, including post-processing (an arbitrary, JSON
-   * serializable object)
-   */
-  expected?: unknown | null;
-
-  /**
-   * The argument that uniquely define an input case (an arbitrary, JSON serializable
-   * object)
-   */
-  input?: unknown | null;
-
-  /**
-   * A dictionary with additional data about the test example, model outputs, or just
-   * about anything else that's relevant, that you can use to help find and analyze
-   * examples later. For example, you could log the `prompt`, example's `id`, or
-   * anything else that would be useful to slice/dice later. The values in `metadata`
-   * can be any JSON-serializable type, but its keys must be strings
-   */
-  metadata?: Record<string, unknown> | null;
-
-  /**
-   * A list of tags to log
-   */
-  tags?: Array<string> | null;
-}
-
-export interface InsertDatasetEventReplace {
-  /**
-   * A unique identifier for the dataset event. If you don't provide one, BrainTrust
-   * will generate one for you
-   */
-  id?: string | null;
-
-  /**
-   * The `_is_merge` field controls how the row is merged with any existing row with
-   * the same id in the DB. By default (or when set to `false`), the existing row is
-   * completely replaced by the new row. When set to `true`, the new row is
-   * deep-merged into the existing row
-   *
-   * For example, say there is an existing row in the DB
-   * `{"id": "foo", "input": {"a": 5, "b": 10}}`. If we merge a new row as
-   * `{"_is_merge": true, "id": "foo", "input": {"b": 11, "c": 20}}`, the new row
-   * will be `{"id": "foo", "input": {"a": 5, "b": 11, "c": 20}}`. If we replace the
-   * new row as `{"id": "foo", "input": {"b": 11, "c": 20}}`, the new row will be
-   * `{"id": "foo", "input": {"b": 11, "c": 20}}`
-   */
-  _is_merge?: boolean | null;
-
-  /**
-   * Pass `_object_delete=true` to mark the dataset event deleted. Deleted events
-   * will not show up in subsequent fetches for this dataset
-   */
-  _object_delete?: boolean | null;
-
-  /**
    * Use the `_parent_id` field to create this row as a subspan of an existing row.
-   * It cannot be specified alongside `_is_merge=true`. Tracking hierarchical
-   * relationships are important for tracing (see the
+   * Tracking hierarchical relationships are important for tracing (see the
    * [guide](https://www.braintrust.dev/docs/guides/tracing) for full details).
    *
    * For example, say we have logged a row
@@ -1332,6 +1259,8 @@ export interface InsertDatasetEventReplace {
    * In the webapp, only the root span row `"abc"` will show up in the summary view.
    * You can view the full trace hierarchy (in this case, the `"llm_call"` row) by
    * clicking on the "abc" row.
+   *
+   * If the row is being merged into an existing row, this field will be ignored.
    */
   _parent_id?: string | null;
 
@@ -1360,6 +1289,63 @@ export interface InsertDatasetEventReplace {
    * can be any JSON-serializable type, but its keys must be strings
    */
   metadata?: Record<string, unknown> | null;
+
+  /**
+   * Use span_id, root_span_id, and span_parents as a more explicit alternative to
+   * \_parent_id. The span_id is a unique identifier describing the row's place in
+   * the a trace, and the root_span_id is a unique identifier for the whole trace.
+   * See the [guide](https://www.braintrust.dev/docs/guides/tracing) for full
+   * details.
+   *
+   * For example, say we have logged a row
+   * `{"id": "abc", "span_id": "span0", "root_span_id": "root_span0", "input": "foo", "output": "bar", "expected": "boo", "scores": {"correctness": 0.33}}`.
+   * We can create a sub-span of the parent row by logging
+   * `{"id": "llm_call", "span_id": "span1", "root_span_id": "root_span0", "span_parents": ["span0"], "input": {"prompt": "What comes after foo?"}, "output": "bar", "metrics": {"tokens": 1}}`.
+   * In the webapp, only the root span row `"abc"` will show up in the summary view.
+   * You can view the full trace hierarchy (in this case, the `"llm_call"` row) by
+   * clicking on the "abc" row.
+   *
+   * If the row is being merged into an existing row, this field will be ignored.
+   */
+  root_span_id?: string | null;
+
+  /**
+   * Use span_id, root_span_id, and span_parents as a more explicit alternative to
+   * \_parent_id. The span_id is a unique identifier describing the row's place in
+   * the a trace, and the root_span_id is a unique identifier for the whole trace.
+   * See the [guide](https://www.braintrust.dev/docs/guides/tracing) for full
+   * details.
+   *
+   * For example, say we have logged a row
+   * `{"id": "abc", "span_id": "span0", "root_span_id": "root_span0", "input": "foo", "output": "bar", "expected": "boo", "scores": {"correctness": 0.33}}`.
+   * We can create a sub-span of the parent row by logging
+   * `{"id": "llm_call", "span_id": "span1", "root_span_id": "root_span0", "span_parents": ["span0"], "input": {"prompt": "What comes after foo?"}, "output": "bar", "metrics": {"tokens": 1}}`.
+   * In the webapp, only the root span row `"abc"` will show up in the summary view.
+   * You can view the full trace hierarchy (in this case, the `"llm_call"` row) by
+   * clicking on the "abc" row.
+   *
+   * If the row is being merged into an existing row, this field will be ignored.
+   */
+  span_id?: string | null;
+
+  /**
+   * Use span_id, root_span_id, and span_parents as a more explicit alternative to
+   * \_parent_id. The span_id is a unique identifier describing the row's place in
+   * the a trace, and the root_span_id is a unique identifier for the whole trace.
+   * See the [guide](https://www.braintrust.dev/docs/guides/tracing) for full
+   * details.
+   *
+   * For example, say we have logged a row
+   * `{"id": "abc", "span_id": "span0", "root_span_id": "root_span0", "input": "foo", "output": "bar", "expected": "boo", "scores": {"correctness": 0.33}}`.
+   * We can create a sub-span of the parent row by logging
+   * `{"id": "llm_call", "span_id": "span1", "root_span_id": "root_span0", "span_parents": ["span0"], "input": {"prompt": "What comes after foo?"}, "output": "bar", "metrics": {"tokens": 1}}`.
+   * In the webapp, only the root span row `"abc"` will show up in the summary view.
+   * You can view the full trace hierarchy (in this case, the `"llm_call"` row) by
+   * clicking on the "abc" row.
+   *
+   * If the row is being merged into an existing row, this field will be ignored.
+   */
+  span_parents?: Array<string> | null;
 
   /**
    * A list of tags to log
@@ -1375,12 +1361,22 @@ export interface InsertEventsResponse {
   row_ids: Array<string>;
 }
 
-export interface InsertExperimentEventMerge {
+/**
+ * An experiment event
+ */
+export interface InsertExperimentEvent {
+  /**
+   * A unique identifier for the experiment event. If you don't provide one,
+   * BrainTrust will generate one for you
+   */
+  id?: string | null;
+
   /**
    * The `_is_merge` field controls how the row is merged with any existing row with
    * the same id in the DB. By default (or when set to `false`), the existing row is
    * completely replaced by the new row. When set to `true`, the new row is
-   * deep-merged into the existing row
+   * deep-merged into the existing row, if one is found. If no existing row is found,
+   * the new row is inserted as is.
    *
    * For example, say there is an existing row in the DB
    * `{"id": "foo", "input": {"a": 5, "b": 10}}`. If we merge a new row as
@@ -1389,19 +1385,13 @@ export interface InsertExperimentEventMerge {
    * new row as `{"id": "foo", "input": {"b": 11, "c": 20}}`, the new row will be
    * `{"id": "foo", "input": {"b": 11, "c": 20}}`
    */
-  _is_merge: boolean;
+  _is_merge?: boolean | null;
 
   /**
-   * A unique identifier for the experiment event. If you don't provide one,
-   * BrainTrust will generate one for you
-   */
-  id?: string | null;
-
-  /**
-   * The `_merge_paths` field allows controlling the depth of the merge. It can only
-   * be specified alongside `_is_merge=true`. `_merge_paths` is a list of paths,
-   * where each path is a list of field names. The deep merge will not descend below
-   * any of the specified merge paths.
+   * The `_merge_paths` field allows controlling the depth of the merge, when
+   * `_is_merge=true`. `_merge_paths` is a list of paths, where each path is a list
+   * of field names. The deep merge will not descend below any of the specified merge
+   * paths.
    *
    * For example, say there is an existing row in the DB
    * `{"id": "foo", "input": {"a": {"b": 10}, "c": {"d": 20}}, "output": {"a": 20}}`.
@@ -1421,12 +1411,29 @@ export interface InsertExperimentEventMerge {
   _object_delete?: boolean | null;
 
   /**
+   * Use the `_parent_id` field to create this row as a subspan of an existing row.
+   * Tracking hierarchical relationships are important for tracing (see the
+   * [guide](https://www.braintrust.dev/docs/guides/tracing) for full details).
+   *
+   * For example, say we have logged a row
+   * `{"id": "abc", "input": "foo", "output": "bar", "expected": "boo", "scores": {"correctness": 0.33}}`.
+   * We can create a sub-span of the parent row by logging
+   * `{"_parent_id": "abc", "id": "llm_call", "input": {"prompt": "What comes after foo?"}, "output": "bar", "metrics": {"tokens": 1}}`.
+   * In the webapp, only the root span row `"abc"` will show up in the summary view.
+   * You can view the full trace hierarchy (in this case, the `"llm_call"` row) by
+   * clicking on the "abc" row.
+   *
+   * If the row is being merged into an existing row, this field will be ignored.
+   */
+  _parent_id?: string | null;
+
+  /**
    * Context is additional information about the code that produced the experiment
    * event. It is essentially the textual counterpart to `metrics`. Use the
    * `caller_*` attributes to track the location in code which produced the
    * experiment event
    */
-  context?: InsertExperimentEventMerge.Context | null;
+  context?: InsertExperimentEvent.Context | null;
 
   /**
    * The timestamp the experiment event was created
@@ -1478,7 +1485,7 @@ export interface InsertExperimentEventMerge {
    * produced the experiment event. Use "start" and "end" to track the time span over
    * which the experiment event was produced
    */
-  metrics?: InsertExperimentEventMerge.Metrics | null;
+  metrics?: InsertExperimentEvent.Metrics | null;
 
   /**
    * The output of your application, including post-processing (an arbitrary, JSON
@@ -1488,6 +1495,25 @@ export interface InsertExperimentEventMerge {
    * because there may be multiple valid queries that answer a single question
    */
   output?: unknown | null;
+
+  /**
+   * Use span_id, root_span_id, and span_parents as a more explicit alternative to
+   * \_parent_id. The span_id is a unique identifier describing the row's place in
+   * the a trace, and the root_span_id is a unique identifier for the whole trace.
+   * See the [guide](https://www.braintrust.dev/docs/guides/tracing) for full
+   * details.
+   *
+   * For example, say we have logged a row
+   * `{"id": "abc", "span_id": "span0", "root_span_id": "root_span0", "input": "foo", "output": "bar", "expected": "boo", "scores": {"correctness": 0.33}}`.
+   * We can create a sub-span of the parent row by logging
+   * `{"id": "llm_call", "span_id": "span1", "root_span_id": "root_span0", "span_parents": ["span0"], "input": {"prompt": "What comes after foo?"}, "output": "bar", "metrics": {"tokens": 1}}`.
+   * In the webapp, only the root span row `"abc"` will show up in the summary view.
+   * You can view the full trace hierarchy (in this case, the `"llm_call"` row) by
+   * clicking on the "abc" row.
+   *
+   * If the row is being merged into an existing row, this field will be ignored.
+   */
+  root_span_id?: string | null;
 
   /**
    * A dictionary of numeric values (between 0 and 1) to log. The scores should give
@@ -1504,7 +1530,45 @@ export interface InsertExperimentEventMerge {
   /**
    * Human-identifying attributes of the span, such as name, type, etc.
    */
-  span_attributes?: InsertExperimentEventMerge.SpanAttributes | null;
+  span_attributes?: SpanAttributes | null;
+
+  /**
+   * Use span_id, root_span_id, and span_parents as a more explicit alternative to
+   * \_parent_id. The span_id is a unique identifier describing the row's place in
+   * the a trace, and the root_span_id is a unique identifier for the whole trace.
+   * See the [guide](https://www.braintrust.dev/docs/guides/tracing) for full
+   * details.
+   *
+   * For example, say we have logged a row
+   * `{"id": "abc", "span_id": "span0", "root_span_id": "root_span0", "input": "foo", "output": "bar", "expected": "boo", "scores": {"correctness": 0.33}}`.
+   * We can create a sub-span of the parent row by logging
+   * `{"id": "llm_call", "span_id": "span1", "root_span_id": "root_span0", "span_parents": ["span0"], "input": {"prompt": "What comes after foo?"}, "output": "bar", "metrics": {"tokens": 1}}`.
+   * In the webapp, only the root span row `"abc"` will show up in the summary view.
+   * You can view the full trace hierarchy (in this case, the `"llm_call"` row) by
+   * clicking on the "abc" row.
+   *
+   * If the row is being merged into an existing row, this field will be ignored.
+   */
+  span_id?: string | null;
+
+  /**
+   * Use span_id, root_span_id, and span_parents as a more explicit alternative to
+   * \_parent_id. The span_id is a unique identifier describing the row's place in
+   * the a trace, and the root_span_id is a unique identifier for the whole trace.
+   * See the [guide](https://www.braintrust.dev/docs/guides/tracing) for full
+   * details.
+   *
+   * For example, say we have logged a row
+   * `{"id": "abc", "span_id": "span0", "root_span_id": "root_span0", "input": "foo", "output": "bar", "expected": "boo", "scores": {"correctness": 0.33}}`.
+   * We can create a sub-span of the parent row by logging
+   * `{"id": "llm_call", "span_id": "span1", "root_span_id": "root_span0", "span_parents": ["span0"], "input": {"prompt": "What comes after foo?"}, "output": "bar", "metrics": {"tokens": 1}}`.
+   * In the webapp, only the root span row `"abc"` will show up in the summary view.
+   * You can view the full trace hierarchy (in this case, the `"llm_call"` row) by
+   * clicking on the "abc" row.
+   *
+   * If the row is being merged into an existing row, this field will be ignored.
+   */
+  span_parents?: Array<string> | null;
 
   /**
    * A list of tags to log
@@ -1512,7 +1576,7 @@ export interface InsertExperimentEventMerge {
   tags?: Array<string> | null;
 }
 
-export namespace InsertExperimentEventMerge {
+export namespace InsertExperimentEvent {
   /**
    * Context is additional information about the code that produced the experiment
    * event. It is essentially the textual counterpart to `metrics`. Use the
@@ -1588,27 +1652,14 @@ export namespace InsertExperimentEventMerge {
     tokens?: number | null;
     [k: string]: number | unknown | number | null | undefined;
   }
-
-  /**
-   * Human-identifying attributes of the span, such as name, type, etc.
-   */
-  export interface SpanAttributes {
-    /**
-     * Name of the span, for display purposes only
-     */
-    name?: string | null;
-
-    /**
-     * Type of the span, for display purposes only
-     */
-    type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
-    [k: string]: unknown;
-  }
 }
 
-export interface InsertExperimentEventReplace {
+/**
+ * A project logs event
+ */
+export interface InsertProjectLogsEvent {
   /**
-   * A unique identifier for the experiment event. If you don't provide one,
+   * A unique identifier for the project logs event. If you don't provide one,
    * BrainTrust will generate one for you
    */
   id?: string | null;
@@ -1617,7 +1668,8 @@ export interface InsertExperimentEventReplace {
    * The `_is_merge` field controls how the row is merged with any existing row with
    * the same id in the DB. By default (or when set to `false`), the existing row is
    * completely replaced by the new row. When set to `true`, the new row is
-   * deep-merged into the existing row
+   * deep-merged into the existing row, if one is found. If no existing row is found,
+   * the new row is inserted as is.
    *
    * For example, say there is an existing row in the DB
    * `{"id": "foo", "input": {"a": 5, "b": 10}}`. If we merge a new row as
@@ -1629,240 +1681,10 @@ export interface InsertExperimentEventReplace {
   _is_merge?: boolean | null;
 
   /**
-   * Pass `_object_delete=true` to mark the experiment event deleted. Deleted events
-   * will not show up in subsequent fetches for this experiment
-   */
-  _object_delete?: boolean | null;
-
-  /**
-   * Use the `_parent_id` field to create this row as a subspan of an existing row.
-   * It cannot be specified alongside `_is_merge=true`. Tracking hierarchical
-   * relationships are important for tracing (see the
-   * [guide](https://www.braintrust.dev/docs/guides/tracing) for full details).
-   *
-   * For example, say we have logged a row
-   * `{"id": "abc", "input": "foo", "output": "bar", "expected": "boo", "scores": {"correctness": 0.33}}`.
-   * We can create a sub-span of the parent row by logging
-   * `{"_parent_id": "abc", "id": "llm_call", "input": {"prompt": "What comes after foo?"}, "output": "bar", "metrics": {"tokens": 1}}`.
-   * In the webapp, only the root span row `"abc"` will show up in the summary view.
-   * You can view the full trace hierarchy (in this case, the `"llm_call"` row) by
-   * clicking on the "abc" row.
-   */
-  _parent_id?: string | null;
-
-  /**
-   * Context is additional information about the code that produced the experiment
-   * event. It is essentially the textual counterpart to `metrics`. Use the
-   * `caller_*` attributes to track the location in code which produced the
-   * experiment event
-   */
-  context?: InsertExperimentEventReplace.Context | null;
-
-  /**
-   * The timestamp the experiment event was created
-   */
-  created?: string | null;
-
-  /**
-   * If the experiment is associated to a dataset, this is the event-level dataset id
-   * this experiment event is tied to
-   */
-  dataset_record_id?: string | null;
-
-  /**
-   * The error that occurred, if any.
-   */
-  error?: unknown | null;
-
-  /**
-   * The ground truth value (an arbitrary, JSON serializable object) that you'd
-   * compare to `output` to determine if your `output` value is correct or not.
-   * Braintrust currently does not compare `output` to `expected` for you, since
-   * there are so many different ways to do that correctly. Instead, these values are
-   * just used to help you navigate your experiments while digging into analyses.
-   * However, we may later use these values to re-score outputs or fine-tune your
-   * models
-   */
-  expected?: unknown | null;
-
-  /**
-   * The arguments that uniquely define a test case (an arbitrary, JSON serializable
-   * object). Later on, Braintrust will use the `input` to know whether two test
-   * cases are the same between experiments, so they should not contain
-   * experiment-specific state. A simple rule of thumb is that if you run the same
-   * experiment twice, the `input` should be identical
-   */
-  input?: unknown | null;
-
-  /**
-   * A dictionary with additional data about the test example, model outputs, or just
-   * about anything else that's relevant, that you can use to help find and analyze
-   * examples later. For example, you could log the `prompt`, example's `id`, or
-   * anything else that would be useful to slice/dice later. The values in `metadata`
-   * can be any JSON-serializable type, but its keys must be strings
-   */
-  metadata?: Record<string, unknown> | null;
-
-  /**
-   * Metrics are numerical measurements tracking the execution of the code that
-   * produced the experiment event. Use "start" and "end" to track the time span over
-   * which the experiment event was produced
-   */
-  metrics?: InsertExperimentEventReplace.Metrics | null;
-
-  /**
-   * The output of your application, including post-processing (an arbitrary, JSON
-   * serializable object), that allows you to determine whether the result is correct
-   * or not. For example, in an app that generates SQL queries, the `output` should
-   * be the _result_ of the SQL query generated by the model, not the query itself,
-   * because there may be multiple valid queries that answer a single question
-   */
-  output?: unknown | null;
-
-  /**
-   * A dictionary of numeric values (between 0 and 1) to log. The scores should give
-   * you a variety of signals that help you determine how accurate the outputs are
-   * compared to what you expect and diagnose failures. For example, a summarization
-   * app might have one score that tells you how accurate the summary is, and another
-   * that measures the word similarity between the generated and grouth truth
-   * summary. The word similarity score could help you determine whether the
-   * summarization was covering similar concepts or not. You can use these scores to
-   * help you sort, filter, and compare experiments
-   */
-  scores?: Record<string, number | null> | null;
-
-  /**
-   * Human-identifying attributes of the span, such as name, type, etc.
-   */
-  span_attributes?: InsertExperimentEventReplace.SpanAttributes | null;
-
-  /**
-   * A list of tags to log
-   */
-  tags?: Array<string> | null;
-}
-
-export namespace InsertExperimentEventReplace {
-  /**
-   * Context is additional information about the code that produced the experiment
-   * event. It is essentially the textual counterpart to `metrics`. Use the
-   * `caller_*` attributes to track the location in code which produced the
-   * experiment event
-   */
-  export interface Context {
-    /**
-     * Name of the file in code where the experiment event was created
-     */
-    caller_filename?: string | null;
-
-    /**
-     * The function in code which created the experiment event
-     */
-    caller_functionname?: string | null;
-
-    /**
-     * Line of code where the experiment event was created
-     */
-    caller_lineno?: number | null;
-    [k: string]: unknown;
-  }
-
-  /**
-   * Metrics are numerical measurements tracking the execution of the code that
-   * produced the experiment event. Use "start" and "end" to track the time span over
-   * which the experiment event was produced
-   */
-  export interface Metrics {
-    /**
-     * This metric is deprecated
-     */
-    caller_filename?: unknown | null;
-
-    /**
-     * This metric is deprecated
-     */
-    caller_functionname?: unknown | null;
-
-    /**
-     * This metric is deprecated
-     */
-    caller_lineno?: unknown | null;
-
-    /**
-     * The number of tokens in the completion generated by the model (only set if this
-     * is an LLM span)
-     */
-    completion_tokens?: number | null;
-
-    /**
-     * A unix timestamp recording when the section of code which produced the
-     * experiment event finished
-     */
-    end?: number | null;
-
-    /**
-     * The number of tokens in the prompt used to generate the experiment event (only
-     * set if this is an LLM span)
-     */
-    prompt_tokens?: number | null;
-
-    /**
-     * A unix timestamp recording when the section of code which produced the
-     * experiment event started
-     */
-    start?: number | null;
-
-    /**
-     * The total number of tokens in the input and output of the experiment event.
-     */
-    tokens?: number | null;
-    [k: string]: number | unknown | number | null | undefined;
-  }
-
-  /**
-   * Human-identifying attributes of the span, such as name, type, etc.
-   */
-  export interface SpanAttributes {
-    /**
-     * Name of the span, for display purposes only
-     */
-    name?: string | null;
-
-    /**
-     * Type of the span, for display purposes only
-     */
-    type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
-    [k: string]: unknown;
-  }
-}
-
-export interface InsertProjectLogsEventMerge {
-  /**
-   * The `_is_merge` field controls how the row is merged with any existing row with
-   * the same id in the DB. By default (or when set to `false`), the existing row is
-   * completely replaced by the new row. When set to `true`, the new row is
-   * deep-merged into the existing row
-   *
-   * For example, say there is an existing row in the DB
-   * `{"id": "foo", "input": {"a": 5, "b": 10}}`. If we merge a new row as
-   * `{"_is_merge": true, "id": "foo", "input": {"b": 11, "c": 20}}`, the new row
-   * will be `{"id": "foo", "input": {"a": 5, "b": 11, "c": 20}}`. If we replace the
-   * new row as `{"id": "foo", "input": {"b": 11, "c": 20}}`, the new row will be
-   * `{"id": "foo", "input": {"b": 11, "c": 20}}`
-   */
-  _is_merge: boolean;
-
-  /**
-   * A unique identifier for the project logs event. If you don't provide one,
-   * BrainTrust will generate one for you
-   */
-  id?: string | null;
-
-  /**
-   * The `_merge_paths` field allows controlling the depth of the merge. It can only
-   * be specified alongside `_is_merge=true`. `_merge_paths` is a list of paths,
-   * where each path is a list of field names. The deep merge will not descend below
-   * any of the specified merge paths.
+   * The `_merge_paths` field allows controlling the depth of the merge, when
+   * `_is_merge=true`. `_merge_paths` is a list of paths, where each path is a list
+   * of field names. The deep merge will not descend below any of the specified merge
+   * paths.
    *
    * For example, say there is an existing row in the DB
    * `{"id": "foo", "input": {"a": {"b": 10}, "c": {"d": 20}}, "output": {"a": 20}}`.
@@ -1882,213 +1704,8 @@ export interface InsertProjectLogsEventMerge {
   _object_delete?: boolean | null;
 
   /**
-   * Context is additional information about the code that produced the project logs
-   * event. It is essentially the textual counterpart to `metrics`. Use the
-   * `caller_*` attributes to track the location in code which produced the project
-   * logs event
-   */
-  context?: InsertProjectLogsEventMerge.Context | null;
-
-  /**
-   * The timestamp the project logs event was created
-   */
-  created?: string | null;
-
-  /**
-   * The error that occurred, if any.
-   */
-  error?: unknown | null;
-
-  /**
-   * The ground truth value (an arbitrary, JSON serializable object) that you'd
-   * compare to `output` to determine if your `output` value is correct or not.
-   * Braintrust currently does not compare `output` to `expected` for you, since
-   * there are so many different ways to do that correctly. Instead, these values are
-   * just used to help you navigate while digging into analyses. However, we may
-   * later use these values to re-score outputs or fine-tune your models.
-   */
-  expected?: unknown | null;
-
-  /**
-   * The arguments that uniquely define a user input (an arbitrary, JSON serializable
-   * object).
-   */
-  input?: unknown | null;
-
-  /**
-   * A dictionary with additional data about the test example, model outputs, or just
-   * about anything else that's relevant, that you can use to help find and analyze
-   * examples later. For example, you could log the `prompt`, example's `id`, or
-   * anything else that would be useful to slice/dice later. The values in `metadata`
-   * can be any JSON-serializable type, but its keys must be strings
-   */
-  metadata?: Record<string, unknown> | null;
-
-  /**
-   * Metrics are numerical measurements tracking the execution of the code that
-   * produced the project logs event. Use "start" and "end" to track the time span
-   * over which the project logs event was produced
-   */
-  metrics?: InsertProjectLogsEventMerge.Metrics | null;
-
-  /**
-   * The output of your application, including post-processing (an arbitrary, JSON
-   * serializable object), that allows you to determine whether the result is correct
-   * or not. For example, in an app that generates SQL queries, the `output` should
-   * be the _result_ of the SQL query generated by the model, not the query itself,
-   * because there may be multiple valid queries that answer a single question.
-   */
-  output?: unknown | null;
-
-  /**
-   * A dictionary of numeric values (between 0 and 1) to log. The scores should give
-   * you a variety of signals that help you determine how accurate the outputs are
-   * compared to what you expect and diagnose failures. For example, a summarization
-   * app might have one score that tells you how accurate the summary is, and another
-   * that measures the word similarity between the generated and grouth truth
-   * summary. The word similarity score could help you determine whether the
-   * summarization was covering similar concepts or not. You can use these scores to
-   * help you sort, filter, and compare logs.
-   */
-  scores?: Record<string, number | null> | null;
-
-  /**
-   * Human-identifying attributes of the span, such as name, type, etc.
-   */
-  span_attributes?: InsertProjectLogsEventMerge.SpanAttributes | null;
-
-  /**
-   * A list of tags to log
-   */
-  tags?: Array<string> | null;
-}
-
-export namespace InsertProjectLogsEventMerge {
-  /**
-   * Context is additional information about the code that produced the project logs
-   * event. It is essentially the textual counterpart to `metrics`. Use the
-   * `caller_*` attributes to track the location in code which produced the project
-   * logs event
-   */
-  export interface Context {
-    /**
-     * Name of the file in code where the project logs event was created
-     */
-    caller_filename?: string | null;
-
-    /**
-     * The function in code which created the project logs event
-     */
-    caller_functionname?: string | null;
-
-    /**
-     * Line of code where the project logs event was created
-     */
-    caller_lineno?: number | null;
-    [k: string]: unknown;
-  }
-
-  /**
-   * Metrics are numerical measurements tracking the execution of the code that
-   * produced the project logs event. Use "start" and "end" to track the time span
-   * over which the project logs event was produced
-   */
-  export interface Metrics {
-    /**
-     * This metric is deprecated
-     */
-    caller_filename?: unknown | null;
-
-    /**
-     * This metric is deprecated
-     */
-    caller_functionname?: unknown | null;
-
-    /**
-     * This metric is deprecated
-     */
-    caller_lineno?: unknown | null;
-
-    /**
-     * The number of tokens in the completion generated by the model (only set if this
-     * is an LLM span)
-     */
-    completion_tokens?: number | null;
-
-    /**
-     * A unix timestamp recording when the section of code which produced the project
-     * logs event finished
-     */
-    end?: number | null;
-
-    /**
-     * The number of tokens in the prompt used to generate the project logs event (only
-     * set if this is an LLM span)
-     */
-    prompt_tokens?: number | null;
-
-    /**
-     * A unix timestamp recording when the section of code which produced the project
-     * logs event started
-     */
-    start?: number | null;
-
-    /**
-     * The total number of tokens in the input and output of the project logs event.
-     */
-    tokens?: number | null;
-    [k: string]: number | unknown | number | null | undefined;
-  }
-
-  /**
-   * Human-identifying attributes of the span, such as name, type, etc.
-   */
-  export interface SpanAttributes {
-    /**
-     * Name of the span, for display purposes only
-     */
-    name?: string | null;
-
-    /**
-     * Type of the span, for display purposes only
-     */
-    type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
-    [k: string]: unknown;
-  }
-}
-
-export interface InsertProjectLogsEventReplace {
-  /**
-   * A unique identifier for the project logs event. If you don't provide one,
-   * BrainTrust will generate one for you
-   */
-  id?: string | null;
-
-  /**
-   * The `_is_merge` field controls how the row is merged with any existing row with
-   * the same id in the DB. By default (or when set to `false`), the existing row is
-   * completely replaced by the new row. When set to `true`, the new row is
-   * deep-merged into the existing row
-   *
-   * For example, say there is an existing row in the DB
-   * `{"id": "foo", "input": {"a": 5, "b": 10}}`. If we merge a new row as
-   * `{"_is_merge": true, "id": "foo", "input": {"b": 11, "c": 20}}`, the new row
-   * will be `{"id": "foo", "input": {"a": 5, "b": 11, "c": 20}}`. If we replace the
-   * new row as `{"id": "foo", "input": {"b": 11, "c": 20}}`, the new row will be
-   * `{"id": "foo", "input": {"b": 11, "c": 20}}`
-   */
-  _is_merge?: boolean | null;
-
-  /**
-   * Pass `_object_delete=true` to mark the project logs event deleted. Deleted
-   * events will not show up in subsequent fetches for this project logs
-   */
-  _object_delete?: boolean | null;
-
-  /**
    * Use the `_parent_id` field to create this row as a subspan of an existing row.
-   * It cannot be specified alongside `_is_merge=true`. Tracking hierarchical
-   * relationships are important for tracing (see the
+   * Tracking hierarchical relationships are important for tracing (see the
    * [guide](https://www.braintrust.dev/docs/guides/tracing) for full details).
    *
    * For example, say we have logged a row
@@ -2098,6 +1715,8 @@ export interface InsertProjectLogsEventReplace {
    * In the webapp, only the root span row `"abc"` will show up in the summary view.
    * You can view the full trace hierarchy (in this case, the `"llm_call"` row) by
    * clicking on the "abc" row.
+   *
+   * If the row is being merged into an existing row, this field will be ignored.
    */
   _parent_id?: string | null;
 
@@ -2107,7 +1726,7 @@ export interface InsertProjectLogsEventReplace {
    * `caller_*` attributes to track the location in code which produced the project
    * logs event
    */
-  context?: InsertProjectLogsEventReplace.Context | null;
+  context?: InsertProjectLogsEvent.Context | null;
 
   /**
    * The timestamp the project logs event was created
@@ -2149,7 +1768,7 @@ export interface InsertProjectLogsEventReplace {
    * produced the project logs event. Use "start" and "end" to track the time span
    * over which the project logs event was produced
    */
-  metrics?: InsertProjectLogsEventReplace.Metrics | null;
+  metrics?: InsertProjectLogsEvent.Metrics | null;
 
   /**
    * The output of your application, including post-processing (an arbitrary, JSON
@@ -2159,6 +1778,25 @@ export interface InsertProjectLogsEventReplace {
    * because there may be multiple valid queries that answer a single question.
    */
   output?: unknown | null;
+
+  /**
+   * Use span_id, root_span_id, and span_parents as a more explicit alternative to
+   * \_parent_id. The span_id is a unique identifier describing the row's place in
+   * the a trace, and the root_span_id is a unique identifier for the whole trace.
+   * See the [guide](https://www.braintrust.dev/docs/guides/tracing) for full
+   * details.
+   *
+   * For example, say we have logged a row
+   * `{"id": "abc", "span_id": "span0", "root_span_id": "root_span0", "input": "foo", "output": "bar", "expected": "boo", "scores": {"correctness": 0.33}}`.
+   * We can create a sub-span of the parent row by logging
+   * `{"id": "llm_call", "span_id": "span1", "root_span_id": "root_span0", "span_parents": ["span0"], "input": {"prompt": "What comes after foo?"}, "output": "bar", "metrics": {"tokens": 1}}`.
+   * In the webapp, only the root span row `"abc"` will show up in the summary view.
+   * You can view the full trace hierarchy (in this case, the `"llm_call"` row) by
+   * clicking on the "abc" row.
+   *
+   * If the row is being merged into an existing row, this field will be ignored.
+   */
+  root_span_id?: string | null;
 
   /**
    * A dictionary of numeric values (between 0 and 1) to log. The scores should give
@@ -2175,7 +1813,45 @@ export interface InsertProjectLogsEventReplace {
   /**
    * Human-identifying attributes of the span, such as name, type, etc.
    */
-  span_attributes?: InsertProjectLogsEventReplace.SpanAttributes | null;
+  span_attributes?: SpanAttributes | null;
+
+  /**
+   * Use span_id, root_span_id, and span_parents as a more explicit alternative to
+   * \_parent_id. The span_id is a unique identifier describing the row's place in
+   * the a trace, and the root_span_id is a unique identifier for the whole trace.
+   * See the [guide](https://www.braintrust.dev/docs/guides/tracing) for full
+   * details.
+   *
+   * For example, say we have logged a row
+   * `{"id": "abc", "span_id": "span0", "root_span_id": "root_span0", "input": "foo", "output": "bar", "expected": "boo", "scores": {"correctness": 0.33}}`.
+   * We can create a sub-span of the parent row by logging
+   * `{"id": "llm_call", "span_id": "span1", "root_span_id": "root_span0", "span_parents": ["span0"], "input": {"prompt": "What comes after foo?"}, "output": "bar", "metrics": {"tokens": 1}}`.
+   * In the webapp, only the root span row `"abc"` will show up in the summary view.
+   * You can view the full trace hierarchy (in this case, the `"llm_call"` row) by
+   * clicking on the "abc" row.
+   *
+   * If the row is being merged into an existing row, this field will be ignored.
+   */
+  span_id?: string | null;
+
+  /**
+   * Use span_id, root_span_id, and span_parents as a more explicit alternative to
+   * \_parent_id. The span_id is a unique identifier describing the row's place in
+   * the a trace, and the root_span_id is a unique identifier for the whole trace.
+   * See the [guide](https://www.braintrust.dev/docs/guides/tracing) for full
+   * details.
+   *
+   * For example, say we have logged a row
+   * `{"id": "abc", "span_id": "span0", "root_span_id": "root_span0", "input": "foo", "output": "bar", "expected": "boo", "scores": {"correctness": 0.33}}`.
+   * We can create a sub-span of the parent row by logging
+   * `{"id": "llm_call", "span_id": "span1", "root_span_id": "root_span0", "span_parents": ["span0"], "input": {"prompt": "What comes after foo?"}, "output": "bar", "metrics": {"tokens": 1}}`.
+   * In the webapp, only the root span row `"abc"` will show up in the summary view.
+   * You can view the full trace hierarchy (in this case, the `"llm_call"` row) by
+   * clicking on the "abc" row.
+   *
+   * If the row is being merged into an existing row, this field will be ignored.
+   */
+  span_parents?: Array<string> | null;
 
   /**
    * A list of tags to log
@@ -2183,7 +1859,7 @@ export interface InsertProjectLogsEventReplace {
   tags?: Array<string> | null;
 }
 
-export namespace InsertProjectLogsEventReplace {
+export namespace InsertProjectLogsEvent {
   /**
    * Context is additional information about the code that produced the project logs
    * event. It is essentially the textual counterpart to `metrics`. Use the
@@ -2258,22 +1934,6 @@ export namespace InsertProjectLogsEventReplace {
      */
     tokens?: number | null;
     [k: string]: number | unknown | number | null | undefined;
-  }
-
-  /**
-   * Human-identifying attributes of the span, such as name, type, etc.
-   */
-  export interface SpanAttributes {
-    /**
-     * Name of the span, for display purposes only
-     */
-    name?: string | null;
-
-    /**
-     * Type of the span, for display purposes only
-     */
-    type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
-    [k: string]: unknown;
   }
 }
 
@@ -2482,7 +2142,7 @@ export interface ProjectLogsEvent {
   project_id: string;
 
   /**
-   * The `span_id` of the root of the trace this project logs event belongs to
+   * A unique identifier for the trace this project logs event belongs to
    */
   root_span_id: string;
 
@@ -2573,7 +2233,7 @@ export interface ProjectLogsEvent {
   /**
    * Human-identifying attributes of the span, such as name, type, etc.
    */
-  span_attributes?: ProjectLogsEvent.SpanAttributes | null;
+  span_attributes?: SpanAttributes | null;
 
   /**
    * An array of the parent `span_ids` of this project logs event. This should be
@@ -2688,22 +2348,6 @@ export namespace ProjectLogsEvent {
      * Type of the object the event is originating from.
      */
     object_type: 'experiment' | 'dataset' | 'prompt' | 'function' | 'prompt_session' | 'project_logs';
-  }
-
-  /**
-   * Human-identifying attributes of the span, such as name, type, etc.
-   */
-  export interface SpanAttributes {
-    /**
-     * Name of the span, for display purposes only
-     */
-    name?: string | null;
-
-    /**
-     * Type of the span, for display purposes only
-     */
-    type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
-    [k: string]: unknown;
   }
 }
 
@@ -2906,7 +2550,7 @@ export interface Prompt {
  * The prompt, model, and its parameters
  */
 export interface PromptData {
-  options?: PromptData.Options | null;
+  options?: PromptOptions | null;
 
   origin?: PromptData.Origin | null;
 
@@ -2918,139 +2562,6 @@ export interface PromptData {
 }
 
 export namespace PromptData {
-  export interface Options {
-    model?: string;
-
-    params?:
-      | Options.OpenAIModelParams
-      | Options.AnthropicModelParams
-      | Options.GoogleModelParams
-      | Options.WindowAIModelParams
-      | Options.JsCompletionParams;
-
-    position?: string;
-  }
-
-  export namespace Options {
-    export interface OpenAIModelParams {
-      frequency_penalty?: number;
-
-      function_call?: 'auto' | 'none' | OpenAIModelParams.Function;
-
-      max_tokens?: number;
-
-      n?: number;
-
-      presence_penalty?: number;
-
-      response_format?:
-        | OpenAIModelParams.JsonObject
-        | OpenAIModelParams.JsonSchema
-        | OpenAIModelParams.Text
-        | OpenAIModelParams.NullableVariant
-        | null;
-
-      stop?: Array<string>;
-
-      temperature?: number;
-
-      tool_choice?: 'auto' | 'none' | 'required' | OpenAIModelParams.Function;
-
-      top_p?: number;
-
-      use_cache?: boolean;
-    }
-
-    export namespace OpenAIModelParams {
-      export interface Function {
-        name: string;
-      }
-
-      export interface JsonObject {
-        type: 'json_object';
-      }
-
-      export interface JsonSchema {
-        json_schema: JsonSchema.JsonSchema;
-
-        type: 'json_schema';
-      }
-
-      export namespace JsonSchema {
-        export interface JsonSchema {
-          name: string;
-
-          description?: string;
-
-          schema?: Record<string, unknown>;
-
-          strict?: boolean | null;
-        }
-      }
-
-      export interface Text {
-        type: 'text';
-      }
-
-      export interface NullableVariant {}
-
-      export interface Function {
-        function: Function.Function;
-
-        type: 'function';
-      }
-
-      export namespace Function {
-        export interface Function {
-          name: string;
-        }
-      }
-    }
-
-    export interface AnthropicModelParams {
-      max_tokens: number;
-
-      temperature: number;
-
-      /**
-       * This is a legacy parameter that should not be used.
-       */
-      max_tokens_to_sample?: number;
-
-      stop_sequences?: Array<string>;
-
-      top_k?: number;
-
-      top_p?: number;
-
-      use_cache?: boolean;
-    }
-
-    export interface GoogleModelParams {
-      maxOutputTokens?: number;
-
-      temperature?: number;
-
-      topK?: number;
-
-      topP?: number;
-
-      use_cache?: boolean;
-    }
-
-    export interface WindowAIModelParams {
-      temperature?: number;
-
-      topK?: number;
-
-      use_cache?: boolean;
-    }
-
-    export interface JsCompletionParams {
-      use_cache?: boolean;
-    }
-  }
-
   export interface Origin {
     project_id?: string;
 
@@ -3153,6 +2664,139 @@ export namespace PromptData {
     name: string;
 
     type: 'global';
+  }
+}
+
+export interface PromptOptions {
+  model?: string;
+
+  params?:
+    | PromptOptions.OpenAIModelParams
+    | PromptOptions.AnthropicModelParams
+    | PromptOptions.GoogleModelParams
+    | PromptOptions.WindowAIModelParams
+    | PromptOptions.JsCompletionParams;
+
+  position?: string;
+}
+
+export namespace PromptOptions {
+  export interface OpenAIModelParams {
+    frequency_penalty?: number;
+
+    function_call?: 'auto' | 'none' | OpenAIModelParams.Function;
+
+    max_tokens?: number;
+
+    n?: number;
+
+    presence_penalty?: number;
+
+    response_format?:
+      | OpenAIModelParams.JsonObject
+      | OpenAIModelParams.JsonSchema
+      | OpenAIModelParams.Text
+      | OpenAIModelParams.NullableVariant
+      | null;
+
+    stop?: Array<string>;
+
+    temperature?: number;
+
+    tool_choice?: 'auto' | 'none' | 'required' | OpenAIModelParams.Function;
+
+    top_p?: number;
+
+    use_cache?: boolean;
+  }
+
+  export namespace OpenAIModelParams {
+    export interface Function {
+      name: string;
+    }
+
+    export interface JsonObject {
+      type: 'json_object';
+    }
+
+    export interface JsonSchema {
+      json_schema: JsonSchema.JsonSchema;
+
+      type: 'json_schema';
+    }
+
+    export namespace JsonSchema {
+      export interface JsonSchema {
+        name: string;
+
+        description?: string;
+
+        schema?: Record<string, unknown>;
+
+        strict?: boolean | null;
+      }
+    }
+
+    export interface Text {
+      type: 'text';
+    }
+
+    export interface NullableVariant {}
+
+    export interface Function {
+      function: Function.Function;
+
+      type: 'function';
+    }
+
+    export namespace Function {
+      export interface Function {
+        name: string;
+      }
+    }
+  }
+
+  export interface AnthropicModelParams {
+    max_tokens: number;
+
+    temperature: number;
+
+    /**
+     * This is a legacy parameter that should not be used.
+     */
+    max_tokens_to_sample?: number;
+
+    stop_sequences?: Array<string>;
+
+    top_k?: number;
+
+    top_p?: number;
+
+    use_cache?: boolean;
+  }
+
+  export interface GoogleModelParams {
+    maxOutputTokens?: number;
+
+    temperature?: number;
+
+    topK?: number;
+
+    topP?: number;
+
+    use_cache?: boolean;
+  }
+
+  export interface WindowAIModelParams {
+    temperature?: number;
+
+    topK?: number;
+
+    use_cache?: boolean;
+  }
+
+  export interface JsCompletionParams {
+    use_cache?: boolean;
   }
 }
 
@@ -3333,6 +2977,22 @@ export interface ScoreSummary {
    * Difference in score between the current and comparison experiment
    */
   diff?: number;
+}
+
+/**
+ * Human-identifying attributes of the span, such as name, type, etc.
+ */
+export interface SpanAttributes {
+  /**
+   * Name of the span, for display purposes only
+   */
+  name?: string | null;
+
+  /**
+   * Type of the span, for display purposes only
+   */
+  type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
+  [k: string]: unknown;
 }
 
 export interface SpanIFrame {
