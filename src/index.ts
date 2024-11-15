@@ -528,7 +528,7 @@ export declare namespace Braintrust {
   export type ViewOptions = API.ViewOptions;
 }
 
-export { toFile, fileFromPath } from '@braintrust/api/uploads';
+export { toFile, fileFromPath } from './uploads';
 export {
   BraintrustError,
   APIError,
@@ -543,6 +543,6 @@ export {
   InternalServerError,
   PermissionDeniedError,
   UnprocessableEntityError,
-} from '@braintrust/api/error';
+} from './error';
 
 export default Braintrust;
