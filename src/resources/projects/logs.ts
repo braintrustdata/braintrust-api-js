@@ -229,7 +229,7 @@ export interface LogInsertParams {
   /**
    * A list of project logs events to insert
    */
-  events: Array<Shared.InsertProjectLogsEventReplace | Shared.InsertProjectLogsEventMerge>;
+  events: Array<Shared.InsertProjectLogsEvent>;
 }
 
 export declare namespace Logs {
