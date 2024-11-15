@@ -145,6 +145,11 @@ describe('resource logs', () => {
         {
           id: 'id',
           _is_merge: true,
+          _merge_paths: [
+            ['string', 'string', 'string'],
+            ['string', 'string', 'string'],
+            ['string', 'string', 'string'],
+          ],
           _object_delete: true,
           _parent_id: '_parent_id',
           context: {
@@ -168,13 +173,21 @@ describe('resource logs', () => {
             tokens: 0,
           },
           output: {},
+          root_span_id: 'root_span_id',
           scores: { foo: 0 },
           span_attributes: { name: 'name', type: 'llm' },
+          span_id: 'span_id',
+          span_parents: ['string', 'string', 'string'],
           tags: ['string', 'string', 'string'],
         },
         {
           id: 'id',
           _is_merge: true,
+          _merge_paths: [
+            ['string', 'string', 'string'],
+            ['string', 'string', 'string'],
+            ['string', 'string', 'string'],
+          ],
           _object_delete: true,
           _parent_id: '_parent_id',
           context: {
@@ -198,13 +211,21 @@ describe('resource logs', () => {
             tokens: 0,
           },
           output: {},
+          root_span_id: 'root_span_id',
           scores: { foo: 0 },
           span_attributes: { name: 'name', type: 'llm' },
+          span_id: 'span_id',
+          span_parents: ['string', 'string', 'string'],
           tags: ['string', 'string', 'string'],
         },
         {
           id: 'id',
           _is_merge: true,
+          _merge_paths: [
+            ['string', 'string', 'string'],
+            ['string', 'string', 'string'],
+            ['string', 'string', 'string'],
+          ],
           _object_delete: true,
           _parent_id: '_parent_id',
           context: {
@@ -228,8 +249,11 @@ describe('resource logs', () => {
             tokens: 0,
           },
           output: {},
+          root_span_id: 'root_span_id',
           scores: { foo: 0 },
           span_attributes: { name: 'name', type: 'llm' },
+          span_id: 'span_id',
+          span_parents: ['string', 'string', 'string'],
           tags: ['string', 'string', 'string'],
         },
       ],
