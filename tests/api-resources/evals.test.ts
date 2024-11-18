@@ -13,11 +13,7 @@ describe('resource evals', () => {
     const responsePromise = client.evals.create({
       data: { dataset_id: 'dataset_id' },
       project_id: 'project_id',
-      scores: [
-        { function_id: 'function_id' },
-        { function_id: 'function_id' },
-        { function_id: 'function_id' },
-      ],
+      scores: [{ function_id: 'function_id' }],
       task: { function_id: 'function_id' },
     });
     const rawResponse = await responsePromise.asResponse();
@@ -33,16 +29,12 @@ describe('resource evals', () => {
     const response = await client.evals.create({
       data: { dataset_id: 'dataset_id' },
       project_id: 'project_id',
-      scores: [
-        { function_id: 'function_id', version: 'version' },
-        { function_id: 'function_id', version: 'version' },
-        { function_id: 'function_id', version: 'version' },
-      ],
+      scores: [{ function_id: 'function_id', version: 'version' }],
       task: { function_id: 'function_id', version: 'version' },
       base_experiment_id: 'base_experiment_id',
       base_experiment_name: 'base_experiment_name',
       experiment_name: 'experiment_name',
-      git_metadata_settings: { collect: 'all', fields: ['commit', 'branch', 'tag'] },
+      git_metadata_settings: { collect: 'all', fields: ['commit'] },
       is_public: true,
       max_concurrency: 0,
       metadata: { foo: 'bar' },

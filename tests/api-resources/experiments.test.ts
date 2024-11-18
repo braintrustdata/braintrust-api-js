@@ -170,7 +170,7 @@ describe('resource experiments', () => {
 
   test('feedback: only required params', async () => {
     const responsePromise = client.experiments.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      feedback: [{ id: 'id' }, { id: 'id' }, { id: 'id' }],
+      feedback: [{ id: 'id' }],
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -184,22 +184,6 @@ describe('resource experiments', () => {
   test('feedback: required and optional params', async () => {
     const response = await client.experiments.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       feedback: [
-        {
-          id: 'id',
-          comment: 'comment',
-          expected: {},
-          metadata: { foo: 'bar' },
-          scores: { foo: 0 },
-          source: 'app',
-        },
-        {
-          id: 'id',
-          comment: 'comment',
-          expected: {},
-          metadata: { foo: 'bar' },
-          scores: { foo: 0 },
-          source: 'app',
-        },
         {
           id: 'id',
           comment: 'comment',
@@ -268,11 +252,7 @@ describe('resource experiments', () => {
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         {
           cursor: 'cursor',
-          filters: [
-            { path: ['string', 'string', 'string'], type: 'path_lookup', value: {} },
-            { path: ['string', 'string', 'string'], type: 'path_lookup', value: {} },
-            { path: ['string', 'string', 'string'], type: 'path_lookup', value: {} },
-          ],
+          filters: [{ path: ['string'], type: 'path_lookup', value: {} }],
           limit: 0,
           max_root_span_id: 'max_root_span_id',
           max_xact_id: 'max_xact_id',
@@ -285,7 +265,7 @@ describe('resource experiments', () => {
 
   test('insert: only required params', async () => {
     const responsePromise = client.experiments.insert('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      events: [{}, {}, {}],
+      events: [{}],
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -302,11 +282,7 @@ describe('resource experiments', () => {
         {
           id: 'id',
           _is_merge: true,
-          _merge_paths: [
-            ['string', 'string', 'string'],
-            ['string', 'string', 'string'],
-            ['string', 'string', 'string'],
-          ],
+          _merge_paths: [['string']],
           _object_delete: true,
           _parent_id: '_parent_id',
           context: {
@@ -335,86 +311,8 @@ describe('resource experiments', () => {
           scores: { foo: 0 },
           span_attributes: { name: 'name', type: 'llm' },
           span_id: 'span_id',
-          span_parents: ['string', 'string', 'string'],
-          tags: ['string', 'string', 'string'],
-        },
-        {
-          id: 'id',
-          _is_merge: true,
-          _merge_paths: [
-            ['string', 'string', 'string'],
-            ['string', 'string', 'string'],
-            ['string', 'string', 'string'],
-          ],
-          _object_delete: true,
-          _parent_id: '_parent_id',
-          context: {
-            caller_filename: 'caller_filename',
-            caller_functionname: 'caller_functionname',
-            caller_lineno: 0,
-          },
-          created: '2019-12-27T18:11:19.117Z',
-          dataset_record_id: 'dataset_record_id',
-          error: {},
-          expected: {},
-          input: {},
-          metadata: { foo: 'bar' },
-          metrics: {
-            caller_filename: {},
-            caller_functionname: {},
-            caller_lineno: {},
-            completion_tokens: 0,
-            end: 0,
-            prompt_tokens: 0,
-            start: 0,
-            tokens: 0,
-          },
-          output: {},
-          root_span_id: 'root_span_id',
-          scores: { foo: 0 },
-          span_attributes: { name: 'name', type: 'llm' },
-          span_id: 'span_id',
-          span_parents: ['string', 'string', 'string'],
-          tags: ['string', 'string', 'string'],
-        },
-        {
-          id: 'id',
-          _is_merge: true,
-          _merge_paths: [
-            ['string', 'string', 'string'],
-            ['string', 'string', 'string'],
-            ['string', 'string', 'string'],
-          ],
-          _object_delete: true,
-          _parent_id: '_parent_id',
-          context: {
-            caller_filename: 'caller_filename',
-            caller_functionname: 'caller_functionname',
-            caller_lineno: 0,
-          },
-          created: '2019-12-27T18:11:19.117Z',
-          dataset_record_id: 'dataset_record_id',
-          error: {},
-          expected: {},
-          input: {},
-          metadata: { foo: 'bar' },
-          metrics: {
-            caller_filename: {},
-            caller_functionname: {},
-            caller_lineno: {},
-            completion_tokens: 0,
-            end: 0,
-            prompt_tokens: 0,
-            start: 0,
-            tokens: 0,
-          },
-          output: {},
-          root_span_id: 'root_span_id',
-          scores: { foo: 0 },
-          span_attributes: { name: 'name', type: 'llm' },
-          span_id: 'span_id',
-          span_parents: ['string', 'string', 'string'],
-          tags: ['string', 'string', 'string'],
+          span_parents: ['string'],
+          tags: ['string'],
         },
       ],
     });

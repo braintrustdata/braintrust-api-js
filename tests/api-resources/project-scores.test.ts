@@ -29,23 +29,15 @@ describe('resource projectScores', () => {
       name: 'name',
       project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       score_type: 'slider',
-      categories: [
-        { name: 'name', value: 0 },
-        { name: 'name', value: 0 },
-        { name: 'name', value: 0 },
-      ],
+      categories: [{ name: 'name', value: 0 }],
       config: {
         destination: 'expected',
         multi_select: true,
         online: {
           sampling_rate: 0,
-          scorers: [
-            { id: 'id', type: 'function' },
-            { id: 'id', type: 'function' },
-            { id: 'id', type: 'function' },
-          ],
+          scorers: [{ id: 'id', type: 'function' }],
           apply_to_root_span: true,
-          apply_to_span_names: ['string', 'string', 'string'],
+          apply_to_span_names: ['string'],
         },
       },
       description: 'description',
@@ -98,23 +90,15 @@ describe('resource projectScores', () => {
       client.projectScores.update(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         {
-          categories: [
-            { name: 'name', value: 0 },
-            { name: 'name', value: 0 },
-            { name: 'name', value: 0 },
-          ],
+          categories: [{ name: 'name', value: 0 }],
           config: {
             destination: 'expected',
             multi_select: true,
             online: {
               sampling_rate: 0,
-              scorers: [
-                { id: 'id', type: 'function' },
-                { id: 'id', type: 'function' },
-                { id: 'id', type: 'function' },
-              ],
+              scorers: [{ id: 'id', type: 'function' }],
               apply_to_root_span: true,
-              apply_to_span_names: ['string', 'string', 'string'],
+              apply_to_span_names: ['string'],
             },
           },
           description: 'description',
@@ -204,23 +188,15 @@ describe('resource projectScores', () => {
       name: 'name',
       project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       score_type: 'slider',
-      categories: [
-        { name: 'name', value: 0 },
-        { name: 'name', value: 0 },
-        { name: 'name', value: 0 },
-      ],
+      categories: [{ name: 'name', value: 0 }],
       config: {
         destination: 'expected',
         multi_select: true,
         online: {
           sampling_rate: 0,
-          scorers: [
-            { id: 'id', type: 'function' },
-            { id: 'id', type: 'function' },
-            { id: 'id', type: 'function' },
-          ],
+          scorers: [{ id: 'id', type: 'function' }],
           apply_to_root_span: true,
-          apply_to_span_names: ['string', 'string', 'string'],
+          apply_to_span_names: ['string'],
         },
       },
       description: 'description',

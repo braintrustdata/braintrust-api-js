@@ -33,32 +33,17 @@ describe('resource members', () => {
       client.organizations.members.update(
         {
           invite_users: {
-            emails: ['string', 'string', 'string'],
+            emails: ['string'],
             group_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-            group_ids: [
-              '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-              '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-              '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-            ],
+            group_ids: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
             group_name: 'group_name',
-            group_names: ['string', 'string', 'string'],
-            ids: [
-              '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-              '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-              '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-            ],
+            group_names: ['string'],
+            ids: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
             send_invite_emails: true,
           },
           org_id: 'org_id',
           org_name: 'org_name',
-          remove_users: {
-            emails: ['string', 'string', 'string'],
-            ids: [
-              '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-              '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-              '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-            ],
-          },
+          remove_users: { emails: ['string'], ids: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'] },
         },
         { path: '/_stainless_unknown_path' },
       ),

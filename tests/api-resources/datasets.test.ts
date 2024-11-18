@@ -136,7 +136,7 @@ describe('resource datasets', () => {
 
   test('feedback: only required params', async () => {
     const responsePromise = client.datasets.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      feedback: [{ id: 'id' }, { id: 'id' }, { id: 'id' }],
+      feedback: [{ id: 'id' }],
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -149,11 +149,7 @@ describe('resource datasets', () => {
 
   test('feedback: required and optional params', async () => {
     const response = await client.datasets.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      feedback: [
-        { id: 'id', comment: 'comment', metadata: { foo: 'bar' }, source: 'app' },
-        { id: 'id', comment: 'comment', metadata: { foo: 'bar' }, source: 'app' },
-        { id: 'id', comment: 'comment', metadata: { foo: 'bar' }, source: 'app' },
-      ],
+      feedback: [{ id: 'id', comment: 'comment', metadata: { foo: 'bar' }, source: 'app' }],
     });
   });
 
@@ -211,11 +207,7 @@ describe('resource datasets', () => {
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         {
           cursor: 'cursor',
-          filters: [
-            { path: ['string', 'string', 'string'], type: 'path_lookup', value: {} },
-            { path: ['string', 'string', 'string'], type: 'path_lookup', value: {} },
-            { path: ['string', 'string', 'string'], type: 'path_lookup', value: {} },
-          ],
+          filters: [{ path: ['string'], type: 'path_lookup', value: {} }],
           limit: 0,
           max_root_span_id: 'max_root_span_id',
           max_xact_id: 'max_xact_id',
@@ -227,9 +219,7 @@ describe('resource datasets', () => {
   });
 
   test('insert: only required params', async () => {
-    const responsePromise = client.datasets.insert('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      events: [{}, {}, {}],
-    });
+    const responsePromise = client.datasets.insert('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { events: [{}] });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -245,11 +235,7 @@ describe('resource datasets', () => {
         {
           id: 'id',
           _is_merge: true,
-          _merge_paths: [
-            ['string', 'string', 'string'],
-            ['string', 'string', 'string'],
-            ['string', 'string', 'string'],
-          ],
+          _merge_paths: [['string']],
           _object_delete: true,
           _parent_id: '_parent_id',
           created: '2019-12-27T18:11:19.117Z',
@@ -258,46 +244,8 @@ describe('resource datasets', () => {
           metadata: { foo: 'bar' },
           root_span_id: 'root_span_id',
           span_id: 'span_id',
-          span_parents: ['string', 'string', 'string'],
-          tags: ['string', 'string', 'string'],
-        },
-        {
-          id: 'id',
-          _is_merge: true,
-          _merge_paths: [
-            ['string', 'string', 'string'],
-            ['string', 'string', 'string'],
-            ['string', 'string', 'string'],
-          ],
-          _object_delete: true,
-          _parent_id: '_parent_id',
-          created: '2019-12-27T18:11:19.117Z',
-          expected: {},
-          input: {},
-          metadata: { foo: 'bar' },
-          root_span_id: 'root_span_id',
-          span_id: 'span_id',
-          span_parents: ['string', 'string', 'string'],
-          tags: ['string', 'string', 'string'],
-        },
-        {
-          id: 'id',
-          _is_merge: true,
-          _merge_paths: [
-            ['string', 'string', 'string'],
-            ['string', 'string', 'string'],
-            ['string', 'string', 'string'],
-          ],
-          _object_delete: true,
-          _parent_id: '_parent_id',
-          created: '2019-12-27T18:11:19.117Z',
-          expected: {},
-          input: {},
-          metadata: { foo: 'bar' },
-          root_span_id: 'root_span_id',
-          span_id: 'span_id',
-          span_parents: ['string', 'string', 'string'],
-          tags: ['string', 'string', 'string'],
+          span_parents: ['string'],
+          tags: ['string'],
         },
       ],
     });

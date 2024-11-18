@@ -41,7 +41,7 @@ describe('resource prompts', () => {
             n: 0,
             presence_penalty: 0,
             response_format: { type: 'json_object' },
-            stop: ['string', 'string', 'string'],
+            stop: ['string'],
             temperature: 0,
             tool_choice: 'auto',
             top_p: 0,
@@ -52,13 +52,9 @@ describe('resource prompts', () => {
         origin: { project_id: 'project_id', prompt_id: 'prompt_id', prompt_version: 'prompt_version' },
         parser: { choice_scores: { foo: 0 }, type: 'llm_classifier', use_cot: true },
         prompt: { content: 'content', type: 'completion' },
-        tool_functions: [
-          { id: 'id', type: 'function' },
-          { id: 'id', type: 'function' },
-          { id: 'id', type: 'function' },
-        ],
+        tool_functions: [{ id: 'id', type: 'function' }],
       },
-      tags: ['string', 'string', 'string'],
+      tags: ['string'],
     });
   });
 
@@ -116,7 +112,7 @@ describe('resource prompts', () => {
                 n: 0,
                 presence_penalty: 0,
                 response_format: { type: 'json_object' },
-                stop: ['string', 'string', 'string'],
+                stop: ['string'],
                 temperature: 0,
                 tool_choice: 'auto',
                 top_p: 0,
@@ -127,14 +123,10 @@ describe('resource prompts', () => {
             origin: { project_id: 'project_id', prompt_id: 'prompt_id', prompt_version: 'prompt_version' },
             parser: { choice_scores: { foo: 0 }, type: 'llm_classifier', use_cot: true },
             prompt: { content: 'content', type: 'completion' },
-            tool_functions: [
-              { id: 'id', type: 'function' },
-              { id: 'id', type: 'function' },
-              { id: 'id', type: 'function' },
-            ],
+            tool_functions: [{ id: 'id', type: 'function' }],
           },
           slug: 'slug',
-          tags: ['string', 'string', 'string'],
+          tags: ['string'],
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -230,7 +222,7 @@ describe('resource prompts', () => {
             n: 0,
             presence_penalty: 0,
             response_format: { type: 'json_object' },
-            stop: ['string', 'string', 'string'],
+            stop: ['string'],
             temperature: 0,
             tool_choice: 'auto',
             top_p: 0,
@@ -241,13 +233,9 @@ describe('resource prompts', () => {
         origin: { project_id: 'project_id', prompt_id: 'prompt_id', prompt_version: 'prompt_version' },
         parser: { choice_scores: { foo: 0 }, type: 'llm_classifier', use_cot: true },
         prompt: { content: 'content', type: 'completion' },
-        tool_functions: [
-          { id: 'id', type: 'function' },
-          { id: 'id', type: 'function' },
-          { id: 'id', type: 'function' },
-        ],
+        tool_functions: [{ id: 'id', type: 'function' }],
       },
-      tags: ['string', 'string', 'string'],
+      tags: ['string'],
     });
   });
 });
