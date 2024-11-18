@@ -24,16 +24,8 @@ describe('resource groups', () => {
     const response = await client.groups.create({
       name: 'x',
       description: 'description',
-      member_groups: [
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      ],
-      member_users: [
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      ],
+      member_groups: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
+      member_users: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
       org_name: 'org_name',
     });
   });
@@ -80,28 +72,12 @@ describe('resource groups', () => {
       client.groups.update(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         {
-          add_member_groups: [
-            '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-            '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-            '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          ],
-          add_member_users: [
-            '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-            '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-            '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          ],
+          add_member_groups: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
+          add_member_users: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
           description: 'description',
           name: 'x',
-          remove_member_groups: [
-            '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-            '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-            '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          ],
-          remove_member_users: [
-            '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-            '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-            '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          ],
+          remove_member_groups: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
+          remove_member_users: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -176,16 +152,8 @@ describe('resource groups', () => {
     const response = await client.groups.replace({
       name: 'x',
       description: 'description',
-      member_groups: [
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      ],
-      member_users: [
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      ],
+      member_groups: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
+      member_users: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
       org_name: 'org_name',
     });
   });
