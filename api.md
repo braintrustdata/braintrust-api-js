@@ -10,6 +10,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">ChatCompletionContentPart</a></code>
 - <code><a href="./src/resources/shared.ts">ChatCompletionContentPartImage</a></code>
 - <code><a href="./src/resources/shared.ts">ChatCompletionContentPartText</a></code>
+- <code><a href="./src/resources/shared.ts">ChatCompletionMessage</a></code>
 - <code><a href="./src/resources/shared.ts">ChatCompletionMessageToolCall</a></code>
 - <code><a href="./src/resources/shared.ts">CodeBundle</a></code>
 - <code><a href="./src/resources/shared.ts">CreateAPIKeyOutput</a></code>
