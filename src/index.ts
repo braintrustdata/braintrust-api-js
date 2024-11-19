@@ -473,6 +473,8 @@ export declare namespace Braintrust {
   export type ACL = API.ACL;
   export type ACLBatchUpdateResponse = API.ACLBatchUpdateResponse;
   export type APIKey = API.APIKey;
+  export type ChatCompletionContent = API.ChatCompletionContent;
+  export type ChatCompletionContentPart = API.ChatCompletionContentPart;
   export type ChatCompletionContentPartImage = API.ChatCompletionContentPartImage;
   export type ChatCompletionContentPartText = API.ChatCompletionContentPartText;
   export type ChatCompletionMessageToolCall = API.ChatCompletionMessageToolCall;
