@@ -191,9 +191,9 @@ export interface APIKey {
   user_id?: string | null;
 }
 
-export type ChatCompletionContent = string | Array<ChatCompletionContentPart>;
-
-export type ChatCompletionContentPart = ChatCompletionContentPartText | ChatCompletionContentPartImage;
+export type ChatCompletionContent =
+  | string
+  | Array<ChatCompletionContentPartText | ChatCompletionContentPartImage>;
 
 export interface ChatCompletionContentPartImage {
   image_url: ChatCompletionContentPartImage.ImageURL;
@@ -213,74 +213,6 @@ export interface ChatCompletionContentPartText {
   type: 'text';
 
   text?: string;
-}
-
-export type ChatCompletionMessage =
-  | ChatCompletionMessage.System
-  | ChatCompletionMessage.User
-  | ChatCompletionMessage.Assistant
-  | ChatCompletionMessage.Tool
-  | ChatCompletionMessage.Function
-  | ChatCompletionMessage.Fallback;
-
-export namespace ChatCompletionMessage {
-  export interface System {
-    role: 'system';
-
-    content?: string;
-
-    name?: string;
-  }
-
-  export interface User {
-    role: 'user';
-
-    content?: Shared.ChatCompletionContent;
-
-    name?: string;
-  }
-
-  export interface Assistant {
-    role: 'assistant';
-
-    content?: string | null;
-
-    function_call?: Assistant.FunctionCall | null;
-
-    name?: string | null;
-
-    tool_calls?: Array<Shared.ChatCompletionMessageToolCall> | null;
-  }
-
-  export namespace Assistant {
-    export interface FunctionCall {
-      arguments: string;
-
-      name: string;
-    }
-  }
-
-  export interface Tool {
-    role: 'tool';
-
-    content?: string;
-
-    tool_call_id?: string;
-  }
-
-  export interface Function {
-    name: string;
-
-    role: 'function';
-
-    content?: string;
-  }
-
-  export interface Fallback {
-    role: 'model';
-
-    content?: string | null;
-  }
 }
 
 export interface ChatCompletionMessageToolCall {
@@ -2657,11 +2589,71 @@ export namespace PromptData {
   }
 
   export interface Chat {
-    messages: Array<Shared.ChatCompletionMessage>;
+    messages: Array<Chat.System | Chat.User | Chat.Assistant | Chat.Tool | Chat.Function | Chat.Fallback>;
 
     type: 'chat';
 
     tools?: string;
+  }
+
+  export namespace Chat {
+    export interface System {
+      role: 'system';
+
+      content?: string;
+
+      name?: string;
+    }
+
+    export interface User {
+      role: 'user';
+
+      content?: Shared.ChatCompletionContent;
+
+      name?: string;
+    }
+
+    export interface Assistant {
+      role: 'assistant';
+
+      content?: string | null;
+
+      function_call?: Assistant.FunctionCall | null;
+
+      name?: string | null;
+
+      tool_calls?: Array<Shared.ChatCompletionMessageToolCall> | null;
+    }
+
+    export namespace Assistant {
+      export interface FunctionCall {
+        arguments: string;
+
+        name: string;
+      }
+    }
+
+    export interface Tool {
+      role: 'tool';
+
+      content?: string;
+
+      tool_call_id?: string;
+    }
+
+    export interface Function {
+      name: string;
+
+      role: 'function';
+
+      content?: string;
+    }
+
+    export interface Fallback {
+      role: 'model';
+
+      content?: string | null;
+    }
   }
 
   export interface NullableVariant {}
