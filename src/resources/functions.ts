@@ -346,14 +346,7 @@ export interface FunctionInvokeParams {
   /**
    * If the function is an LLM, additional messages to pass along to it
    */
-  messages?: Array<
-    | FunctionInvokeParams.System
-    | FunctionInvokeParams.User
-    | FunctionInvokeParams.Assistant
-    | FunctionInvokeParams.Tool
-    | FunctionInvokeParams.Function
-    | FunctionInvokeParams.Fallback
-  >;
+  messages?: Array<Shared.ChatCompletionMessage>;
 
   /**
    * The mode format of the returned value (defaults to 'auto')
@@ -378,64 +371,6 @@ export interface FunctionInvokeParams {
 }
 
 export namespace FunctionInvokeParams {
-  export interface System {
-    role: 'system';
-
-    content?: string;
-
-    name?: string;
-  }
-
-  export interface User {
-    role: 'user';
-
-    content?: Shared.ChatCompletionContent;
-
-    name?: string;
-  }
-
-  export interface Assistant {
-    role: 'assistant';
-
-    content?: string | null;
-
-    function_call?: Assistant.FunctionCall | null;
-
-    name?: string | null;
-
-    tool_calls?: Array<Shared.ChatCompletionMessageToolCall> | null;
-  }
-
-  export namespace Assistant {
-    export interface FunctionCall {
-      arguments: string;
-
-      name: string;
-    }
-  }
-
-  export interface Tool {
-    role: 'tool';
-
-    content?: string;
-
-    tool_call_id?: string;
-  }
-
-  export interface Function {
-    name: string;
-
-    role: 'function';
-
-    content?: string;
-  }
-
-  export interface Fallback {
-    role: 'model';
-
-    content?: string | null;
-  }
-
   /**
    * Span parent properties
    */
