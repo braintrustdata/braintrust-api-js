@@ -149,7 +149,7 @@ describe('resource datasets', () => {
 
   test('feedback: required and optional params', async () => {
     const response = await client.datasets.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      feedback: [{ id: 'id', comment: 'comment', metadata: { foo: 'bar' }, source: 'app' }],
+      feedback: [{ id: 'id', comment: 'comment', metadata: { foo: 'bar' }, source: 'app', tags: ['string'] }],
     });
   });
 
@@ -207,7 +207,6 @@ describe('resource datasets', () => {
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         {
           cursor: 'cursor',
-          filters: [{ path: ['string'], type: 'path_lookup', value: {} }],
           limit: 0,
           max_root_span_id: 'max_root_span_id',
           max_xact_id: 'max_xact_id',

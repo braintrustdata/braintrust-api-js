@@ -85,7 +85,8 @@ export class Datasets extends APIResource {
 
   /**
    * Fetch the events in a dataset. Equivalent to the POST form of the same path, but
-   * with the parameters in the URL query rather than in the request body
+   * with the parameters in the URL query rather than in the request body. For more
+   * complex queries, use the `POST /btql` endpoint.
    */
   fetch(
     datasetId: string,
@@ -106,7 +107,8 @@ export class Datasets extends APIResource {
 
   /**
    * Fetch the events in a dataset. Equivalent to the GET form of the same path, but
-   * with the parameters in the request body rather than in the URL query
+   * with the parameters in the request body rather than in the URL query. For more
+   * complex queries, use the `POST /btql` endpoint.
    */
   fetchPost(
     datasetId: string,
@@ -303,16 +305,6 @@ export interface DatasetFetchPostParams {
    * fetch query
    */
   cursor?: string | null;
-
-  /**
-   * NOTE: This parameter is deprecated and will be removed in a future revision.
-   * Consider using the `/btql` endpoint
-   * (https://www.braintrust.dev/docs/reference/btql) for more advanced filtering.
-   *
-   * A list of filters on the events to fetch. Currently, only path-lookup type
-   * filters are supported.
-   */
-  filters?: Array<Shared.PathLookupFilter> | null;
 
   /**
    * limit the number of traces fetched
