@@ -2,6 +2,7 @@
 
 export {
   Logs,
+  type LogInsertResponse,
   type LogFeedbackParams,
   type LogFetchParams,
   type LogFetchPostParams,
