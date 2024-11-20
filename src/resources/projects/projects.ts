@@ -6,7 +6,14 @@ import * as Core from '../../core';
 import * as Shared from '../shared';
 import { ProjectsListObjects } from '../shared';
 import * as LogsAPI from './logs';
-import { LogFeedbackParams, LogFetchParams, LogFetchPostParams, LogInsertParams, Logs } from './logs';
+import {
+  LogFeedbackParams,
+  LogFetchParams,
+  LogFetchPostParams,
+  LogInsertParams,
+  LogInsertResponse,
+  Logs,
+} from './logs';
 import { type ListObjectsParams } from '../../pagination';
 
 export class Projects extends APIResource {
@@ -132,6 +139,7 @@ export declare namespace Projects {
 
   export {
     Logs as Logs,
+    type LogInsertResponse as LogInsertResponse,
     type LogFeedbackParams as LogFeedbackParams,
     type LogFetchParams as LogFetchParams,
     type LogFetchPostParams as LogFetchPostParams,

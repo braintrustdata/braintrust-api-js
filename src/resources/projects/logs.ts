@@ -19,8 +19,7 @@ export class Logs extends APIResource {
 
   /**
    * Fetch the events in a project logs. Equivalent to the POST form of the same
-   * path, but with the parameters in the URL query rather than in the request body.
-   * For more complex queries, use the `POST /btql` endpoint.
+   * path, but with the parameters in the URL query rather than in the request body
    */
   fetch(
     projectId: string,
@@ -44,8 +43,7 @@ export class Logs extends APIResource {
 
   /**
    * Fetch the events in a project logs. Equivalent to the GET form of the same path,
-   * but with the parameters in the request body rather than in the URL query. For
-   * more complex queries, use the `POST /btql` endpoint.
+   * but with the parameters in the request body rather than in the URL query
    */
   fetchPost(
     projectId: string,
@@ -74,9 +72,17 @@ export class Logs extends APIResource {
     projectId: string,
     body: LogInsertParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.InsertEventsResponse> {
+  ): Core.APIPromise<LogInsertResponse> {
     return this._client.post(`/v1/project_logs/${projectId}/insert`, { body, ...options });
   }
+}
+
+export interface LogInsertResponse extends Shared.InsertEventsResponse {
+  /**
+   * String slugs which line up 1-1 with the row_ids. These slugs can be used as the
+   * 'parent' specifier to attach spans underneath the row
+   */
+  serialized_span_slugs: Array<string>;
 }
 
 export interface LogFeedbackParams {
@@ -154,6 +160,16 @@ export interface LogFetchPostParams {
   cursor?: string | null;
 
   /**
+   * NOTE: This parameter is deprecated and will be removed in a future revision.
+   * Consider using the `/btql` endpoint
+   * (https://www.braintrust.dev/docs/reference/btql) for more advanced filtering.
+   *
+   * A list of filters on the events to fetch. Currently, only path-lookup type
+   * filters are supported.
+   */
+  filters?: Array<Shared.PathLookupFilter> | null;
+
+  /**
    * limit the number of traces fetched
    *
    * Fetch queries may be paginated if the total result size is expected to be large
@@ -218,6 +234,7 @@ export interface LogInsertParams {
 
 export declare namespace Logs {
   export {
+    type LogInsertResponse as LogInsertResponse,
     type LogFeedbackParams as LogFeedbackParams,
     type LogFetchParams as LogFetchParams,
     type LogFetchPostParams as LogFetchPostParams,

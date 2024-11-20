@@ -85,8 +85,7 @@ export class Experiments extends APIResource {
 
   /**
    * Fetch the events in an experiment. Equivalent to the POST form of the same path,
-   * but with the parameters in the URL query rather than in the request body. For
-   * more complex queries, use the `POST /btql` endpoint.
+   * but with the parameters in the URL query rather than in the request body
    */
   fetch(
     experimentId: string,
@@ -110,8 +109,7 @@ export class Experiments extends APIResource {
 
   /**
    * Fetch the events in an experiment. Equivalent to the GET form of the same path,
-   * but with the parameters in the request body rather than in the URL query. For
-   * more complex queries, use the `POST /btql` endpoint.
+   * but with the parameters in the request body rather than in the URL query
    */
   fetchPost(
     experimentId: string,
@@ -140,7 +138,7 @@ export class Experiments extends APIResource {
     experimentId: string,
     body: ExperimentInsertParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.InsertEventsResponse> {
+  ): Core.APIPromise<ExperimentInsertResponse> {
     return this._client.post(`/v1/experiment/${experimentId}/insert`, { body, ...options });
   }
 
@@ -166,6 +164,14 @@ export class Experiments extends APIResource {
     }
     return this._client.get(`/v1/experiment/${experimentId}/summarize`, { query, ...options });
   }
+}
+
+export interface ExperimentInsertResponse extends Shared.InsertEventsResponse {
+  /**
+   * String slugs which line up 1-1 with the row_ids. These slugs can be used as the
+   * 'parent' specifier to attach spans underneath the row
+   */
+  serialized_span_slugs: Array<string>;
 }
 
 export interface ExperimentCreateParams {
@@ -374,6 +380,16 @@ export interface ExperimentFetchPostParams {
   cursor?: string | null;
 
   /**
+   * NOTE: This parameter is deprecated and will be removed in a future revision.
+   * Consider using the `/btql` endpoint
+   * (https://www.braintrust.dev/docs/reference/btql) for more advanced filtering.
+   *
+   * A list of filters on the events to fetch. Currently, only path-lookup type
+   * filters are supported.
+   */
+  filters?: Array<Shared.PathLookupFilter> | null;
+
+  /**
    * limit the number of traces fetched
    *
    * Fetch queries may be paginated if the total result size is expected to be large
@@ -454,6 +470,7 @@ export interface ExperimentSummarizeParams {
 
 export declare namespace Experiments {
   export {
+    type ExperimentInsertResponse as ExperimentInsertResponse,
     type ExperimentCreateParams as ExperimentCreateParams,
     type ExperimentUpdateParams as ExperimentUpdateParams,
     type ExperimentListParams as ExperimentListParams,

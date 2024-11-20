@@ -39,6 +39,7 @@ export {
 export { Evals, type EvalCreateParams } from './evals';
 export {
   Experiments,
+  type ExperimentInsertResponse,
   type ExperimentCreateParams,
   type ExperimentUpdateParams,
   type ExperimentListParams,

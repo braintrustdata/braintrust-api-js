@@ -50,6 +50,7 @@ import {
   ExperimentFetchParams,
   ExperimentFetchPostParams,
   ExperimentInsertParams,
+  ExperimentInsertResponse,
   ExperimentListParams,
   ExperimentSummarizeParams,
   ExperimentUpdateParams,
@@ -335,6 +336,7 @@ export declare namespace Braintrust {
 
   export {
     Experiments as Experiments,
+    type ExperimentInsertResponse as ExperimentInsertResponse,
     type ExperimentCreateParams as ExperimentCreateParams,
     type ExperimentUpdateParams as ExperimentUpdateParams,
     type ExperimentListParams as ExperimentListParams,
@@ -471,6 +473,7 @@ export declare namespace Braintrust {
   export type ACL = API.ACL;
   export type ACLBatchUpdateResponse = API.ACLBatchUpdateResponse;
   export type APIKey = API.APIKey;
+  export type ChatCompletionContent = API.ChatCompletionContent;
   export type ChatCompletionContentPartImage = API.ChatCompletionContentPartImage;
   export type ChatCompletionContentPartText = API.ChatCompletionContentPartText;
   export type ChatCompletionMessageToolCall = API.ChatCompletionMessageToolCall;
@@ -500,6 +503,7 @@ export declare namespace Braintrust {
   export type OnlineScoreConfig = API.OnlineScoreConfig;
   export type Organization = API.Organization;
   export type PatchOrganizationMembersOutput = API.PatchOrganizationMembersOutput;
+  export type PathLookupFilter = API.PathLookupFilter;
   export type Project = API.Project;
   export type ProjectLogsEvent = API.ProjectLogsEvent;
   export type ProjectScore = API.ProjectScore;
