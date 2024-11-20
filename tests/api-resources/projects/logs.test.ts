@@ -32,6 +32,7 @@ describe('resource logs', () => {
           metadata: { foo: 'bar' },
           scores: { foo: 0 },
           source: 'app',
+          tags: ['string'],
         },
       ],
     });
@@ -95,7 +96,6 @@ describe('resource logs', () => {
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         {
           cursor: 'cursor',
-          filters: [{ path: ['string'], type: 'path_lookup', value: {} }],
           limit: 0,
           max_root_span_id: 'max_root_span_id',
           max_xact_id: 'max_xact_id',

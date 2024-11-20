@@ -191,10 +191,6 @@ export interface APIKey {
   user_id?: string | null;
 }
 
-export type ChatCompletionContent =
-  | string
-  | Array<ChatCompletionContentPartText | ChatCompletionContentPartImage>;
-
 export interface ChatCompletionContentPartImage {
   image_url: ChatCompletionContentPartImage.ImageURL;
 
@@ -859,7 +855,9 @@ export interface FeedbackDatasetItem {
 
   /**
    * A dictionary with additional data about the feedback. If you have a `user_id`,
-   * you can log it here and access it in the Braintrust UI.
+   * you can log it here and access it in the Braintrust UI. Note, this metadata does
+   * not correspond to the main event itself, but rather the audit log attached to
+   * the event.
    */
   metadata?: Record<string, unknown> | null;
 
@@ -867,6 +865,11 @@ export interface FeedbackDatasetItem {
    * The source of the feedback. Must be one of "external" (default), "app", or "api"
    */
   source?: 'app' | 'api' | 'external' | null;
+
+  /**
+   * A list of tags to log
+   */
+  tags?: Array<string> | null;
 }
 
 export interface FeedbackExperimentItem {
@@ -889,7 +892,9 @@ export interface FeedbackExperimentItem {
 
   /**
    * A dictionary with additional data about the feedback. If you have a `user_id`,
-   * you can log it here and access it in the Braintrust UI.
+   * you can log it here and access it in the Braintrust UI. Note, this metadata does
+   * not correspond to the main event itself, but rather the audit log attached to
+   * the event.
    */
   metadata?: Record<string, unknown> | null;
 
@@ -903,6 +908,11 @@ export interface FeedbackExperimentItem {
    * The source of the feedback. Must be one of "external" (default), "app", or "api"
    */
   source?: 'app' | 'api' | 'external' | null;
+
+  /**
+   * A list of tags to log
+   */
+  tags?: Array<string> | null;
 }
 
 export interface FeedbackProjectLogsItem {
@@ -925,7 +935,9 @@ export interface FeedbackProjectLogsItem {
 
   /**
    * A dictionary with additional data about the feedback. If you have a `user_id`,
-   * you can log it here and access it in the Braintrust UI.
+   * you can log it here and access it in the Braintrust UI. Note, this metadata does
+   * not correspond to the main event itself, but rather the audit log attached to
+   * the event.
    */
   metadata?: Record<string, unknown> | null;
 
@@ -939,6 +951,11 @@ export interface FeedbackProjectLogsItem {
    * The source of the feedback. Must be one of "external" (default), "app", or "api"
    */
   source?: 'app' | 'api' | 'external' | null;
+
+  /**
+   * A list of tags to log
+   */
+  tags?: Array<string> | null;
 }
 
 export interface FeedbackResponseSchema {
@@ -2038,6 +2055,11 @@ export interface Organization {
 }
 
 export interface PatchOrganizationMembersOutput {
+  /**
+   * The id of the org that was modified.
+   */
+  org_id: string;
+
   status: 'success';
 
   /**
@@ -2045,35 +2067,6 @@ export interface PatchOrganizationMembersOutput {
    * complete, but we will return an error message here
    */
   send_email_error?: string | null;
-}
-
-/**
- * A path-lookup filter describes an equality comparison against a specific
- * sub-field in the event row. For instance, if you wish to filter on the value of
- * `c` in `{"input": {"a": {"b": {"c": "hello"}}}}`, pass
- * `path=["input", "a", "b", "c"]` and `value="hello"`
- */
-export interface PathLookupFilter {
-  /**
-   * List of fields describing the path to the value to be checked against. For
-   * instance, if you wish to filter on the value of `c` in
-   * `{"input": {"a": {"b": {"c": "hello"}}}}`, pass `path=["input", "a", "b", "c"]`
-   */
-  path: Array<string>;
-
-  /**
-   * Denotes the type of filter as a path-lookup filter
-   */
-  type: 'path_lookup';
-
-  /**
-   * The value to compare equality-wise against the event value at the specified
-   * `path`. The value must be a "primitive", that is, any JSON-serializable object
-   * except for objects and arrays. For instance, if you wish to filter on the value
-   * of "input.a.b.c" in the object `{"input": {"a": {"b": {"c": "hello"}}}}`, pass
-   * `value="hello"`
-   */
-  value?: unknown | null;
 }
 
 export interface Project {
@@ -2608,7 +2601,7 @@ export namespace PromptData {
     export interface User {
       role: 'user';
 
-      content?: Shared.ChatCompletionContent;
+      content?: string | Array<Shared.ChatCompletionContentPartText | Shared.ChatCompletionContentPartImage>;
 
       name?: string;
     }
