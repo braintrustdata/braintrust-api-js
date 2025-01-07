@@ -190,9 +190,9 @@ export namespace FunctionCreateParams {
    * JSON schema for the function's parameters and return type
    */
   export interface FunctionSchema {
-    parameters?: unknown | null;
+    parameters?: unknown;
 
-    returns?: unknown | null;
+    returns?: unknown;
   }
 
   export interface Origin {
@@ -341,7 +341,7 @@ export interface FunctionInvokeParams {
   /**
    * Argument to the function, which can be any JSON serializable value
    */
-  input?: unknown | null;
+  input?: unknown;
 
   /**
    * If the function is an LLM, additional messages to pass along to it
@@ -567,9 +567,9 @@ export namespace FunctionReplaceParams {
    * JSON schema for the function's parameters and return type
    */
   export interface FunctionSchema {
-    parameters?: unknown | null;
+    parameters?: unknown;
 
-    returns?: unknown | null;
+    returns?: unknown;
   }
 
   export interface Origin {
