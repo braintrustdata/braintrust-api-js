@@ -470,6 +470,7 @@ export declare namespace Braintrust {
   export type AISecret = API.AISecret;
   export type ACL = API.ACL;
   export type ACLBatchUpdateResponse = API.ACLBatchUpdateResponse;
+  export type ACLObjectType = API.ACLObjectType;
   export type APIKey = API.APIKey;
   export type ChatCompletionContentPartImage = API.ChatCompletionContentPartImage;
   export type ChatCompletionContentPartText = API.ChatCompletionContentPartText;
@@ -481,6 +482,7 @@ export declare namespace Braintrust {
   export type Dataset = API.Dataset;
   export type DatasetEvent = API.DatasetEvent;
   export type EnvVar = API.EnvVar;
+  export type EnvVarObjectType = API.EnvVarObjectType;
   export type Experiment = API.Experiment;
   export type ExperimentEvent = API.ExperimentEvent;
   export type FeedbackDatasetItem = API.FeedbackDatasetItem;
@@ -501,11 +503,13 @@ export declare namespace Braintrust {
   export type OnlineScoreConfig = API.OnlineScoreConfig;
   export type Organization = API.Organization;
   export type PatchOrganizationMembersOutput = API.PatchOrganizationMembersOutput;
+  export type Permission = API.Permission;
   export type Project = API.Project;
   export type ProjectLogsEvent = API.ProjectLogsEvent;
   export type ProjectScore = API.ProjectScore;
   export type ProjectScoreCategory = API.ProjectScoreCategory;
   export type ProjectScoreConfig = API.ProjectScoreConfig;
+  export type ProjectScoreType = API.ProjectScoreType;
   export type ProjectSettings = API.ProjectSettings;
   export type ProjectTag = API.ProjectTag;
   export type Prompt = API.Prompt;
@@ -516,6 +520,7 @@ export declare namespace Braintrust {
   export type ScoreSummary = API.ScoreSummary;
   export type SpanAttributes = API.SpanAttributes;
   export type SpanIFrame = API.SpanIFrame;
+  export type SpanType = API.SpanType;
   export type SummarizeDatasetResponse = API.SummarizeDatasetResponse;
   export type SummarizeExperimentResponse = API.SummarizeExperimentResponse;
   export type User = API.User;
@@ -523,6 +528,7 @@ export declare namespace Braintrust {
   export type ViewData = API.ViewData;
   export type ViewDataSearch = API.ViewDataSearch;
   export type ViewOptions = API.ViewOptions;
+  export type ViewType = API.ViewType;
 }
 
 export { toFile, fileFromPath } from './uploads';

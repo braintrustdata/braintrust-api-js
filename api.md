@@ -5,6 +5,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">AISecret</a></code>
 - <code><a href="./src/resources/shared.ts">ACL</a></code>
 - <code><a href="./src/resources/shared.ts">ACLBatchUpdateResponse</a></code>
+- <code><a href="./src/resources/shared.ts">ACLObjectType</a></code>
 - <code><a href="./src/resources/shared.ts">APIKey</a></code>
 - <code><a href="./src/resources/shared.ts">ChatCompletionContentPartImage</a></code>
 - <code><a href="./src/resources/shared.ts">ChatCompletionContentPartText</a></code>
@@ -16,6 +17,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">Dataset</a></code>
 - <code><a href="./src/resources/shared.ts">DatasetEvent</a></code>
 - <code><a href="./src/resources/shared.ts">EnvVar</a></code>
+- <code><a href="./src/resources/shared.ts">EnvVarObjectType</a></code>
 - <code><a href="./src/resources/shared.ts">Experiment</a></code>
 - <code><a href="./src/resources/shared.ts">ExperimentEvent</a></code>
 - <code><a href="./src/resources/shared.ts">FeedbackDatasetItem</a></code>
@@ -36,11 +38,13 @@ Types:
 - <code><a href="./src/resources/shared.ts">OnlineScoreConfig</a></code>
 - <code><a href="./src/resources/shared.ts">Organization</a></code>
 - <code><a href="./src/resources/shared.ts">PatchOrganizationMembersOutput</a></code>
+- <code><a href="./src/resources/shared.ts">Permission</a></code>
 - <code><a href="./src/resources/shared.ts">Project</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectLogsEvent</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectScore</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectScoreCategory</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectScoreConfig</a></code>
+- <code><a href="./src/resources/shared.ts">ProjectScoreType</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectSettings</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectTag</a></code>
 - <code><a href="./src/resources/shared.ts">Prompt</a></code>
@@ -51,6 +55,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">ScoreSummary</a></code>
 - <code><a href="./src/resources/shared.ts">SpanAttributes</a></code>
 - <code><a href="./src/resources/shared.ts">SpanIFrame</a></code>
+- <code><a href="./src/resources/shared.ts">SpanType</a></code>
 - <code><a href="./src/resources/shared.ts">SummarizeDatasetResponse</a></code>
 - <code><a href="./src/resources/shared.ts">SummarizeExperimentResponse</a></code>
 - <code><a href="./src/resources/shared.ts">User</a></code>
@@ -58,6 +63,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">ViewData</a></code>
 - <code><a href="./src/resources/shared.ts">ViewDataSearch</a></code>
 - <code><a href="./src/resources/shared.ts">ViewOptions</a></code>
+- <code><a href="./src/resources/shared.ts">ViewType</a></code>
 
 # TopLevel
 

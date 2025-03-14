@@ -75,18 +75,7 @@ export interface ACLCreateParams {
   /**
    * The object type that the ACL applies to
    */
-  object_type:
-    | 'organization'
-    | 'project'
-    | 'experiment'
-    | 'dataset'
-    | 'prompt'
-    | 'prompt_session'
-    | 'group'
-    | 'role'
-    | 'org_member'
-    | 'project_log'
-    | 'org_project';
+  object_type: Shared.ACLObjectType;
 
   /**
    * Id of the group the ACL applies to. Exactly one of `user_id` and `group_id` will
@@ -98,34 +87,13 @@ export interface ACLCreateParams {
    * Permission the ACL grants. Exactly one of `permission` and `role_id` will be
    * provided
    */
-  permission?:
-    | 'create'
-    | 'read'
-    | 'update'
-    | 'delete'
-    | 'create_acls'
-    | 'read_acls'
-    | 'update_acls'
-    | 'delete_acls'
-    | null;
+  permission?: Shared.Permission | null;
 
   /**
    * When setting a permission directly, optionally restricts the permission grant to
    * just the specified object type. Cannot be set alongside a `role_id`.
    */
-  restrict_object_type?:
-    | 'organization'
-    | 'project'
-    | 'experiment'
-    | 'dataset'
-    | 'prompt'
-    | 'prompt_session'
-    | 'group'
-    | 'role'
-    | 'org_member'
-    | 'project_log'
-    | 'org_project'
-    | null;
+  restrict_object_type?: Shared.ACLObjectType | null;
 
   /**
    * Id of the role the ACL grants. Exactly one of `permission` and `role_id` will be
@@ -149,18 +117,7 @@ export interface ACLListParams extends ListObjectsParams {
   /**
    * The object type that the ACL applies to
    */
-  object_type:
-    | 'organization'
-    | 'project'
-    | 'experiment'
-    | 'dataset'
-    | 'prompt'
-    | 'prompt_session'
-    | 'group'
-    | 'role'
-    | 'org_member'
-    | 'project_log'
-    | 'org_project';
+  object_type: Shared.ACLObjectType;
 
   /**
    * Filter search results to a particular set of object IDs. To specify a list of
@@ -221,18 +178,7 @@ export namespace ACLBatchUpdateParams {
     /**
      * The object type that the ACL applies to
      */
-    object_type:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'group'
-      | 'role'
-      | 'org_member'
-      | 'project_log'
-      | 'org_project';
+    object_type: Shared.ACLObjectType;
 
     /**
      * Id of the group the ACL applies to. Exactly one of `user_id` and `group_id` will
@@ -244,34 +190,13 @@ export namespace ACLBatchUpdateParams {
      * Permission the ACL grants. Exactly one of `permission` and `role_id` will be
      * provided
      */
-    permission?:
-      | 'create'
-      | 'read'
-      | 'update'
-      | 'delete'
-      | 'create_acls'
-      | 'read_acls'
-      | 'update_acls'
-      | 'delete_acls'
-      | null;
+    permission?: Shared.Permission | null;
 
     /**
      * When setting a permission directly, optionally restricts the permission grant to
      * just the specified object type. Cannot be set alongside a `role_id`.
      */
-    restrict_object_type?:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'group'
-      | 'role'
-      | 'org_member'
-      | 'project_log'
-      | 'org_project'
-      | null;
+    restrict_object_type?: Shared.ACLObjectType | null;
 
     /**
      * Id of the role the ACL grants. Exactly one of `permission` and `role_id` will be
@@ -307,18 +232,7 @@ export namespace ACLBatchUpdateParams {
     /**
      * The object type that the ACL applies to
      */
-    object_type:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'group'
-      | 'role'
-      | 'org_member'
-      | 'project_log'
-      | 'org_project';
+    object_type: Shared.ACLObjectType;
 
     /**
      * Id of the group the ACL applies to. Exactly one of `user_id` and `group_id` will
@@ -330,34 +244,13 @@ export namespace ACLBatchUpdateParams {
      * Permission the ACL grants. Exactly one of `permission` and `role_id` will be
      * provided
      */
-    permission?:
-      | 'create'
-      | 'read'
-      | 'update'
-      | 'delete'
-      | 'create_acls'
-      | 'read_acls'
-      | 'update_acls'
-      | 'delete_acls'
-      | null;
+    permission?: Shared.Permission | null;
 
     /**
      * When setting a permission directly, optionally restricts the permission grant to
      * just the specified object type. Cannot be set alongside a `role_id`.
      */
-    restrict_object_type?:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'group'
-      | 'role'
-      | 'org_member'
-      | 'project_log'
-      | 'org_project'
-      | null;
+    restrict_object_type?: Shared.ACLObjectType | null;
 
     /**
      * Id of the role the ACL grants. Exactly one of `permission` and `role_id` will be
@@ -382,18 +275,7 @@ export interface ACLFindAndDeleteParams {
   /**
    * The object type that the ACL applies to
    */
-  object_type:
-    | 'organization'
-    | 'project'
-    | 'experiment'
-    | 'dataset'
-    | 'prompt'
-    | 'prompt_session'
-    | 'group'
-    | 'role'
-    | 'org_member'
-    | 'project_log'
-    | 'org_project';
+  object_type: Shared.ACLObjectType;
 
   /**
    * Id of the group the ACL applies to. Exactly one of `user_id` and `group_id` will
@@ -405,34 +287,13 @@ export interface ACLFindAndDeleteParams {
    * Permission the ACL grants. Exactly one of `permission` and `role_id` will be
    * provided
    */
-  permission?:
-    | 'create'
-    | 'read'
-    | 'update'
-    | 'delete'
-    | 'create_acls'
-    | 'read_acls'
-    | 'update_acls'
-    | 'delete_acls'
-    | null;
+  permission?: Shared.Permission | null;
 
   /**
    * When setting a permission directly, optionally restricts the permission grant to
    * just the specified object type. Cannot be set alongside a `role_id`.
    */
-  restrict_object_type?:
-    | 'organization'
-    | 'project'
-    | 'experiment'
-    | 'dataset'
-    | 'prompt'
-    | 'prompt_session'
-    | 'group'
-    | 'role'
-    | 'org_member'
-    | 'project_log'
-    | 'org_project'
-    | null;
+  restrict_object_type?: Shared.ACLObjectType | null;
 
   /**
    * Id of the role the ACL grants. Exactly one of `permission` and `role_id` will be

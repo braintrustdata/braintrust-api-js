@@ -67,18 +67,7 @@ export interface ACL {
   /**
    * The object type that the ACL applies to
    */
-  object_type:
-    | 'organization'
-    | 'project'
-    | 'experiment'
-    | 'dataset'
-    | 'prompt'
-    | 'prompt_session'
-    | 'group'
-    | 'role'
-    | 'org_member'
-    | 'project_log'
-    | 'org_project';
+  object_type: ACLObjectType;
 
   /**
    * Date of acl creation
@@ -95,34 +84,13 @@ export interface ACL {
    * Permission the ACL grants. Exactly one of `permission` and `role_id` will be
    * provided
    */
-  permission?:
-    | 'create'
-    | 'read'
-    | 'update'
-    | 'delete'
-    | 'create_acls'
-    | 'read_acls'
-    | 'update_acls'
-    | 'delete_acls'
-    | null;
+  permission?: Permission | null;
 
   /**
    * When setting a permission directly, optionally restricts the permission grant to
    * just the specified object type. Cannot be set alongside a `role_id`.
    */
-  restrict_object_type?:
-    | 'organization'
-    | 'project'
-    | 'experiment'
-    | 'dataset'
-    | 'prompt'
-    | 'prompt_session'
-    | 'group'
-    | 'role'
-    | 'org_member'
-    | 'project_log'
-    | 'org_project'
-    | null;
+  restrict_object_type?: ACLObjectType | null;
 
   /**
    * Id of the role the ACL grants. Exactly one of `permission` and `role_id` will be
@@ -166,6 +134,22 @@ export interface ACLBatchUpdateResponse {
    */
   removed_acls: Array<ACL>;
 }
+
+/**
+ * The object type that the ACL applies to
+ */
+export type ACLObjectType =
+  | 'organization'
+  | 'project'
+  | 'experiment'
+  | 'dataset'
+  | 'prompt'
+  | 'prompt_session'
+  | 'group'
+  | 'role'
+  | 'org_member'
+  | 'project_log'
+  | 'org_project';
 
 export interface APIKey {
   /**
@@ -510,6 +494,11 @@ export interface EnvVar {
    */
   used?: string | null;
 }
+
+/**
+ * The type of the object the environment variable is scoped for
+ */
+export type EnvVarObjectType = 'organization' | 'project' | 'function';
 
 export interface Experiment {
   /**
@@ -1119,18 +1108,7 @@ export namespace Function {
     /**
      * The object type that the ACL applies to
      */
-    object_type:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'group'
-      | 'role'
-      | 'org_member'
-      | 'project_log'
-      | 'org_project';
+    object_type: Shared.ACLObjectType;
 
     /**
      * The function exists for internal purposes and should not be displayed in the
@@ -2146,6 +2124,22 @@ export interface PatchOrganizationMembersOutput {
   send_email_error?: string | null;
 }
 
+/**
+ * Each permission permits a certain type of operation on an object in the system
+ *
+ * Permissions can be assigned to to objects on an individual basis, or grouped
+ * into roles
+ */
+export type Permission =
+  | 'create'
+  | 'read'
+  | 'update'
+  | 'delete'
+  | 'create_acls'
+  | 'read_acls'
+  | 'update_acls'
+  | 'delete_acls';
+
 export interface Project {
   /**
    * Unique identifier for the project
@@ -2438,7 +2432,7 @@ export interface ProjectScore {
   /**
    * The type of the configured score
    */
-  score_type: 'slider' | 'categorical' | 'weighted' | 'minimum' | 'maximum' | 'online' | 'free-form';
+  score_type: ProjectScoreType;
 
   user_id: string;
 
@@ -2488,6 +2482,18 @@ export interface ProjectScoreConfig {
 
   online?: OnlineScoreConfig | null;
 }
+
+/**
+ * The type of the configured score
+ */
+export type ProjectScoreType =
+  | 'slider'
+  | 'categorical'
+  | 'weighted'
+  | 'minimum'
+  | 'maximum'
+  | 'online'
+  | 'free-form';
 
 export interface ProjectSettings {
   /**
@@ -2999,32 +3005,12 @@ export namespace Role {
      * Permissions can be assigned to to objects on an individual basis, or grouped
      * into roles
      */
-    permission:
-      | 'create'
-      | 'read'
-      | 'update'
-      | 'delete'
-      | 'create_acls'
-      | 'read_acls'
-      | 'update_acls'
-      | 'delete_acls';
+    permission: Shared.Permission;
 
     /**
      * The object type that the ACL applies to
      */
-    restrict_object_type?:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'group'
-      | 'role'
-      | 'org_member'
-      | 'project_log'
-      | 'org_project'
-      | null;
+    restrict_object_type?: Shared.ACLObjectType | null;
   }
 }
 
@@ -3070,7 +3056,7 @@ export interface SpanAttributes {
   /**
    * Type of the span, for display purposes only
    */
-  type?: 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
+  type?: SpanType | null;
   [k: string]: unknown;
 }
 
@@ -3121,6 +3107,11 @@ export interface SpanIFrame {
    */
   user_id?: string | null;
 }
+
+/**
+ * Type of the span, for display purposes only
+ */
+export type SpanType = 'llm' | 'score' | 'function' | 'eval' | 'task' | 'tool' | null;
 
 /**
  * Summary of a dataset
@@ -3243,18 +3234,7 @@ export interface View {
   /**
    * The object type that the ACL applies to
    */
-  object_type:
-    | 'organization'
-    | 'project'
-    | 'experiment'
-    | 'dataset'
-    | 'prompt'
-    | 'prompt_session'
-    | 'group'
-    | 'role'
-    | 'org_member'
-    | 'project_log'
-    | 'org_project';
+  object_type: ACLObjectType;
 
   /**
    * Type of table that the view corresponds to.
@@ -3332,6 +3312,23 @@ export interface ViewOptions {
 
   rowHeight?: string | null;
 }
+
+/**
+ * Type of table that the view corresponds to.
+ */
+export type ViewType =
+  | 'projects'
+  | 'experiments'
+  | 'experiment'
+  | 'playgrounds'
+  | 'playground'
+  | 'datasets'
+  | 'dataset'
+  | 'prompts'
+  | 'tools'
+  | 'scorers'
+  | 'logs'
+  | null;
 
 /**
  * Pagination for endpoints which list data objects
