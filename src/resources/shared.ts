@@ -29,6 +29,11 @@ export interface AISecret {
   preview_secret?: string | null;
 
   type?: string | null;
+
+  /**
+   * Date of last AI secret update
+   */
+  updated_at?: string | null;
 }
 
 /**
@@ -444,12 +449,12 @@ export interface DatasetEvent {
    * anything else that would be useful to slice/dice later. The values in `metadata`
    * can be any JSON-serializable type, but its keys must be strings
    */
-  metadata?: Record<string, unknown> | null;
+  metadata?: DatasetEvent.Metadata | null;
 
   /**
    * Indicates the event was copied from another object.
    */
-  origin?: DatasetEvent.Origin | null;
+  origin?: ObjectReference | null;
 
   /**
    * A list of tags to log
@@ -459,28 +464,18 @@ export interface DatasetEvent {
 
 export namespace DatasetEvent {
   /**
-   * Indicates the event was copied from another object.
+   * A dictionary with additional data about the test example, model outputs, or just
+   * about anything else that's relevant, that you can use to help find and analyze
+   * examples later. For example, you could log the `prompt`, example's `id`, or
+   * anything else that would be useful to slice/dice later. The values in `metadata`
+   * can be any JSON-serializable type, but its keys must be strings
    */
-  export interface Origin {
+  export interface Metadata {
     /**
-     * ID of the original event.
+     * The model used for this example
      */
-    id: string;
-
-    /**
-     * Transaction ID of the original event.
-     */
-    _xact_id: string;
-
-    /**
-     * ID of the object the event is originating from.
-     */
-    object_id: string;
-
-    /**
-     * Type of the object the event is originating from.
-     */
-    object_type: 'experiment' | 'dataset' | 'prompt' | 'function' | 'prompt_session' | 'project_logs';
+    model?: string | null;
+    [k: string]: unknown;
   }
 }
 
@@ -643,12 +638,6 @@ export interface ExperimentEvent {
   context?: ExperimentEvent.Context | null;
 
   /**
-   * If the experiment is associated to a dataset, this is the event-level dataset id
-   * this experiment event is tied to
-   */
-  dataset_record_id?: string | null;
-
-  /**
    * The error that occurred, if any.
    */
   error?: unknown;
@@ -685,7 +674,7 @@ export interface ExperimentEvent {
    * anything else that would be useful to slice/dice later. The values in `metadata`
    * can be any JSON-serializable type, but its keys must be strings
    */
-  metadata?: Record<string, unknown> | null;
+  metadata?: ExperimentEvent.Metadata | null;
 
   /**
    * Metrics are numerical measurements tracking the execution of the code that
@@ -697,7 +686,7 @@ export interface ExperimentEvent {
   /**
    * Indicates the event was copied from another object.
    */
-  origin?: ExperimentEvent.Origin | null;
+  origin?: ObjectReference | null;
 
   /**
    * The output of your application, including post-processing (an arbitrary, JSON
@@ -764,6 +753,21 @@ export namespace ExperimentEvent {
   }
 
   /**
+   * A dictionary with additional data about the test example, model outputs, or just
+   * about anything else that's relevant, that you can use to help find and analyze
+   * examples later. For example, you could log the `prompt`, example's `id`, or
+   * anything else that would be useful to slice/dice later. The values in `metadata`
+   * can be any JSON-serializable type, but its keys must be strings
+   */
+  export interface Metadata {
+    /**
+     * The model used for this example
+     */
+    model?: string | null;
+    [k: string]: unknown;
+  }
+
+  /**
    * Metrics are numerical measurements tracking the execution of the code that
    * produced the experiment event. Use "start" and "end" to track the time span over
    * which the experiment event was produced
@@ -813,31 +817,6 @@ export namespace ExperimentEvent {
      */
     tokens?: number | null;
     [k: string]: number | unknown | number | null | undefined;
-  }
-
-  /**
-   * Indicates the event was copied from another object.
-   */
-  export interface Origin {
-    /**
-     * ID of the original event.
-     */
-    id: string;
-
-    /**
-     * Transaction ID of the original event.
-     */
-    _xact_id: string;
-
-    /**
-     * ID of the object the event is originating from.
-     */
-    object_id: string;
-
-    /**
-     * Type of the object the event is originating from.
-     */
-    object_type: 'experiment' | 'dataset' | 'prompt' | 'function' | 'prompt_session' | 'project_logs';
   }
 }
 
@@ -1269,6 +1248,10 @@ export interface InsertDatasetEvent {
   _object_delete?: boolean | null;
 
   /**
+   * DEPRECATED: The `_parent_id` field is deprecated and should not be used. Support
+   * for `_parent_id` will be dropped in a future version of Braintrust. Log
+   * `span_id`, `root_span_id`, and `span_parents` explicitly instead.
+   *
    * Use the `_parent_id` field to create this row as a subspan of an existing row.
    * Tracking hierarchical relationships are important for tracing (see the
    * [guide](https://www.braintrust.dev/docs/guides/tracing) for full details).
@@ -1309,12 +1292,17 @@ export interface InsertDatasetEvent {
    * anything else that would be useful to slice/dice later. The values in `metadata`
    * can be any JSON-serializable type, but its keys must be strings
    */
-  metadata?: Record<string, unknown> | null;
+  metadata?: InsertDatasetEvent.Metadata | null;
 
   /**
-   * Use span_id, root_span_id, and span_parents as a more explicit alternative to
-   * \_parent_id. The span_id is a unique identifier describing the row's place in
-   * the a trace, and the root_span_id is a unique identifier for the whole trace.
+   * Indicates the event was copied from another object.
+   */
+  origin?: ObjectReference | null;
+
+  /**
+   * Use `span_id`, `root_span_id`, and `span_parents` instead of `_parent_id`, which
+   * is now deprecated. The span_id is a unique identifier describing the row's place
+   * in the a trace, and the root_span_id is a unique identifier for the whole trace.
    * See the [guide](https://www.braintrust.dev/docs/guides/tracing) for full
    * details.
    *
@@ -1331,9 +1319,9 @@ export interface InsertDatasetEvent {
   root_span_id?: string | null;
 
   /**
-   * Use span_id, root_span_id, and span_parents as a more explicit alternative to
-   * \_parent_id. The span_id is a unique identifier describing the row's place in
-   * the a trace, and the root_span_id is a unique identifier for the whole trace.
+   * Use `span_id`, `root_span_id`, and `span_parents` instead of `_parent_id`, which
+   * is now deprecated. The span_id is a unique identifier describing the row's place
+   * in the a trace, and the root_span_id is a unique identifier for the whole trace.
    * See the [guide](https://www.braintrust.dev/docs/guides/tracing) for full
    * details.
    *
@@ -1350,9 +1338,9 @@ export interface InsertDatasetEvent {
   span_id?: string | null;
 
   /**
-   * Use span_id, root_span_id, and span_parents as a more explicit alternative to
-   * \_parent_id. The span_id is a unique identifier describing the row's place in
-   * the a trace, and the root_span_id is a unique identifier for the whole trace.
+   * Use `span_id`, `root_span_id`, and `span_parents` instead of `_parent_id`, which
+   * is now deprecated. The span_id is a unique identifier describing the row's place
+   * in the a trace, and the root_span_id is a unique identifier for the whole trace.
    * See the [guide](https://www.braintrust.dev/docs/guides/tracing) for full
    * details.
    *
@@ -1372,6 +1360,23 @@ export interface InsertDatasetEvent {
    * A list of tags to log
    */
   tags?: Array<string> | null;
+}
+
+export namespace InsertDatasetEvent {
+  /**
+   * A dictionary with additional data about the test example, model outputs, or just
+   * about anything else that's relevant, that you can use to help find and analyze
+   * examples later. For example, you could log the `prompt`, example's `id`, or
+   * anything else that would be useful to slice/dice later. The values in `metadata`
+   * can be any JSON-serializable type, but its keys must be strings
+   */
+  export interface Metadata {
+    /**
+     * The model used for this example
+     */
+    model?: string | null;
+    [k: string]: unknown;
+  }
 }
 
 export interface InsertEventsResponse {
@@ -1432,6 +1437,10 @@ export interface InsertExperimentEvent {
   _object_delete?: boolean | null;
 
   /**
+   * DEPRECATED: The `_parent_id` field is deprecated and should not be used. Support
+   * for `_parent_id` will be dropped in a future version of Braintrust. Log
+   * `span_id`, `root_span_id`, and `span_parents` explicitly instead.
+   *
    * Use the `_parent_id` field to create this row as a subspan of an existing row.
    * Tracking hierarchical relationships are important for tracing (see the
    * [guide](https://www.braintrust.dev/docs/guides/tracing) for full details).
@@ -1460,12 +1469,6 @@ export interface InsertExperimentEvent {
    * The timestamp the experiment event was created
    */
   created?: string | null;
-
-  /**
-   * If the experiment is associated to a dataset, this is the event-level dataset id
-   * this experiment event is tied to
-   */
-  dataset_record_id?: string | null;
 
   /**
    * The error that occurred, if any.
@@ -1499,7 +1502,7 @@ export interface InsertExperimentEvent {
    * anything else that would be useful to slice/dice later. The values in `metadata`
    * can be any JSON-serializable type, but its keys must be strings
    */
-  metadata?: Record<string, unknown> | null;
+  metadata?: InsertExperimentEvent.Metadata | null;
 
   /**
    * Metrics are numerical measurements tracking the execution of the code that
@@ -1507,6 +1510,11 @@ export interface InsertExperimentEvent {
    * which the experiment event was produced
    */
   metrics?: InsertExperimentEvent.Metrics | null;
+
+  /**
+   * Indicates the event was copied from another object.
+   */
+  origin?: ObjectReference | null;
 
   /**
    * The output of your application, including post-processing (an arbitrary, JSON
@@ -1518,9 +1526,9 @@ export interface InsertExperimentEvent {
   output?: unknown;
 
   /**
-   * Use span_id, root_span_id, and span_parents as a more explicit alternative to
-   * \_parent_id. The span_id is a unique identifier describing the row's place in
-   * the a trace, and the root_span_id is a unique identifier for the whole trace.
+   * Use `span_id`, `root_span_id`, and `span_parents` instead of `_parent_id`, which
+   * is now deprecated. The span_id is a unique identifier describing the row's place
+   * in the a trace, and the root_span_id is a unique identifier for the whole trace.
    * See the [guide](https://www.braintrust.dev/docs/guides/tracing) for full
    * details.
    *
@@ -1554,9 +1562,9 @@ export interface InsertExperimentEvent {
   span_attributes?: SpanAttributes | null;
 
   /**
-   * Use span_id, root_span_id, and span_parents as a more explicit alternative to
-   * \_parent_id. The span_id is a unique identifier describing the row's place in
-   * the a trace, and the root_span_id is a unique identifier for the whole trace.
+   * Use `span_id`, `root_span_id`, and `span_parents` instead of `_parent_id`, which
+   * is now deprecated. The span_id is a unique identifier describing the row's place
+   * in the a trace, and the root_span_id is a unique identifier for the whole trace.
    * See the [guide](https://www.braintrust.dev/docs/guides/tracing) for full
    * details.
    *
@@ -1573,9 +1581,9 @@ export interface InsertExperimentEvent {
   span_id?: string | null;
 
   /**
-   * Use span_id, root_span_id, and span_parents as a more explicit alternative to
-   * \_parent_id. The span_id is a unique identifier describing the row's place in
-   * the a trace, and the root_span_id is a unique identifier for the whole trace.
+   * Use `span_id`, `root_span_id`, and `span_parents` instead of `_parent_id`, which
+   * is now deprecated. The span_id is a unique identifier describing the row's place
+   * in the a trace, and the root_span_id is a unique identifier for the whole trace.
    * See the [guide](https://www.braintrust.dev/docs/guides/tracing) for full
    * details.
    *
@@ -1619,6 +1627,21 @@ export namespace InsertExperimentEvent {
      * Line of code where the experiment event was created
      */
     caller_lineno?: number | null;
+    [k: string]: unknown;
+  }
+
+  /**
+   * A dictionary with additional data about the test example, model outputs, or just
+   * about anything else that's relevant, that you can use to help find and analyze
+   * examples later. For example, you could log the `prompt`, example's `id`, or
+   * anything else that would be useful to slice/dice later. The values in `metadata`
+   * can be any JSON-serializable type, but its keys must be strings
+   */
+  export interface Metadata {
+    /**
+     * The model used for this example
+     */
+    model?: string | null;
     [k: string]: unknown;
   }
 
@@ -1725,6 +1748,10 @@ export interface InsertProjectLogsEvent {
   _object_delete?: boolean | null;
 
   /**
+   * DEPRECATED: The `_parent_id` field is deprecated and should not be used. Support
+   * for `_parent_id` will be dropped in a future version of Braintrust. Log
+   * `span_id`, `root_span_id`, and `span_parents` explicitly instead.
+   *
    * Use the `_parent_id` field to create this row as a subspan of an existing row.
    * Tracking hierarchical relationships are important for tracing (see the
    * [guide](https://www.braintrust.dev/docs/guides/tracing) for full details).
@@ -1782,7 +1809,7 @@ export interface InsertProjectLogsEvent {
    * anything else that would be useful to slice/dice later. The values in `metadata`
    * can be any JSON-serializable type, but its keys must be strings
    */
-  metadata?: Record<string, unknown> | null;
+  metadata?: InsertProjectLogsEvent.Metadata | null;
 
   /**
    * Metrics are numerical measurements tracking the execution of the code that
@@ -1790,6 +1817,11 @@ export interface InsertProjectLogsEvent {
    * over which the project logs event was produced
    */
   metrics?: InsertProjectLogsEvent.Metrics | null;
+
+  /**
+   * Indicates the event was copied from another object.
+   */
+  origin?: ObjectReference | null;
 
   /**
    * The output of your application, including post-processing (an arbitrary, JSON
@@ -1801,9 +1833,9 @@ export interface InsertProjectLogsEvent {
   output?: unknown;
 
   /**
-   * Use span_id, root_span_id, and span_parents as a more explicit alternative to
-   * \_parent_id. The span_id is a unique identifier describing the row's place in
-   * the a trace, and the root_span_id is a unique identifier for the whole trace.
+   * Use `span_id`, `root_span_id`, and `span_parents` instead of `_parent_id`, which
+   * is now deprecated. The span_id is a unique identifier describing the row's place
+   * in the a trace, and the root_span_id is a unique identifier for the whole trace.
    * See the [guide](https://www.braintrust.dev/docs/guides/tracing) for full
    * details.
    *
@@ -1837,9 +1869,9 @@ export interface InsertProjectLogsEvent {
   span_attributes?: SpanAttributes | null;
 
   /**
-   * Use span_id, root_span_id, and span_parents as a more explicit alternative to
-   * \_parent_id. The span_id is a unique identifier describing the row's place in
-   * the a trace, and the root_span_id is a unique identifier for the whole trace.
+   * Use `span_id`, `root_span_id`, and `span_parents` instead of `_parent_id`, which
+   * is now deprecated. The span_id is a unique identifier describing the row's place
+   * in the a trace, and the root_span_id is a unique identifier for the whole trace.
    * See the [guide](https://www.braintrust.dev/docs/guides/tracing) for full
    * details.
    *
@@ -1856,9 +1888,9 @@ export interface InsertProjectLogsEvent {
   span_id?: string | null;
 
   /**
-   * Use span_id, root_span_id, and span_parents as a more explicit alternative to
-   * \_parent_id. The span_id is a unique identifier describing the row's place in
-   * the a trace, and the root_span_id is a unique identifier for the whole trace.
+   * Use `span_id`, `root_span_id`, and `span_parents` instead of `_parent_id`, which
+   * is now deprecated. The span_id is a unique identifier describing the row's place
+   * in the a trace, and the root_span_id is a unique identifier for the whole trace.
    * See the [guide](https://www.braintrust.dev/docs/guides/tracing) for full
    * details.
    *
@@ -1902,6 +1934,21 @@ export namespace InsertProjectLogsEvent {
      * Line of code where the project logs event was created
      */
     caller_lineno?: number | null;
+    [k: string]: unknown;
+  }
+
+  /**
+   * A dictionary with additional data about the test example, model outputs, or just
+   * about anything else that's relevant, that you can use to help find and analyze
+   * examples later. For example, you could log the `prompt`, example's `id`, or
+   * anything else that would be useful to slice/dice later. The values in `metadata`
+   * can be any JSON-serializable type, but its keys must be strings
+   */
+  export interface Metadata {
+    /**
+     * The model used for this example
+     */
+    model?: string | null;
     [k: string]: unknown;
   }
 
@@ -1991,6 +2038,36 @@ export interface MetricSummary {
    * Difference in metric between the current and comparison experiment
    */
   diff?: number;
+}
+
+/**
+ * Indicates the event was copied from another object.
+ */
+export interface ObjectReference {
+  /**
+   * ID of the original event.
+   */
+  id: string;
+
+  /**
+   * Transaction ID of the original event.
+   */
+  _xact_id: string;
+
+  /**
+   * ID of the object the event is originating from.
+   */
+  object_id: string;
+
+  /**
+   * Type of the object the event is originating from.
+   */
+  object_type: 'experiment' | 'dataset' | 'prompt' | 'function' | 'prompt_session' | 'project_logs';
+
+  /**
+   * Created timestamp of the original event. Used to help sort in the UI
+   */
+  created?: string | null;
 }
 
 export interface OnlineScoreConfig {
@@ -2192,7 +2269,7 @@ export interface ProjectLogsEvent {
    * anything else that would be useful to slice/dice later. The values in `metadata`
    * can be any JSON-serializable type, but its keys must be strings
    */
-  metadata?: Record<string, unknown> | null;
+  metadata?: ProjectLogsEvent.Metadata | null;
 
   /**
    * Metrics are numerical measurements tracking the execution of the code that
@@ -2204,7 +2281,7 @@ export interface ProjectLogsEvent {
   /**
    * Indicates the event was copied from another object.
    */
-  origin?: ProjectLogsEvent.Origin | null;
+  origin?: ObjectReference | null;
 
   /**
    * The output of your application, including post-processing (an arbitrary, JSON
@@ -2271,6 +2348,21 @@ export namespace ProjectLogsEvent {
   }
 
   /**
+   * A dictionary with additional data about the test example, model outputs, or just
+   * about anything else that's relevant, that you can use to help find and analyze
+   * examples later. For example, you could log the `prompt`, example's `id`, or
+   * anything else that would be useful to slice/dice later. The values in `metadata`
+   * can be any JSON-serializable type, but its keys must be strings
+   */
+  export interface Metadata {
+    /**
+     * The model used for this example
+     */
+    model?: string | null;
+    [k: string]: unknown;
+  }
+
+  /**
    * Metrics are numerical measurements tracking the execution of the code that
    * produced the project logs event. Use "start" and "end" to track the time span
    * over which the project logs event was produced
@@ -2321,31 +2413,6 @@ export namespace ProjectLogsEvent {
     tokens?: number | null;
     [k: string]: number | unknown | number | null | undefined;
   }
-
-  /**
-   * Indicates the event was copied from another object.
-   */
-  export interface Origin {
-    /**
-     * ID of the original event.
-     */
-    id: string;
-
-    /**
-     * Transaction ID of the original event.
-     */
-    _xact_id: string;
-
-    /**
-     * ID of the object the event is originating from.
-     */
-    object_id: string;
-
-    /**
-     * Type of the object the event is originating from.
-     */
-    object_type: 'experiment' | 'dataset' | 'prompt' | 'function' | 'prompt_session' | 'project_logs';
-  }
 }
 
 /**
@@ -2371,19 +2438,14 @@ export interface ProjectScore {
   /**
    * The type of the configured score
    */
-  score_type: 'slider' | 'categorical' | 'weighted' | 'minimum' | 'maximum' | 'online';
+  score_type: 'slider' | 'categorical' | 'weighted' | 'minimum' | 'maximum' | 'online' | 'free-form';
 
   user_id: string;
 
   /**
    * For categorical-type project scores, the list of all categories
    */
-  categories?:
-    | Array<ProjectScoreCategory>
-    | Record<string, number>
-    | Array<string>
-    | ProjectScore.NullableVariant
-    | null;
+  categories?: Array<ProjectScoreCategory> | Record<string, number> | Array<string> | null;
 
   config?: ProjectScoreConfig | null;
 
@@ -2404,10 +2466,6 @@ export interface ProjectScore {
   position?: string | null;
 }
 
-export namespace ProjectScore {
-  export interface NullableVariant {}
-}
-
 /**
  * For categorical-type project scores, defines a single category
  */
@@ -2424,7 +2482,7 @@ export interface ProjectScoreCategory {
 }
 
 export interface ProjectScoreConfig {
-  destination?: 'expected' | null;
+  destination?: string | null;
 
   multi_select?: boolean | null;
 
@@ -2433,9 +2491,31 @@ export interface ProjectScoreConfig {
 
 export interface ProjectSettings {
   /**
-   * The key used to join two experiments (defaults to `input`).
+   * The id of the experiment to use as the default baseline for comparisons
+   */
+  baseline_experiment_id?: string | null;
+
+  /**
+   * The key used to join two experiments (defaults to `input`)
    */
   comparison_key?: string | null;
+
+  /**
+   * The order of the fields to display in the trace view
+   */
+  spanFieldOrder?: Array<ProjectSettings.SpanFieldOrder> | null;
+}
+
+export namespace ProjectSettings {
+  export interface SpanFieldOrder {
+    column_id: string;
+
+    object_type: string;
+
+    position: string;
+
+    layout?: 'full' | 'two_column' | null;
+  }
 }
 
 /**
@@ -2553,7 +2633,7 @@ export interface PromptData {
 
   parser?: PromptData.Parser | null;
 
-  prompt?: PromptData.Completion | PromptData.Chat | PromptData.NullableVariant | null;
+  prompt?: PromptData.Completion | PromptData.Chat | null;
 
   tool_functions?: Array<PromptData.Function | PromptData.Global> | null;
 }
@@ -2649,8 +2729,6 @@ export namespace PromptData {
     }
   }
 
-  export interface NullableVariant {}
-
   export interface Function {
     id: string;
 
@@ -2683,17 +2761,23 @@ export namespace PromptOptions {
 
     function_call?: 'auto' | 'none' | OpenAIModelParams.Function;
 
+    /**
+     * The successor to max_tokens
+     */
+    max_completion_tokens?: number;
+
     max_tokens?: number;
 
     n?: number;
 
     presence_penalty?: number;
 
+    reasoning_effort?: 'low' | 'medium' | 'high';
+
     response_format?:
       | OpenAIModelParams.JsonObject
       | OpenAIModelParams.JsonSchema
       | OpenAIModelParams.Text
-      | OpenAIModelParams.NullableVariant
       | null;
 
     stop?: Array<string>;
@@ -2728,7 +2812,7 @@ export namespace PromptOptions {
 
         description?: string;
 
-        schema?: Record<string, unknown>;
+        schema?: Record<string, unknown> | string;
 
         strict?: boolean | null;
       }
@@ -2737,8 +2821,6 @@ export namespace PromptOptions {
     export interface Text {
       type: 'text';
     }
-
-    export interface NullableVariant {}
 
     export interface Function {
       function: Function.Function;
@@ -3179,13 +3261,16 @@ export interface View {
    */
   view_type:
     | 'projects'
-    | 'logs'
     | 'experiments'
-    | 'datasets'
-    | 'prompts'
-    | 'playgrounds'
     | 'experiment'
+    | 'playgrounds'
+    | 'playground'
+    | 'datasets'
     | 'dataset'
+    | 'prompts'
+    | 'tools'
+    | 'scorers'
+    | 'logs'
     | null;
 
   /**
@@ -3240,6 +3325,12 @@ export interface ViewOptions {
   columnSizing?: Record<string, number> | null;
 
   columnVisibility?: Record<string, boolean> | null;
+
+  grouping?: string | null;
+
+  layout?: string | null;
+
+  rowHeight?: string | null;
 }
 
 /**

@@ -77,7 +77,7 @@ describe('resource spanIframes', () => {
     await expect(
       client.spanIframes.update(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        { name: 'name', post_message: true, url: 'url' },
+        { description: 'description', name: 'name', post_message: true, url: 'url' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Braintrust.NotFoundError);

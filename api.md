@@ -32,6 +32,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">InsertExperimentEvent</a></code>
 - <code><a href="./src/resources/shared.ts">InsertProjectLogsEvent</a></code>
 - <code><a href="./src/resources/shared.ts">MetricSummary</a></code>
+- <code><a href="./src/resources/shared.ts">ObjectReference</a></code>
 - <code><a href="./src/resources/shared.ts">OnlineScoreConfig</a></code>
 - <code><a href="./src/resources/shared.ts">Organization</a></code>
 - <code><a href="./src/resources/shared.ts">PatchOrganizationMembersOutput</a></code>
@@ -158,7 +159,6 @@ Methods:
 - <code title="get /v1/acl/{acl_id}">client.acls.<a href="./src/resources/acls.ts">retrieve</a>(aclId) -> ACL</code>
 - <code title="get /v1/acl">client.acls.<a href="./src/resources/acls.ts">list</a>({ ...params }) -> ACLsListObjects</code>
 - <code title="delete /v1/acl/{acl_id}">client.acls.<a href="./src/resources/acls.ts">delete</a>(aclId) -> ACL</code>
-- <code title="post /v1/acl/batch-update">client.acls.<a href="./src/resources/acls.ts">batchUpdate</a>({ ...params }) -> ACLBatchUpdateResponse</code>
 - <code title="delete /v1/acl">client.acls.<a href="./src/resources/acls.ts">findAndDelete</a>({ ...params }) -> ACL</code>
 
 # Users
