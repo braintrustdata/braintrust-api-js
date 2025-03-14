@@ -8,7 +8,13 @@ import * as Pagination from './pagination';
 import { type ListObjectsParams, ListObjectsResponse } from './pagination';
 import * as Uploads from './uploads';
 import * as API from './resources/index';
-import { ACLCreateParams, ACLFindAndDeleteParams, ACLListParams, ACLs } from './resources/acls';
+import {
+  ACLBatchUpdateParams,
+  ACLCreateParams,
+  ACLFindAndDeleteParams,
+  ACLListParams,
+  ACLs,
+} from './resources/acls';
 import {
   AISecretCreateParams,
   AISecretFindAndDeleteParams,
@@ -379,6 +385,7 @@ export declare namespace Braintrust {
     ACLs as ACLs,
     type ACLCreateParams as ACLCreateParams,
     type ACLListParams as ACLListParams,
+    type ACLBatchUpdateParams as ACLBatchUpdateParams,
     type ACLFindAndDeleteParams as ACLFindAndDeleteParams,
   };
 
