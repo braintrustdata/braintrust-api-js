@@ -133,7 +133,7 @@ export interface EnvVarListParams {
   /**
    * The type of the object the environment variable is scoped for
    */
-  object_type?: 'organization' | 'project' | 'function';
+  object_type?: Shared.EnvVarObjectType;
 }
 
 export interface EnvVarReplaceParams {

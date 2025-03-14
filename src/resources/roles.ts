@@ -121,32 +121,12 @@ export namespace RoleCreateParams {
      * Permissions can be assigned to to objects on an individual basis, or grouped
      * into roles
      */
-    permission:
-      | 'create'
-      | 'read'
-      | 'update'
-      | 'delete'
-      | 'create_acls'
-      | 'read_acls'
-      | 'update_acls'
-      | 'delete_acls';
+    permission: Shared.Permission;
 
     /**
      * The object type that the ACL applies to
      */
-    restrict_object_type?:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'group'
-      | 'role'
-      | 'org_member'
-      | 'project_log'
-      | 'org_project'
-      | null;
+    restrict_object_type?: Shared.ACLObjectType | null;
   }
 }
 
@@ -190,32 +170,12 @@ export namespace RoleUpdateParams {
      * Permissions can be assigned to to objects on an individual basis, or grouped
      * into roles
      */
-    permission:
-      | 'create'
-      | 'read'
-      | 'update'
-      | 'delete'
-      | 'create_acls'
-      | 'read_acls'
-      | 'update_acls'
-      | 'delete_acls';
+    permission: Shared.Permission;
 
     /**
      * The object type that the ACL applies to
      */
-    restrict_object_type?:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'group'
-      | 'role'
-      | 'org_member'
-      | 'project_log'
-      | 'org_project'
-      | null;
+    restrict_object_type?: Shared.ACLObjectType | null;
   }
 
   export interface RemoveMemberPermission {
@@ -225,32 +185,12 @@ export namespace RoleUpdateParams {
      * Permissions can be assigned to to objects on an individual basis, or grouped
      * into roles
      */
-    permission:
-      | 'create'
-      | 'read'
-      | 'update'
-      | 'delete'
-      | 'create_acls'
-      | 'read_acls'
-      | 'update_acls'
-      | 'delete_acls';
+    permission: Shared.Permission;
 
     /**
      * The object type that the ACL applies to
      */
-    restrict_object_type?:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'group'
-      | 'role'
-      | 'org_member'
-      | 'project_log'
-      | 'org_project'
-      | null;
+    restrict_object_type?: Shared.ACLObjectType | null;
   }
 }
 
@@ -312,32 +252,12 @@ export namespace RoleReplaceParams {
      * Permissions can be assigned to to objects on an individual basis, or grouped
      * into roles
      */
-    permission:
-      | 'create'
-      | 'read'
-      | 'update'
-      | 'delete'
-      | 'create_acls'
-      | 'read_acls'
-      | 'update_acls'
-      | 'delete_acls';
+    permission: Shared.Permission;
 
     /**
      * The object type that the ACL applies to
      */
-    restrict_object_type?:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'group'
-      | 'role'
-      | 'org_member'
-      | 'project_log'
-      | 'org_project'
-      | null;
+    restrict_object_type?: Shared.ACLObjectType | null;
   }
 }
 
