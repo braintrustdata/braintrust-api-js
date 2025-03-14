@@ -204,18 +204,7 @@ export namespace FunctionCreateParams {
     /**
      * The object type that the ACL applies to
      */
-    object_type:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'group'
-      | 'role'
-      | 'org_member'
-      | 'project_log'
-      | 'org_project';
+    object_type: Shared.ACLObjectType;
 
     /**
      * The function exists for internal purposes and should not be displayed in the
@@ -588,18 +577,7 @@ export namespace FunctionReplaceParams {
     /**
      * The object type that the ACL applies to
      */
-    object_type:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'group'
-      | 'role'
-      | 'org_member'
-      | 'project_log'
-      | 'org_project';
+    object_type: Shared.ACLObjectType;
 
     /**
      * The function exists for internal purposes and should not be displayed in the

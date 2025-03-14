@@ -85,18 +85,7 @@ export interface ViewCreateParams {
   /**
    * The object type that the ACL applies to
    */
-  object_type:
-    | 'organization'
-    | 'project'
-    | 'experiment'
-    | 'dataset'
-    | 'prompt'
-    | 'prompt_session'
-    | 'group'
-    | 'role'
-    | 'org_member'
-    | 'project_log'
-    | 'org_project';
+  object_type: Shared.ACLObjectType;
 
   /**
    * Type of table that the view corresponds to.
@@ -145,18 +134,7 @@ export interface ViewRetrieveParams {
   /**
    * The object type that the ACL applies to
    */
-  object_type:
-    | 'organization'
-    | 'project'
-    | 'experiment'
-    | 'dataset'
-    | 'prompt'
-    | 'prompt_session'
-    | 'group'
-    | 'role'
-    | 'org_member'
-    | 'project_log'
-    | 'org_project';
+  object_type: Shared.ACLObjectType;
 }
 
 export interface ViewUpdateParams {
@@ -168,18 +146,7 @@ export interface ViewUpdateParams {
   /**
    * The object type that the ACL applies to
    */
-  object_type:
-    | 'organization'
-    | 'project'
-    | 'experiment'
-    | 'dataset'
-    | 'prompt'
-    | 'prompt_session'
-    | 'group'
-    | 'role'
-    | 'org_member'
-    | 'project_log'
-    | 'org_project';
+  object_type: Shared.ACLObjectType;
 
   /**
    * Name of the view
@@ -228,18 +195,7 @@ export interface ViewListParams extends ListObjectsParams {
   /**
    * The object type that the ACL applies to
    */
-  object_type:
-    | 'organization'
-    | 'project'
-    | 'experiment'
-    | 'dataset'
-    | 'prompt'
-    | 'prompt_session'
-    | 'group'
-    | 'role'
-    | 'org_member'
-    | 'project_log'
-    | 'org_project';
+  object_type: Shared.ACLObjectType;
 
   /**
    * Filter search results to a particular set of object IDs. To specify a list of
@@ -255,19 +211,7 @@ export interface ViewListParams extends ListObjectsParams {
   /**
    * Type of table that the view corresponds to.
    */
-  view_type?:
-    | 'projects'
-    | 'experiments'
-    | 'experiment'
-    | 'playgrounds'
-    | 'playground'
-    | 'datasets'
-    | 'dataset'
-    | 'prompts'
-    | 'tools'
-    | 'scorers'
-    | 'logs'
-    | null;
+  view_type?: Shared.ViewType | null;
 }
 
 export interface ViewDeleteParams {
@@ -279,18 +223,7 @@ export interface ViewDeleteParams {
   /**
    * The object type that the ACL applies to
    */
-  object_type:
-    | 'organization'
-    | 'project'
-    | 'experiment'
-    | 'dataset'
-    | 'prompt'
-    | 'prompt_session'
-    | 'group'
-    | 'role'
-    | 'org_member'
-    | 'project_log'
-    | 'org_project';
+  object_type: Shared.ACLObjectType;
 }
 
 export interface ViewReplaceParams {
@@ -307,18 +240,7 @@ export interface ViewReplaceParams {
   /**
    * The object type that the ACL applies to
    */
-  object_type:
-    | 'organization'
-    | 'project'
-    | 'experiment'
-    | 'dataset'
-    | 'prompt'
-    | 'prompt_session'
-    | 'group'
-    | 'role'
-    | 'org_member'
-    | 'project_log'
-    | 'org_project';
+  object_type: Shared.ACLObjectType;
 
   /**
    * Type of table that the view corresponds to.
