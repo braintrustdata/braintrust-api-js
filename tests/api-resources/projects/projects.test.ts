@@ -65,7 +65,16 @@ describe('resource projects', () => {
     await expect(
       client.projects.update(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        { name: 'name', settings: { comparison_key: 'comparison_key' } },
+        {
+          name: 'name',
+          settings: {
+            baseline_experiment_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+            comparison_key: 'comparison_key',
+            spanFieldOrder: [
+              { column_id: 'column_id', object_type: 'object_type', position: 'position', layout: 'full' },
+            ],
+          },
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Braintrust.NotFoundError);

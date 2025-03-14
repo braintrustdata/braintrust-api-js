@@ -103,13 +103,16 @@ export interface ViewCreateParams {
    */
   view_type:
     | 'projects'
-    | 'logs'
     | 'experiments'
-    | 'datasets'
-    | 'prompts'
-    | 'playgrounds'
     | 'experiment'
+    | 'playgrounds'
+    | 'playground'
+    | 'datasets'
     | 'dataset'
+    | 'prompts'
+    | 'tools'
+    | 'scorers'
+    | 'logs'
     | null;
 
   /**
@@ -203,13 +206,16 @@ export interface ViewUpdateParams {
    */
   view_type?:
     | 'projects'
-    | 'logs'
     | 'experiments'
-    | 'datasets'
-    | 'prompts'
-    | 'playgrounds'
     | 'experiment'
+    | 'playgrounds'
+    | 'playground'
+    | 'datasets'
     | 'dataset'
+    | 'prompts'
+    | 'tools'
+    | 'scorers'
+    | 'logs'
     | null;
 }
 
@@ -251,13 +257,16 @@ export interface ViewListParams extends ListObjectsParams {
    */
   view_type?:
     | 'projects'
-    | 'logs'
     | 'experiments'
-    | 'datasets'
-    | 'prompts'
-    | 'playgrounds'
     | 'experiment'
+    | 'playgrounds'
+    | 'playground'
+    | 'datasets'
     | 'dataset'
+    | 'prompts'
+    | 'tools'
+    | 'scorers'
+    | 'logs'
     | null;
 }
 
@@ -316,13 +325,16 @@ export interface ViewReplaceParams {
    */
   view_type:
     | 'projects'
-    | 'logs'
     | 'experiments'
-    | 'datasets'
-    | 'prompts'
-    | 'playgrounds'
     | 'experiment'
+    | 'playgrounds'
+    | 'playground'
+    | 'datasets'
     | 'dataset'
+    | 'prompts'
+    | 'tools'
+    | 'scorers'
+    | 'logs'
     | null;
 
   /**

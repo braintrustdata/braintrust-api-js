@@ -137,7 +137,7 @@ describe('resource logs', () => {
           error: {},
           expected: {},
           input: {},
-          metadata: { foo: 'bar' },
+          metadata: { model: 'model' },
           metrics: {
             caller_filename: {},
             caller_functionname: {},
@@ -147,6 +147,13 @@ describe('resource logs', () => {
             prompt_tokens: 0,
             start: 0,
             tokens: 0,
+          },
+          origin: {
+            id: 'id',
+            _xact_id: '_xact_id',
+            object_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+            object_type: 'experiment',
+            created: 'created',
           },
           output: {},
           root_span_id: 'root_span_id',
