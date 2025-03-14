@@ -1,13 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export * from './shared';
-export {
-  ACLs,
-  type ACLCreateParams,
-  type ACLListParams,
-  type ACLBatchUpdateParams,
-  type ACLFindAndDeleteParams,
-} from './acls';
+export { ACLs, type ACLCreateParams, type ACLListParams, type ACLFindAndDeleteParams } from './acls';
 export {
   AISecrets,
   type AISecretCreateParams,

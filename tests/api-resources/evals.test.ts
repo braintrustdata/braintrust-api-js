@@ -27,7 +27,7 @@ describe('resource evals', () => {
 
   test('create: required and optional params', async () => {
     const response = await client.evals.create({
-      data: { dataset_id: 'dataset_id' },
+      data: { dataset_id: 'dataset_id', _internal_btql: { foo: 'bar' } },
       project_id: 'project_id',
       scores: [{ function_id: 'function_id', version: 'version' }],
       task: { function_id: 'function_id', version: 'version' },
@@ -38,6 +38,12 @@ describe('resource evals', () => {
       is_public: true,
       max_concurrency: 0,
       metadata: { foo: 'bar' },
+      parent: {
+        object_id: 'object_id',
+        object_type: 'project_logs',
+        propagated_event: { foo: 'bar' },
+        row_ids: { id: 'id', root_span_id: 'root_span_id', span_id: 'span_id' },
+      },
       repo_info: {
         author_email: 'author_email',
         author_name: 'author_name',

@@ -235,7 +235,6 @@ export interface FunctionUpdateParams {
     | FunctionUpdateParams.Prompt
     | FunctionUpdateParams.Code
     | FunctionUpdateParams.Global
-    | FunctionUpdateParams.NullableVariant
     | null;
 
   /**
@@ -292,8 +291,6 @@ export namespace FunctionUpdateParams {
 
     type: 'global';
   }
-
-  export interface NullableVariant {}
 }
 
 export interface FunctionListParams extends ListObjectsParams {
@@ -339,6 +336,11 @@ export interface FunctionListParams extends ListObjectsParams {
 
 export interface FunctionInvokeParams {
   /**
+   * The expected output of the function
+   */
+  expected?: unknown;
+
+  /**
    * Argument to the function, which can be any JSON serializable value
    */
   input?: unknown;
@@ -354,6 +356,11 @@ export interface FunctionInvokeParams {
     | FunctionInvokeParams.Function
     | FunctionInvokeParams.Fallback
   >;
+
+  /**
+   * Any relevant metadata
+   */
+  metadata?: Record<string, unknown> | null;
 
   /**
    * The mode format of the returned value (defaults to 'auto')
@@ -445,7 +452,7 @@ export namespace FunctionInvokeParams {
      */
     object_id: string;
 
-    object_type: 'project_logs' | 'experiment';
+    object_type: 'project_logs' | 'experiment' | 'playground_logs';
 
     /**
      * Include these properties in every span created under this parent
