@@ -159,6 +159,7 @@ Methods:
 - <code title="get /v1/acl/{acl_id}">client.acls.<a href="./src/resources/acls.ts">retrieve</a>(aclId) -> ACL</code>
 - <code title="get /v1/acl">client.acls.<a href="./src/resources/acls.ts">list</a>({ ...params }) -> ACLsListObjects</code>
 - <code title="delete /v1/acl/{acl_id}">client.acls.<a href="./src/resources/acls.ts">delete</a>(aclId) -> ACL</code>
+- <code title="post /v1/acl/batch_update">client.acls.<a href="./src/resources/acls.ts">batchUpdate</a>({ ...params }) -> ACLBatchUpdateResponse</code>
 - <code title="delete /v1/acl">client.acls.<a href="./src/resources/acls.ts">findAndDelete</a>({ ...params }) -> ACL</code>
 
 # Users
