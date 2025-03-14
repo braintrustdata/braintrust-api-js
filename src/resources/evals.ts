@@ -25,7 +25,7 @@ export interface EvalCreateParams {
   /**
    * The dataset to use
    */
-  data: EvalCreateParams.DatasetID | EvalCreateParams.ProjectDatasetName;
+  data: EvalCreateParams.DatasetID | EvalCreateParams.ProjectDatasetName | EvalCreateParams.DatasetRows;
 
   /**
    * Unique identifier for the project to run the eval in
@@ -97,6 +97,11 @@ export interface EvalCreateParams {
   metadata?: Record<string, unknown>;
 
   /**
+   * Options for tracing the evaluation
+   */
+  parent?: EvalCreateParams.SpanParentStruct | string;
+
+  /**
    * Metadata about the state of the repo when the experiment was created
    */
   repo_info?: Shared.RepoInfo | null;
@@ -128,6 +133,8 @@ export namespace EvalCreateParams {
    */
   export interface DatasetID {
     dataset_id: string;
+
+    _internal_btql?: Record<string, unknown> | null;
   }
 
   /**
@@ -137,6 +144,15 @@ export namespace EvalCreateParams {
     dataset_name: string;
 
     project_name: string;
+
+    _internal_btql?: Record<string, unknown> | null;
+  }
+
+  /**
+   * Dataset rows
+   */
+  export interface DatasetRows {
+    data: Array<unknown>;
   }
 
   /**
@@ -369,6 +385,50 @@ export namespace EvalCreateParams {
       | 'commit_time'
       | 'git_diff'
     >;
+  }
+
+  /**
+   * Span parent properties
+   */
+  export interface SpanParentStruct {
+    /**
+     * The id of the container object you are logging to
+     */
+    object_id: string;
+
+    object_type: 'project_logs' | 'experiment' | 'playground_logs';
+
+    /**
+     * Include these properties in every span created under this parent
+     */
+    propagated_event?: Record<string, unknown> | null;
+
+    /**
+     * Identifiers for the row to to log a subspan under
+     */
+    row_ids?: SpanParentStruct.RowIDs | null;
+  }
+
+  export namespace SpanParentStruct {
+    /**
+     * Identifiers for the row to to log a subspan under
+     */
+    export interface RowIDs {
+      /**
+       * The id of the row
+       */
+      id: string;
+
+      /**
+       * The root_span_id of the row
+       */
+      root_span_id: string;
+
+      /**
+       * The span_id of the row
+       */
+      span_id: string;
+    }
   }
 }
 

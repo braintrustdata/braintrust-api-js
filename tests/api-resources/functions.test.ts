@@ -45,9 +45,11 @@ describe('resource functions', () => {
           params: {
             frequency_penalty: 0,
             function_call: 'auto',
+            max_completion_tokens: 0,
             max_tokens: 0,
             n: 0,
             presence_penalty: 0,
+            reasoning_effort: 'low',
             response_format: { type: 'json_object' },
             stop: ['string'],
             temperature: 0,
@@ -117,9 +119,11 @@ describe('resource functions', () => {
               params: {
                 frequency_penalty: 0,
                 function_call: 'auto',
+                max_completion_tokens: 0,
                 max_tokens: 0,
                 n: 0,
                 presence_penalty: 0,
+                reasoning_effort: 'low',
                 response_format: { type: 'json_object' },
                 stop: ['string'],
                 temperature: 0,
@@ -222,8 +226,10 @@ describe('resource functions', () => {
       client.functions.invoke(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         {
+          expected: {},
           input: {},
           messages: [{ role: 'system', content: 'content', name: 'name' }],
+          metadata: { foo: 'bar' },
           mode: 'auto',
           parent: {
             object_id: 'object_id',
@@ -275,9 +281,11 @@ describe('resource functions', () => {
           params: {
             frequency_penalty: 0,
             function_call: 'auto',
+            max_completion_tokens: 0,
             max_tokens: 0,
             n: 0,
             presence_penalty: 0,
+            reasoning_effort: 'low',
             response_format: { type: 'json_object' },
             stop: ['string'],
             temperature: 0,

@@ -102,17 +102,12 @@ export interface ProjectScoreCreateParams {
   /**
    * The type of the configured score
    */
-  score_type: 'slider' | 'categorical' | 'weighted' | 'minimum' | 'maximum' | 'online';
+  score_type: 'slider' | 'categorical' | 'weighted' | 'minimum' | 'maximum' | 'online' | 'free-form';
 
   /**
    * For categorical-type project scores, the list of all categories
    */
-  categories?:
-    | Array<Shared.ProjectScoreCategory>
-    | Record<string, number>
-    | Array<string>
-    | ProjectScoreCreateParams.NullableVariant
-    | null;
+  categories?: Array<Shared.ProjectScoreCategory> | Record<string, number> | Array<string> | null;
 
   config?: Shared.ProjectScoreConfig | null;
 
@@ -122,20 +117,11 @@ export interface ProjectScoreCreateParams {
   description?: string | null;
 }
 
-export namespace ProjectScoreCreateParams {
-  export interface NullableVariant {}
-}
-
 export interface ProjectScoreUpdateParams {
   /**
    * For categorical-type project scores, the list of all categories
    */
-  categories?:
-    | Array<Shared.ProjectScoreCategory>
-    | Record<string, number>
-    | Array<string>
-    | ProjectScoreUpdateParams.NullableVariant
-    | null;
+  categories?: Array<Shared.ProjectScoreCategory> | Record<string, number> | Array<string> | null;
 
   config?: Shared.ProjectScoreConfig | null;
 
@@ -152,11 +138,7 @@ export interface ProjectScoreUpdateParams {
   /**
    * The type of the configured score
    */
-  score_type?: 'slider' | 'categorical' | 'weighted' | 'minimum' | 'maximum' | 'online' | null;
-}
-
-export namespace ProjectScoreUpdateParams {
-  export interface NullableVariant {}
+  score_type?: 'slider' | 'categorical' | 'weighted' | 'minimum' | 'maximum' | 'online' | 'free-form' | null;
 }
 
 export interface ProjectScoreListParams extends ListObjectsParams {
@@ -196,7 +178,8 @@ export interface ProjectScoreListParams extends ListObjectsParams {
     | 'minimum'
     | 'maximum'
     | 'online'
-    | Array<'slider' | 'categorical' | 'weighted' | 'minimum' | 'maximum' | 'online'>;
+    | 'free-form'
+    | Array<'slider' | 'categorical' | 'weighted' | 'minimum' | 'maximum' | 'online' | 'free-form'>;
 }
 
 export interface ProjectScoreReplaceParams {
@@ -213,17 +196,12 @@ export interface ProjectScoreReplaceParams {
   /**
    * The type of the configured score
    */
-  score_type: 'slider' | 'categorical' | 'weighted' | 'minimum' | 'maximum' | 'online';
+  score_type: 'slider' | 'categorical' | 'weighted' | 'minimum' | 'maximum' | 'online' | 'free-form';
 
   /**
    * For categorical-type project scores, the list of all categories
    */
-  categories?:
-    | Array<Shared.ProjectScoreCategory>
-    | Record<string, number>
-    | Array<string>
-    | ProjectScoreReplaceParams.NullableVariant
-    | null;
+  categories?: Array<Shared.ProjectScoreCategory> | Record<string, number> | Array<string> | null;
 
   config?: Shared.ProjectScoreConfig | null;
 
@@ -231,10 +209,6 @@ export interface ProjectScoreReplaceParams {
    * Textual description of the project score
    */
   description?: string | null;
-}
-
-export namespace ProjectScoreReplaceParams {
-  export interface NullableVariant {}
 }
 
 export declare namespace ProjectScores {

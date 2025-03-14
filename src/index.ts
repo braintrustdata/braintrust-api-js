@@ -8,13 +8,7 @@ import * as Pagination from './pagination';
 import { type ListObjectsParams, ListObjectsResponse } from './pagination';
 import * as Uploads from './uploads';
 import * as API from './resources/index';
-import {
-  ACLBatchUpdateParams,
-  ACLCreateParams,
-  ACLFindAndDeleteParams,
-  ACLListParams,
-  ACLs,
-} from './resources/acls';
+import { ACLCreateParams, ACLFindAndDeleteParams, ACLListParams, ACLs } from './resources/acls';
 import {
   AISecretCreateParams,
   AISecretFindAndDeleteParams,
@@ -385,7 +379,6 @@ export declare namespace Braintrust {
     ACLs as ACLs,
     type ACLCreateParams as ACLCreateParams,
     type ACLListParams as ACLListParams,
-    type ACLBatchUpdateParams as ACLBatchUpdateParams,
     type ACLFindAndDeleteParams as ACLFindAndDeleteParams,
   };
 
@@ -497,6 +490,7 @@ export declare namespace Braintrust {
   export type InsertExperimentEvent = API.InsertExperimentEvent;
   export type InsertProjectLogsEvent = API.InsertProjectLogsEvent;
   export type MetricSummary = API.MetricSummary;
+  export type ObjectReference = API.ObjectReference;
   export type OnlineScoreConfig = API.OnlineScoreConfig;
   export type Organization = API.Organization;
   export type PatchOrganizationMembersOutput = API.PatchOrganizationMembersOutput;

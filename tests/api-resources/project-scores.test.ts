@@ -31,7 +31,7 @@ describe('resource projectScores', () => {
       score_type: 'slider',
       categories: [{ name: 'name', value: 0 }],
       config: {
-        destination: 'expected',
+        destination: 'destination',
         multi_select: true,
         online: {
           sampling_rate: 0,
@@ -92,7 +92,7 @@ describe('resource projectScores', () => {
         {
           categories: [{ name: 'name', value: 0 }],
           config: {
-            destination: 'expected',
+            destination: 'destination',
             multi_select: true,
             online: {
               sampling_rate: 0,
@@ -190,7 +190,7 @@ describe('resource projectScores', () => {
       score_type: 'slider',
       categories: [{ name: 'name', value: 0 }],
       config: {
-        destination: 'expected',
+        destination: 'destination',
         multi_select: true,
         online: {
           sampling_rate: 0,

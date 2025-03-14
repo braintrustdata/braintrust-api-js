@@ -112,6 +112,11 @@ export interface SpanIframeCreateParams {
 
 export interface SpanIframeUpdateParams {
   /**
+   * Textual description of the span iframe
+   */
+  description?: string | null;
+
+  /**
    * Name of the span iframe
    */
   name?: string | null;
