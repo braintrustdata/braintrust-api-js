@@ -459,6 +459,7 @@ export namespace DatasetEvent {
      * The model used for this example
      */
     model?: string | null;
+
     [k: string]: unknown;
   }
 }
@@ -738,6 +739,7 @@ export namespace ExperimentEvent {
      * Line of code where the experiment event was created
      */
     caller_lineno?: number | null;
+
     [k: string]: unknown;
   }
 
@@ -753,6 +755,7 @@ export namespace ExperimentEvent {
      * The model used for this example
      */
     model?: string | null;
+
     [k: string]: unknown;
   }
 
@@ -805,6 +808,7 @@ export namespace ExperimentEvent {
      * The total number of tokens in the input and output of the experiment event.
      */
     tokens?: number | null;
+
     [k: string]: number | unknown | number | null | undefined;
   }
 }
@@ -1353,6 +1357,7 @@ export namespace InsertDatasetEvent {
      * The model used for this example
      */
     model?: string | null;
+
     [k: string]: unknown;
   }
 }
@@ -1605,6 +1610,7 @@ export namespace InsertExperimentEvent {
      * Line of code where the experiment event was created
      */
     caller_lineno?: number | null;
+
     [k: string]: unknown;
   }
 
@@ -1620,6 +1626,7 @@ export namespace InsertExperimentEvent {
      * The model used for this example
      */
     model?: string | null;
+
     [k: string]: unknown;
   }
 
@@ -1672,6 +1679,7 @@ export namespace InsertExperimentEvent {
      * The total number of tokens in the input and output of the experiment event.
      */
     tokens?: number | null;
+
     [k: string]: number | unknown | number | null | undefined;
   }
 }
@@ -1912,6 +1920,7 @@ export namespace InsertProjectLogsEvent {
      * Line of code where the project logs event was created
      */
     caller_lineno?: number | null;
+
     [k: string]: unknown;
   }
 
@@ -1927,6 +1936,7 @@ export namespace InsertProjectLogsEvent {
      * The model used for this example
      */
     model?: string | null;
+
     [k: string]: unknown;
   }
 
@@ -1979,6 +1989,7 @@ export namespace InsertProjectLogsEvent {
      * The total number of tokens in the input and output of the project logs event.
      */
     tokens?: number | null;
+
     [k: string]: number | unknown | number | null | undefined;
   }
 }
@@ -2338,6 +2349,7 @@ export namespace ProjectLogsEvent {
      * Line of code where the project logs event was created
      */
     caller_lineno?: number | null;
+
     [k: string]: unknown;
   }
 
@@ -2353,6 +2365,7 @@ export namespace ProjectLogsEvent {
      * The model used for this example
      */
     model?: string | null;
+
     [k: string]: unknown;
   }
 
@@ -2405,6 +2418,7 @@ export namespace ProjectLogsEvent {
      * The total number of tokens in the input and output of the project logs event.
      */
     tokens?: number | null;
+
     [k: string]: number | unknown | number | null | undefined;
   }
 }
@@ -3057,6 +3071,7 @@ export interface SpanAttributes {
    * Type of the span, for display purposes only
    */
   type?: SpanType | null;
+
   [k: string]: unknown;
 }
 
