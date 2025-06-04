@@ -26,13 +26,9 @@ const client = new Braintrust({
   apiKey: process.env['BRAINTRUST_API_KEY'], // This is the default and can be omitted
 });
 
-async function main() {
-  const project = await client.projects.create({ name: 'foobar' });
+const project = await client.projects.create({ name: 'foobar' });
 
-  console.log(project.id);
-}
-
-main();
+console.log(project.id);
 ```
 
 ### Request & Response types
@@ -47,12 +43,8 @@ const client = new Braintrust({
   apiKey: process.env['BRAINTRUST_API_KEY'], // This is the default and can be omitted
 });
 
-async function main() {
-  const params: Braintrust.ProjectCreateParams = { name: 'foobar' };
-  const project: Braintrust.Project = await client.projects.create(params);
-}
-
-main();
+const params: Braintrust.ProjectCreateParams = { name: 'foobar' };
+const project: Braintrust.Project = await client.projects.create(params);
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -65,19 +57,15 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-async function main() {
-  const project = await client.projects.create({ name: 'foobar' }).catch(async (err) => {
-    if (err instanceof Braintrust.APIError) {
-      console.log(err.status); // 400
-      console.log(err.name); // BadRequestError
-      console.log(err.headers); // {server: 'nginx', ...}
-    } else {
-      throw err;
-    }
-  });
-}
-
-main();
+const project = await client.projects.create({ name: 'foobar' }).catch(async (err) => {
+  if (err instanceof Braintrust.APIError) {
+    console.log(err.status); // 400
+    console.log(err.name); // BadRequestError
+    console.log(err.headers); // {server: 'nginx', ...}
+  } else {
+    throw err;
+  }
+});
 ```
 
 Error codes are as follows:
