@@ -2,7 +2,7 @@
 
 import type { Braintrust } from './index';
 
-export class APIResource {
+export abstract class APIResource {
   protected _client: Braintrust;
 
   constructor(client: Braintrust) {
