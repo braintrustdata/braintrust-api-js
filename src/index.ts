@@ -225,6 +225,7 @@ export class Braintrust extends Core.APIClient {
 
     super({
       baseURL: options.baseURL!,
+      baseURLOverridden: baseURL ? baseURL !== 'https://api.braintrust.dev' : false,
       timeout: options.timeout ?? 60000 /* 1 minute */,
       httpAgent: options.httpAgent,
       maxRetries: options.maxRetries,
@@ -255,6 +256,13 @@ export class Braintrust extends Core.APIClient {
   aiSecrets: API.AISecrets = new API.AISecrets(this);
   envVars: API.EnvVars = new API.EnvVars(this);
   evals: API.Evals = new API.Evals(this);
+
+  /**
+   * Check whether the base URL is set to its default.
+   */
+  #baseURLOverridden(): boolean {
+    return this.baseURL !== 'https://api.braintrust.dev';
+  }
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
