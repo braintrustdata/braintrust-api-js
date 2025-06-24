@@ -349,7 +349,7 @@ export interface FunctionInvokeParams {
   /**
    * Any relevant metadata
    */
-  metadata?: Record<string, unknown> | null;
+  metadata?: { [key: string]: unknown } | null;
 
   /**
    * The mode format of the returned value (defaults to 'auto')
@@ -446,7 +446,7 @@ export namespace FunctionInvokeParams {
     /**
      * Include these properties in every span created under this parent
      */
-    propagated_event?: Record<string, unknown> | null;
+    propagated_event?: { [key: string]: unknown } | null;
 
     /**
      * Identifiers for the row to to log a subspan under
