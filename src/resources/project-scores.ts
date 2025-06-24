@@ -107,7 +107,7 @@ export interface ProjectScoreCreateParams {
   /**
    * For categorical-type project scores, the list of all categories
    */
-  categories?: Array<Shared.ProjectScoreCategory> | Record<string, number> | Array<string> | null;
+  categories?: Array<Shared.ProjectScoreCategory> | { [key: string]: number } | Array<string> | null;
 
   config?: Shared.ProjectScoreConfig | null;
 
@@ -121,7 +121,7 @@ export interface ProjectScoreUpdateParams {
   /**
    * For categorical-type project scores, the list of all categories
    */
-  categories?: Array<Shared.ProjectScoreCategory> | Record<string, number> | Array<string> | null;
+  categories?: Array<Shared.ProjectScoreCategory> | { [key: string]: number } | Array<string> | null;
 
   config?: Shared.ProjectScoreConfig | null;
 
@@ -193,7 +193,7 @@ export interface ProjectScoreReplaceParams {
   /**
    * For categorical-type project scores, the list of all categories
    */
-  categories?: Array<Shared.ProjectScoreCategory> | Record<string, number> | Array<string> | null;
+  categories?: Array<Shared.ProjectScoreCategory> | { [key: string]: number } | Array<string> | null;
 
   config?: Shared.ProjectScoreConfig | null;
 

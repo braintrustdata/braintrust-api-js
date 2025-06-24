@@ -184,7 +184,7 @@ export interface DatasetCreateParams {
   /**
    * User-controlled metadata about the dataset
    */
-  metadata?: Record<string, unknown> | null;
+  metadata?: { [key: string]: unknown } | null;
 }
 
 export interface DatasetUpdateParams {
@@ -196,7 +196,7 @@ export interface DatasetUpdateParams {
   /**
    * User-controlled metadata about the dataset
    */
-  metadata?: Record<string, unknown> | null;
+  metadata?: { [key: string]: unknown } | null;
 
   /**
    * Name of the dataset. Within a project, dataset names are unique

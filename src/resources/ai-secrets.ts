@@ -97,7 +97,7 @@ export interface AISecretCreateParams {
    */
   name: string;
 
-  metadata?: Record<string, unknown> | null;
+  metadata?: { [key: string]: unknown } | null;
 
   /**
    * For nearly all users, this parameter should be unnecessary. But in the rare case
@@ -116,7 +116,7 @@ export interface AISecretCreateParams {
 }
 
 export interface AISecretUpdateParams {
-  metadata?: Record<string, unknown> | null;
+  metadata?: { [key: string]: unknown } | null;
 
   /**
    * Name of the AI secret
@@ -168,7 +168,7 @@ export interface AISecretReplaceParams {
    */
   name: string;
 
-  metadata?: Record<string, unknown> | null;
+  metadata?: { [key: string]: unknown } | null;
 
   /**
    * For nearly all users, this parameter should be unnecessary. But in the rare case

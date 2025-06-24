@@ -207,7 +207,7 @@ export interface ExperimentCreateParams {
   /**
    * User-controlled metadata about the experiment
    */
-  metadata?: Record<string, unknown> | null;
+  metadata?: { [key: string]: unknown } | null;
 
   /**
    * Name of the experiment. Within a project, experiment names are unique
@@ -252,7 +252,7 @@ export interface ExperimentUpdateParams {
   /**
    * User-controlled metadata about the experiment
    */
-  metadata?: Record<string, unknown> | null;
+  metadata?: { [key: string]: unknown } | null;
 
   /**
    * Name of the experiment. Within a project, experiment names are unique

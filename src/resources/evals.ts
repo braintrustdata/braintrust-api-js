@@ -94,7 +94,7 @@ export interface EvalCreateParams {
    * Optional experiment-level metadata to store about the evaluation. You can later
    * use this to slice & dice across experiments.
    */
-  metadata?: Record<string, unknown>;
+  metadata?: { [key: string]: unknown };
 
   /**
    * Options for tracing the evaluation
@@ -134,7 +134,7 @@ export namespace EvalCreateParams {
   export interface DatasetID {
     dataset_id: string;
 
-    _internal_btql?: Record<string, unknown> | null;
+    _internal_btql?: { [key: string]: unknown } | null;
   }
 
   /**
@@ -145,7 +145,7 @@ export namespace EvalCreateParams {
 
     project_name: string;
 
-    _internal_btql?: Record<string, unknown> | null;
+    _internal_btql?: { [key: string]: unknown } | null;
   }
 
   /**
@@ -401,7 +401,7 @@ export namespace EvalCreateParams {
     /**
      * Include these properties in every span created under this parent
      */
-    propagated_event?: Record<string, unknown> | null;
+    propagated_event?: { [key: string]: unknown } | null;
 
     /**
      * Identifiers for the row to to log a subspan under
