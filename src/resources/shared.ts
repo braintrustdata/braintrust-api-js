@@ -24,7 +24,7 @@ export interface AISecret {
    */
   created?: string | null;
 
-  metadata?: Record<string, unknown> | null;
+  metadata?: { [key: string]: unknown } | null;
 
   preview_secret?: string | null;
 
@@ -301,17 +301,17 @@ export interface CrossObjectInsertResponse {
   /**
    * A mapping from dataset id to row ids for inserted `events`
    */
-  dataset?: Record<string, InsertEventsResponse> | null;
+  dataset?: { [key: string]: InsertEventsResponse } | null;
 
   /**
    * A mapping from experiment id to row ids for inserted `events`
    */
-  experiment?: Record<string, InsertEventsResponse> | null;
+  experiment?: { [key: string]: InsertEventsResponse } | null;
 
   /**
    * A mapping from project id to row ids for inserted `events`
    */
-  project_logs?: Record<string, InsertEventsResponse> | null;
+  project_logs?: { [key: string]: InsertEventsResponse } | null;
 }
 
 /**
@@ -358,7 +358,7 @@ export interface Dataset {
   /**
    * User-controlled metadata about the dataset
    */
-  metadata?: Record<string, unknown> | null;
+  metadata?: { [key: string]: unknown } | null;
 
   /**
    * Identifies the user who created the dataset
@@ -563,7 +563,7 @@ export interface Experiment {
   /**
    * User-controlled metadata about the experiment
    */
-  metadata?: Record<string, unknown> | null;
+  metadata?: { [key: string]: unknown } | null;
 
   /**
    * Metadata about the state of the repo when the experiment was created
@@ -697,7 +697,7 @@ export interface ExperimentEvent {
    * summarization was covering similar concepts or not. You can use these scores to
    * help you sort, filter, and compare experiments
    */
-  scores?: Record<string, number | null> | null;
+  scores?: { [key: string]: number | null } | null;
 
   /**
    * Human-identifying attributes of the span, such as name, type, etc.
@@ -831,7 +831,7 @@ export interface FeedbackDatasetItem {
    * not correspond to the main event itself, but rather the audit log attached to
    * the event.
    */
-  metadata?: Record<string, unknown> | null;
+  metadata?: { [key: string]: unknown } | null;
 
   /**
    * The source of the feedback. Must be one of "external" (default), "app", or "api"
@@ -868,13 +868,13 @@ export interface FeedbackExperimentItem {
    * not correspond to the main event itself, but rather the audit log attached to
    * the event.
    */
-  metadata?: Record<string, unknown> | null;
+  metadata?: { [key: string]: unknown } | null;
 
   /**
    * A dictionary of numeric values (between 0 and 1) to log. These scores will be
    * merged into the existing scores for the experiment event
    */
-  scores?: Record<string, number | null> | null;
+  scores?: { [key: string]: number | null } | null;
 
   /**
    * The source of the feedback. Must be one of "external" (default), "app", or "api"
@@ -911,13 +911,13 @@ export interface FeedbackProjectLogsItem {
    * not correspond to the main event itself, but rather the audit log attached to
    * the event.
    */
-  metadata?: Record<string, unknown> | null;
+  metadata?: { [key: string]: unknown } | null;
 
   /**
    * A dictionary of numeric values (between 0 and 1) to log. These scores will be
    * merged into the existing scores for the project logs event
    */
-  scores?: Record<string, number | null> | null;
+  scores?: { [key: string]: number | null } | null;
 
   /**
    * The source of the feedback. Must be one of "external" (default), "app", or "api"
@@ -1040,7 +1040,7 @@ export interface Function {
   /**
    * User-controlled metadata about the prompt
    */
-  metadata?: Record<string, unknown> | null;
+  metadata?: { [key: string]: unknown } | null;
 
   origin?: Function.Origin | null;
 
@@ -1537,7 +1537,7 @@ export interface InsertExperimentEvent {
    * summarization was covering similar concepts or not. You can use these scores to
    * help you sort, filter, and compare experiments
    */
-  scores?: Record<string, number | null> | null;
+  scores?: { [key: string]: number | null } | null;
 
   /**
    * Human-identifying attributes of the span, such as name, type, etc.
@@ -1847,7 +1847,7 @@ export interface InsertProjectLogsEvent {
    * summarization was covering similar concepts or not. You can use these scores to
    * help you sort, filter, and compare logs.
    */
-  scores?: Record<string, number | null> | null;
+  scores?: { [key: string]: number | null } | null;
 
   /**
    * Human-identifying attributes of the span, such as name, type, etc.
@@ -2307,7 +2307,7 @@ export interface ProjectLogsEvent {
    * summarization was covering similar concepts or not. You can use these scores to
    * help you sort, filter, and compare logs.
    */
-  scores?: Record<string, number | null> | null;
+  scores?: { [key: string]: number | null } | null;
 
   /**
    * Human-identifying attributes of the span, such as name, type, etc.
@@ -2453,7 +2453,7 @@ export interface ProjectScore {
   /**
    * For categorical-type project scores, the list of all categories
    */
-  categories?: Array<ProjectScoreCategory> | Record<string, number> | Array<string> | null;
+  categories?: Array<ProjectScoreCategory> | { [key: string]: number } | Array<string> | null;
 
   config?: ProjectScoreConfig | null;
 
@@ -2630,7 +2630,7 @@ export interface Prompt {
   /**
    * User-controlled metadata about the prompt
    */
-  metadata?: Record<string, unknown> | null;
+  metadata?: { [key: string]: unknown } | null;
 
   /**
    * The prompt, model, and its parameters
@@ -2668,7 +2668,7 @@ export namespace PromptData {
   }
 
   export interface Parser {
-    choice_scores: Record<string, number>;
+    choice_scores: { [key: string]: number };
 
     type: 'llm_classifier';
 
@@ -2832,7 +2832,7 @@ export namespace PromptOptions {
 
         description?: string;
 
-        schema?: Record<string, unknown> | string;
+        schema?: { [key: string]: unknown } | string;
 
         strict?: boolean | null;
       }
@@ -3190,12 +3190,12 @@ export interface SummarizeExperimentResponse {
   /**
    * Summary of the experiment's metrics
    */
-  metrics?: Record<string, MetricSummary> | null;
+  metrics?: { [key: string]: MetricSummary } | null;
 
   /**
    * Summary of the experiment's scores
    */
-  scores?: Record<string, ScoreSummary> | null;
+  scores?: { [key: string]: ScoreSummary } | null;
 }
 
 export interface User {
@@ -3317,9 +3317,9 @@ export interface ViewDataSearch {
 export interface ViewOptions {
   columnOrder?: Array<string> | null;
 
-  columnSizing?: Record<string, number> | null;
+  columnSizing?: { [key: string]: number } | null;
 
-  columnVisibility?: Record<string, boolean> | null;
+  columnVisibility?: { [key: string]: boolean } | null;
 
   grouping?: string | null;
 
