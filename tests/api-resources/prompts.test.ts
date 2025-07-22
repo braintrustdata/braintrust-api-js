@@ -11,9 +11,9 @@ const client = new Braintrust({
 describe('resource prompts', () => {
   test('create: only required params', async () => {
     const responsePromise = client.prompts.create({
-      name: 'name',
+      name: 'x',
       project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      slug: 'slug',
+      slug: 'x',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -26,9 +26,9 @@ describe('resource prompts', () => {
 
   test('create: required and optional params', async () => {
     const response = await client.prompts.create({
-      name: 'name',
+      name: 'x',
       project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      slug: 'slug',
+      slug: 'x',
       description: 'description',
       function_type: 'llm',
       prompt_data: {
@@ -37,11 +37,13 @@ describe('resource prompts', () => {
           params: {
             frequency_penalty: 0,
             function_call: 'auto',
+            max_completion_tokens: 0,
             max_tokens: 0,
             n: 0,
             presence_penalty: 0,
+            reasoning_effort: 'low',
             response_format: { type: 'json_object' },
-            stop: ['string', 'string', 'string'],
+            stop: ['string'],
             temperature: 0,
             tool_choice: 'auto',
             top_p: 0,
@@ -52,13 +54,9 @@ describe('resource prompts', () => {
         origin: { project_id: 'project_id', prompt_id: 'prompt_id', prompt_version: 'prompt_version' },
         parser: { choice_scores: { foo: 0 }, type: 'llm_classifier', use_cot: true },
         prompt: { content: 'content', type: 'completion' },
-        tool_functions: [
-          { id: 'id', type: 'function' },
-          { id: 'id', type: 'function' },
-          { id: 'id', type: 'function' },
-        ],
+        tool_functions: [{ id: 'id', type: 'function' }],
       },
-      tags: ['string', 'string', 'string'],
+      tags: ['string'],
     });
   });
 
@@ -112,11 +110,13 @@ describe('resource prompts', () => {
               params: {
                 frequency_penalty: 0,
                 function_call: 'auto',
+                max_completion_tokens: 0,
                 max_tokens: 0,
                 n: 0,
                 presence_penalty: 0,
+                reasoning_effort: 'low',
                 response_format: { type: 'json_object' },
-                stop: ['string', 'string', 'string'],
+                stop: ['string'],
                 temperature: 0,
                 tool_choice: 'auto',
                 top_p: 0,
@@ -127,14 +127,10 @@ describe('resource prompts', () => {
             origin: { project_id: 'project_id', prompt_id: 'prompt_id', prompt_version: 'prompt_version' },
             parser: { choice_scores: { foo: 0 }, type: 'llm_classifier', use_cot: true },
             prompt: { content: 'content', type: 'completion' },
-            tool_functions: [
-              { id: 'id', type: 'function' },
-              { id: 'id', type: 'function' },
-              { id: 'id', type: 'function' },
-            ],
+            tool_functions: [{ id: 'id', type: 'function' }],
           },
           slug: 'slug',
-          tags: ['string', 'string', 'string'],
+          tags: ['string'],
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -200,9 +196,9 @@ describe('resource prompts', () => {
 
   test('replace: only required params', async () => {
     const responsePromise = client.prompts.replace({
-      name: 'name',
+      name: 'x',
       project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      slug: 'slug',
+      slug: 'x',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -215,9 +211,9 @@ describe('resource prompts', () => {
 
   test('replace: required and optional params', async () => {
     const response = await client.prompts.replace({
-      name: 'name',
+      name: 'x',
       project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      slug: 'slug',
+      slug: 'x',
       description: 'description',
       function_type: 'llm',
       prompt_data: {
@@ -226,11 +222,13 @@ describe('resource prompts', () => {
           params: {
             frequency_penalty: 0,
             function_call: 'auto',
+            max_completion_tokens: 0,
             max_tokens: 0,
             n: 0,
             presence_penalty: 0,
+            reasoning_effort: 'low',
             response_format: { type: 'json_object' },
-            stop: ['string', 'string', 'string'],
+            stop: ['string'],
             temperature: 0,
             tool_choice: 'auto',
             top_p: 0,
@@ -241,13 +239,9 @@ describe('resource prompts', () => {
         origin: { project_id: 'project_id', prompt_id: 'prompt_id', prompt_version: 'prompt_version' },
         parser: { choice_scores: { foo: 0 }, type: 'llm_classifier', use_cot: true },
         prompt: { content: 'content', type: 'completion' },
-        tool_functions: [
-          { id: 'id', type: 'function' },
-          { id: 'id', type: 'function' },
-          { id: 'id', type: 'function' },
-        ],
+        tool_functions: [{ id: 'id', type: 'function' }],
       },
-      tags: ['string', 'string', 'string'],
+      tags: ['string'],
     });
   });
 });

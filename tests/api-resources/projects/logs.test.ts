@@ -11,7 +11,7 @@ const client = new Braintrust({
 describe('resource logs', () => {
   test('feedback: only required params', async () => {
     const responsePromise = client.projects.logs.feedback('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      feedback: [{ id: 'id' }, { id: 'id' }, { id: 'id' }],
+      feedback: [{ id: 'id' }],
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -32,22 +32,7 @@ describe('resource logs', () => {
           metadata: { foo: 'bar' },
           scores: { foo: 0 },
           source: 'app',
-        },
-        {
-          id: 'id',
-          comment: 'comment',
-          expected: {},
-          metadata: { foo: 'bar' },
-          scores: { foo: 0 },
-          source: 'app',
-        },
-        {
-          id: 'id',
-          comment: 'comment',
-          expected: {},
-          metadata: { foo: 'bar' },
-          scores: { foo: 0 },
-          source: 'app',
+          tags: ['string'],
         },
       ],
     });
@@ -111,11 +96,6 @@ describe('resource logs', () => {
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         {
           cursor: 'cursor',
-          filters: [
-            { path: ['string', 'string', 'string'], type: 'path_lookup', value: {} },
-            { path: ['string', 'string', 'string'], type: 'path_lookup', value: {} },
-            { path: ['string', 'string', 'string'], type: 'path_lookup', value: {} },
-          ],
           limit: 0,
           max_root_span_id: 'max_root_span_id',
           max_xact_id: 'max_xact_id',
@@ -128,7 +108,7 @@ describe('resource logs', () => {
 
   test('insert: only required params', async () => {
     const responsePromise = client.projects.logs.insert('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      events: [{}, {}, {}],
+      events: [{}],
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -145,6 +125,7 @@ describe('resource logs', () => {
         {
           id: 'id',
           _is_merge: true,
+          _merge_paths: [['string']],
           _object_delete: true,
           _parent_id: '_parent_id',
           context: {
@@ -156,54 +137,31 @@ describe('resource logs', () => {
           error: {},
           expected: {},
           input: {},
-          metadata: { foo: 'bar' },
-          metrics: { completion_tokens: 0, end: 0, prompt_tokens: 0, start: 0, tokens: 0 },
-          output: {},
-          scores: { foo: 0 },
-          span_attributes: { name: 'name', type: 'llm' },
-          tags: ['string', 'string', 'string'],
-        },
-        {
-          id: 'id',
-          _is_merge: true,
-          _object_delete: true,
-          _parent_id: '_parent_id',
-          context: {
-            caller_filename: 'caller_filename',
-            caller_functionname: 'caller_functionname',
-            caller_lineno: 0,
+          metadata: { model: 'model' },
+          metrics: {
+            caller_filename: {},
+            caller_functionname: {},
+            caller_lineno: {},
+            completion_tokens: 0,
+            end: 0,
+            prompt_tokens: 0,
+            start: 0,
+            tokens: 0,
           },
-          created: '2019-12-27T18:11:19.117Z',
-          error: {},
-          expected: {},
-          input: {},
-          metadata: { foo: 'bar' },
-          metrics: { completion_tokens: 0, end: 0, prompt_tokens: 0, start: 0, tokens: 0 },
-          output: {},
-          scores: { foo: 0 },
-          span_attributes: { name: 'name', type: 'llm' },
-          tags: ['string', 'string', 'string'],
-        },
-        {
-          id: 'id',
-          _is_merge: true,
-          _object_delete: true,
-          _parent_id: '_parent_id',
-          context: {
-            caller_filename: 'caller_filename',
-            caller_functionname: 'caller_functionname',
-            caller_lineno: 0,
+          origin: {
+            id: 'id',
+            _xact_id: '_xact_id',
+            object_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+            object_type: 'experiment',
+            created: 'created',
           },
-          created: '2019-12-27T18:11:19.117Z',
-          error: {},
-          expected: {},
-          input: {},
-          metadata: { foo: 'bar' },
-          metrics: { completion_tokens: 0, end: 0, prompt_tokens: 0, start: 0, tokens: 0 },
           output: {},
+          root_span_id: 'root_span_id',
           scores: { foo: 0 },
           span_attributes: { name: 'name', type: 'llm' },
-          tags: ['string', 'string', 'string'],
+          span_id: 'span_id',
+          span_parents: ['string'],
+          tags: ['string'],
         },
       ],
     });

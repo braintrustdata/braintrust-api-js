@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as EnvVarsAPI from './env-vars';
 import * as Shared from './shared';
 
 export class EnvVars extends APIResource {
@@ -134,7 +133,7 @@ export interface EnvVarListParams {
   /**
    * The type of the object the environment variable is scoped for
    */
-  object_type?: 'organization' | 'project' | 'function';
+  object_type?: Shared.EnvVarObjectType;
 }
 
 export interface EnvVarReplaceParams {
@@ -159,10 +158,12 @@ export interface EnvVarReplaceParams {
   value?: string | null;
 }
 
-export namespace EnvVars {
-  export import EnvVarListResponse = EnvVarsAPI.EnvVarListResponse;
-  export import EnvVarCreateParams = EnvVarsAPI.EnvVarCreateParams;
-  export import EnvVarUpdateParams = EnvVarsAPI.EnvVarUpdateParams;
-  export import EnvVarListParams = EnvVarsAPI.EnvVarListParams;
-  export import EnvVarReplaceParams = EnvVarsAPI.EnvVarReplaceParams;
+export declare namespace EnvVars {
+  export {
+    type EnvVarListResponse as EnvVarListResponse,
+    type EnvVarCreateParams as EnvVarCreateParams,
+    type EnvVarUpdateParams as EnvVarUpdateParams,
+    type EnvVarListParams as EnvVarListParams,
+    type EnvVarReplaceParams as EnvVarReplaceParams,
+  };
 }

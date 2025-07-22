@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as PromptsAPI from './prompts';
 import * as Shared from './shared';
 import { PromptsListObjects } from './shared';
 import { type ListObjectsParams } from '../pagination';
@@ -219,11 +218,13 @@ export interface PromptReplaceParams {
   tags?: Array<string> | null;
 }
 
-export namespace Prompts {
-  export import PromptCreateParams = PromptsAPI.PromptCreateParams;
-  export import PromptUpdateParams = PromptsAPI.PromptUpdateParams;
-  export import PromptListParams = PromptsAPI.PromptListParams;
-  export import PromptReplaceParams = PromptsAPI.PromptReplaceParams;
+export declare namespace Prompts {
+  export {
+    type PromptCreateParams as PromptCreateParams,
+    type PromptUpdateParams as PromptUpdateParams,
+    type PromptListParams as PromptListParams,
+    type PromptReplaceParams as PromptReplaceParams,
+  };
 }
 
 export { PromptsListObjects };
