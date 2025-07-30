@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as UsersAPI from './users';
 import * as Shared from './shared';
 import { UsersListObjects } from './shared';
 import { type ListObjectsParams } from '../pagination';
@@ -67,8 +66,8 @@ export interface UserListParams extends ListObjectsParams {
   org_name?: string;
 }
 
-export namespace Users {
-  export import UserListParams = UsersAPI.UserListParams;
+export declare namespace Users {
+  export { type UserListParams as UserListParams };
 }
 
 export { UsersListObjects };
