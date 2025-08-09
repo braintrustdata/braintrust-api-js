@@ -3,7 +3,6 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as LogsAPI from './logs';
 import * as Shared from '../shared';
 
 export class Logs extends APIResource {
@@ -20,7 +19,8 @@ export class Logs extends APIResource {
 
   /**
    * Fetch the events in a project logs. Equivalent to the POST form of the same
-   * path, but with the parameters in the URL query rather than in the request body
+   * path, but with the parameters in the URL query rather than in the request body.
+   * For more complex queries, use the `POST /btql` endpoint.
    */
   fetch(
     projectId: string,
@@ -44,7 +44,8 @@ export class Logs extends APIResource {
 
   /**
    * Fetch the events in a project logs. Equivalent to the GET form of the same path,
-   * but with the parameters in the request body rather than in the URL query
+   * but with the parameters in the request body rather than in the URL query. For
+   * more complex queries, use the `POST /btql` endpoint.
    */
   fetchPost(
     projectId: string,
@@ -153,16 +154,6 @@ export interface LogFetchPostParams {
   cursor?: string | null;
 
   /**
-   * NOTE: This parameter is deprecated and will be removed in a future revision.
-   * Consider using the `/btql` endpoint
-   * (https://www.braintrust.dev/docs/reference/btql) for more advanced filtering.
-   *
-   * A list of filters on the events to fetch. Currently, only path-lookup type
-   * filters are supported.
-   */
-  filters?: Array<Shared.PathLookupFilter> | null;
-
-  /**
    * limit the number of traces fetched
    *
    * Fetch queries may be paginated if the total result size is expected to be large
@@ -222,12 +213,14 @@ export interface LogInsertParams {
   /**
    * A list of project logs events to insert
    */
-  events: Array<Shared.InsertProjectLogsEventReplace | Shared.InsertProjectLogsEventMerge>;
+  events: Array<Shared.InsertProjectLogsEvent>;
 }
 
-export namespace Logs {
-  export import LogFeedbackParams = LogsAPI.LogFeedbackParams;
-  export import LogFetchParams = LogsAPI.LogFetchParams;
-  export import LogFetchPostParams = LogsAPI.LogFetchPostParams;
-  export import LogInsertParams = LogsAPI.LogInsertParams;
+export declare namespace Logs {
+  export {
+    type LogFeedbackParams as LogFeedbackParams,
+    type LogFetchParams as LogFetchParams,
+    type LogFetchPostParams as LogFetchPostParams,
+    type LogInsertParams as LogInsertParams,
+  };
 }

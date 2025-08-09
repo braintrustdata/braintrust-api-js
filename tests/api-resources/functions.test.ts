@@ -12,9 +12,9 @@ describe('resource functions', () => {
   test('create: only required params', async () => {
     const responsePromise = client.functions.create({
       function_data: { type: 'prompt' },
-      name: 'name',
+      name: 'x',
       project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      slug: 'slug',
+      slug: 'x',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -28,9 +28,9 @@ describe('resource functions', () => {
   test('create: required and optional params', async () => {
     const response = await client.functions.create({
       function_data: { type: 'prompt' },
-      name: 'name',
+      name: 'x',
       project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      slug: 'slug',
+      slug: 'x',
       description: 'description',
       function_schema: { parameters: {}, returns: {} },
       function_type: 'llm',
@@ -45,11 +45,13 @@ describe('resource functions', () => {
           params: {
             frequency_penalty: 0,
             function_call: 'auto',
+            max_completion_tokens: 0,
             max_tokens: 0,
             n: 0,
             presence_penalty: 0,
+            reasoning_effort: 'low',
             response_format: { type: 'json_object' },
-            stop: ['string', 'string', 'string'],
+            stop: ['string'],
             temperature: 0,
             tool_choice: 'auto',
             top_p: 0,
@@ -60,13 +62,9 @@ describe('resource functions', () => {
         origin: { project_id: 'project_id', prompt_id: 'prompt_id', prompt_version: 'prompt_version' },
         parser: { choice_scores: { foo: 0 }, type: 'llm_classifier', use_cot: true },
         prompt: { content: 'content', type: 'completion' },
-        tool_functions: [
-          { id: 'id', type: 'function' },
-          { id: 'id', type: 'function' },
-          { id: 'id', type: 'function' },
-        ],
+        tool_functions: [{ id: 'id', type: 'function' }],
       },
-      tags: ['string', 'string', 'string'],
+      tags: ['string'],
     });
   });
 
@@ -121,11 +119,13 @@ describe('resource functions', () => {
               params: {
                 frequency_penalty: 0,
                 function_call: 'auto',
+                max_completion_tokens: 0,
                 max_tokens: 0,
                 n: 0,
                 presence_penalty: 0,
+                reasoning_effort: 'low',
                 response_format: { type: 'json_object' },
-                stop: ['string', 'string', 'string'],
+                stop: ['string'],
                 temperature: 0,
                 tool_choice: 'auto',
                 top_p: 0,
@@ -136,13 +136,9 @@ describe('resource functions', () => {
             origin: { project_id: 'project_id', prompt_id: 'prompt_id', prompt_version: 'prompt_version' },
             parser: { choice_scores: { foo: 0 }, type: 'llm_classifier', use_cot: true },
             prompt: { content: 'content', type: 'completion' },
-            tool_functions: [
-              { id: 'id', type: 'function' },
-              { id: 'id', type: 'function' },
-              { id: 'id', type: 'function' },
-            ],
+            tool_functions: [{ id: 'id', type: 'function' }],
           },
-          tags: ['string', 'string', 'string'],
+          tags: ['string'],
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -230,12 +226,10 @@ describe('resource functions', () => {
       client.functions.invoke(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         {
+          expected: {},
           input: {},
-          messages: [
-            { role: 'system', content: 'content', name: 'name' },
-            { role: 'system', content: 'content', name: 'name' },
-            { role: 'system', content: 'content', name: 'name' },
-          ],
+          messages: [{ role: 'system', content: 'content', name: 'name' }],
+          metadata: { foo: 'bar' },
           mode: 'auto',
           parent: {
             object_id: 'object_id',
@@ -254,9 +248,9 @@ describe('resource functions', () => {
   test('replace: only required params', async () => {
     const responsePromise = client.functions.replace({
       function_data: { type: 'prompt' },
-      name: 'name',
+      name: 'x',
       project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      slug: 'slug',
+      slug: 'x',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -270,9 +264,9 @@ describe('resource functions', () => {
   test('replace: required and optional params', async () => {
     const response = await client.functions.replace({
       function_data: { type: 'prompt' },
-      name: 'name',
+      name: 'x',
       project_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      slug: 'slug',
+      slug: 'x',
       description: 'description',
       function_schema: { parameters: {}, returns: {} },
       function_type: 'llm',
@@ -287,11 +281,13 @@ describe('resource functions', () => {
           params: {
             frequency_penalty: 0,
             function_call: 'auto',
+            max_completion_tokens: 0,
             max_tokens: 0,
             n: 0,
             presence_penalty: 0,
+            reasoning_effort: 'low',
             response_format: { type: 'json_object' },
-            stop: ['string', 'string', 'string'],
+            stop: ['string'],
             temperature: 0,
             tool_choice: 'auto',
             top_p: 0,
@@ -302,13 +298,9 @@ describe('resource functions', () => {
         origin: { project_id: 'project_id', prompt_id: 'prompt_id', prompt_version: 'prompt_version' },
         parser: { choice_scores: { foo: 0 }, type: 'llm_classifier', use_cot: true },
         prompt: { content: 'content', type: 'completion' },
-        tool_functions: [
-          { id: 'id', type: 'function' },
-          { id: 'id', type: 'function' },
-          { id: 'id', type: 'function' },
-        ],
+        tool_functions: [{ id: 'id', type: 'function' }],
       },
-      tags: ['string', 'string', 'string'],
+      tags: ['string'],
     });
   });
 });

@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as ExperimentsAPI from './experiments';
 import * as Shared from './shared';
 import { ExperimentsListObjects } from './shared';
 import { type ListObjectsParams } from '../pagination';
@@ -86,7 +85,8 @@ export class Experiments extends APIResource {
 
   /**
    * Fetch the events in an experiment. Equivalent to the POST form of the same path,
-   * but with the parameters in the URL query rather than in the request body
+   * but with the parameters in the URL query rather than in the request body. For
+   * more complex queries, use the `POST /btql` endpoint.
    */
   fetch(
     experimentId: string,
@@ -110,7 +110,8 @@ export class Experiments extends APIResource {
 
   /**
    * Fetch the events in an experiment. Equivalent to the GET form of the same path,
-   * but with the parameters in the request body rather than in the URL query
+   * but with the parameters in the request body rather than in the URL query. For
+   * more complex queries, use the `POST /btql` endpoint.
    */
   fetchPost(
     experimentId: string,
@@ -206,7 +207,7 @@ export interface ExperimentCreateParams {
   /**
    * User-controlled metadata about the experiment
    */
-  metadata?: Record<string, unknown> | null;
+  metadata?: { [key: string]: unknown } | null;
 
   /**
    * Name of the experiment. Within a project, experiment names are unique
@@ -251,7 +252,7 @@ export interface ExperimentUpdateParams {
   /**
    * User-controlled metadata about the experiment
    */
-  metadata?: Record<string, unknown> | null;
+  metadata?: { [key: string]: unknown } | null;
 
   /**
    * Name of the experiment. Within a project, experiment names are unique
@@ -373,16 +374,6 @@ export interface ExperimentFetchPostParams {
   cursor?: string | null;
 
   /**
-   * NOTE: This parameter is deprecated and will be removed in a future revision.
-   * Consider using the `/btql` endpoint
-   * (https://www.braintrust.dev/docs/reference/btql) for more advanced filtering.
-   *
-   * A list of filters on the events to fetch. Currently, only path-lookup type
-   * filters are supported.
-   */
-  filters?: Array<Shared.PathLookupFilter> | null;
-
-  /**
    * limit the number of traces fetched
    *
    * Fetch queries may be paginated if the total result size is expected to be large
@@ -442,7 +433,7 @@ export interface ExperimentInsertParams {
   /**
    * A list of experiment events to insert
    */
-  events: Array<Shared.InsertExperimentEventReplace | Shared.InsertExperimentEventMerge>;
+  events: Array<Shared.InsertExperimentEvent>;
 }
 
 export interface ExperimentSummarizeParams {
@@ -461,15 +452,17 @@ export interface ExperimentSummarizeParams {
   summarize_scores?: boolean | null;
 }
 
-export namespace Experiments {
-  export import ExperimentCreateParams = ExperimentsAPI.ExperimentCreateParams;
-  export import ExperimentUpdateParams = ExperimentsAPI.ExperimentUpdateParams;
-  export import ExperimentListParams = ExperimentsAPI.ExperimentListParams;
-  export import ExperimentFeedbackParams = ExperimentsAPI.ExperimentFeedbackParams;
-  export import ExperimentFetchParams = ExperimentsAPI.ExperimentFetchParams;
-  export import ExperimentFetchPostParams = ExperimentsAPI.ExperimentFetchPostParams;
-  export import ExperimentInsertParams = ExperimentsAPI.ExperimentInsertParams;
-  export import ExperimentSummarizeParams = ExperimentsAPI.ExperimentSummarizeParams;
+export declare namespace Experiments {
+  export {
+    type ExperimentCreateParams as ExperimentCreateParams,
+    type ExperimentUpdateParams as ExperimentUpdateParams,
+    type ExperimentListParams as ExperimentListParams,
+    type ExperimentFeedbackParams as ExperimentFeedbackParams,
+    type ExperimentFetchParams as ExperimentFetchParams,
+    type ExperimentFetchPostParams as ExperimentFetchPostParams,
+    type ExperimentInsertParams as ExperimentInsertParams,
+    type ExperimentSummarizeParams as ExperimentSummarizeParams,
+  };
 }
 
 export { ExperimentsListObjects };

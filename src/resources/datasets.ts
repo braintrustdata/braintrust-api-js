@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as DatasetsAPI from './datasets';
 import * as Shared from './shared';
 import { DatasetsListObjects } from './shared';
 import { type ListObjectsParams } from '../pagination';
@@ -86,7 +85,8 @@ export class Datasets extends APIResource {
 
   /**
    * Fetch the events in a dataset. Equivalent to the POST form of the same path, but
-   * with the parameters in the URL query rather than in the request body
+   * with the parameters in the URL query rather than in the request body. For more
+   * complex queries, use the `POST /btql` endpoint.
    */
   fetch(
     datasetId: string,
@@ -107,7 +107,8 @@ export class Datasets extends APIResource {
 
   /**
    * Fetch the events in a dataset. Equivalent to the GET form of the same path, but
-   * with the parameters in the request body rather than in the URL query
+   * with the parameters in the request body rather than in the URL query. For more
+   * complex queries, use the `POST /btql` endpoint.
    */
   fetchPost(
     datasetId: string,
@@ -179,6 +180,11 @@ export interface DatasetCreateParams {
    * Textual description of the dataset
    */
   description?: string | null;
+
+  /**
+   * User-controlled metadata about the dataset
+   */
+  metadata?: { [key: string]: unknown } | null;
 }
 
 export interface DatasetUpdateParams {
@@ -190,7 +196,7 @@ export interface DatasetUpdateParams {
   /**
    * User-controlled metadata about the dataset
    */
-  metadata?: Record<string, unknown> | null;
+  metadata?: { [key: string]: unknown } | null;
 
   /**
    * Name of the dataset. Within a project, dataset names are unique
@@ -301,16 +307,6 @@ export interface DatasetFetchPostParams {
   cursor?: string | null;
 
   /**
-   * NOTE: This parameter is deprecated and will be removed in a future revision.
-   * Consider using the `/btql` endpoint
-   * (https://www.braintrust.dev/docs/reference/btql) for more advanced filtering.
-   *
-   * A list of filters on the events to fetch. Currently, only path-lookup type
-   * filters are supported.
-   */
-  filters?: Array<Shared.PathLookupFilter> | null;
-
-  /**
    * limit the number of traces fetched
    *
    * Fetch queries may be paginated if the total result size is expected to be large
@@ -370,7 +366,7 @@ export interface DatasetInsertParams {
   /**
    * A list of dataset events to insert
    */
-  events: Array<Shared.InsertDatasetEventReplace | Shared.InsertDatasetEventMerge>;
+  events: Array<Shared.InsertDatasetEvent>;
 }
 
 export interface DatasetSummarizeParams {
@@ -381,15 +377,17 @@ export interface DatasetSummarizeParams {
   summarize_data?: boolean | null;
 }
 
-export namespace Datasets {
-  export import DatasetCreateParams = DatasetsAPI.DatasetCreateParams;
-  export import DatasetUpdateParams = DatasetsAPI.DatasetUpdateParams;
-  export import DatasetListParams = DatasetsAPI.DatasetListParams;
-  export import DatasetFeedbackParams = DatasetsAPI.DatasetFeedbackParams;
-  export import DatasetFetchParams = DatasetsAPI.DatasetFetchParams;
-  export import DatasetFetchPostParams = DatasetsAPI.DatasetFetchPostParams;
-  export import DatasetInsertParams = DatasetsAPI.DatasetInsertParams;
-  export import DatasetSummarizeParams = DatasetsAPI.DatasetSummarizeParams;
+export declare namespace Datasets {
+  export {
+    type DatasetCreateParams as DatasetCreateParams,
+    type DatasetUpdateParams as DatasetUpdateParams,
+    type DatasetListParams as DatasetListParams,
+    type DatasetFeedbackParams as DatasetFeedbackParams,
+    type DatasetFetchParams as DatasetFetchParams,
+    type DatasetFetchPostParams as DatasetFetchPostParams,
+    type DatasetInsertParams as DatasetInsertParams,
+    type DatasetSummarizeParams as DatasetSummarizeParams,
+  };
 }
 
 export { DatasetsListObjects };

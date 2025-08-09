@@ -1,12 +1,133 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Errors from './error';
-import * as Uploads from './uploads';
 import { type Agent } from './_shims/index';
 import * as qs from './internal/qs';
 import * as Core from './core';
+import * as Errors from './error';
 import * as Pagination from './pagination';
+import { type ListObjectsParams, ListObjectsResponse } from './pagination';
+import * as Uploads from './uploads';
 import * as API from './resources/index';
+import {
+  ACLBatchUpdateParams,
+  ACLCreateParams,
+  ACLFindAndDeleteParams,
+  ACLListParams,
+  ACLs,
+} from './resources/acls';
+import {
+  AISecretCreateParams,
+  AISecretFindAndDeleteParams,
+  AISecretListParams,
+  AISecretReplaceParams,
+  AISecretUpdateParams,
+  AISecrets,
+} from './resources/ai-secrets';
+import { APIKeyCreateParams, APIKeyListParams, APIKeys } from './resources/api-keys';
+import {
+  DatasetCreateParams,
+  DatasetFeedbackParams,
+  DatasetFetchParams,
+  DatasetFetchPostParams,
+  DatasetInsertParams,
+  DatasetListParams,
+  DatasetSummarizeParams,
+  DatasetUpdateParams,
+  Datasets,
+} from './resources/datasets';
+import {
+  EnvVarCreateParams,
+  EnvVarListParams,
+  EnvVarListResponse,
+  EnvVarReplaceParams,
+  EnvVarUpdateParams,
+  EnvVars,
+} from './resources/env-vars';
+import { EvalCreateParams, Evals } from './resources/evals';
+import {
+  ExperimentCreateParams,
+  ExperimentFeedbackParams,
+  ExperimentFetchParams,
+  ExperimentFetchPostParams,
+  ExperimentInsertParams,
+  ExperimentListParams,
+  ExperimentSummarizeParams,
+  ExperimentUpdateParams,
+  Experiments,
+} from './resources/experiments';
+import {
+  FunctionCreateParams,
+  FunctionInvokeParams,
+  FunctionInvokeResponse,
+  FunctionListParams,
+  FunctionReplaceParams,
+  FunctionUpdateParams,
+  Functions,
+} from './resources/functions';
+import {
+  GroupCreateParams,
+  GroupListParams,
+  GroupReplaceParams,
+  GroupUpdateParams,
+  Groups,
+} from './resources/groups';
+import {
+  ProjectScoreCreateParams,
+  ProjectScoreListParams,
+  ProjectScoreReplaceParams,
+  ProjectScoreUpdateParams,
+  ProjectScores,
+} from './resources/project-scores';
+import {
+  ProjectTagCreateParams,
+  ProjectTagListParams,
+  ProjectTagReplaceParams,
+  ProjectTagUpdateParams,
+  ProjectTags,
+} from './resources/project-tags';
+import {
+  PromptCreateParams,
+  PromptListParams,
+  PromptReplaceParams,
+  PromptUpdateParams,
+  Prompts,
+} from './resources/prompts';
+import {
+  RoleCreateParams,
+  RoleListParams,
+  RoleReplaceParams,
+  RoleUpdateParams,
+  Roles,
+} from './resources/roles';
+import {
+  SpanIframeCreateParams,
+  SpanIframeListParams,
+  SpanIframeReplaceParams,
+  SpanIframeUpdateParams,
+  SpanIframes,
+} from './resources/span-iframes';
+import { TopLevel, TopLevelHelloWorldResponse } from './resources/top-level';
+import { UserListParams, Users } from './resources/users';
+import {
+  ViewCreateParams,
+  ViewDeleteParams,
+  ViewListParams,
+  ViewReplaceParams,
+  ViewRetrieveParams,
+  ViewUpdateParams,
+  Views,
+} from './resources/views';
+import {
+  OrganizationListParams,
+  OrganizationUpdateParams,
+  Organizations,
+} from './resources/organizations/organizations';
+import {
+  ProjectCreateParams,
+  ProjectListParams,
+  ProjectUpdateParams,
+  Projects,
+} from './resources/projects/projects';
 
 export interface ClientOptions {
   /**
@@ -27,8 +148,10 @@ export interface ClientOptions {
    *
    * Note that request timeouts are retried by default, so in a worst-case scenario you may wait
    * much longer than this timeout before the promise succeeds or fails.
+   *
+   * @unit milliseconds
    */
-  timeout?: number;
+  timeout?: number | undefined;
 
   /**
    * An HTTP agent used to manage HTTP(S) connections.
@@ -36,7 +159,7 @@ export interface ClientOptions {
    * If not provided, an agent will be constructed by default in the Node.js environment,
    * otherwise no agent is used.
    */
-  httpAgent?: Agent;
+  httpAgent?: Agent | undefined;
 
   /**
    * Specify a custom `fetch` function implementation.
@@ -52,7 +175,7 @@ export interface ClientOptions {
    *
    * @default 2
    */
-  maxRetries?: number;
+  maxRetries?: number | undefined;
 
   /**
    * Default headers to include with every request to the API.
@@ -60,7 +183,7 @@ export interface ClientOptions {
    * These can be removed in individual requests by explicitly setting the
    * header to `undefined` or `null` in request options.
    */
-  defaultHeaders?: Core.Headers;
+  defaultHeaders?: Core.Headers | undefined;
 
   /**
    * Default query parameters to include with every request to the API.
@@ -68,7 +191,7 @@ export interface ClientOptions {
    * These can be removed in individual requests by explicitly setting the
    * param to `undefined` in request options.
    */
-  defaultQuery?: Core.DefaultQuery;
+  defaultQuery?: Core.DefaultQuery | undefined;
 }
 
 /**
@@ -104,6 +227,7 @@ export class Braintrust extends Core.APIClient {
 
     super({
       baseURL: options.baseURL!,
+      baseURLOverridden: baseURL ? baseURL !== 'https://api.braintrust.dev' : false,
       timeout: options.timeout ?? 60000 /* 1 minute */,
       httpAgent: options.httpAgent,
       maxRetries: options.maxRetries,
@@ -126,6 +250,7 @@ export class Braintrust extends Core.APIClient {
   users: API.Users = new API.Users(this);
   projectScores: API.ProjectScores = new API.ProjectScores(this);
   projectTags: API.ProjectTags = new API.ProjectTags(this);
+  spanIframes: API.SpanIframes = new API.SpanIframes(this);
   functions: API.Functions = new API.Functions(this);
   views: API.Views = new API.Views(this);
   organizations: API.Organizations = new API.Organizations(this);
@@ -133,6 +258,13 @@ export class Braintrust extends Core.APIClient {
   aiSecrets: API.AISecrets = new API.AISecrets(this);
   envVars: API.EnvVars = new API.EnvVars(this);
   evals: API.Evals = new API.Evals(this);
+
+  /**
+   * Check whether the base URL is set to its default.
+   */
+  #baseURLOverridden(): boolean {
+    return this.baseURL !== 'https://api.braintrust.dev';
+  }
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
@@ -177,7 +309,240 @@ export class Braintrust extends Core.APIClient {
   static fileFromPath = Uploads.fileFromPath;
 }
 
-export const {
+Braintrust.TopLevel = TopLevel;
+Braintrust.Projects = Projects;
+Braintrust.Experiments = Experiments;
+Braintrust.Datasets = Datasets;
+Braintrust.Prompts = Prompts;
+Braintrust.Roles = Roles;
+Braintrust.Groups = Groups;
+Braintrust.ACLs = ACLs;
+Braintrust.Users = Users;
+Braintrust.ProjectScores = ProjectScores;
+Braintrust.ProjectTags = ProjectTags;
+Braintrust.SpanIframes = SpanIframes;
+Braintrust.Functions = Functions;
+Braintrust.Views = Views;
+Braintrust.Organizations = Organizations;
+Braintrust.APIKeys = APIKeys;
+Braintrust.AISecrets = AISecrets;
+Braintrust.EnvVars = EnvVars;
+Braintrust.Evals = Evals;
+export declare namespace Braintrust {
+  export type RequestOptions = Core.RequestOptions;
+
+  export import ListObjects = Pagination.ListObjects;
+  export { type ListObjectsParams as ListObjectsParams, type ListObjectsResponse as ListObjectsResponse };
+
+  export { TopLevel as TopLevel, type TopLevelHelloWorldResponse as TopLevelHelloWorldResponse };
+
+  export {
+    Projects as Projects,
+    type ProjectCreateParams as ProjectCreateParams,
+    type ProjectUpdateParams as ProjectUpdateParams,
+    type ProjectListParams as ProjectListParams,
+  };
+
+  export {
+    Experiments as Experiments,
+    type ExperimentCreateParams as ExperimentCreateParams,
+    type ExperimentUpdateParams as ExperimentUpdateParams,
+    type ExperimentListParams as ExperimentListParams,
+    type ExperimentFeedbackParams as ExperimentFeedbackParams,
+    type ExperimentFetchParams as ExperimentFetchParams,
+    type ExperimentFetchPostParams as ExperimentFetchPostParams,
+    type ExperimentInsertParams as ExperimentInsertParams,
+    type ExperimentSummarizeParams as ExperimentSummarizeParams,
+  };
+
+  export {
+    Datasets as Datasets,
+    type DatasetCreateParams as DatasetCreateParams,
+    type DatasetUpdateParams as DatasetUpdateParams,
+    type DatasetListParams as DatasetListParams,
+    type DatasetFeedbackParams as DatasetFeedbackParams,
+    type DatasetFetchParams as DatasetFetchParams,
+    type DatasetFetchPostParams as DatasetFetchPostParams,
+    type DatasetInsertParams as DatasetInsertParams,
+    type DatasetSummarizeParams as DatasetSummarizeParams,
+  };
+
+  export {
+    Prompts as Prompts,
+    type PromptCreateParams as PromptCreateParams,
+    type PromptUpdateParams as PromptUpdateParams,
+    type PromptListParams as PromptListParams,
+    type PromptReplaceParams as PromptReplaceParams,
+  };
+
+  export {
+    Roles as Roles,
+    type RoleCreateParams as RoleCreateParams,
+    type RoleUpdateParams as RoleUpdateParams,
+    type RoleListParams as RoleListParams,
+    type RoleReplaceParams as RoleReplaceParams,
+  };
+
+  export {
+    Groups as Groups,
+    type GroupCreateParams as GroupCreateParams,
+    type GroupUpdateParams as GroupUpdateParams,
+    type GroupListParams as GroupListParams,
+    type GroupReplaceParams as GroupReplaceParams,
+  };
+
+  export {
+    ACLs as ACLs,
+    type ACLCreateParams as ACLCreateParams,
+    type ACLListParams as ACLListParams,
+    type ACLBatchUpdateParams as ACLBatchUpdateParams,
+    type ACLFindAndDeleteParams as ACLFindAndDeleteParams,
+  };
+
+  export { Users as Users, type UserListParams as UserListParams };
+
+  export {
+    ProjectScores as ProjectScores,
+    type ProjectScoreCreateParams as ProjectScoreCreateParams,
+    type ProjectScoreUpdateParams as ProjectScoreUpdateParams,
+    type ProjectScoreListParams as ProjectScoreListParams,
+    type ProjectScoreReplaceParams as ProjectScoreReplaceParams,
+  };
+
+  export {
+    ProjectTags as ProjectTags,
+    type ProjectTagCreateParams as ProjectTagCreateParams,
+    type ProjectTagUpdateParams as ProjectTagUpdateParams,
+    type ProjectTagListParams as ProjectTagListParams,
+    type ProjectTagReplaceParams as ProjectTagReplaceParams,
+  };
+
+  export {
+    SpanIframes as SpanIframes,
+    type SpanIframeCreateParams as SpanIframeCreateParams,
+    type SpanIframeUpdateParams as SpanIframeUpdateParams,
+    type SpanIframeListParams as SpanIframeListParams,
+    type SpanIframeReplaceParams as SpanIframeReplaceParams,
+  };
+
+  export {
+    Functions as Functions,
+    type FunctionInvokeResponse as FunctionInvokeResponse,
+    type FunctionCreateParams as FunctionCreateParams,
+    type FunctionUpdateParams as FunctionUpdateParams,
+    type FunctionListParams as FunctionListParams,
+    type FunctionInvokeParams as FunctionInvokeParams,
+    type FunctionReplaceParams as FunctionReplaceParams,
+  };
+
+  export {
+    Views as Views,
+    type ViewCreateParams as ViewCreateParams,
+    type ViewRetrieveParams as ViewRetrieveParams,
+    type ViewUpdateParams as ViewUpdateParams,
+    type ViewListParams as ViewListParams,
+    type ViewDeleteParams as ViewDeleteParams,
+    type ViewReplaceParams as ViewReplaceParams,
+  };
+
+  export {
+    Organizations as Organizations,
+    type OrganizationUpdateParams as OrganizationUpdateParams,
+    type OrganizationListParams as OrganizationListParams,
+  };
+
+  export {
+    APIKeys as APIKeys,
+    type APIKeyCreateParams as APIKeyCreateParams,
+    type APIKeyListParams as APIKeyListParams,
+  };
+
+  export {
+    AISecrets as AISecrets,
+    type AISecretCreateParams as AISecretCreateParams,
+    type AISecretUpdateParams as AISecretUpdateParams,
+    type AISecretListParams as AISecretListParams,
+    type AISecretFindAndDeleteParams as AISecretFindAndDeleteParams,
+    type AISecretReplaceParams as AISecretReplaceParams,
+  };
+
+  export {
+    EnvVars as EnvVars,
+    type EnvVarListResponse as EnvVarListResponse,
+    type EnvVarCreateParams as EnvVarCreateParams,
+    type EnvVarUpdateParams as EnvVarUpdateParams,
+    type EnvVarListParams as EnvVarListParams,
+    type EnvVarReplaceParams as EnvVarReplaceParams,
+  };
+
+  export { Evals as Evals, type EvalCreateParams as EvalCreateParams };
+
+  export type AISecret = API.AISecret;
+  export type ACL = API.ACL;
+  export type ACLBatchUpdateResponse = API.ACLBatchUpdateResponse;
+  export type ACLObjectType = API.ACLObjectType;
+  export type APIKey = API.APIKey;
+  export type ChatCompletionContentPartImage = API.ChatCompletionContentPartImage;
+  export type ChatCompletionContentPartText = API.ChatCompletionContentPartText;
+  export type ChatCompletionMessageToolCall = API.ChatCompletionMessageToolCall;
+  export type CodeBundle = API.CodeBundle;
+  export type CreateAPIKeyOutput = API.CreateAPIKeyOutput;
+  export type CrossObjectInsertResponse = API.CrossObjectInsertResponse;
+  export type DataSummary = API.DataSummary;
+  export type Dataset = API.Dataset;
+  export type DatasetEvent = API.DatasetEvent;
+  export type EnvVar = API.EnvVar;
+  export type EnvVarObjectType = API.EnvVarObjectType;
+  export type Experiment = API.Experiment;
+  export type ExperimentEvent = API.ExperimentEvent;
+  export type FeedbackDatasetItem = API.FeedbackDatasetItem;
+  export type FeedbackExperimentItem = API.FeedbackExperimentItem;
+  export type FeedbackProjectLogsItem = API.FeedbackProjectLogsItem;
+  export type FeedbackResponseSchema = API.FeedbackResponseSchema;
+  export type FetchDatasetEventsResponse = API.FetchDatasetEventsResponse;
+  export type FetchExperimentEventsResponse = API.FetchExperimentEventsResponse;
+  export type FetchProjectLogsEventsResponse = API.FetchProjectLogsEventsResponse;
+  export type Function = API.Function;
+  export type Group = API.Group;
+  export type InsertDatasetEvent = API.InsertDatasetEvent;
+  export type InsertEventsResponse = API.InsertEventsResponse;
+  export type InsertExperimentEvent = API.InsertExperimentEvent;
+  export type InsertProjectLogsEvent = API.InsertProjectLogsEvent;
+  export type MetricSummary = API.MetricSummary;
+  export type ObjectReference = API.ObjectReference;
+  export type OnlineScoreConfig = API.OnlineScoreConfig;
+  export type Organization = API.Organization;
+  export type PatchOrganizationMembersOutput = API.PatchOrganizationMembersOutput;
+  export type Permission = API.Permission;
+  export type Project = API.Project;
+  export type ProjectLogsEvent = API.ProjectLogsEvent;
+  export type ProjectScore = API.ProjectScore;
+  export type ProjectScoreCategory = API.ProjectScoreCategory;
+  export type ProjectScoreConfig = API.ProjectScoreConfig;
+  export type ProjectScoreType = API.ProjectScoreType;
+  export type ProjectSettings = API.ProjectSettings;
+  export type ProjectTag = API.ProjectTag;
+  export type Prompt = API.Prompt;
+  export type PromptData = API.PromptData;
+  export type PromptOptions = API.PromptOptions;
+  export type RepoInfo = API.RepoInfo;
+  export type Role = API.Role;
+  export type ScoreSummary = API.ScoreSummary;
+  export type SpanAttributes = API.SpanAttributes;
+  export type SpanIFrame = API.SpanIFrame;
+  export type SpanType = API.SpanType;
+  export type SummarizeDatasetResponse = API.SummarizeDatasetResponse;
+  export type SummarizeExperimentResponse = API.SummarizeExperimentResponse;
+  export type User = API.User;
+  export type View = API.View;
+  export type ViewData = API.ViewData;
+  export type ViewDataSearch = API.ViewDataSearch;
+  export type ViewOptions = API.ViewOptions;
+  export type ViewType = API.ViewType;
+}
+
+export { toFile, fileFromPath } from './uploads';
+export {
   BraintrustError,
   APIError,
   APIConnectionError,
@@ -191,187 +556,6 @@ export const {
   InternalServerError,
   PermissionDeniedError,
   UnprocessableEntityError,
-} = Errors;
-
-export import toFile = Uploads.toFile;
-export import fileFromPath = Uploads.fileFromPath;
-
-export namespace Braintrust {
-  export import RequestOptions = Core.RequestOptions;
-
-  export import ListObjects = Pagination.ListObjects;
-  export import ListObjectsParams = Pagination.ListObjectsParams;
-  export import ListObjectsResponse = Pagination.ListObjectsResponse;
-
-  export import TopLevel = API.TopLevel;
-  export import TopLevelHelloWorldResponse = API.TopLevelHelloWorldResponse;
-
-  export import Projects = API.Projects;
-  export import ProjectCreateParams = API.ProjectCreateParams;
-  export import ProjectUpdateParams = API.ProjectUpdateParams;
-  export import ProjectListParams = API.ProjectListParams;
-
-  export import Experiments = API.Experiments;
-  export import ExperimentCreateParams = API.ExperimentCreateParams;
-  export import ExperimentUpdateParams = API.ExperimentUpdateParams;
-  export import ExperimentListParams = API.ExperimentListParams;
-  export import ExperimentFeedbackParams = API.ExperimentFeedbackParams;
-  export import ExperimentFetchParams = API.ExperimentFetchParams;
-  export import ExperimentFetchPostParams = API.ExperimentFetchPostParams;
-  export import ExperimentInsertParams = API.ExperimentInsertParams;
-  export import ExperimentSummarizeParams = API.ExperimentSummarizeParams;
-
-  export import Datasets = API.Datasets;
-  export import DatasetCreateParams = API.DatasetCreateParams;
-  export import DatasetUpdateParams = API.DatasetUpdateParams;
-  export import DatasetListParams = API.DatasetListParams;
-  export import DatasetFeedbackParams = API.DatasetFeedbackParams;
-  export import DatasetFetchParams = API.DatasetFetchParams;
-  export import DatasetFetchPostParams = API.DatasetFetchPostParams;
-  export import DatasetInsertParams = API.DatasetInsertParams;
-  export import DatasetSummarizeParams = API.DatasetSummarizeParams;
-
-  export import Prompts = API.Prompts;
-  export import PromptCreateParams = API.PromptCreateParams;
-  export import PromptUpdateParams = API.PromptUpdateParams;
-  export import PromptListParams = API.PromptListParams;
-  export import PromptReplaceParams = API.PromptReplaceParams;
-
-  export import Roles = API.Roles;
-  export import RoleCreateParams = API.RoleCreateParams;
-  export import RoleUpdateParams = API.RoleUpdateParams;
-  export import RoleListParams = API.RoleListParams;
-  export import RoleReplaceParams = API.RoleReplaceParams;
-
-  export import Groups = API.Groups;
-  export import GroupCreateParams = API.GroupCreateParams;
-  export import GroupUpdateParams = API.GroupUpdateParams;
-  export import GroupListParams = API.GroupListParams;
-  export import GroupReplaceParams = API.GroupReplaceParams;
-
-  export import ACLs = API.ACLs;
-  export import ACLCreateParams = API.ACLCreateParams;
-  export import ACLListParams = API.ACLListParams;
-  export import ACLBatchUpdateParams = API.ACLBatchUpdateParams;
-  export import ACLFindAndDeleteParams = API.ACLFindAndDeleteParams;
-
-  export import Users = API.Users;
-  export import UserListParams = API.UserListParams;
-
-  export import ProjectScores = API.ProjectScores;
-  export import ProjectScoreCreateParams = API.ProjectScoreCreateParams;
-  export import ProjectScoreUpdateParams = API.ProjectScoreUpdateParams;
-  export import ProjectScoreListParams = API.ProjectScoreListParams;
-  export import ProjectScoreReplaceParams = API.ProjectScoreReplaceParams;
-
-  export import ProjectTags = API.ProjectTags;
-  export import ProjectTagCreateParams = API.ProjectTagCreateParams;
-  export import ProjectTagUpdateParams = API.ProjectTagUpdateParams;
-  export import ProjectTagListParams = API.ProjectTagListParams;
-  export import ProjectTagReplaceParams = API.ProjectTagReplaceParams;
-
-  export import Functions = API.Functions;
-  export import FunctionInvokeResponse = API.FunctionInvokeResponse;
-  export import FunctionCreateParams = API.FunctionCreateParams;
-  export import FunctionUpdateParams = API.FunctionUpdateParams;
-  export import FunctionListParams = API.FunctionListParams;
-  export import FunctionInvokeParams = API.FunctionInvokeParams;
-  export import FunctionReplaceParams = API.FunctionReplaceParams;
-
-  export import Views = API.Views;
-  export import ViewCreateParams = API.ViewCreateParams;
-  export import ViewRetrieveParams = API.ViewRetrieveParams;
-  export import ViewUpdateParams = API.ViewUpdateParams;
-  export import ViewListParams = API.ViewListParams;
-  export import ViewDeleteParams = API.ViewDeleteParams;
-  export import ViewReplaceParams = API.ViewReplaceParams;
-
-  export import Organizations = API.Organizations;
-  export import OrganizationUpdateParams = API.OrganizationUpdateParams;
-  export import OrganizationListParams = API.OrganizationListParams;
-
-  export import APIKeys = API.APIKeys;
-  export import APIKeyCreateParams = API.APIKeyCreateParams;
-  export import APIKeyListParams = API.APIKeyListParams;
-
-  export import AISecrets = API.AISecrets;
-  export import AISecretCreateParams = API.AISecretCreateParams;
-  export import AISecretUpdateParams = API.AISecretUpdateParams;
-  export import AISecretListParams = API.AISecretListParams;
-  export import AISecretFindAndDeleteParams = API.AISecretFindAndDeleteParams;
-  export import AISecretReplaceParams = API.AISecretReplaceParams;
-
-  export import EnvVars = API.EnvVars;
-  export import EnvVarListResponse = API.EnvVarListResponse;
-  export import EnvVarCreateParams = API.EnvVarCreateParams;
-  export import EnvVarUpdateParams = API.EnvVarUpdateParams;
-  export import EnvVarListParams = API.EnvVarListParams;
-  export import EnvVarReplaceParams = API.EnvVarReplaceParams;
-
-  export import Evals = API.Evals;
-  export import EvalCreateParams = API.EvalCreateParams;
-
-  export import AISecret = API.AISecret;
-  export import ACL = API.ACL;
-  export import ACLBatchUpdateResponse = API.ACLBatchUpdateResponse;
-  export import APIKey = API.APIKey;
-  export import ChatCompletionContentPartImage = API.ChatCompletionContentPartImage;
-  export import ChatCompletionContentPartText = API.ChatCompletionContentPartText;
-  export import ChatCompletionMessageToolCall = API.ChatCompletionMessageToolCall;
-  export import CodeBundle = API.CodeBundle;
-  export import CreateAPIKeyOutput = API.CreateAPIKeyOutput;
-  export import CrossObjectInsertResponse = API.CrossObjectInsertResponse;
-  export import DataSummary = API.DataSummary;
-  export import Dataset = API.Dataset;
-  export import DatasetEvent = API.DatasetEvent;
-  export import EnvVar = API.EnvVar;
-  export import Experiment = API.Experiment;
-  export import ExperimentEvent = API.ExperimentEvent;
-  export import FeedbackDatasetItem = API.FeedbackDatasetItem;
-  export import FeedbackExperimentItem = API.FeedbackExperimentItem;
-  export import FeedbackProjectLogsItem = API.FeedbackProjectLogsItem;
-  export import FeedbackResponseSchema = API.FeedbackResponseSchema;
-  export import FetchDatasetEventsResponse = API.FetchDatasetEventsResponse;
-  export import FetchExperimentEventsResponse = API.FetchExperimentEventsResponse;
-  export import FetchProjectLogsEventsResponse = API.FetchProjectLogsEventsResponse;
-  export import Function = API.Function;
-  export import FunctionToolChoice = API.FunctionToolChoice;
-  export import Group = API.Group;
-  export import InsertDatasetEventMerge = API.InsertDatasetEventMerge;
-  export import InsertDatasetEventReplace = API.InsertDatasetEventReplace;
-  export import InsertEventsResponse = API.InsertEventsResponse;
-  export import InsertExperimentEventMerge = API.InsertExperimentEventMerge;
-  export import InsertExperimentEventReplace = API.InsertExperimentEventReplace;
-  export import InsertProjectLogsEventMerge = API.InsertProjectLogsEventMerge;
-  export import InsertProjectLogsEventReplace = API.InsertProjectLogsEventReplace;
-  export import MetricSummary = API.MetricSummary;
-  export import OnlineScoreConfig = API.OnlineScoreConfig;
-  export import Organization = API.Organization;
-  export import PatchOrganizationMembersOutput = API.PatchOrganizationMembersOutput;
-  export import PathLookupFilter = API.PathLookupFilter;
-  export import Project = API.Project;
-  export import ProjectLogsEvent = API.ProjectLogsEvent;
-  export import ProjectScore = API.ProjectScore;
-  export import ProjectScoreCategory = API.ProjectScoreCategory;
-  export import ProjectScoreConfig = API.ProjectScoreConfig;
-  export import ProjectScoreType = API.ProjectScoreType;
-  export import ProjectSettings = API.ProjectSettings;
-  export import ProjectTag = API.ProjectTag;
-  export import Prompt = API.Prompt;
-  export import PromptData = API.PromptData;
-  export import RepoInfo = API.RepoInfo;
-  export import Role = API.Role;
-  export import ScoreSummary = API.ScoreSummary;
-  export import Scorer = API.Scorer;
-  export import SummarizeDatasetResponse = API.SummarizeDatasetResponse;
-  export import SummarizeExperimentResponse = API.SummarizeExperimentResponse;
-  export import Task = API.Task;
-  export import ToolChoice = API.ToolChoice;
-  export import User = API.User;
-  export import View = API.View;
-  export import ViewData = API.ViewData;
-  export import ViewDataSearch = API.ViewDataSearch;
-  export import ViewOptions = API.ViewOptions;
-}
+} from './error';
 
 export default Braintrust;

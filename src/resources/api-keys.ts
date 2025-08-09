@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as APIKeysAPI from './api-keys';
 import * as Shared from './shared';
 import { APIKeysListObjects } from './shared';
 import { type ListObjectsParams } from '../pagination';
@@ -86,9 +85,8 @@ export interface APIKeyListParams extends ListObjectsParams {
   org_name?: string;
 }
 
-export namespace APIKeys {
-  export import APIKeyCreateParams = APIKeysAPI.APIKeyCreateParams;
-  export import APIKeyListParams = APIKeysAPI.APIKeyListParams;
+export declare namespace APIKeys {
+  export { type APIKeyCreateParams as APIKeyCreateParams, type APIKeyListParams as APIKeyListParams };
 }
 
 export { APIKeysListObjects };
