@@ -1,5 +1,113 @@
 # Changelog
 
+## 0.6.0 (2025-08-09)
+
+Full Changelog: [v0.5.0...v0.6.0](https://github.com/braintrustdata/braintrust-api-js/compare/v0.5.0...v0.6.0)
+
+### Features
+
+* add SKIP_BREW env var to ./scripts/bootstrap ([#114](https://github.com/braintrustdata/braintrust-api-js/issues/114)) ([643c000](https://github.com/braintrustdata/braintrust-api-js/commit/643c0001d7eaaf40268b7ed67ae4a0859b1748ec))
+* **api:** api update ([#73](https://github.com/braintrustdata/braintrust-api-js/issues/73)) ([93e6197](https://github.com/braintrustdata/braintrust-api-js/commit/93e6197d63e8b6dca633bfefb3a7384af0385132))
+* **api:** api update ([#75](https://github.com/braintrustdata/braintrust-api-js/issues/75)) ([2515590](https://github.com/braintrustdata/braintrust-api-js/commit/25155904a46f3ae3f7e4576fc92577799e1ec787))
+* **api:** manual updates ([#118](https://github.com/braintrustdata/braintrust-api-js/issues/118)) ([d506652](https://github.com/braintrustdata/braintrust-api-js/commit/d506652c19067999e68be4ee2666a898af2bc5b2))
+* **api:** manual updates ([#119](https://github.com/braintrustdata/braintrust-api-js/issues/119)) ([91dae90](https://github.com/braintrustdata/braintrust-api-js/commit/91dae90da18ded77db8a9abe24377511ea0f981b))
+* **api:** manual updates ([#120](https://github.com/braintrustdata/braintrust-api-js/issues/120)) ([7f65e00](https://github.com/braintrustdata/braintrust-api-js/commit/7f65e00b43b094624a94238be52c4c91fdae404b))
+* **api:** manual updates ([#85](https://github.com/braintrustdata/braintrust-api-js/issues/85)) ([17b38db](https://github.com/braintrustdata/braintrust-api-js/commit/17b38dba0c814b7c887cf2cb853983524d4d6f5b))
+* **api:** manual updates ([#88](https://github.com/braintrustdata/braintrust-api-js/issues/88)) ([2bdb09d](https://github.com/braintrustdata/braintrust-api-js/commit/2bdb09d67ef00c54a7edd2fed7853e03017e22b0))
+* **api:** manual updates ([#90](https://github.com/braintrustdata/braintrust-api-js/issues/90)) ([6a98150](https://github.com/braintrustdata/braintrust-api-js/commit/6a981509d9483090584a90263cb419f5709a21af))
+* **api:** manual updates ([#91](https://github.com/braintrustdata/braintrust-api-js/issues/91)) ([753586c](https://github.com/braintrustdata/braintrust-api-js/commit/753586c4b704b1589119b2bac3521c5d20e6f20c))
+* **api:** manual updates ([#92](https://github.com/braintrustdata/braintrust-api-js/issues/92)) ([76db2e0](https://github.com/braintrustdata/braintrust-api-js/commit/76db2e092f290430cf316b21052f9795c3ad16ae))
+* **api:** manual updates ([#93](https://github.com/braintrustdata/braintrust-api-js/issues/93)) ([2052b2a](https://github.com/braintrustdata/braintrust-api-js/commit/2052b2a9638101fe44fd542ff48cf657f51d481e))
+* **api:** manual updates ([#94](https://github.com/braintrustdata/braintrust-api-js/issues/94)) ([404dff8](https://github.com/braintrustdata/braintrust-api-js/commit/404dff8b5987073de20a733896c90336e678db64))
+* **api:** manual updates ([#95](https://github.com/braintrustdata/braintrust-api-js/issues/95)) ([eb40edc](https://github.com/braintrustdata/braintrust-api-js/commit/eb40edc6c6de1cd1c4ebb84b7249fcf1236b9d23))
+* **client:** add support for endpoint-specific base URLs ([4533649](https://github.com/braintrustdata/braintrust-api-js/commit/45336499183b0bea4491b30484f23d38425b2111))
+* **client:** send `X-Stainless-Timeout` header ([#110](https://github.com/braintrustdata/braintrust-api-js/issues/110)) ([98530d7](https://github.com/braintrustdata/braintrust-api-js/commit/98530d79da1be4d9aca6460f69b0040ceb08e91c))
+
+
+### Bug Fixes
+
+* **api:** improve type resolution when importing as a package ([#127](https://github.com/braintrustdata/braintrust-api-js/issues/127)) ([f607429](https://github.com/braintrustdata/braintrust-api-js/commit/f607429422debc489c7646d69f6c5b2b3207b14a))
+* avoid type error in certain environments ([#123](https://github.com/braintrustdata/braintrust-api-js/issues/123)) ([ddf9c1a](https://github.com/braintrustdata/braintrust-api-js/commit/ddf9c1a1843c06661dda840aa6b191a2ffd9bfe1))
+* **ci:** release-doctor — report correct token name ([0ddb252](https://github.com/braintrustdata/braintrust-api-js/commit/0ddb25222fdbfb449871912bd2111a14a7ce5b95))
+* **client:** don't send `Content-Type` for bodyless methods ([287b6a9](https://github.com/braintrustdata/braintrust-api-js/commit/287b6a9f6b717be42217e89edca0786a7f71bbd7))
+* **client:** fix export map for index exports ([#111](https://github.com/braintrustdata/braintrust-api-js/issues/111)) ([fdb7aeb](https://github.com/braintrustdata/braintrust-api-js/commit/fdb7aeba38d55f8451642e3c0dc14a028a522e76))
+* **client:** normalize method ([#103](https://github.com/braintrustdata/braintrust-api-js/issues/103)) ([a2adcb6](https://github.com/braintrustdata/braintrust-api-js/commit/a2adcb636543f13d6186a239bbb68fd610c7ef86))
+* **client:** send `X-Stainless-Timeout` in seconds ([#125](https://github.com/braintrustdata/braintrust-api-js/issues/125)) ([eee3031](https://github.com/braintrustdata/braintrust-api-js/commit/eee303108a2d8dd3cf4b9a1921cd2a3e0c00a3ac))
+* **exports:** ensure resource imports don't require /index ([#117](https://github.com/braintrustdata/braintrust-api-js/issues/117)) ([88007da](https://github.com/braintrustdata/braintrust-api-js/commit/88007da59078f90e7e8e5146f2000685cdd7cc0c))
+* **internal:** work around https://github.com/vercel/next.js/issues/76881 ([#124](https://github.com/braintrustdata/braintrust-api-js/issues/124)) ([237e357](https://github.com/braintrustdata/braintrust-api-js/commit/237e357d27b10a03c543b10f48d14eac50678f8e))
+* **mcp:** remove unused tools.ts ([#129](https://github.com/braintrustdata/braintrust-api-js/issues/129)) ([a727b16](https://github.com/braintrustdata/braintrust-api-js/commit/a727b168dc3d7295c8afeb7f5741897604a1b82a))
+* publish script — handle NPM errors correctly ([883071d](https://github.com/braintrustdata/braintrust-api-js/commit/883071d2ace0224aa002b49853359e108a103c50))
+
+
+### Chores
+
+* **api:** manual updates ([#78](https://github.com/braintrustdata/braintrust-api-js/issues/78)) ([977f402](https://github.com/braintrustdata/braintrust-api-js/commit/977f402b22cd4beff625caca58ef12e3b17ea42b))
+* **ci:** add timeout thresholds for CI jobs ([b3cb5c5](https://github.com/braintrustdata/braintrust-api-js/commit/b3cb5c5a427fc9461b74c5f5aa034a359feaa351))
+* **ci:** bump node version for release workflows ([505d32b](https://github.com/braintrustdata/braintrust-api-js/commit/505d32ba3503a8d78505845fed5e93f8a44d2fc9))
+* **ci:** enable for pull requests ([0ef3ed3](https://github.com/braintrustdata/braintrust-api-js/commit/0ef3ed35398917092dfd92a7302c2f865f15c787))
+* **ci:** only run for pushes and fork pull requests ([6fe19c9](https://github.com/braintrustdata/braintrust-api-js/commit/6fe19c928243d43983cd47b724a2691397a6c96c))
+* **ci:** only use depot for staging repos ([376b5c0](https://github.com/braintrustdata/braintrust-api-js/commit/376b5c07b0a908e847291c5ae7e34bbe2edcb1c4))
+* **client:** minor internal fixes ([ac388a4](https://github.com/braintrustdata/braintrust-api-js/commit/ac388a456cfb706505c638bbe4dc5426fafd67ab))
+* **client:** simplify `unknown | null` to just `unknown` ([#106](https://github.com/braintrustdata/braintrust-api-js/issues/106)) ([6bc93da](https://github.com/braintrustdata/braintrust-api-js/commit/6bc93dad03b02e583d37b9c8f3252144b9b9c462))
+* **docs:** grammar improvements ([6af5c54](https://github.com/braintrustdata/braintrust-api-js/commit/6af5c541ff0ab98cbf5c0c081aac43a6cc420a23))
+* **docs:** use top-level-await in example snippets ([ac307a8](https://github.com/braintrustdata/braintrust-api-js/commit/ac307a8eebbe316e849e0944371ed881eee9247c))
+* **exports:** cleaner resource index imports ([#121](https://github.com/braintrustdata/braintrust-api-js/issues/121)) ([8211c2d](https://github.com/braintrustdata/braintrust-api-js/commit/8211c2d7fa33cb6df6d34b68452b7b36ac8aea0f))
+* **exports:** stop using path fallbacks ([#122](https://github.com/braintrustdata/braintrust-api-js/issues/122)) ([e0a6ac0](https://github.com/braintrustdata/braintrust-api-js/commit/e0a6ac0cc802cdac460736610a1809d14971bc12))
+* improve publish-npm script --latest tag logic ([9b319ed](https://github.com/braintrustdata/braintrust-api-js/commit/9b319ed2420d0f61eeabd9eddbb481f68ac0b1f4))
+* **internal:** add aliases for Record and Array ([#126](https://github.com/braintrustdata/braintrust-api-js/issues/126)) ([c884211](https://github.com/braintrustdata/braintrust-api-js/commit/c88421129d2d19d8728e37e5853423b5cbd1f208))
+* **internal:** bump cross-spawn to v7.0.6 ([#99](https://github.com/braintrustdata/braintrust-api-js/issues/99)) ([b187960](https://github.com/braintrustdata/braintrust-api-js/commit/b187960ddc735595df49f21d1dee407048683b5c))
+* **internal:** codegen related update ([30e1c8c](https://github.com/braintrustdata/braintrust-api-js/commit/30e1c8c5017226e7b6f26aae958fd38599644ac4))
+* **internal:** codegen related update ([#104](https://github.com/braintrustdata/braintrust-api-js/issues/104)) ([0f5b5ef](https://github.com/braintrustdata/braintrust-api-js/commit/0f5b5ef52708f972518b63d53818ea2e81a4511d))
+* **internal:** codegen related update ([#105](https://github.com/braintrustdata/braintrust-api-js/issues/105)) ([922a37f](https://github.com/braintrustdata/braintrust-api-js/commit/922a37f8cf72145b8dd2806946c2983c10f89846))
+* **internal:** codegen related update ([#107](https://github.com/braintrustdata/braintrust-api-js/issues/107)) ([67050b7](https://github.com/braintrustdata/braintrust-api-js/commit/67050b79b4629fdcd559a6dfcf4ef189a0e7d89c))
+* **internal:** codegen related update ([#108](https://github.com/braintrustdata/braintrust-api-js/issues/108)) ([b6bac5b](https://github.com/braintrustdata/braintrust-api-js/commit/b6bac5b5af98680a38f7a0121ad7ffddf6041d49))
+* **internal:** codegen related update ([#109](https://github.com/braintrustdata/braintrust-api-js/issues/109)) ([8b116b7](https://github.com/braintrustdata/braintrust-api-js/commit/8b116b7a5958cc464032ec71277e127cced528ef))
+* **internal:** codegen related update ([#115](https://github.com/braintrustdata/braintrust-api-js/issues/115)) ([2d3be96](https://github.com/braintrustdata/braintrust-api-js/commit/2d3be96d6dea97967f93de587a3f544880b5b84c))
+* **internal:** codegen related update ([#96](https://github.com/braintrustdata/braintrust-api-js/issues/96)) ([ba8ce2c](https://github.com/braintrustdata/braintrust-api-js/commit/ba8ce2c3fbe8a6245b29979b62e865c360bf67fe))
+* **internal:** codegen related update ([#97](https://github.com/braintrustdata/braintrust-api-js/issues/97)) ([d046e45](https://github.com/braintrustdata/braintrust-api-js/commit/d046e455d64a2db7186a05f5fa3914cca20764d3))
+* **internal:** fix devcontainers setup ([#112](https://github.com/braintrustdata/braintrust-api-js/issues/112)) ([0fae5c6](https://github.com/braintrustdata/braintrust-api-js/commit/0fae5c6735b9eaf5cb7a1ea7f041d3192743f36a))
+* **internal:** fix some typos ([#102](https://github.com/braintrustdata/braintrust-api-js/issues/102)) ([55891d9](https://github.com/braintrustdata/braintrust-api-js/commit/55891d99a41bdd2a96eaac33e3880483eaee238c))
+* **internal:** improve index signature formatting ([#128](https://github.com/braintrustdata/braintrust-api-js/issues/128)) ([3720134](https://github.com/braintrustdata/braintrust-api-js/commit/3720134bfa029fb50571f86af372d5f291438fbc))
+* **internal:** make base APIResource abstract ([e4e71aa](https://github.com/braintrustdata/braintrust-api-js/commit/e4e71aa456e656c8dfa26e899d410abd6b64fe86))
+* **internal:** move publish config ([780fa93](https://github.com/braintrustdata/braintrust-api-js/commit/780fa9363cb7e37a4e41c95604675ccb5f460b87))
+* **internal:** reduce CI branch coverage ([a2ab360](https://github.com/braintrustdata/braintrust-api-js/commit/a2ab360e064d95f8ddef79c920a7f4c56619cafd))
+* **internal:** remove extra empty newlines ([#116](https://github.com/braintrustdata/braintrust-api-js/issues/116)) ([499bc0a](https://github.com/braintrustdata/braintrust-api-js/commit/499bc0aff446ab9ccb26a4a33c70c957d869dfb4))
+* **internal:** remove redundant imports config ([b54f172](https://github.com/braintrustdata/braintrust-api-js/commit/b54f172f010584c6501cd9f00dba51a94a0187e0))
+* **internal:** remove unnecessary getRequestClient function ([#98](https://github.com/braintrustdata/braintrust-api-js/issues/98)) ([1b9a5c0](https://github.com/braintrustdata/braintrust-api-js/commit/1b9a5c05abe7dccf8af375efa31b16bb94279683))
+* **internal:** update isAbsoluteURL ([#101](https://github.com/braintrustdata/braintrust-api-js/issues/101)) ([88fd824](https://github.com/braintrustdata/braintrust-api-js/commit/88fd8240989953d806669bc6d4f8e62579ff8bbd))
+* **internal:** upload builds and expand CI branch coverage ([8ae7f54](https://github.com/braintrustdata/braintrust-api-js/commit/8ae7f54b5bb23dc68862802744107a3f0131ceb7))
+* make some internal functions async ([9e768ad](https://github.com/braintrustdata/braintrust-api-js/commit/9e768ad28817d1f49f9e64ce5cdfaf0a7c41f349))
+* mention unit type in timeout docs ([f283cea](https://github.com/braintrustdata/braintrust-api-js/commit/f283ceae5133eae45752ca6d6a04f89ea24635a2))
+* rebuild project due to codegen change ([#76](https://github.com/braintrustdata/braintrust-api-js/issues/76)) ([dfefba2](https://github.com/braintrustdata/braintrust-api-js/commit/dfefba2d00b3e7dc7b6e76b522a0d398fcccf313))
+* rebuild project due to codegen change ([#77](https://github.com/braintrustdata/braintrust-api-js/issues/77)) ([7c07e4e](https://github.com/braintrustdata/braintrust-api-js/commit/7c07e4ee7475b4eebae4bebb2ff937676431232e))
+* rebuild project due to codegen change ([#79](https://github.com/braintrustdata/braintrust-api-js/issues/79)) ([978fdc9](https://github.com/braintrustdata/braintrust-api-js/commit/978fdc9d09151aab25b5c51153f286af1254bbf5))
+* rebuild project due to codegen change ([#80](https://github.com/braintrustdata/braintrust-api-js/issues/80)) ([69cc4ae](https://github.com/braintrustdata/braintrust-api-js/commit/69cc4ae1077dfc6871e72d7c82ddedff249c9222))
+* rebuild project due to codegen change ([#81](https://github.com/braintrustdata/braintrust-api-js/issues/81)) ([8bde1e7](https://github.com/braintrustdata/braintrust-api-js/commit/8bde1e71a879a4ced7567d71d45abae995482526))
+* rebuild project due to codegen change ([#82](https://github.com/braintrustdata/braintrust-api-js/issues/82)) ([a7e4a5f](https://github.com/braintrustdata/braintrust-api-js/commit/a7e4a5f1cbfacf4470e53e776f3cbbf8be468868))
+* rebuild project due to codegen change ([#83](https://github.com/braintrustdata/braintrust-api-js/issues/83)) ([42eb17f](https://github.com/braintrustdata/braintrust-api-js/commit/42eb17ff646ab32a674f983dcc4f933658d1fce8))
+* rebuild project due to codegen change ([#84](https://github.com/braintrustdata/braintrust-api-js/issues/84)) ([33b0126](https://github.com/braintrustdata/braintrust-api-js/commit/33b01263b5b5e8dad1eabf77d22720f8c3d88bc7))
+* rebuild project due to codegen change ([#86](https://github.com/braintrustdata/braintrust-api-js/issues/86)) ([4731ce7](https://github.com/braintrustdata/braintrust-api-js/commit/4731ce7b9147894d8a0047ef07388337f1a56fec))
+* rebuild project due to codegen change ([#87](https://github.com/braintrustdata/braintrust-api-js/issues/87)) ([2fc74f7](https://github.com/braintrustdata/braintrust-api-js/commit/2fc74f743787290e92366f941c482b89574cceb4))
+* rebuild project due to codegen change ([#89](https://github.com/braintrustdata/braintrust-api-js/issues/89)) ([efe445a](https://github.com/braintrustdata/braintrust-api-js/commit/efe445acc87618fb3d11c0912ddf4c5320920110))
+* **types:** nicer error class types + jsdocs ([#100](https://github.com/braintrustdata/braintrust-api-js/issues/100)) ([ca84692](https://github.com/braintrustdata/braintrust-api-js/commit/ca8469204c0a7666d8c296390325127ce2aae433))
+* update @stainless-api/prism-cli to v5.15.0 ([66f1617](https://github.com/braintrustdata/braintrust-api-js/commit/66f16172b9109d79df7497ea25ab5ea6de5821df))
+
+
+### Documentation
+
+* **readme:** fix typo ([023b27c](https://github.com/braintrustdata/braintrust-api-js/commit/023b27c0bbef0dc5944165a9ac304548d239105a))
+* update URLs from stainlessapi.com to stainless.com ([#113](https://github.com/braintrustdata/braintrust-api-js/issues/113)) ([842a484](https://github.com/braintrustdata/braintrust-api-js/commit/842a4840c1add146ab440d399fb027860a95d793))
+
+
+### Refactors
+
+* **types:** replace Record with mapped types ([e4c07d7](https://github.com/braintrustdata/braintrust-api-js/commit/e4c07d7634a540fa2e3b94295bf966f1c1088efe))
+
+
+### Build System
+
+* **deps:** bump form-data from 3.0.1 to 3.0.4 ([cc5760f](https://github.com/braintrustdata/braintrust-api-js/commit/cc5760f19b4ee7fe3d6ce0500c3a353fa6ae1723))
+
 ## 0.5.0 (2024-10-01)
 
 Full Changelog: [v0.4.0...v0.5.0](https://github.com/braintrustdata/braintrust-api-js/compare/v0.4.0...v0.5.0)
