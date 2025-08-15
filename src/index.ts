@@ -328,6 +328,7 @@ Braintrust.APIKeys = APIKeys;
 Braintrust.AISecrets = AISecrets;
 Braintrust.EnvVars = EnvVars;
 Braintrust.Evals = Evals;
+
 export declare namespace Braintrust {
   export type RequestOptions = Core.RequestOptions;
 
