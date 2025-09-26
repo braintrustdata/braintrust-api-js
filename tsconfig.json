@@ -7,11 +7,10 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "baseUrl": "./",
     "paths": {
-      "@braintrust/api/_shims/auto/*": ["src/_shims/auto/*-node"],
-      "@braintrust/api/*": ["src/*"],
-      "@braintrust/api": ["src/index.ts"]
+      "@braintrust/api/_shims/auto/*": ["./src/_shims/auto/*-node"],
+      "@braintrust/api/*": ["./src/*"],
+      "@braintrust/api": ["./src/index.ts"]
     },
     "noEmit": true,
 
@@ -32,7 +31,7 @@
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
-		"isolatedModules": false,
+    "isolatedModules": false,
 
     "skipLibCheck": true
   }
