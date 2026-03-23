@@ -1,6 +1,6 @@
 {
   "name": "@braintrust/api",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "The official TypeScript library for the Braintrust API",
   "author": "Braintrust <info@braintrustdata.com>",
   "types": "dist/index.d.ts",
