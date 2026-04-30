@@ -1,8 +1,8 @@
 {
   "name": "@braintrust/api",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "The official TypeScript library for the Braintrust API",
-  "author": "Braintrust <info-test@braintrustdata.com>",
+  "author": "Braintrust <info@braintrustdata.com>",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
   "type": "commonjs",
@@ -10,15 +10,18 @@
   "license": "Apache-2.0",
   "packageManager": "yarn@1.22.22",
   "files": [
-    "*"
+    "**/*"
   ],
   "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "test": "./scripts/test",
     "build": "./scripts/build",
     "prepublishOnly": "echo 'to publish, run yarn build && (cd dist; yarn publish)' && exit 1",
     "format": "prettier --write --cache --cache-strategy metadata . !dist",
-    "prepare": "if ./scripts/utils/check-is-in-git-install.sh; then ./scripts/build; fi",
+    "prepare": "if ./scripts/utils/check-is-in-git-install.sh; then ./scripts/build && ./scripts/utils/git-swap.sh; fi",
     "tsn": "ts-node -r tsconfig-paths/register",
     "lint": "./scripts/lint",
     "fix": "./scripts/format"
@@ -45,7 +48,6 @@
     "jest": "^29.4.0",
     "prettier": "^3.0.0",
     "ts-jest": "^29.1.0",
-    "ts-morph": "^19.0.0",
     "ts-node": "^10.5.0",
     "tsc-multi": "^1.1.0",
     "tsconfig-paths": "^4.0.0",
@@ -59,10 +61,6 @@
     "./shims/web.js",
     "./shims/web.mjs"
   ],
-  "imports": {
-    "@braintrust/api": ".",
-    "@braintrust/api/*": "./src/*"
-  },
   "exports": {
     "./_shims/auto/*": {
       "deno": {

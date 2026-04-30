@@ -3,10 +3,10 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as OrganizationsAPI from './organizations';
 import * as Shared from '../shared';
 import { OrganizationsListObjects } from '../shared';
 import * as MembersAPI from './members';
+import { MemberUpdateParams, Members } from './members';
 import { type ListObjectsParams } from '../../pagination';
 
 export class Organizations extends APIResource {
@@ -96,11 +96,15 @@ export interface OrganizationListParams extends ListObjectsParams {
   org_name?: string;
 }
 
-export namespace Organizations {
-  export import OrganizationUpdateParams = OrganizationsAPI.OrganizationUpdateParams;
-  export import OrganizationListParams = OrganizationsAPI.OrganizationListParams;
-  export import Members = MembersAPI.Members;
-  export import MemberUpdateParams = MembersAPI.MemberUpdateParams;
+Organizations.Members = Members;
+
+export declare namespace Organizations {
+  export {
+    type OrganizationUpdateParams as OrganizationUpdateParams,
+    type OrganizationListParams as OrganizationListParams,
+  };
+
+  export { Members as Members, type MemberUpdateParams as MemberUpdateParams };
 }
 
 export { OrganizationsListObjects };

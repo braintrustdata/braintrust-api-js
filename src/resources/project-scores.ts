@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as ProjectScoresAPI from './project-scores';
 import * as Shared from './shared';
 import { ProjectScoresListObjects } from './shared';
 import { type ListObjectsParams } from '../pagination';
@@ -108,12 +107,7 @@ export interface ProjectScoreCreateParams {
   /**
    * For categorical-type project scores, the list of all categories
    */
-  categories?:
-    | Array<Shared.ProjectScoreCategory>
-    | Record<string, number>
-    | Array<string>
-    | ProjectScoreCreateParams.NullableVariant
-    | null;
+  categories?: Array<Shared.ProjectScoreCategory> | { [key: string]: number } | Array<string> | null;
 
   config?: Shared.ProjectScoreConfig | null;
 
@@ -123,20 +117,11 @@ export interface ProjectScoreCreateParams {
   description?: string | null;
 }
 
-export namespace ProjectScoreCreateParams {
-  export interface NullableVariant {}
-}
-
 export interface ProjectScoreUpdateParams {
   /**
    * For categorical-type project scores, the list of all categories
    */
-  categories?:
-    | Array<Shared.ProjectScoreCategory>
-    | Record<string, number>
-    | Array<string>
-    | ProjectScoreUpdateParams.NullableVariant
-    | null;
+  categories?: Array<Shared.ProjectScoreCategory> | { [key: string]: number } | Array<string> | null;
 
   config?: Shared.ProjectScoreConfig | null;
 
@@ -154,10 +139,6 @@ export interface ProjectScoreUpdateParams {
    * The type of the configured score
    */
   score_type?: Shared.ProjectScoreType | null;
-}
-
-export namespace ProjectScoreUpdateParams {
-  export interface NullableVariant {}
 }
 
 export interface ProjectScoreListParams extends ListObjectsParams {
@@ -212,12 +193,7 @@ export interface ProjectScoreReplaceParams {
   /**
    * For categorical-type project scores, the list of all categories
    */
-  categories?:
-    | Array<Shared.ProjectScoreCategory>
-    | Record<string, number>
-    | Array<string>
-    | ProjectScoreReplaceParams.NullableVariant
-    | null;
+  categories?: Array<Shared.ProjectScoreCategory> | { [key: string]: number } | Array<string> | null;
 
   config?: Shared.ProjectScoreConfig | null;
 
@@ -227,15 +203,13 @@ export interface ProjectScoreReplaceParams {
   description?: string | null;
 }
 
-export namespace ProjectScoreReplaceParams {
-  export interface NullableVariant {}
-}
-
-export namespace ProjectScores {
-  export import ProjectScoreCreateParams = ProjectScoresAPI.ProjectScoreCreateParams;
-  export import ProjectScoreUpdateParams = ProjectScoresAPI.ProjectScoreUpdateParams;
-  export import ProjectScoreListParams = ProjectScoresAPI.ProjectScoreListParams;
-  export import ProjectScoreReplaceParams = ProjectScoresAPI.ProjectScoreReplaceParams;
+export declare namespace ProjectScores {
+  export {
+    type ProjectScoreCreateParams as ProjectScoreCreateParams,
+    type ProjectScoreUpdateParams as ProjectScoreUpdateParams,
+    type ProjectScoreListParams as ProjectScoreListParams,
+    type ProjectScoreReplaceParams as ProjectScoreReplaceParams,
+  };
 }
 
 export { ProjectScoresListObjects };

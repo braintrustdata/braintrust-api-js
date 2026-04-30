@@ -2,7 +2,6 @@
 
 import { APIResource } from '../resource';
 import * as Core from '../core';
-import * as EvalsAPI from './evals';
 import * as Shared from './shared';
 
 export class Evals extends APIResource {
@@ -26,7 +25,7 @@ export interface EvalCreateParams {
   /**
    * The dataset to use
    */
-  data: EvalCreateParams.DatasetID | EvalCreateParams.ProjectDatasetName;
+  data: EvalCreateParams.DatasetID | EvalCreateParams.ProjectDatasetName | EvalCreateParams.DatasetRows;
 
   /**
    * Unique identifier for the project to run the eval in
@@ -57,16 +56,55 @@ export interface EvalCreateParams {
     | EvalCreateParams.InlinePrompt;
 
   /**
+   * An optional experiment id to use as a base. If specified, the new experiment
+   * will be summarized and compared to this experiment.
+   */
+  base_experiment_id?: string | null;
+
+  /**
+   * An optional experiment name to use as a base. If specified, the new experiment
+   * will be summarized and compared to this experiment.
+   */
+  base_experiment_name?: string | null;
+
+  /**
    * An optional name for the experiment created by this eval. If it conflicts with
    * an existing experiment, it will be suffixed with a unique identifier.
    */
   experiment_name?: string;
 
   /**
+   * Optional settings for collecting git metadata. By default, will collect all git
+   * metadata fields allowed in org-level settings.
+   */
+  git_metadata_settings?: EvalCreateParams.GitMetadataSettings | null;
+
+  /**
+   * Whether the experiment should be public. Defaults to false.
+   */
+  is_public?: boolean | null;
+
+  /**
+   * The maximum number of tasks/scorers that will be run concurrently. Defaults to
+   * undefined, in which case there is no max concurrency.
+   */
+  max_concurrency?: number | null;
+
+  /**
    * Optional experiment-level metadata to store about the evaluation. You can later
    * use this to slice & dice across experiments.
    */
-  metadata?: Record<string, unknown>;
+  metadata?: { [key: string]: unknown };
+
+  /**
+   * Options for tracing the evaluation
+   */
+  parent?: EvalCreateParams.SpanParentStruct | string;
+
+  /**
+   * Metadata about the state of the repo when the experiment was created
+   */
+  repo_info?: Shared.RepoInfo | null;
 
   /**
    * Whether to stream the results of the eval. If true, the request will return two
@@ -74,6 +112,19 @@ export interface EvalCreateParams {
    * If false, the request will return the evaluation's summary upon completion.
    */
   stream?: boolean;
+
+  /**
+   * The maximum duration, in milliseconds, to run the evaluation. Defaults to
+   * undefined, in which case there is no timeout.
+   */
+  timeout?: number | null;
+
+  /**
+   * The number of times to run the evaluator per input. This is useful for
+   * evaluating applications that have non-deterministic behavior and gives you both
+   * a stronger aggregate measure and a sense of the variance in the results.
+   */
+  trial_count?: number | null;
 }
 
 export namespace EvalCreateParams {
@@ -82,6 +133,8 @@ export namespace EvalCreateParams {
    */
   export interface DatasetID {
     dataset_id: string;
+
+    _internal_btql?: { [key: string]: unknown } | null;
   }
 
   /**
@@ -91,6 +144,15 @@ export namespace EvalCreateParams {
     dataset_name: string;
 
     project_name: string;
+
+    _internal_btql?: { [key: string]: unknown } | null;
+  }
+
+  /**
+   * Dataset rows
+   */
+  export interface DatasetRows {
+    data: Array<unknown>;
   }
 
   /**
@@ -303,9 +365,73 @@ export namespace EvalCreateParams {
      * The name of the inline prompt
      */
     name?: string | null;
+  }
+
+  /**
+   * Optional settings for collecting git metadata. By default, will collect all git
+   * metadata fields allowed in org-level settings.
+   */
+  export interface GitMetadataSettings {
+    collect: 'all' | 'none' | 'some';
+
+    fields?: Array<
+      | 'commit'
+      | 'branch'
+      | 'tag'
+      | 'dirty'
+      | 'author_name'
+      | 'author_email'
+      | 'commit_message'
+      | 'commit_time'
+      | 'git_diff'
+    >;
+  }
+
+  /**
+   * Span parent properties
+   */
+  export interface SpanParentStruct {
+    /**
+     * The id of the container object you are logging to
+     */
+    object_id: string;
+
+    object_type: 'project_logs' | 'experiment' | 'playground_logs';
+
+    /**
+     * Include these properties in every span created under this parent
+     */
+    propagated_event?: { [key: string]: unknown } | null;
+
+    /**
+     * Identifiers for the row to to log a subspan under
+     */
+    row_ids?: SpanParentStruct.RowIDs | null;
+  }
+
+  export namespace SpanParentStruct {
+    /**
+     * Identifiers for the row to to log a subspan under
+     */
+    export interface RowIDs {
+      /**
+       * The id of the row
+       */
+      id: string;
+
+      /**
+       * The root_span_id of the row
+       */
+      root_span_id: string;
+
+      /**
+       * The span_id of the row
+       */
+      span_id: string;
+    }
   }
 }
 
-export namespace Evals {
-  export import EvalCreateParams = EvalsAPI.EvalCreateParams;
+export declare namespace Evals {
+  export { type EvalCreateParams as EvalCreateParams };
 }

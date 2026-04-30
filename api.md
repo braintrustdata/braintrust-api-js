@@ -5,6 +5,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">AISecret</a></code>
 - <code><a href="./src/resources/shared.ts">ACL</a></code>
 - <code><a href="./src/resources/shared.ts">ACLBatchUpdateResponse</a></code>
+- <code><a href="./src/resources/shared.ts">ACLObjectType</a></code>
 - <code><a href="./src/resources/shared.ts">APIKey</a></code>
 - <code><a href="./src/resources/shared.ts">ChatCompletionContentPartImage</a></code>
 - <code><a href="./src/resources/shared.ts">ChatCompletionContentPartText</a></code>
@@ -16,6 +17,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">Dataset</a></code>
 - <code><a href="./src/resources/shared.ts">DatasetEvent</a></code>
 - <code><a href="./src/resources/shared.ts">EnvVar</a></code>
+- <code><a href="./src/resources/shared.ts">EnvVarObjectType</a></code>
 - <code><a href="./src/resources/shared.ts">Experiment</a></code>
 - <code><a href="./src/resources/shared.ts">ExperimentEvent</a></code>
 - <code><a href="./src/resources/shared.ts">FeedbackDatasetItem</a></code>
@@ -26,20 +28,17 @@ Types:
 - <code><a href="./src/resources/shared.ts">FetchExperimentEventsResponse</a></code>
 - <code><a href="./src/resources/shared.ts">FetchProjectLogsEventsResponse</a></code>
 - <code><a href="./src/resources/shared.ts">Function</a></code>
-- <code><a href="./src/resources/shared.ts">FunctionToolChoice</a></code>
 - <code><a href="./src/resources/shared.ts">Group</a></code>
-- <code><a href="./src/resources/shared.ts">InsertDatasetEventMerge</a></code>
-- <code><a href="./src/resources/shared.ts">InsertDatasetEventReplace</a></code>
+- <code><a href="./src/resources/shared.ts">InsertDatasetEvent</a></code>
 - <code><a href="./src/resources/shared.ts">InsertEventsResponse</a></code>
-- <code><a href="./src/resources/shared.ts">InsertExperimentEventMerge</a></code>
-- <code><a href="./src/resources/shared.ts">InsertExperimentEventReplace</a></code>
-- <code><a href="./src/resources/shared.ts">InsertProjectLogsEventMerge</a></code>
-- <code><a href="./src/resources/shared.ts">InsertProjectLogsEventReplace</a></code>
+- <code><a href="./src/resources/shared.ts">InsertExperimentEvent</a></code>
+- <code><a href="./src/resources/shared.ts">InsertProjectLogsEvent</a></code>
 - <code><a href="./src/resources/shared.ts">MetricSummary</a></code>
+- <code><a href="./src/resources/shared.ts">ObjectReference</a></code>
 - <code><a href="./src/resources/shared.ts">OnlineScoreConfig</a></code>
 - <code><a href="./src/resources/shared.ts">Organization</a></code>
 - <code><a href="./src/resources/shared.ts">PatchOrganizationMembersOutput</a></code>
-- <code><a href="./src/resources/shared.ts">PathLookupFilter</a></code>
+- <code><a href="./src/resources/shared.ts">Permission</a></code>
 - <code><a href="./src/resources/shared.ts">Project</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectLogsEvent</a></code>
 - <code><a href="./src/resources/shared.ts">ProjectScore</a></code>
@@ -50,19 +49,21 @@ Types:
 - <code><a href="./src/resources/shared.ts">ProjectTag</a></code>
 - <code><a href="./src/resources/shared.ts">Prompt</a></code>
 - <code><a href="./src/resources/shared.ts">PromptData</a></code>
+- <code><a href="./src/resources/shared.ts">PromptOptions</a></code>
 - <code><a href="./src/resources/shared.ts">RepoInfo</a></code>
 - <code><a href="./src/resources/shared.ts">Role</a></code>
 - <code><a href="./src/resources/shared.ts">ScoreSummary</a></code>
-- <code><a href="./src/resources/shared.ts">Scorer</a></code>
+- <code><a href="./src/resources/shared.ts">SpanAttributes</a></code>
+- <code><a href="./src/resources/shared.ts">SpanIFrame</a></code>
+- <code><a href="./src/resources/shared.ts">SpanType</a></code>
 - <code><a href="./src/resources/shared.ts">SummarizeDatasetResponse</a></code>
 - <code><a href="./src/resources/shared.ts">SummarizeExperimentResponse</a></code>
-- <code><a href="./src/resources/shared.ts">Task</a></code>
-- <code><a href="./src/resources/shared.ts">ToolChoice</a></code>
 - <code><a href="./src/resources/shared.ts">User</a></code>
 - <code><a href="./src/resources/shared.ts">View</a></code>
 - <code><a href="./src/resources/shared.ts">ViewData</a></code>
 - <code><a href="./src/resources/shared.ts">ViewDataSearch</a></code>
 - <code><a href="./src/resources/shared.ts">ViewOptions</a></code>
+- <code><a href="./src/resources/shared.ts">ViewType</a></code>
 
 # TopLevel
 
@@ -164,7 +165,7 @@ Methods:
 - <code title="get /v1/acl/{acl_id}">client.acls.<a href="./src/resources/acls.ts">retrieve</a>(aclId) -> ACL</code>
 - <code title="get /v1/acl">client.acls.<a href="./src/resources/acls.ts">list</a>({ ...params }) -> ACLsListObjects</code>
 - <code title="delete /v1/acl/{acl_id}">client.acls.<a href="./src/resources/acls.ts">delete</a>(aclId) -> ACL</code>
-- <code title="post /v1/acl/batch-update">client.acls.<a href="./src/resources/acls.ts">batchUpdate</a>({ ...params }) -> ACLBatchUpdateResponse</code>
+- <code title="post /v1/acl/batch_update">client.acls.<a href="./src/resources/acls.ts">batchUpdate</a>({ ...params }) -> ACLBatchUpdateResponse</code>
 - <code title="delete /v1/acl">client.acls.<a href="./src/resources/acls.ts">findAndDelete</a>({ ...params }) -> ACL</code>
 
 # Users
@@ -195,6 +196,17 @@ Methods:
 - <code title="get /v1/project_tag">client.projectTags.<a href="./src/resources/project-tags.ts">list</a>({ ...params }) -> ProjectTagsListObjects</code>
 - <code title="delete /v1/project_tag/{project_tag_id}">client.projectTags.<a href="./src/resources/project-tags.ts">delete</a>(projectTagId) -> ProjectTag</code>
 - <code title="put /v1/project_tag">client.projectTags.<a href="./src/resources/project-tags.ts">replace</a>({ ...params }) -> ProjectTag</code>
+
+# SpanIframes
+
+Methods:
+
+- <code title="post /v1/span_iframe">client.spanIframes.<a href="./src/resources/span-iframes.ts">create</a>({ ...params }) -> SpanIFrame</code>
+- <code title="get /v1/span_iframe/{span_iframe_id}">client.spanIframes.<a href="./src/resources/span-iframes.ts">retrieve</a>(spanIframeId) -> SpanIFrame</code>
+- <code title="patch /v1/span_iframe/{span_iframe_id}">client.spanIframes.<a href="./src/resources/span-iframes.ts">update</a>(spanIframeId, { ...params }) -> SpanIFrame</code>
+- <code title="get /v1/span_iframe">client.spanIframes.<a href="./src/resources/span-iframes.ts">list</a>({ ...params }) -> SpanIFramesListObjects</code>
+- <code title="delete /v1/span_iframe/{span_iframe_id}">client.spanIframes.<a href="./src/resources/span-iframes.ts">delete</a>(spanIframeId) -> SpanIFrame</code>
+- <code title="put /v1/span_iframe">client.spanIframes.<a href="./src/resources/span-iframes.ts">replace</a>({ ...params }) -> SpanIFrame</code>
 
 # Functions
 

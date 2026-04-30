@@ -6,7 +6,7 @@ This library provides convenient access to the Braintrust REST API from server-s
 
 The REST API documentation can be found on [www.braintrustdata.com](https://www.braintrustdata.com/docs/api/spec). The full API of this library can be found in [api.md](api.md).
 
-It is generated with [Stainless](https://www.stainlessapi.com/).
+It is generated with [Stainless](https://www.stainless.com/).
 
 ## Installation
 
@@ -26,13 +26,9 @@ const client = new Braintrust({
   apiKey: process.env['BRAINTRUST_API_KEY'], // This is the default and can be omitted
 });
 
-async function main() {
-  const project = await client.projects.create({ name: 'foobar' });
+const project = await client.projects.create({ name: 'foobar' });
 
-  console.log(project.id);
-}
-
-main();
+console.log(project.id);
 ```
 
 ### Request & Response types
@@ -47,12 +43,8 @@ const client = new Braintrust({
   apiKey: process.env['BRAINTRUST_API_KEY'], // This is the default and can be omitted
 });
 
-async function main() {
-  const params: Braintrust.ProjectCreateParams = { name: 'foobar' };
-  const project: Braintrust.Project = await client.projects.create(params);
-}
-
-main();
+const params: Braintrust.ProjectCreateParams = { name: 'foobar' };
+const project: Braintrust.Project = await client.projects.create(params);
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -65,22 +57,18 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-async function main() {
-  const project = await client.projects.create({ name: 'foobar' }).catch(async (err) => {
-    if (err instanceof Braintrust.APIError) {
-      console.log(err.status); // 400
-      console.log(err.name); // BadRequestError
-      console.log(err.headers); // {server: 'nginx', ...}
-    } else {
-      throw err;
-    }
-  });
-}
-
-main();
+const project = await client.projects.create({ name: 'foobar' }).catch(async (err) => {
+  if (err instanceof Braintrust.APIError) {
+    console.log(err.status); // 400
+    console.log(err.name); // BadRequestError
+    console.log(err.headers); // {server: 'nginx', ...}
+  } else {
+    throw err;
+  }
+});
 ```
 
-Error codes are as followed:
+Error codes are as follows:
 
 | Status Code | Error Type                 |
 | ----------- | -------------------------- |
@@ -138,7 +126,7 @@ Note that requests which time out will be [retried twice by default](#retries).
 ## Auto-pagination
 
 List methods in the Braintrust API are paginated.
-You can use `for await … of` syntax to iterate through items across all pages:
+You can use the `for await … of` syntax to iterate through items across all pages:
 
 ```ts
 async function fetchAllProjects(params) {
@@ -151,7 +139,7 @@ async function fetchAllProjects(params) {
 }
 ```
 
-Alternatively, you can make request a single page at a time:
+Alternatively, you can request a single page at a time:
 
 ```ts
 let page = await client.projects.list();
@@ -161,7 +149,7 @@ for (const project of page.objects) {
 
 // Convenience methods are provided for manually paginating:
 while (page.hasNextPage()) {
-  page = page.getNextPage();
+  page = await page.getNextPage();
   // ...
 }
 ```
@@ -301,7 +289,7 @@ await client.projects.create(
 This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backwards-incompatible changes may be released as minor versions:
 
 1. Changes that only affect static types, without breaking runtime behavior.
-2. Changes to library internals which are technically public but not intended or documented for external use. _(Please open a GitHub issue to let us know if you are relying on such internals)_.
+2. Changes to library internals which are technically public but not intended or documented for external use. _(Please open a GitHub issue to let us know if you are relying on such internals.)_
 3. Changes that we do not expect to impact the vast majority of users in practice.
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
@@ -314,6 +302,19 @@ TypeScript >= 4.5 is supported.
 
 The following runtimes are supported:
 
+- Web browsers (Up-to-date Chrome, Firefox, Safari, Edge, and more)
+- Node.js 18 LTS or later ([non-EOL](https://endoflife.date/nodejs)) versions.
+- Deno v1.28.0 or higher.
+- Bun 1.0 or later.
+- Cloudflare Workers.
+- Vercel Edge Runtime.
+- Jest 28 or greater with the `"node"` environment (`"jsdom"` is not supported at this time).
+- Nitro v2.6 or greater.
+
 Note that React Native is not supported at this time.
 
 If you are interested in other runtime environments, please open or upvote an issue on GitHub.
+
+## Contributing
+
+See [the contributing documentation](./CONTRIBUTING.md).

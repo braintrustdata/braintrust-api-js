@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as FunctionsAPI from './functions';
 import * as Shared from './shared';
 import { FunctionsListObjects } from './shared';
 import { type ListObjectsParams } from '../pagination';
@@ -191,9 +190,9 @@ export namespace FunctionCreateParams {
    * JSON schema for the function's parameters and return type
    */
   export interface FunctionSchema {
-    parameters?: unknown | null;
+    parameters?: unknown;
 
-    returns?: unknown | null;
+    returns?: unknown;
   }
 
   export interface Origin {
@@ -205,18 +204,7 @@ export namespace FunctionCreateParams {
     /**
      * The object type that the ACL applies to
      */
-    object_type:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'group'
-      | 'role'
-      | 'org_member'
-      | 'project_log'
-      | 'org_project';
+    object_type: Shared.ACLObjectType;
 
     /**
      * The function exists for internal purposes and should not be displayed in the
@@ -236,7 +224,6 @@ export interface FunctionUpdateParams {
     | FunctionUpdateParams.Prompt
     | FunctionUpdateParams.Code
     | FunctionUpdateParams.Global
-    | FunctionUpdateParams.NullableVariant
     | null;
 
   /**
@@ -293,8 +280,6 @@ export namespace FunctionUpdateParams {
 
     type: 'global';
   }
-
-  export interface NullableVariant {}
 }
 
 export interface FunctionListParams extends ListObjectsParams {
@@ -340,9 +325,14 @@ export interface FunctionListParams extends ListObjectsParams {
 
 export interface FunctionInvokeParams {
   /**
+   * The expected output of the function
+   */
+  expected?: unknown;
+
+  /**
    * Argument to the function, which can be any JSON serializable value
    */
-  input?: unknown | null;
+  input?: unknown;
 
   /**
    * If the function is an LLM, additional messages to pass along to it
@@ -355,6 +345,11 @@ export interface FunctionInvokeParams {
     | FunctionInvokeParams.Function
     | FunctionInvokeParams.Fallback
   >;
+
+  /**
+   * Any relevant metadata
+   */
+  metadata?: { [key: string]: unknown } | null;
 
   /**
    * The mode format of the returned value (defaults to 'auto')
@@ -446,12 +441,12 @@ export namespace FunctionInvokeParams {
      */
     object_id: string;
 
-    object_type: 'project_logs' | 'experiment';
+    object_type: 'project_logs' | 'experiment' | 'playground_logs';
 
     /**
      * Include these properties in every span created under this parent
      */
-    propagated_event?: Record<string, unknown> | null;
+    propagated_event?: { [key: string]: unknown } | null;
 
     /**
      * Identifiers for the row to to log a subspan under
@@ -568,9 +563,9 @@ export namespace FunctionReplaceParams {
    * JSON schema for the function's parameters and return type
    */
   export interface FunctionSchema {
-    parameters?: unknown | null;
+    parameters?: unknown;
 
-    returns?: unknown | null;
+    returns?: unknown;
   }
 
   export interface Origin {
@@ -582,18 +577,7 @@ export namespace FunctionReplaceParams {
     /**
      * The object type that the ACL applies to
      */
-    object_type:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'group'
-      | 'role'
-      | 'org_member'
-      | 'project_log'
-      | 'org_project';
+    object_type: Shared.ACLObjectType;
 
     /**
      * The function exists for internal purposes and should not be displayed in the
@@ -603,13 +587,15 @@ export namespace FunctionReplaceParams {
   }
 }
 
-export namespace Functions {
-  export import FunctionInvokeResponse = FunctionsAPI.FunctionInvokeResponse;
-  export import FunctionCreateParams = FunctionsAPI.FunctionCreateParams;
-  export import FunctionUpdateParams = FunctionsAPI.FunctionUpdateParams;
-  export import FunctionListParams = FunctionsAPI.FunctionListParams;
-  export import FunctionInvokeParams = FunctionsAPI.FunctionInvokeParams;
-  export import FunctionReplaceParams = FunctionsAPI.FunctionReplaceParams;
+export declare namespace Functions {
+  export {
+    type FunctionInvokeResponse as FunctionInvokeResponse,
+    type FunctionCreateParams as FunctionCreateParams,
+    type FunctionUpdateParams as FunctionUpdateParams,
+    type FunctionListParams as FunctionListParams,
+    type FunctionInvokeParams as FunctionInvokeParams,
+    type FunctionReplaceParams as FunctionReplaceParams,
+  };
 }
 
 export { FunctionsListObjects };

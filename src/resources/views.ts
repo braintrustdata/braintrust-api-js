@@ -2,7 +2,6 @@
 
 import { APIResource } from '../resource';
 import * as Core from '../core';
-import * as ViewsAPI from './views';
 import * as Shared from './shared';
 import { ViewsListObjects } from './shared';
 import { type ListObjectsParams } from '../pagination';
@@ -86,31 +85,23 @@ export interface ViewCreateParams {
   /**
    * The object type that the ACL applies to
    */
-  object_type:
-    | 'organization'
-    | 'project'
-    | 'experiment'
-    | 'dataset'
-    | 'prompt'
-    | 'prompt_session'
-    | 'group'
-    | 'role'
-    | 'org_member'
-    | 'project_log'
-    | 'org_project';
+  object_type: Shared.ACLObjectType;
 
   /**
    * Type of table that the view corresponds to.
    */
   view_type:
     | 'projects'
-    | 'logs'
     | 'experiments'
-    | 'datasets'
-    | 'prompts'
-    | 'playgrounds'
     | 'experiment'
+    | 'playgrounds'
+    | 'playground'
+    | 'datasets'
     | 'dataset'
+    | 'prompts'
+    | 'tools'
+    | 'scorers'
+    | 'logs'
     | null;
 
   /**
@@ -143,18 +134,7 @@ export interface ViewRetrieveParams {
   /**
    * The object type that the ACL applies to
    */
-  object_type:
-    | 'organization'
-    | 'project'
-    | 'experiment'
-    | 'dataset'
-    | 'prompt'
-    | 'prompt_session'
-    | 'group'
-    | 'role'
-    | 'org_member'
-    | 'project_log'
-    | 'org_project';
+  object_type: Shared.ACLObjectType;
 }
 
 export interface ViewUpdateParams {
@@ -166,18 +146,7 @@ export interface ViewUpdateParams {
   /**
    * The object type that the ACL applies to
    */
-  object_type:
-    | 'organization'
-    | 'project'
-    | 'experiment'
-    | 'dataset'
-    | 'prompt'
-    | 'prompt_session'
-    | 'group'
-    | 'role'
-    | 'org_member'
-    | 'project_log'
-    | 'org_project';
+  object_type: Shared.ACLObjectType;
 
   /**
    * Name of the view
@@ -204,13 +173,16 @@ export interface ViewUpdateParams {
    */
   view_type?:
     | 'projects'
-    | 'logs'
     | 'experiments'
-    | 'datasets'
-    | 'prompts'
-    | 'playgrounds'
     | 'experiment'
+    | 'playgrounds'
+    | 'playground'
+    | 'datasets'
     | 'dataset'
+    | 'prompts'
+    | 'tools'
+    | 'scorers'
+    | 'logs'
     | null;
 }
 
@@ -223,18 +195,7 @@ export interface ViewListParams extends ListObjectsParams {
   /**
    * The object type that the ACL applies to
    */
-  object_type:
-    | 'organization'
-    | 'project'
-    | 'experiment'
-    | 'dataset'
-    | 'prompt'
-    | 'prompt_session'
-    | 'group'
-    | 'role'
-    | 'org_member'
-    | 'project_log'
-    | 'org_project';
+  object_type: Shared.ACLObjectType;
 
   /**
    * Filter search results to a particular set of object IDs. To specify a list of
@@ -250,16 +211,7 @@ export interface ViewListParams extends ListObjectsParams {
   /**
    * Type of table that the view corresponds to.
    */
-  view_type?:
-    | 'projects'
-    | 'logs'
-    | 'experiments'
-    | 'datasets'
-    | 'prompts'
-    | 'playgrounds'
-    | 'experiment'
-    | 'dataset'
-    | null;
+  view_type?: Shared.ViewType | null;
 }
 
 export interface ViewDeleteParams {
@@ -271,18 +223,7 @@ export interface ViewDeleteParams {
   /**
    * The object type that the ACL applies to
    */
-  object_type:
-    | 'organization'
-    | 'project'
-    | 'experiment'
-    | 'dataset'
-    | 'prompt'
-    | 'prompt_session'
-    | 'group'
-    | 'role'
-    | 'org_member'
-    | 'project_log'
-    | 'org_project';
+  object_type: Shared.ACLObjectType;
 }
 
 export interface ViewReplaceParams {
@@ -299,31 +240,23 @@ export interface ViewReplaceParams {
   /**
    * The object type that the ACL applies to
    */
-  object_type:
-    | 'organization'
-    | 'project'
-    | 'experiment'
-    | 'dataset'
-    | 'prompt'
-    | 'prompt_session'
-    | 'group'
-    | 'role'
-    | 'org_member'
-    | 'project_log'
-    | 'org_project';
+  object_type: Shared.ACLObjectType;
 
   /**
    * Type of table that the view corresponds to.
    */
   view_type:
     | 'projects'
-    | 'logs'
     | 'experiments'
-    | 'datasets'
-    | 'prompts'
-    | 'playgrounds'
     | 'experiment'
+    | 'playgrounds'
+    | 'playground'
+    | 'datasets'
     | 'dataset'
+    | 'prompts'
+    | 'tools'
+    | 'scorers'
+    | 'logs'
     | null;
 
   /**
@@ -347,13 +280,15 @@ export interface ViewReplaceParams {
   view_data?: Shared.ViewData | null;
 }
 
-export namespace Views {
-  export import ViewCreateParams = ViewsAPI.ViewCreateParams;
-  export import ViewRetrieveParams = ViewsAPI.ViewRetrieveParams;
-  export import ViewUpdateParams = ViewsAPI.ViewUpdateParams;
-  export import ViewListParams = ViewsAPI.ViewListParams;
-  export import ViewDeleteParams = ViewsAPI.ViewDeleteParams;
-  export import ViewReplaceParams = ViewsAPI.ViewReplaceParams;
+export declare namespace Views {
+  export {
+    type ViewCreateParams as ViewCreateParams,
+    type ViewRetrieveParams as ViewRetrieveParams,
+    type ViewUpdateParams as ViewUpdateParams,
+    type ViewListParams as ViewListParams,
+    type ViewDeleteParams as ViewDeleteParams,
+    type ViewReplaceParams as ViewReplaceParams,
+  };
 }
 
 export { ViewsListObjects };

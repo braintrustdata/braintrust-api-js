@@ -2,7 +2,6 @@
 
 import { APIResource } from '../resource';
 import * as Core from '../core';
-import * as TopLevelAPI from './top-level';
 
 export class TopLevel extends APIResource {
   /**
@@ -16,6 +15,6 @@ export class TopLevel extends APIResource {
 
 export type TopLevelHelloWorldResponse = string;
 
-export namespace TopLevel {
-  export import TopLevelHelloWorldResponse = TopLevelAPI.TopLevelHelloWorldResponse;
+export declare namespace TopLevel {
+  export { type TopLevelHelloWorldResponse as TopLevelHelloWorldResponse };
 }

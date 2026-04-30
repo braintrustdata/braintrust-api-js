@@ -10,7 +10,7 @@ const client = new Braintrust({
 
 describe('resource projects', () => {
   test('create: only required params', async () => {
-    const responsePromise = client.projects.create({ name: 'name' });
+    const responsePromise = client.projects.create({ name: 'x' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,7 +21,7 @@ describe('resource projects', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await client.projects.create({ name: 'name', org_name: 'org_name' });
+    const response = await client.projects.create({ name: 'x', org_name: 'org_name' });
   });
 
   test('retrieve', async () => {
@@ -65,7 +65,16 @@ describe('resource projects', () => {
     await expect(
       client.projects.update(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        { name: 'name', settings: { comparison_key: 'comparison_key' } },
+        {
+          name: 'name',
+          settings: {
+            baseline_experiment_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+            comparison_key: 'comparison_key',
+            spanFieldOrder: [
+              { column_id: 'column_id', object_type: 'object_type', position: 'position', layout: 'full' },
+            ],
+          },
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Braintrust.NotFoundError);

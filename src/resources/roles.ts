@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as RolesAPI from './roles';
 import * as Shared from './shared';
 import { RolesListObjects } from './shared';
 import { type ListObjectsParams } from '../pagination';
@@ -122,32 +121,12 @@ export namespace RoleCreateParams {
      * Permissions can be assigned to to objects on an individual basis, or grouped
      * into roles
      */
-    permission:
-      | 'create'
-      | 'read'
-      | 'update'
-      | 'delete'
-      | 'create_acls'
-      | 'read_acls'
-      | 'update_acls'
-      | 'delete_acls';
+    permission: Shared.Permission;
 
     /**
      * The object type that the ACL applies to
      */
-    restrict_object_type?:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'group'
-      | 'role'
-      | 'org_member'
-      | 'project_log'
-      | 'org_project'
-      | null;
+    restrict_object_type?: Shared.ACLObjectType | null;
   }
 }
 
@@ -191,32 +170,12 @@ export namespace RoleUpdateParams {
      * Permissions can be assigned to to objects on an individual basis, or grouped
      * into roles
      */
-    permission:
-      | 'create'
-      | 'read'
-      | 'update'
-      | 'delete'
-      | 'create_acls'
-      | 'read_acls'
-      | 'update_acls'
-      | 'delete_acls';
+    permission: Shared.Permission;
 
     /**
      * The object type that the ACL applies to
      */
-    restrict_object_type?:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'group'
-      | 'role'
-      | 'org_member'
-      | 'project_log'
-      | 'org_project'
-      | null;
+    restrict_object_type?: Shared.ACLObjectType | null;
   }
 
   export interface RemoveMemberPermission {
@@ -226,32 +185,12 @@ export namespace RoleUpdateParams {
      * Permissions can be assigned to to objects on an individual basis, or grouped
      * into roles
      */
-    permission:
-      | 'create'
-      | 'read'
-      | 'update'
-      | 'delete'
-      | 'create_acls'
-      | 'read_acls'
-      | 'update_acls'
-      | 'delete_acls';
+    permission: Shared.Permission;
 
     /**
      * The object type that the ACL applies to
      */
-    restrict_object_type?:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'group'
-      | 'role'
-      | 'org_member'
-      | 'project_log'
-      | 'org_project'
-      | null;
+    restrict_object_type?: Shared.ACLObjectType | null;
   }
 }
 
@@ -313,40 +252,22 @@ export namespace RoleReplaceParams {
      * Permissions can be assigned to to objects on an individual basis, or grouped
      * into roles
      */
-    permission:
-      | 'create'
-      | 'read'
-      | 'update'
-      | 'delete'
-      | 'create_acls'
-      | 'read_acls'
-      | 'update_acls'
-      | 'delete_acls';
+    permission: Shared.Permission;
 
     /**
      * The object type that the ACL applies to
      */
-    restrict_object_type?:
-      | 'organization'
-      | 'project'
-      | 'experiment'
-      | 'dataset'
-      | 'prompt'
-      | 'prompt_session'
-      | 'group'
-      | 'role'
-      | 'org_member'
-      | 'project_log'
-      | 'org_project'
-      | null;
+    restrict_object_type?: Shared.ACLObjectType | null;
   }
 }
 
-export namespace Roles {
-  export import RoleCreateParams = RolesAPI.RoleCreateParams;
-  export import RoleUpdateParams = RolesAPI.RoleUpdateParams;
-  export import RoleListParams = RolesAPI.RoleListParams;
-  export import RoleReplaceParams = RolesAPI.RoleReplaceParams;
+export declare namespace Roles {
+  export {
+    type RoleCreateParams as RoleCreateParams,
+    type RoleUpdateParams as RoleUpdateParams,
+    type RoleListParams as RoleListParams,
+    type RoleReplaceParams as RoleReplaceParams,
+  };
 }
 
 export { RolesListObjects };
